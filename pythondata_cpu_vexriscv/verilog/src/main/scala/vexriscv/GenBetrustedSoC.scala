@@ -82,9 +82,9 @@ object GenBetrustedSoC{
               dBusRspSlavePipe = false,
               relaxedMemoryTranslationRegister = false,
               config = new DataCacheConfig(
-                cacheSize = 8192,
+                cacheSize = 16384,
                 bytePerLine = 32,
-                wayCount = 2,
+                wayCount = 4,
                 addressWidth = 32,
                 cpuDataWidth = 32,
                 memDataWidth = 32,
