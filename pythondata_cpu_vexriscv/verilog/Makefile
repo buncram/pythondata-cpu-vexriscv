@@ -40,3 +40,12 @@ VexRiscv_LinuxDebug.v: $(SRC)
 
 VexRiscv_LinuxNoDspFmax.v: $(SRC)
 	sbt compile "runMain vexriscv.GenCoreDefault --csrPluginConfig linux-minimal --singleCycleMulDiv=false --relaxedPcCalculation=true --prediction=none --outputFile VexRiscv_LinuxNoDspFmax"
+
+
+betrusted: VexRiscv_BetrustedSoC.v VexRiscv_BetrustedSoC_Debug.v
+
+VexRiscv_BetrustedSoC.v: src/main/scala/vexriscv/GenBetrustedSoC.scala
+	sbt compile "runMain vexriscv.GenBetrustedSoC --outputFile $(basename $@)"
+
+VexRiscv_BetrustedSoC_Debug.v: src/main/scala/vexriscv/GenBetrustedSoC.scala
+	sbt compile "runMain vexriscv.GenBetrustedSoC --outputFile $(basename $@) -d --hardwareBreakpointCount 4"
