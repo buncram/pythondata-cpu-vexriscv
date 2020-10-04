@@ -1,5 +1,24 @@
 # pythondata-cpu-vexriscv
 
+## About this fork
+
+This is a fork from the default set of Litex Vexriscv configurations because:
+
+- None of the default configs are a perfect fit for our needs
+- We've been tracing through some bugs in MMU implementation which makes the fork really handy
+- We can tune caches and other features to optimize performance for our specific chip
+
+We have a fairly unusual chip (-1L speedgrade) in that it is slower than most others,
+favoring low power dissipation over raw speed. This has made some speed tuning essential,
+and for several reasons it's impractical to simply adjust the sysclk speed to the edge
+of routing failure. Thus we have resorted to some architectural changes in the CPU 
+to gain performance while keeping routability acceptable.
+
+It also allows us to have some stewardship over the CPU code base, which is nice for
+inspectability and traceability reasons. 
+
+## Original README
+
 Non-Python  files needed for the cpu vexriscv packaged
 into a Python module so they can be used with Python libraries and tools.
 
