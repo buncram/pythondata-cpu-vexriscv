@@ -123,6 +123,7 @@ object GenBetrustedSoC{
         ),
         new MulPlugin,
         new DivPlugin,
+	new AesPlugin,
         new CsrPlugin(CsrPluginConfig.linuxMinimal(mtVecInit = null).copy(ebreakGen = true).copy(pipelineCsrRead = true)),
         new BranchPlugin(
           earlyBranch = false,
