@@ -52,3 +52,6 @@ VexRiscv_BetrustedSoC_Debug.v: src/main/scala/vexriscv/GenBetrustedSoC.scala
 
 VexRiscv_MinPlus.v: $(SRC)
 	sbt compile "runMain vexriscv.GenCoreDefault --iCacheSize 0 --dCacheSize 0 --mulDiv false --singleCycleMulDiv false --bypass false --prediction none --outputFile VexRiscv_MinPlus"
+
+VexRiscv_IMC.v: $(SRC)
+	sbt compile "runMain vexriscv.GenCoreDefault --iCacheSize 0 --dCacheSize 0 --mulDiv true --singleCycleMulDiv false --compressedGen true --bypass false --prediction none --outputFile VexRiscv_IMC"
