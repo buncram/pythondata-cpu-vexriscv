@@ -55,7 +55,7 @@ object GenBetrustedSoC{
             prediction = STATIC,
             resetVector = null,
             compressedGen = true,
-            injectorStage = false,
+            injectorStage = true,
             config = InstructionCacheConfig(
               cacheSize = 4096*2,
               bytePerLine = 32,
