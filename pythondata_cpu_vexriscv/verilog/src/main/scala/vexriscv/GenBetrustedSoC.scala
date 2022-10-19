@@ -21,8 +21,7 @@ object BetrustedSoCSpinalConfig extends spinal.core.SpinalConfig(
 
 case class BetrustedSoCArgConfig(
   debug : Boolean = false,
-  externalInterruptArray : Boolean = true,
-  prediction : BranchPrediction = NONE,
+  prediction : BranchPrediction = STATIC,
   outputFile : String = "VexRiscv",
   hardwareBreakpointCount : Int = 4
 )
@@ -50,19 +49,15 @@ object GenBetrustedSoC{
 
     BetrustedSoCSpinalConfig.copy(netlistFileName = argConfig.outputFile + ".v").generateVerilog {
       // Generate CPU plugin list
-      val plugins = ArrayBuffer[Plugin[VexRiscv]]()
-
-      plugins ++= List(
+      val cpuConfig = VexRiscvConfig(
+        plugins = List(
           new IBusCachedPlugin(
             prediction = STATIC,
-            historyRamSizeLog2 = 8,
             resetVector = null,
-            memoryTranslatorPortConfig = MmuPortConfig(portTlbSize = 4),
             compressedGen = true,
-            relaxedPcCalculation = true,
             injectorStage = true,
             config = InstructionCacheConfig(
-              cacheSize = 8192,
+              cacheSize = 4096*2,
               bytePerLine = 32,
               wayCount = 2,
               addressWidth = 32,
@@ -71,90 +66,86 @@ object GenBetrustedSoC{
               catchIllegalAccess = true,
               catchAccessFault = true,
               asyncTagMemory = false,
-              twoCycleRam = true,
+              twoCycleRam = false,
               twoCycleCache = true
+            ),
+            memoryTranslatorPortConfig = true generate MmuPortConfig(
+              portTlbSize = 4
             )
           ),
-
           new DBusCachedPlugin(
-              dBusCmdMasterPipe = true,
-              dBusCmdSlavePipe = true,
-              dBusRspSlavePipe = false,
-              relaxedMemoryTranslationRegister = false,
-              config = new DataCacheConfig(
-                cacheSize = 16384,
-                bytePerLine = 32,
-                wayCount = 4,
-                addressWidth = 32,
-                cpuDataWidth = 32,
-                memDataWidth = 32,
-                catchAccessError = true,
-                catchIllegal = true,
-                catchUnaligned = true,
-                withLrSc = true,
-                withAmo = true,
-                earlyWaysHits = true
-              ),
-              memoryTranslatorPortConfig = MmuPortConfig(portTlbSize = 4),
-              csrInfo = true
+            dBusCmdMasterPipe = true,
+            dBusCmdSlavePipe = true,
+            dBusRspSlavePipe = true,
+            config = new DataCacheConfig(
+              cacheSize         = 4096*4,
+              bytePerLine       = 32,
+              wayCount          = 4,
+              addressWidth      = 32,
+              cpuDataWidth      = 32,
+              memDataWidth      = 32,
+              catchAccessError  = true,
+              catchIllegal      = true,
+              catchUnaligned    = true,
+              withExclusive = false,
+              withInvalidate = false,
+              withLrSc = true,
+              withAmo = true
+            ),
+            memoryTranslatorPortConfig = true generate MmuPortConfig(
+              portTlbSize = 4
+            ),
+            csrInfo = true
           ),
-
-        new DecoderSimplePlugin(
-          catchIllegalInstruction = true
-        ),
-        new RegFilePlugin(
-          regFileReadyKind = plugin.ASYNC,
-          zeroBoot = false
-        ),
-        new IntAluPlugin,
-        new SrcPlugin(
-          separatedAddSub = false,
-          executeInsertion = true
-        ),
-        new FullBarrelShifterPlugin(earlyInjection = false),
-        new HazardSimplePlugin(
-          bypassExecute           = true,
-          bypassMemory            = true,
-          bypassWriteBack         = true,
-          bypassWriteBackBuffer   = true,
-          pessimisticUseSrc       = false,
-          pessimisticWriteRegFile = false,
-          pessimisticAddressMatch = false
-        ),
-        new MulPlugin,
-        new DivPlugin,
-	new AesPlugin,
-        new CsrPlugin(CsrPluginConfig.linuxMinimal(mtVecInit = null).copy(ebreakGen = true).copy(pipelineCsrRead = true)),
-        new BranchPlugin(
-          earlyBranch = false,
-          catchAddressMisaligned = true
-        ),
-        new MmuPlugin(
-            ioRange = (x => x(31 downto 28) === 0xB || x(31 downto 28) === 0xE || x(31 downto 28) === 0xF )
-        ),
-        new YamlPlugin(argConfig.outputFile.concat(".yaml"))
-      )
-
-      if (argConfig.externalInterruptArray) plugins ++= List(
-        new ExternalInterruptArrayPlugin(
-          machineMaskCsrId = 0xBC0,
-          machinePendingsCsrId = 0xFC0,
-          supervisorMaskCsrId = 0x9C0,
-          supervisorPendingsCsrId = 0xDC0
+          new DecoderSimplePlugin(
+            catchIllegalInstruction = true
+          ),
+          new RegFilePlugin(
+            regFileReadyKind = plugin.ASYNC,
+            zeroBoot = false
+          ),
+          new IntAluPlugin,
+          new SrcPlugin(
+            separatedAddSub = false,
+            executeInsertion = true
+          ),
+          new FullBarrelShifterPlugin(earlyInjection = false),
+          new HazardSimplePlugin(
+            bypassExecute           = true,
+            bypassMemory            = true,
+            bypassWriteBack         = true,
+            bypassWriteBackBuffer   = true,
+            pessimisticUseSrc       = false,
+            pessimisticWriteRegFile = false,
+            pessimisticAddressMatch = false
+          ),
+          new MulPlugin,
+          new DivPlugin,
+          new AesPlugin,
+          new CsrPlugin(CsrPluginConfig.linuxMinimal(mtVecInit = null).copy(ebreakGen = true).copy(pipelineCsrRead = true)),
+          new BranchPlugin(
+            earlyBranch = false,
+            catchAddressMisaligned = true
+          ),
+          new MmuPlugin(
+              ioRange = (x => x(31 downto 28) === 0xB || x(31 downto 28) === 0xE || x(31 downto 28) === 0xF )
+          ),
+          new ExternalInterruptArrayPlugin(
+            machineMaskCsrId = 0xBC0,
+            machinePendingsCsrId = 0xFC0,
+            supervisorMaskCsrId = 0x9C0,
+            supervisorPendingsCsrId = 0xDC0
+          ),
+          new YamlPlugin(argConfig.outputFile.concat(".yaml"))
         )
       )
 
       // Add in the Debug plugin, if requested
       if (argConfig.debug) {
-        plugins += new DebugPlugin(ClockDomain.current.clone(reset = Bool().setName("debugReset")), hardwareBreakpointCount = argConfig.hardwareBreakpointCount)
+        cpuConfig.plugins += new DebugPlugin(ClockDomain.current.clone(reset = Bool().setName("debugReset")), hardwareBreakpointCount = argConfig.hardwareBreakpointCount)
       }
-
-      // CPU configuration
-      val cpuConfig = VexRiscvConfig(plugins.toList)
-
       // CPU instantiation
       val cpu = new VexRiscv(cpuConfig)
-
       // CPU modifications to be an Wishbone one
       cpu.rework {
         for (plugin <- cpuConfig.plugins) plugin match {
