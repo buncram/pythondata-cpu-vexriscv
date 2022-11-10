@@ -141,7 +141,7 @@ object GenCranSoC{
             earlyBranch = false,
             catchAddressMisaligned = true
           ),
-          new MmuPlugin(
+          new MmuPlugin( // sets non-cacheable regions
               ioRange = (
                 x => x(31 downto 28) === 0x4
                 || x(31 downto 28) === 0x5
