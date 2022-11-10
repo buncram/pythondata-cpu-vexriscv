@@ -92,7 +92,7 @@ object GenCranSoC{
               wayCount          = 4,
               addressWidth      = 32,
               cpuDataWidth      = 32,
-              memDataWidth      = 32, // ASK: this only works as 32 bits?
+              memDataWidth      = 32,
               catchAccessError  = true,
               catchIllegal      = true,
               catchUnaligned    = true,
@@ -142,7 +142,16 @@ object GenCranSoC{
             catchAddressMisaligned = true
           ),
           new MmuPlugin(
-              ioRange = (x => x(31 downto 28) === 0x4 || x(31 downto 28) === 0xE || x(31 downto 28) === 0xF )
+              ioRange = (
+                x => x(31 downto 28) === 0x4
+                || x(31 downto 28) === 0x5
+                || x(31 downto 28) === 0xA
+                || x(31 downto 28) === 0xB
+                || x(31 downto 28) === 0xC
+                || x(31 downto 28) === 0xD
+                || x(31 downto 28) === 0xE
+                || x(31 downto 28) === 0xF
+                )
           ),
           new ExternalInterruptArrayPlugin(
             machineMaskCsrId = 0xBC0,

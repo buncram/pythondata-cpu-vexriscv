@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.3    git head : ed8004c489ee8a38c2cab309d0447b543fe9d5b8
 // Component : VexRiscvAxi4
-// Git hash  : d5ff8b357b6ab930c793501c3d5acc22fa454d2e
+// Git hash  : 3f77874cdf91dae3bb723b4b2f214269c3bd9a47
 
 `timescale 1ns/1ps
 
@@ -6577,7 +6577,7 @@ module VexRiscvAxi4 (
     end
   end
 
-  assign IBusCachedPlugin_mmuBus_rsp_isIoAccess = (((IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0100) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1110)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1111));
+  assign IBusCachedPlugin_mmuBus_rsp_isIoAccess = ((((((((IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0100) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0101)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1010)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1011)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1100)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1101)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1110)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1111));
   assign IBusCachedPlugin_mmuBus_rsp_bypassTranslation = (! MmuPlugin_ports_0_requireMmuLockupCalc);
   assign IBusCachedPlugin_mmuBus_rsp_ways_0_sel = MmuPlugin_ports_0_cacheHitsCalc[0];
   assign IBusCachedPlugin_mmuBus_rsp_ways_0_physical = {{MmuPlugin_ports_0_cache_0_physicalAddress_1,(MmuPlugin_ports_0_cache_0_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_0_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
@@ -6707,7 +6707,7 @@ module VexRiscvAxi4 (
     end
   end
 
-  assign DBusCachedPlugin_mmuBus_rsp_isIoAccess = (((DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0100) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1110)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1111));
+  assign DBusCachedPlugin_mmuBus_rsp_isIoAccess = ((((((((DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0100) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0101)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1010)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1011)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1100)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1101)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1110)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1111));
   assign DBusCachedPlugin_mmuBus_rsp_bypassTranslation = (! MmuPlugin_ports_1_requireMmuLockupCalc);
   assign DBusCachedPlugin_mmuBus_rsp_ways_0_sel = MmuPlugin_ports_1_cacheHitsCalc[0];
   assign DBusCachedPlugin_mmuBus_rsp_ways_0_physical = {{MmuPlugin_ports_1_cache_0_physicalAddress_1,(MmuPlugin_ports_1_cache_0_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_0_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
