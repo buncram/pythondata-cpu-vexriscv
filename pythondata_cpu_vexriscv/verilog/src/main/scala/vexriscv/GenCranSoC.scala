@@ -56,7 +56,10 @@ object GenCranSoC{
     }
     val argConfig = parser.parse(args, CranSoCArgConfig()).get
 
-    CranSoCSpinalConfig.copy(netlistFileName = argConfig.outputFile + ".v").generateVerilog {
+    CranSoCSpinalConfig
+    .copy(netlistFileName = argConfig.outputFile + ".v")
+    .addStandardMemBlackboxing(blackboxAllWhatsYouCan)
+    .generateVerilog {
       // Generate CPU plugin list
       val cpuConfig = VexRiscvConfig(
         plugins = List(
@@ -112,6 +115,7 @@ object GenCranSoC{
           ),
           new RegFilePlugin(
             regFileReadyKind = plugin.ASYNC,
+            x0Init = true, // required to avoid FPGA-specific initializations
             zeroBoot = false
           ),
           new IntAluPlugin,
