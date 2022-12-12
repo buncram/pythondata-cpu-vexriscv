@@ -1,7 +1,7 @@
 package vexriscv
 
 import spinal.core._
-import spinal.core.internals.{ExpressionContainer, PhaseAllocateNames, PhaseContext}
+import spinal.core.internals.{ExpressionContainer, PhaseAllocateNames, PhaseContext, MemTopology}
 import spinal.lib._
 import vexriscv.ip.{DataCacheConfig, InstructionCacheConfig}
 import vexriscv.plugin.CsrAccess.WRITE_ONLY
@@ -35,6 +35,15 @@ case class CranSoCArgConfig(
   hardwareBreakpointCount : Int = 4
 )
 
+object blackboxSyncOnly extends MemBlackboxingPolicy {
+  override def translationInterest(topology: MemTopology): Boolean = {
+    if(topology.readsAsync.exists(_.readUnderWrite != writeFirst))                 return false
+    return true
+  }
+
+  override def onUnblackboxable(topology: MemTopology, who: Any, message: String): Unit = {}
+}
+
 object GenCranSoC{
   val predictionMap = Map(
     "none" -> NONE,
@@ -58,7 +67,7 @@ object GenCranSoC{
 
     CranSoCSpinalConfig
     .copy(netlistFileName = argConfig.outputFile + ".v")
-    .addStandardMemBlackboxing(blackboxAllWhatsYouCan)
+    .addStandardMemBlackboxing(blackboxSyncOnly)
     .generateVerilog {
       // Generate CPU plugin list
       val cpuConfig = VexRiscvConfig(
