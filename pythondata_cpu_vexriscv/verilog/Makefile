@@ -56,7 +56,7 @@ VexRiscv_MinPlus.v: $(SRC)
 VexRiscv_IMC.v: $(SRC)
 	sbt compile "runMain vexriscv.GenCoreDefault --iCacheSize 0 --dCacheSize 0 --mulDiv true --singleCycleMulDiv false --compressedGen true --bypass false --prediction none --outputFile VexRiscv_IMC"
 
-cran: VexRiscv_CranSoC.v
+cram: VexRiscv_CramSoC.v
 
-VexRiscv_CranSoC.v: src/main/scala/vexriscv/GenCramSoC.scala
+VexRiscv_CramSoC.v: src/main/scala/vexriscv/GenCramSoC.scala
 	sbt compile "runMain vexriscv.GenCramSoC --outputFile $(basename $@) -d --hardwareBreakpointCount 4"
