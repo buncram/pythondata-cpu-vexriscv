@@ -58,5 +58,5 @@ VexRiscv_IMC.v: $(SRC)
 
 cran: VexRiscv_CranSoC.v
 
-VexRiscv_CranSoC.v: src/main/scala/vexriscv/GenCranSoC.scala
-	sbt compile "runMain vexriscv.GenCranSoC --outputFile $(basename $@) -d --hardwareBreakpointCount 4"
+VexRiscv_CranSoC.v: src/main/scala/vexriscv/GenCramSoC.scala
+	sbt compile "runMain vexriscv.GenCramSoC --outputFile $(basename $@) -d --hardwareBreakpointCount 4"
