@@ -1,6 +1,6 @@
-// Generator : SpinalHDL v1.7.3    git head : ed8004c489ee8a38c2cab309d0447b543fe9d5b8
+// Generator : SpinalHDL v1.8.0    git head : 4e3563a282582b41f4eaafc503787757251d23ea
 // Component : VexRiscvAxi4
-// Git hash  : 05388aef9d5d2b9b9ec825705e605febda486e79
+// Git hash  : 27b49dbfc5231fafe0821f7307c103729ccb34db
 
 `timescale 1ns/1ps
 
@@ -10,6 +10,9 @@ module VexRiscvAxi4 (
   input               softwareInterrupt,
   input      [31:0]   externalInterruptArray,
   output              debug_resetOut,
+  output reg          MmuPlugin_satp_mode,
+  output reg [8:0]    MmuPlugin_satp_asid,
+  output reg [19:0]   MmuPlugin_satp_ppn,
   output              iBusAxi_ar_valid,
   input               iBusAxi_ar_ready,
   output     [31:0]   iBusAxi_ar_payload_addr,
@@ -217,25 +220,24 @@ module VexRiscvAxi4 (
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_2;
   wire                _zz_decode_LEGAL_INSTRUCTION_3;
   wire       [0:0]    _zz_decode_LEGAL_INSTRUCTION_4;
-  wire       [18:0]   _zz_decode_LEGAL_INSTRUCTION_5;
+  wire       [17:0]   _zz_decode_LEGAL_INSTRUCTION_5;
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_6;
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_7;
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_8;
   wire                _zz_decode_LEGAL_INSTRUCTION_9;
   wire       [0:0]    _zz_decode_LEGAL_INSTRUCTION_10;
-  wire       [12:0]   _zz_decode_LEGAL_INSTRUCTION_11;
+  wire       [11:0]   _zz_decode_LEGAL_INSTRUCTION_11;
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_12;
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_13;
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_14;
   wire                _zz_decode_LEGAL_INSTRUCTION_15;
   wire       [0:0]    _zz_decode_LEGAL_INSTRUCTION_16;
-  wire       [6:0]    _zz_decode_LEGAL_INSTRUCTION_17;
+  wire       [5:0]    _zz_decode_LEGAL_INSTRUCTION_17;
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_18;
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_19;
   wire       [31:0]   _zz_decode_LEGAL_INSTRUCTION_20;
   wire                _zz_decode_LEGAL_INSTRUCTION_21;
-  wire       [0:0]    _zz_decode_LEGAL_INSTRUCTION_22;
-  wire       [0:0]    _zz_decode_LEGAL_INSTRUCTION_23;
+  wire                _zz_decode_LEGAL_INSTRUCTION_22;
   wire       [4:0]    _zz__zz_IBusCachedPlugin_jump_pcLoad_payload_1;
   reg        [31:0]   _zz_IBusCachedPlugin_jump_pcLoad_payload_6;
   wire       [2:0]    _zz_IBusCachedPlugin_jump_pcLoad_payload_7;
@@ -293,164 +295,163 @@ module VexRiscvAxi4 (
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_20;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_21;
   wire                _zz__zz_decode_IS_SFENCE_VMA2_22;
-  wire       [1:0]    _zz__zz_decode_IS_SFENCE_VMA2_23;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_24;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_23;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_24;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_25;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_26;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_26;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_27;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_28;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_29;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_30;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_31;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_32;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_33;
-  wire       [21:0]   _zz__zz_decode_IS_SFENCE_VMA2_34;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_35;
-  wire       [1:0]    _zz__zz_decode_IS_SFENCE_VMA2_36;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_29;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_30;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_31;
+  wire       [21:0]   _zz__zz_decode_IS_SFENCE_VMA2_32;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_33;
+  wire       [1:0]    _zz__zz_decode_IS_SFENCE_VMA2_34;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_35;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_36;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_37;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_38;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_39;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_38;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_39;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_40;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_41;
+  wire       [17:0]   _zz__zz_decode_IS_SFENCE_VMA2_41;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_42;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_43;
-  wire       [17:0]   _zz__zz_decode_IS_SFENCE_VMA2_44;
-  wire       [4:0]    _zz__zz_decode_IS_SFENCE_VMA2_45;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_46;
+  wire       [3:0]    _zz__zz_decode_IS_SFENCE_VMA2_43;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_44;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_45;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_46;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_47;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_48;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_48;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_49;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_50;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_51;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_50;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_51;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_52;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_53;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_54;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_53;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_54;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_55;
   wire                _zz__zz_decode_IS_SFENCE_VMA2_56;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_57;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_58;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_59;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_60;
-  wire       [14:0]   _zz__zz_decode_IS_SFENCE_VMA2_61;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_62;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_63;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_64;
-  wire       [4:0]    _zz__zz_decode_IS_SFENCE_VMA2_65;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_66;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_58;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_59;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_60;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_61;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_62;
+  wire       [4:0]    _zz__zz_decode_IS_SFENCE_VMA2_63;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_64;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_65;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_66;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_67;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_68;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_69;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_70;
-  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_71;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_72;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_73;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_74;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_75;
-  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_76;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_77;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_78;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_79;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_68;
+  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_69;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_70;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_71;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_72;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_73;
+  wire       [13:0]   _zz__zz_decode_IS_SFENCE_VMA2_74;
+  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_75;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_76;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_77;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_78;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_79;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_80;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_81;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_82;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_81;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_82;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_83;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_84;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_85;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_86;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_84;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_85;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_86;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_87;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_88;
-  wire       [3:0]    _zz__zz_decode_IS_SFENCE_VMA2_89;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_90;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_91;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_92;
+  wire       [3:0]    _zz__zz_decode_IS_SFENCE_VMA2_88;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_89;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_90;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_91;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_92;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_93;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_94;
-  wire       [1:0]    _zz__zz_decode_IS_SFENCE_VMA2_95;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_96;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_97;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_98;
-  wire       [4:0]    _zz__zz_decode_IS_SFENCE_VMA2_99;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_100;
+  wire       [1:0]    _zz__zz_decode_IS_SFENCE_VMA2_94;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_95;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_96;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_97;
+  wire       [4:0]    _zz__zz_decode_IS_SFENCE_VMA2_98;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_99;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_100;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_101;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_102;
-  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_103;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_104;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_105;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_106;
+  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_102;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_103;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_104;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_105;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_106;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_107;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_108;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_109;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_108;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_109;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_110;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_111;
-  wire       [10:0]   _zz__zz_decode_IS_SFENCE_VMA2_112;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_113;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_114;
-  wire       [5:0]    _zz__zz_decode_IS_SFENCE_VMA2_115;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_116;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_117;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_118;
+  wire       [10:0]   _zz__zz_decode_IS_SFENCE_VMA2_111;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_112;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_113;
+  wire       [5:0]    _zz__zz_decode_IS_SFENCE_VMA2_114;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_115;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_116;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_117;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_118;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_119;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_120;
-  wire       [3:0]    _zz__zz_decode_IS_SFENCE_VMA2_121;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_122;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_123;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_124;
+  wire       [3:0]    _zz__zz_decode_IS_SFENCE_VMA2_120;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_121;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_122;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_123;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_124;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_125;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_126;
-  wire       [1:0]    _zz__zz_decode_IS_SFENCE_VMA2_127;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_128;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_129;
-  wire       [1:0]    _zz__zz_decode_IS_SFENCE_VMA2_130;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_131;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_132;
-  wire       [8:0]    _zz__zz_decode_IS_SFENCE_VMA2_133;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_134;
+  wire       [1:0]    _zz__zz_decode_IS_SFENCE_VMA2_126;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_127;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_128;
+  wire       [1:0]    _zz__zz_decode_IS_SFENCE_VMA2_129;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_130;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_131;
+  wire       [8:0]    _zz__zz_decode_IS_SFENCE_VMA2_132;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_133;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_134;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_135;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_136;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_136;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_137;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_138;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_138;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_139;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_140;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_140;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_141;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_142;
-  wire       [6:0]    _zz__zz_decode_IS_SFENCE_VMA2_143;
+  wire       [6:0]    _zz__zz_decode_IS_SFENCE_VMA2_142;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_143;
   wire                _zz__zz_decode_IS_SFENCE_VMA2_144;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_145;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_146;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_147;
-  wire       [5:0]    _zz__zz_decode_IS_SFENCE_VMA2_148;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_149;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_150;
-  wire       [3:0]    _zz__zz_decode_IS_SFENCE_VMA2_151;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_145;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_146;
+  wire       [5:0]    _zz__zz_decode_IS_SFENCE_VMA2_147;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_148;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_149;
+  wire       [3:0]    _zz__zz_decode_IS_SFENCE_VMA2_150;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_151;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_152;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_153;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_154;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_153;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_154;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_155;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_156;
-  wire       [4:0]    _zz__zz_decode_IS_SFENCE_VMA2_157;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_158;
+  wire       [4:0]    _zz__zz_decode_IS_SFENCE_VMA2_156;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_157;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_158;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_159;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_160;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_161;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_162;
-  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_163;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_160;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_161;
+  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_162;
+  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_163;
   wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_164;
-  wire       [31:0]   _zz__zz_decode_IS_SFENCE_VMA2_165;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_165;
   wire                _zz__zz_decode_IS_SFENCE_VMA2_166;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_167;
-  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_168;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_169;
+  wire       [2:0]    _zz__zz_decode_IS_SFENCE_VMA2_167;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_168;
+  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_169;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_170;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_171;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_172;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_173;
   wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_174;
-  wire       [0:0]    _zz__zz_decode_IS_SFENCE_VMA2_175;
-  wire                _zz__zz_decode_IS_SFENCE_VMA2_176;
+  wire                _zz__zz_decode_IS_SFENCE_VMA2_175;
   wire       [0:0]    _zz__zz_execute_REGFILE_WRITE_DATA;
-  wire       [2:0]    _zz__zz_execute_SRC1_1;
-  wire       [4:0]    _zz__zz_execute_SRC1_1_1;
-  wire       [11:0]   _zz__zz_execute_SRC2_3;
+  wire       [2:0]    _zz__zz_execute_SRC1;
+  wire       [4:0]    _zz__zz_execute_SRC1_1;
+  wire       [11:0]   _zz__zz_execute_SRC2_2;
   wire       [31:0]   _zz_execute_SrcPlugin_addSub;
   wire       [31:0]   _zz_execute_SrcPlugin_addSub_1;
   wire       [31:0]   _zz_execute_SrcPlugin_addSub_2;
@@ -564,7 +565,7 @@ module VexRiscvAxi4 (
   wire       [2:0]    _zz_MmuPlugin_ports_1_entryToReplace_valueNext;
   wire       [0:0]    _zz_MmuPlugin_ports_1_entryToReplace_valueNext_1;
   wire       [1:0]    _zz__zz_MmuPlugin_shared_refills_2;
-  wire       [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_28;
+  wire       [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_26;
   wire       [2:0]    _zz_dbus_axi_arw_payload_len;
   wire       [31:0]   memory_CALC;
   wire       [51:0]   memory_MUL_LOW;
@@ -699,11 +700,11 @@ module VexRiscvAxi4 (
   wire                execute_SRC_LESS_UNSIGNED;
   wire                execute_SRC2_FORCE_ZERO;
   wire                execute_SRC_USE_SUB_LESS;
-  wire       [31:0]   _zz_execute_SRC2;
+  wire       [31:0]   _zz_execute_to_memory_PC;
   wire       [1:0]    execute_SRC2_CTRL;
   wire       [1:0]    _zz_execute_SRC2_CTRL;
   wire                execute_IS_RVC;
-  wire       [31:0]   _zz_execute_SRC1;
+  wire       [31:0]   _zz_execute_to_memory_RS1;
   wire       [1:0]    execute_SRC1_CTRL;
   wire       [1:0]    _zz_execute_SRC1_CTRL;
   wire                decode_SRC_USE_SUB_LESS;
@@ -939,6 +940,7 @@ module VexRiscvAxi4 (
   reg                 CsrPlugin_allowInterrupts;
   reg                 CsrPlugin_allowException;
   reg                 CsrPlugin_allowEbreakException;
+  reg                 CsrPlugin_xretAwayFromMachine;
   wire                BranchPlugin_jumpInterface_valid;
   wire       [31:0]   BranchPlugin_jumpInterface_payload;
   reg                 BranchPlugin_inDebugNoFetchFlag;
@@ -1023,8 +1025,8 @@ module VexRiscvAxi4 (
   wire                _zz_IBusCachedPlugin_iBusRsp_stages_2_input_ready;
   wire                IBusCachedPlugin_iBusRsp_flush;
   wire                _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready;
-  wire                _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready_1;
-  reg                 _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready_2;
+  wire                _zz_IBusCachedPlugin_iBusRsp_stages_1_input_valid;
+  reg                 _zz_IBusCachedPlugin_iBusRsp_stages_1_input_valid_1;
   wire                IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid;
   wire                IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_ready;
   wire       [31:0]   IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_payload;
@@ -1088,9 +1090,10 @@ module VexRiscvAxi4 (
   wire       [4:0]    _zz_IBusCachedPlugin_decompressor_decompressed_20;
   wire       [4:0]    _zz_IBusCachedPlugin_decompressor_decompressed_21;
   wire       [4:0]    switch_Misc_l44;
+  wire                when_Misc_l47;
   wire                _zz_IBusCachedPlugin_decompressor_decompressed_22;
-  wire       [1:0]    switch_Misc_l210;
-  wire       [1:0]    switch_Misc_l210_1;
+  wire       [1:0]    switch_Misc_l226;
+  wire       [1:0]    switch_Misc_l226_1;
   reg        [2:0]    _zz_IBusCachedPlugin_decompressor_decompressed_23;
   reg        [2:0]    _zz_IBusCachedPlugin_decompressor_decompressed_24;
   wire                _zz_IBusCachedPlugin_decompressor_decompressed_25;
@@ -1133,40 +1136,40 @@ module VexRiscvAxi4 (
   wire                when_IBusCachedPlugin_l250;
   wire                when_IBusCachedPlugin_l256;
   wire                when_IBusCachedPlugin_l267;
-  wire                dataCache_1_io_mem_cmd_s2mPipe_valid;
-  reg                 dataCache_1_io_mem_cmd_s2mPipe_ready;
-  wire                dataCache_1_io_mem_cmd_s2mPipe_payload_wr;
-  wire                dataCache_1_io_mem_cmd_s2mPipe_payload_uncached;
-  wire       [31:0]   dataCache_1_io_mem_cmd_s2mPipe_payload_address;
-  wire       [31:0]   dataCache_1_io_mem_cmd_s2mPipe_payload_data;
-  wire       [3:0]    dataCache_1_io_mem_cmd_s2mPipe_payload_mask;
-  wire       [2:0]    dataCache_1_io_mem_cmd_s2mPipe_payload_size;
-  wire                dataCache_1_io_mem_cmd_s2mPipe_payload_last;
-  reg                 dataCache_1_io_mem_cmd_rValid;
-  reg                 dataCache_1_io_mem_cmd_rData_wr;
-  reg                 dataCache_1_io_mem_cmd_rData_uncached;
-  reg        [31:0]   dataCache_1_io_mem_cmd_rData_address;
-  reg        [31:0]   dataCache_1_io_mem_cmd_rData_data;
-  reg        [3:0]    dataCache_1_io_mem_cmd_rData_mask;
-  reg        [2:0]    dataCache_1_io_mem_cmd_rData_size;
-  reg                 dataCache_1_io_mem_cmd_rData_last;
-  wire                dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_valid;
-  wire                dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_ready;
-  wire                dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_wr;
-  wire                dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_uncached;
-  wire       [31:0]   dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_address;
-  wire       [31:0]   dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_data;
-  wire       [3:0]    dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_mask;
-  wire       [2:0]    dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_size;
-  wire                dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_last;
-  reg                 dataCache_1_io_mem_cmd_s2mPipe_rValid;
-  reg                 dataCache_1_io_mem_cmd_s2mPipe_rData_wr;
-  reg                 dataCache_1_io_mem_cmd_s2mPipe_rData_uncached;
-  reg        [31:0]   dataCache_1_io_mem_cmd_s2mPipe_rData_address;
-  reg        [31:0]   dataCache_1_io_mem_cmd_s2mPipe_rData_data;
-  reg        [3:0]    dataCache_1_io_mem_cmd_s2mPipe_rData_mask;
-  reg        [2:0]    dataCache_1_io_mem_cmd_s2mPipe_rData_size;
-  reg                 dataCache_1_io_mem_cmd_s2mPipe_rData_last;
+  wire                toplevel_dataCache_1_io_mem_cmd_s2mPipe_valid;
+  reg                 toplevel_dataCache_1_io_mem_cmd_s2mPipe_ready;
+  wire                toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_wr;
+  wire                toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_uncached;
+  wire       [31:0]   toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_address;
+  wire       [31:0]   toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_data;
+  wire       [3:0]    toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_mask;
+  wire       [2:0]    toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_size;
+  wire                toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_last;
+  reg                 toplevel_dataCache_1_io_mem_cmd_rValid;
+  reg                 toplevel_dataCache_1_io_mem_cmd_rData_wr;
+  reg                 toplevel_dataCache_1_io_mem_cmd_rData_uncached;
+  reg        [31:0]   toplevel_dataCache_1_io_mem_cmd_rData_address;
+  reg        [31:0]   toplevel_dataCache_1_io_mem_cmd_rData_data;
+  reg        [3:0]    toplevel_dataCache_1_io_mem_cmd_rData_mask;
+  reg        [2:0]    toplevel_dataCache_1_io_mem_cmd_rData_size;
+  reg                 toplevel_dataCache_1_io_mem_cmd_rData_last;
+  wire                toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_valid;
+  wire                toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_ready;
+  wire                toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_wr;
+  wire                toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_uncached;
+  wire       [31:0]   toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_address;
+  wire       [31:0]   toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_data;
+  wire       [3:0]    toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_mask;
+  wire       [2:0]    toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_size;
+  wire                toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_last;
+  reg                 toplevel_dataCache_1_io_mem_cmd_s2mPipe_rValid;
+  reg                 toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_wr;
+  reg                 toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_uncached;
+  reg        [31:0]   toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_address;
+  reg        [31:0]   toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_data;
+  reg        [3:0]    toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_mask;
+  reg        [2:0]    toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_size;
+  reg                 toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_last;
   wire                when_Stream_l368;
   reg                 dBus_rsp_regNext_valid;
   reg                 dBus_rsp_regNext_payload_last;
@@ -1177,7 +1180,7 @@ module VexRiscvAxi4 (
   wire                when_DBusCachedPlugin_l316;
   wire       [1:0]    execute_DBusCachedPlugin_size;
   reg        [31:0]   _zz_execute_MEMORY_STORE_DATA_RF;
-  wire                dataCache_1_io_cpu_flush_isStall;
+  wire                toplevel_dataCache_1_io_cpu_flush_isStall;
   wire                when_DBusCachedPlugin_l350;
   wire                when_DBusCachedPlugin_l366;
   wire                when_DBusCachedPlugin_l393;
@@ -1190,7 +1193,7 @@ module VexRiscvAxi4 (
   reg        [31:0]   writeBack_DBusCachedPlugin_rspShifted;
   reg        [31:0]   writeBack_DBusCachedPlugin_rspRf;
   wire                when_DBusCachedPlugin_l482;
-  wire       [1:0]    switch_Misc_l210_2;
+  wire       [1:0]    switch_Misc_l226_2;
   wire                _zz_writeBack_DBusCachedPlugin_rspFormated;
   reg        [31:0]   _zz_writeBack_DBusCachedPlugin_rspFormated_1;
   wire                _zz_writeBack_DBusCachedPlugin_rspFormated_2;
@@ -1231,12 +1234,12 @@ module VexRiscvAxi4 (
   reg                 _zz_2;
   reg        [31:0]   execute_IntAluPlugin_bitwise;
   reg        [31:0]   _zz_execute_REGFILE_WRITE_DATA;
-  reg        [31:0]   _zz_execute_SRC1_1;
-  wire                _zz_execute_SRC2_1;
-  reg        [19:0]   _zz_execute_SRC2_2;
-  wire                _zz_execute_SRC2_3;
-  reg        [19:0]   _zz_execute_SRC2_4;
-  reg        [31:0]   _zz_execute_SRC2_5;
+  reg        [31:0]   _zz_execute_SRC1;
+  wire                _zz_execute_SRC2;
+  reg        [19:0]   _zz_execute_SRC2_1;
+  wire                _zz_execute_SRC2_2;
+  reg        [19:0]   _zz_execute_SRC2_3;
+  reg        [31:0]   _zz_execute_SRC2_4;
   reg        [31:0]   execute_SrcPlugin_addSub;
   wire                execute_SrcPlugin_less;
   wire       [4:0]    execute_FullBarrelShifterPlugin_amplitude;
@@ -1419,13 +1422,13 @@ module VexRiscvAxi4 (
   reg        [8:0]    CsrPlugin_satp_ASID;
   reg        [0:0]    CsrPlugin_satp_MODE;
   reg                 CsrPlugin_rescheduleLogic_rescheduleNext;
-  wire                when_CsrPlugin_l816;
-  wire                _zz_when_CsrPlugin_l965;
-  wire                _zz_when_CsrPlugin_l965_1;
-  wire                _zz_when_CsrPlugin_l965_2;
-  wire                _zz_when_CsrPlugin_l965_3;
-  wire                _zz_when_CsrPlugin_l965_4;
-  wire                _zz_when_CsrPlugin_l965_5;
+  wire                when_CsrPlugin_l1073;
+  wire                _zz_when_CsrPlugin_l1222;
+  wire                _zz_when_CsrPlugin_l1222_1;
+  wire                _zz_when_CsrPlugin_l1222_2;
+  wire                _zz_when_CsrPlugin_l1222_3;
+  wire                _zz_when_CsrPlugin_l1222_4;
+  wire                _zz_when_CsrPlugin_l1222_5;
   reg                 CsrPlugin_exceptionPortCtrl_exceptionValids_decode;
   reg                 CsrPlugin_exceptionPortCtrl_exceptionValids_execute;
   reg                 CsrPlugin_exceptionPortCtrl_exceptionValids_memory;
@@ -1437,85 +1440,89 @@ module VexRiscvAxi4 (
   reg        [3:0]    CsrPlugin_exceptionPortCtrl_exceptionContext_code;
   reg        [31:0]   CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr;
   reg        [1:0]    CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped;
-  wire                when_CsrPlugin_l879;
-  wire                when_CsrPlugin_l879_1;
-  wire                when_CsrPlugin_l879_2;
-  wire                when_CsrPlugin_l879_3;
-  wire                when_CsrPlugin_l879_4;
-  wire                when_CsrPlugin_l879_5;
-  wire                when_CsrPlugin_l879_6;
-  wire                when_CsrPlugin_l879_7;
-  wire                when_CsrPlugin_l879_8;
-  wire                when_CsrPlugin_l879_9;
-  wire                when_CsrPlugin_l879_10;
-  wire                when_CsrPlugin_l879_11;
+  wire                when_CsrPlugin_l1136;
+  wire                when_CsrPlugin_l1136_1;
+  wire                when_CsrPlugin_l1136_2;
+  wire                when_CsrPlugin_l1136_3;
+  wire                when_CsrPlugin_l1136_4;
+  wire                when_CsrPlugin_l1136_5;
+  wire                when_CsrPlugin_l1136_6;
+  wire                when_CsrPlugin_l1136_7;
+  wire                when_CsrPlugin_l1136_8;
+  wire                when_CsrPlugin_l1136_9;
+  wire                when_CsrPlugin_l1136_10;
+  wire                when_CsrPlugin_l1136_11;
   wire       [1:0]    CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilege;
   wire       [1:0]    _zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code;
   wire                _zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code_1;
-  wire                when_CsrPlugin_l922;
-  wire                when_CsrPlugin_l922_1;
-  wire                when_CsrPlugin_l922_2;
-  wire                when_CsrPlugin_l922_3;
-  wire                when_CsrPlugin_l935;
+  wire                when_CsrPlugin_l1179;
+  wire                when_CsrPlugin_l1179_1;
+  wire                when_CsrPlugin_l1179_2;
+  wire                when_CsrPlugin_l1179_3;
+  wire                when_CsrPlugin_l1192;
   reg                 CsrPlugin_interrupt_valid;
   reg        [3:0]    CsrPlugin_interrupt_code /* verilator public */ ;
   reg        [1:0]    CsrPlugin_interrupt_targetPrivilege;
-  wire                when_CsrPlugin_l959;
-  wire                when_CsrPlugin_l959_1;
-  wire                when_CsrPlugin_l965;
-  wire                when_CsrPlugin_l965_1;
-  wire                when_CsrPlugin_l965_2;
-  wire                when_CsrPlugin_l965_3;
-  wire                when_CsrPlugin_l965_4;
-  wire                when_CsrPlugin_l965_5;
-  wire                when_CsrPlugin_l965_6;
-  wire                when_CsrPlugin_l965_7;
-  wire                when_CsrPlugin_l965_8;
+  wire                when_CsrPlugin_l1216;
+  wire                when_CsrPlugin_l1216_1;
+  wire                when_CsrPlugin_l1222;
+  wire                when_CsrPlugin_l1222_1;
+  wire                when_CsrPlugin_l1222_2;
+  wire                when_CsrPlugin_l1222_3;
+  wire                when_CsrPlugin_l1222_4;
+  wire                when_CsrPlugin_l1222_5;
+  wire                when_CsrPlugin_l1222_6;
+  wire                when_CsrPlugin_l1222_7;
+  wire                when_CsrPlugin_l1222_8;
   wire                CsrPlugin_exception;
   reg                 CsrPlugin_lastStageWasWfi;
   reg                 CsrPlugin_pipelineLiberator_pcValids_0;
   reg                 CsrPlugin_pipelineLiberator_pcValids_1;
   reg                 CsrPlugin_pipelineLiberator_pcValids_2;
   wire                CsrPlugin_pipelineLiberator_active;
-  wire                when_CsrPlugin_l993;
-  wire                when_CsrPlugin_l993_1;
-  wire                when_CsrPlugin_l993_2;
-  wire                when_CsrPlugin_l998;
+  wire                when_CsrPlugin_l1255;
+  wire                when_CsrPlugin_l1255_1;
+  wire                when_CsrPlugin_l1255_2;
+  wire                when_CsrPlugin_l1260;
   reg                 CsrPlugin_pipelineLiberator_done;
-  wire                when_CsrPlugin_l1004;
+  wire                when_CsrPlugin_l1266;
   wire                CsrPlugin_interruptJump /* verilator public */ ;
   reg                 CsrPlugin_hadException /* verilator public */ ;
   reg        [1:0]    CsrPlugin_targetPrivilege;
   reg        [3:0]    CsrPlugin_trapCause;
+  wire                CsrPlugin_trapCauseEbreakDebug;
   reg        [1:0]    CsrPlugin_xtvec_mode;
   reg        [29:0]   CsrPlugin_xtvec_base;
-  wire                when_CsrPlugin_l1032;
-  wire                when_CsrPlugin_l1077;
-  wire       [1:0]    switch_CsrPlugin_l1081;
+  wire                CsrPlugin_trapEnterDebug;
+  wire                when_CsrPlugin_l1310;
+  wire                when_CsrPlugin_l1318;
+  wire                when_CsrPlugin_l1376;
+  wire       [1:0]    switch_CsrPlugin_l1380;
+  wire                when_CsrPlugin_l1388;
   reg                 execute_CsrPlugin_wfiWake;
-  wire                when_CsrPlugin_l1121;
-  wire                when_CsrPlugin_l1123;
-  wire                when_CsrPlugin_l1129;
+  wire                when_CsrPlugin_l1439;
+  wire                when_CsrPlugin_l1441;
+  wire                when_CsrPlugin_l1447;
   wire                execute_CsrPlugin_blockedBySideEffects;
   reg                 execute_CsrPlugin_illegalAccess;
   reg                 execute_CsrPlugin_illegalInstruction;
-  wire                when_CsrPlugin_l1142;
-  wire                when_CsrPlugin_l1149;
-  wire                when_CsrPlugin_l1150;
-  wire                when_CsrPlugin_l1157;
-  wire                when_CsrPlugin_l1167;
+  wire                when_CsrPlugin_l1460;
+  wire                when_CsrPlugin_l1467;
+  wire                when_CsrPlugin_l1468;
+  wire                when_CsrPlugin_l1475;
+  wire                when_CsrPlugin_l1485;
   reg                 execute_CsrPlugin_writeInstruction;
   reg                 execute_CsrPlugin_readInstruction;
   wire                execute_CsrPlugin_writeEnable;
   wire                execute_CsrPlugin_readEnable;
   reg        [31:0]   execute_CsrPlugin_readToWriteData;
-  wire                switch_Misc_l210_3;
+  wire                switch_Misc_l226_3;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_writeDataSignal;
-  wire                when_CsrPlugin_l1193;
-  wire                when_CsrPlugin_l1199;
+  wire                when_CsrPlugin_l1511;
+  wire                when_CsrPlugin_l1517;
   wire       [11:0]   execute_CsrPlugin_csrAddress;
   wire                execute_BranchPlugin_eq;
-  wire       [2:0]    switch_Misc_l210_4;
+  wire       [2:0]    switch_Misc_l226_4;
   reg                 _zz_execute_BRANCH_COND_RESULT;
   reg                 _zz_execute_BRANCH_COND_RESULT_1;
   wire                execute_BranchPlugin_missAlignedTarget;
@@ -1531,9 +1538,6 @@ module VexRiscvAxi4 (
   reg                 MmuPlugin_status_sum;
   reg                 MmuPlugin_status_mxr;
   reg                 MmuPlugin_status_mprv;
-  reg                 MmuPlugin_satp_mode;
-  reg        [8:0]    MmuPlugin_satp_asid;
-  reg        [19:0]   MmuPlugin_satp_ppn;
   reg                 MmuPlugin_ports_0_cache_0_valid;
   reg                 MmuPlugin_ports_0_cache_0_exception;
   reg                 MmuPlugin_ports_0_cache_0_superPage;
@@ -1624,8 +1628,8 @@ module VexRiscvAxi4 (
   reg                 MmuPlugin_ports_0_cache_7_allowUser;
   wire                MmuPlugin_ports_0_dirty;
   reg                 MmuPlugin_ports_0_requireMmuLockupCalc;
-  wire                when_MmuPlugin_l125;
-  wire                when_MmuPlugin_l126;
+  wire                when_MmuPlugin_l136;
+  wire                when_MmuPlugin_l137;
   wire       [7:0]    MmuPlugin_ports_0_cacheHitsCalc;
   wire                MmuPlugin_ports_0_cacheHit;
   wire                _zz_MmuPlugin_ports_0_cacheLine_valid;
@@ -1743,9 +1747,9 @@ module VexRiscvAxi4 (
   reg                 MmuPlugin_ports_1_cache_7_allowUser;
   wire                MmuPlugin_ports_1_dirty;
   reg                 MmuPlugin_ports_1_requireMmuLockupCalc;
-  wire                when_MmuPlugin_l125_1;
-  wire                when_MmuPlugin_l126_1;
-  wire                when_MmuPlugin_l128;
+  wire                when_MmuPlugin_l136_1;
+  wire                when_MmuPlugin_l137_1;
+  wire                when_MmuPlugin_l139;
   wire       [7:0]    MmuPlugin_ports_1_cacheHitsCalc;
   wire                MmuPlugin_ports_1_cacheHit;
   wire                _zz_MmuPlugin_ports_1_cacheLine_valid;
@@ -1794,7 +1798,7 @@ module VexRiscvAxi4 (
   wire       [11:0]   MmuPlugin_shared_dBusRsp_pte_PPN1;
   wire                MmuPlugin_shared_dBusRsp_exception;
   wire                MmuPlugin_shared_dBusRsp_leaf;
-  wire                when_MmuPlugin_l205;
+  wire                when_MmuPlugin_l216;
   reg                 MmuPlugin_shared_pteBuffer_V;
   reg                 MmuPlugin_shared_pteBuffer_R;
   reg                 MmuPlugin_shared_pteBuffer_W;
@@ -1811,34 +1815,34 @@ module VexRiscvAxi4 (
   wire       [1:0]    MmuPlugin_shared_refills;
   wire       [1:0]    _zz_MmuPlugin_shared_refills_2;
   reg        [1:0]    _zz_MmuPlugin_shared_refills_3;
-  wire                when_MmuPlugin_l217;
+  wire                when_MmuPlugin_l228;
   wire       [31:0]   _zz_MmuPlugin_shared_vpn_0;
-  wire                when_MmuPlugin_l243;
-  wire                when_MmuPlugin_l272;
-  wire                when_MmuPlugin_l274;
-  wire                when_MmuPlugin_l280;
-  wire                when_MmuPlugin_l280_1;
-  wire                when_MmuPlugin_l280_2;
-  wire                when_MmuPlugin_l280_3;
-  wire                when_MmuPlugin_l280_4;
-  wire                when_MmuPlugin_l280_5;
-  wire                when_MmuPlugin_l280_6;
-  wire                when_MmuPlugin_l280_7;
-  wire                when_MmuPlugin_l274_1;
-  wire                when_MmuPlugin_l280_8;
-  wire                when_MmuPlugin_l280_9;
-  wire                when_MmuPlugin_l280_10;
-  wire                when_MmuPlugin_l280_11;
-  wire                when_MmuPlugin_l280_12;
-  wire                when_MmuPlugin_l280_13;
-  wire                when_MmuPlugin_l280_14;
-  wire                when_MmuPlugin_l280_15;
-  wire                when_MmuPlugin_l304;
+  wire                when_MmuPlugin_l254;
+  wire                when_MmuPlugin_l283;
+  wire                when_MmuPlugin_l285;
+  wire                when_MmuPlugin_l291;
+  wire                when_MmuPlugin_l291_1;
+  wire                when_MmuPlugin_l291_2;
+  wire                when_MmuPlugin_l291_3;
+  wire                when_MmuPlugin_l291_4;
+  wire                when_MmuPlugin_l291_5;
+  wire                when_MmuPlugin_l291_6;
+  wire                when_MmuPlugin_l291_7;
+  wire                when_MmuPlugin_l285_1;
+  wire                when_MmuPlugin_l291_8;
+  wire                when_MmuPlugin_l291_9;
+  wire                when_MmuPlugin_l291_10;
+  wire                when_MmuPlugin_l291_11;
+  wire                when_MmuPlugin_l291_12;
+  wire                when_MmuPlugin_l291_13;
+  wire                when_MmuPlugin_l291_14;
+  wire                when_MmuPlugin_l291_15;
+  wire                when_MmuPlugin_l315;
   reg        [31:0]   externalInterruptArray_regNext;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit;
-  wire       [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_1;
-  reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_2;
-  wire       [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_3;
+  wire       [31:0]   _zz_externalInterrupt;
+  reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_1;
+  wire       [31:0]   _zz_externalInterruptS;
   reg                 DebugPlugin_firstCycle;
   reg                 DebugPlugin_secondCycle;
   reg                 DebugPlugin_resetIt;
@@ -1846,7 +1850,7 @@ module VexRiscvAxi4 (
   reg                 DebugPlugin_stepIt;
   reg                 DebugPlugin_isPipBusy;
   reg                 DebugPlugin_godmode;
-  wire                when_DebugPlugin_l225;
+  wire                when_DebugPlugin_l238;
   reg                 DebugPlugin_haltedByBreak;
   reg                 DebugPlugin_debugUsed /* verilator public */ ;
   reg                 DebugPlugin_disableEbreak;
@@ -1860,23 +1864,23 @@ module VexRiscvAxi4 (
   reg                 DebugPlugin_hardwareBreakpoints_3_valid;
   reg        [30:0]   DebugPlugin_hardwareBreakpoints_3_pc;
   reg        [31:0]   DebugPlugin_busReadDataReg;
-  reg                 _zz_when_DebugPlugin_l244;
-  wire                when_DebugPlugin_l244;
-  wire       [5:0]    switch_DebugPlugin_l267;
-  wire                when_DebugPlugin_l271;
-  wire                when_DebugPlugin_l271_1;
-  wire                when_DebugPlugin_l272;
-  wire                when_DebugPlugin_l272_1;
-  wire                when_DebugPlugin_l273;
-  wire                when_DebugPlugin_l274;
-  wire                when_DebugPlugin_l275;
-  wire                when_DebugPlugin_l275_1;
-  wire                when_DebugPlugin_l295;
-  wire                when_DebugPlugin_l298;
+  reg                 _zz_when_DebugPlugin_l257;
+  wire                when_DebugPlugin_l257;
+  wire       [5:0]    switch_DebugPlugin_l280;
+  wire                when_DebugPlugin_l284;
+  wire                when_DebugPlugin_l284_1;
+  wire                when_DebugPlugin_l285;
+  wire                when_DebugPlugin_l285_1;
+  wire                when_DebugPlugin_l286;
+  wire                when_DebugPlugin_l287;
+  wire                when_DebugPlugin_l288;
+  wire                when_DebugPlugin_l288_1;
+  wire                when_DebugPlugin_l308;
   wire                when_DebugPlugin_l311;
+  wire                when_DebugPlugin_l324;
   reg                 _zz_3;
   reg                 DebugPlugin_resetIt_regNext;
-  wire                when_DebugPlugin_l331;
+  wire                when_DebugPlugin_l344;
   wire                when_Pipeline_l124;
   reg        [31:0]   decode_to_execute_PC;
   wire                when_Pipeline_l124_1;
@@ -2046,67 +2050,69 @@ module VexRiscvAxi4 (
   wire                when_Fetcher_l381;
   wire                when_Fetcher_l407;
   reg        [31:0]   IBusCachedPlugin_injectionPort_payload_regNext;
-  wire                when_CsrPlugin_l1277;
+  wire                when_CsrPlugin_l1589;
   reg                 execute_CsrPlugin_csr_3264;
-  wire                when_CsrPlugin_l1277_1;
+  wire                when_CsrPlugin_l1589_1;
   reg                 execute_CsrPlugin_csr_3857;
-  wire                when_CsrPlugin_l1277_2;
+  wire                when_CsrPlugin_l1589_2;
   reg                 execute_CsrPlugin_csr_3858;
-  wire                when_CsrPlugin_l1277_3;
+  wire                when_CsrPlugin_l1589_3;
   reg                 execute_CsrPlugin_csr_3859;
-  wire                when_CsrPlugin_l1277_4;
+  wire                when_CsrPlugin_l1589_4;
   reg                 execute_CsrPlugin_csr_3860;
-  wire                when_CsrPlugin_l1277_5;
+  wire                when_CsrPlugin_l1589_5;
   reg                 execute_CsrPlugin_csr_768;
-  wire                when_CsrPlugin_l1277_6;
+  wire                when_CsrPlugin_l1589_6;
   reg                 execute_CsrPlugin_csr_836;
-  wire                when_CsrPlugin_l1277_7;
+  wire                when_CsrPlugin_l1589_7;
   reg                 execute_CsrPlugin_csr_772;
-  wire                when_CsrPlugin_l1277_8;
+  wire                when_CsrPlugin_l1589_8;
   reg                 execute_CsrPlugin_csr_773;
-  wire                when_CsrPlugin_l1277_9;
+  wire                when_CsrPlugin_l1589_9;
   reg                 execute_CsrPlugin_csr_833;
-  wire                when_CsrPlugin_l1277_10;
+  wire                when_CsrPlugin_l1589_10;
   reg                 execute_CsrPlugin_csr_832;
-  wire                when_CsrPlugin_l1277_11;
+  wire                when_CsrPlugin_l1589_11;
   reg                 execute_CsrPlugin_csr_834;
-  wire                when_CsrPlugin_l1277_12;
+  wire                when_CsrPlugin_l1589_12;
   reg                 execute_CsrPlugin_csr_835;
-  wire                when_CsrPlugin_l1277_13;
+  wire                when_CsrPlugin_l1589_13;
   reg                 execute_CsrPlugin_csr_770;
-  wire                when_CsrPlugin_l1277_14;
+  wire                when_CsrPlugin_l1589_14;
   reg                 execute_CsrPlugin_csr_771;
-  wire                when_CsrPlugin_l1277_15;
+  wire                when_CsrPlugin_l1589_15;
   reg                 execute_CsrPlugin_csr_256;
-  wire                when_CsrPlugin_l1277_16;
+  wire                when_CsrPlugin_l1589_16;
   reg                 execute_CsrPlugin_csr_324;
-  wire                when_CsrPlugin_l1277_17;
+  wire                when_CsrPlugin_l1589_17;
   reg                 execute_CsrPlugin_csr_260;
-  wire                when_CsrPlugin_l1277_18;
+  wire                when_CsrPlugin_l1589_18;
   reg                 execute_CsrPlugin_csr_261;
-  wire                when_CsrPlugin_l1277_19;
+  wire                when_CsrPlugin_l1589_19;
   reg                 execute_CsrPlugin_csr_321;
-  wire                when_CsrPlugin_l1277_20;
+  wire                when_CsrPlugin_l1589_20;
   reg                 execute_CsrPlugin_csr_320;
-  wire                when_CsrPlugin_l1277_21;
+  wire                when_CsrPlugin_l1589_21;
   reg                 execute_CsrPlugin_csr_322;
-  wire                when_CsrPlugin_l1277_22;
+  wire                when_CsrPlugin_l1589_22;
   reg                 execute_CsrPlugin_csr_323;
-  wire                when_CsrPlugin_l1277_23;
+  wire                when_CsrPlugin_l1589_23;
   reg                 execute_CsrPlugin_csr_384;
-  wire                when_CsrPlugin_l1277_24;
+  wire                when_CsrPlugin_l1589_24;
   reg                 execute_CsrPlugin_csr_3008;
-  wire                when_CsrPlugin_l1277_25;
+  wire                when_CsrPlugin_l1589_25;
   reg                 execute_CsrPlugin_csr_4032;
-  wire                when_CsrPlugin_l1277_26;
+  wire                when_CsrPlugin_l1589_26;
   reg                 execute_CsrPlugin_csr_2496;
-  wire                when_CsrPlugin_l1277_27;
+  wire                when_CsrPlugin_l1589_27;
   reg                 execute_CsrPlugin_csr_3520;
+  reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_2;
+  reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_3;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_4;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_5;
+  wire       [1:0]    switch_CsrPlugin_l980;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_6;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_7;
-  wire       [1:0]    switch_CsrPlugin_l723;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_8;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_9;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_10;
@@ -2125,10 +2131,9 @@ module VexRiscvAxi4 (
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_23;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_24;
   reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_25;
-  reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_26;
-  reg        [31:0]   _zz_CsrPlugin_csrMapping_readDataInit_27;
-  wire                when_CsrPlugin_l1310;
-  wire                when_CsrPlugin_l1315;
+  reg                 when_CsrPlugin_l1625;
+  wire                when_CsrPlugin_l1623;
+  wire                when_CsrPlugin_l1631;
   wire       [0:0]    _zz_iBusAxi_ar_payload_id;
   wire       [3:0]    _zz_iBusAxi_ar_payload_region;
   wire                dbus_axi_arw_valid;
@@ -2153,31 +2158,31 @@ module VexRiscvAxi4 (
   wire       [1:0]    dbus_axi_r_payload_resp;
   wire                dbus_axi_r_payload_last;
   wire                dBus_cmd_fire;
-  wire                when_Utils_l630;
+  wire                when_Utils_l641;
   wire                dbus_axi_b_fire;
-  reg                 _zz_when_Utils_l658;
-  reg                 _zz_when_Utils_l658_1;
+  reg                 _zz_when_Utils_l669;
+  reg                 _zz_when_Utils_l669_1;
   reg        [2:0]    _zz_dBus_cmd_ready;
   reg        [2:0]    _zz_dBus_cmd_ready_1;
-  wire                when_Utils_l658;
-  wire                when_Utils_l660;
+  wire                when_Utils_l669;
+  wire                when_Utils_l671;
   wire                _zz_dBus_cmd_ready_2;
   wire                _zz_dbus_axi_arw_valid;
   reg                 _zz_dBus_cmd_ready_3;
   wire                _zz_dbus_axi_arw_payload_write;
   wire                _zz_dbus_axi_w_payload_last;
   wire                _zz_dbus_axi_arw_valid_1;
-  reg                 _zz_when_Stream_l945;
+  reg                 _zz_when_Stream_l971;
   wire                _zz_dbus_axi_w_valid;
-  reg                 _zz_when_Stream_l945_1;
-  reg                 _zz_dbus_axi_arw_valid_2;
-  reg                 _zz_dbus_axi_w_valid_1;
-  wire                when_Stream_l945;
-  wire                when_Stream_l945_1;
+  reg                 _zz_when_Stream_l971_1;
+  reg                 _zz_when_Stream_l971_2;
+  reg                 _zz_when_Stream_l971_3;
+  wire                when_Stream_l971;
+  wire                when_Stream_l971_1;
   reg                 _zz_4;
-  reg                 _zz_dbus_axi_arw_valid_3;
+  reg                 _zz_dbus_axi_arw_valid_2;
   wire                when_Stream_l438;
-  reg                 _zz_dbus_axi_w_valid_2;
+  reg                 _zz_dbus_axi_w_valid_1;
   wire       [0:0]    _zz_dBusAxi_ar_payload_id;
   wire       [3:0]    _zz_dBusAxi_ar_payload_region;
   wire       [0:0]    _zz_dBusAxi_aw_payload_id;
@@ -2306,9 +2311,9 @@ module VexRiscvAxi4 (
   assign _zz_DBusCachedPlugin_exceptionBus_payload_code_1 = (writeBack_MEMORY_WR ? 3'b110 : 3'b100);
   assign _zz_writeBack_DBusCachedPlugin_rspRf = (! dataCache_1_io_cpu_writeBack_exclusiveOk);
   assign _zz__zz_execute_REGFILE_WRITE_DATA = execute_SRC_LESS;
-  assign _zz__zz_execute_SRC1_1 = (execute_IS_RVC ? 3'b010 : 3'b100);
-  assign _zz__zz_execute_SRC1_1_1 = execute_INSTRUCTION[19 : 15];
-  assign _zz__zz_execute_SRC2_3 = {execute_INSTRUCTION[31 : 25],execute_INSTRUCTION[11 : 7]};
+  assign _zz__zz_execute_SRC1 = (execute_IS_RVC ? 3'b010 : 3'b100);
+  assign _zz__zz_execute_SRC1_1 = execute_INSTRUCTION[19 : 15];
+  assign _zz__zz_execute_SRC2_2 = {execute_INSTRUCTION[31 : 25],execute_INSTRUCTION[11 : 7]};
   assign _zz_execute_SrcPlugin_addSub = ($signed(_zz_execute_SrcPlugin_addSub_1) + $signed(_zz_execute_SrcPlugin_addSub_4));
   assign _zz_execute_SrcPlugin_addSub_1 = ($signed(_zz_execute_SrcPlugin_addSub_2) + $signed(_zz_execute_SrcPlugin_addSub_3));
   assign _zz_execute_SrcPlugin_addSub_2 = execute_SRC1;
@@ -2349,11 +2354,11 @@ module VexRiscvAxi4 (
   assign _zz_IBusCachedPlugin_jump_pcLoad_payload_7 = {_zz_IBusCachedPlugin_jump_pcLoad_payload_3,{_zz_IBusCachedPlugin_jump_pcLoad_payload_5,_zz_IBusCachedPlugin_jump_pcLoad_payload_4}};
   assign _zz_writeBack_DBusCachedPlugin_rspShifted_1 = dataCache_1_io_cpu_writeBack_address[1 : 0];
   assign _zz_writeBack_DBusCachedPlugin_rspShifted_3 = dataCache_1_io_cpu_writeBack_address[1 : 1];
-  assign _zz_decode_LEGAL_INSTRUCTION = 32'h0000107f;
-  assign _zz_decode_LEGAL_INSTRUCTION_1 = (decode_INSTRUCTION & 32'h0000207f);
-  assign _zz_decode_LEGAL_INSTRUCTION_2 = 32'h00002073;
-  assign _zz_decode_LEGAL_INSTRUCTION_3 = ((decode_INSTRUCTION & 32'h0000407f) == 32'h00004063);
-  assign _zz_decode_LEGAL_INSTRUCTION_4 = ((decode_INSTRUCTION & 32'h0000207f) == 32'h00002013);
+  assign _zz_decode_LEGAL_INSTRUCTION = 32'h0000207f;
+  assign _zz_decode_LEGAL_INSTRUCTION_1 = (decode_INSTRUCTION & 32'h0000407f);
+  assign _zz_decode_LEGAL_INSTRUCTION_2 = 32'h00004063;
+  assign _zz_decode_LEGAL_INSTRUCTION_3 = ((decode_INSTRUCTION & 32'h0000207f) == 32'h00002013);
+  assign _zz_decode_LEGAL_INSTRUCTION_4 = ((decode_INSTRUCTION & 32'h0000107f) == 32'h00000013);
   assign _zz_decode_LEGAL_INSTRUCTION_5 = {((decode_INSTRUCTION & 32'h0000603f) == 32'h00000023),{((decode_INSTRUCTION & 32'h0000207f) == 32'h00000003),{((decode_INSTRUCTION & _zz_decode_LEGAL_INSTRUCTION_6) == 32'h00000003),{(_zz_decode_LEGAL_INSTRUCTION_7 == _zz_decode_LEGAL_INSTRUCTION_8),{_zz_decode_LEGAL_INSTRUCTION_9,{_zz_decode_LEGAL_INSTRUCTION_10,_zz_decode_LEGAL_INSTRUCTION_11}}}}}};
   assign _zz_decode_LEGAL_INSTRUCTION_6 = 32'h0000505f;
   assign _zz_decode_LEGAL_INSTRUCTION_7 = (decode_INSTRUCTION & 32'h0000707b);
@@ -2364,15 +2369,14 @@ module VexRiscvAxi4 (
   assign _zz_decode_LEGAL_INSTRUCTION_12 = 32'he800707f;
   assign _zz_decode_LEGAL_INSTRUCTION_13 = (decode_INSTRUCTION & 32'h01f0707f);
   assign _zz_decode_LEGAL_INSTRUCTION_14 = 32'h0000500f;
-  assign _zz_decode_LEGAL_INSTRUCTION_15 = ((decode_INSTRUCTION & 32'hbc00707f) == 32'h00005013);
-  assign _zz_decode_LEGAL_INSTRUCTION_16 = ((decode_INSTRUCTION & 32'hfc00307f) == 32'h00001013);
-  assign _zz_decode_LEGAL_INSTRUCTION_17 = {((decode_INSTRUCTION & 32'hbe00707f) == 32'h00005033),{((decode_INSTRUCTION & 32'hbe00707f) == 32'h00000033),{((decode_INSTRUCTION & _zz_decode_LEGAL_INSTRUCTION_18) == 32'h1000202f),{(_zz_decode_LEGAL_INSTRUCTION_19 == _zz_decode_LEGAL_INSTRUCTION_20),{_zz_decode_LEGAL_INSTRUCTION_21,{_zz_decode_LEGAL_INSTRUCTION_22,_zz_decode_LEGAL_INSTRUCTION_23}}}}}};
-  assign _zz_decode_LEGAL_INSTRUCTION_18 = 32'hf9f0707f;
-  assign _zz_decode_LEGAL_INSTRUCTION_19 = (decode_INSTRUCTION & 32'hfe007fff);
-  assign _zz_decode_LEGAL_INSTRUCTION_20 = 32'h12000073;
-  assign _zz_decode_LEGAL_INSTRUCTION_21 = ((decode_INSTRUCTION & 32'hdfffffff) == 32'h10200073);
-  assign _zz_decode_LEGAL_INSTRUCTION_22 = ((decode_INSTRUCTION & 32'hffefffff) == 32'h00000073);
-  assign _zz_decode_LEGAL_INSTRUCTION_23 = ((decode_INSTRUCTION & 32'hffffffff) == 32'h10500073);
+  assign _zz_decode_LEGAL_INSTRUCTION_15 = ((decode_INSTRUCTION & 32'hbe00705f) == 32'h00005013);
+  assign _zz_decode_LEGAL_INSTRUCTION_16 = ((decode_INSTRUCTION & 32'hfe00305f) == 32'h00001013);
+  assign _zz_decode_LEGAL_INSTRUCTION_17 = {((decode_INSTRUCTION & 32'hbe00707f) == 32'h00000033),{((decode_INSTRUCTION & 32'hf9f0707f) == 32'h1000202f),{((decode_INSTRUCTION & _zz_decode_LEGAL_INSTRUCTION_18) == 32'h12000073),{(_zz_decode_LEGAL_INSTRUCTION_19 == _zz_decode_LEGAL_INSTRUCTION_20),{_zz_decode_LEGAL_INSTRUCTION_21,_zz_decode_LEGAL_INSTRUCTION_22}}}}};
+  assign _zz_decode_LEGAL_INSTRUCTION_18 = 32'hfe007fff;
+  assign _zz_decode_LEGAL_INSTRUCTION_19 = (decode_INSTRUCTION & 32'hdfffffff);
+  assign _zz_decode_LEGAL_INSTRUCTION_20 = 32'h10200073;
+  assign _zz_decode_LEGAL_INSTRUCTION_21 = ((decode_INSTRUCTION & 32'hffefffff) == 32'h00000073);
+  assign _zz_decode_LEGAL_INSTRUCTION_22 = ((decode_INSTRUCTION & 32'hffffffff) == 32'h10500073);
   assign _zz_IBusCachedPlugin_decompressor_decompressed_28 = (_zz_IBusCachedPlugin_decompressor_decompressed[11 : 10] == 2'b01);
   assign _zz_IBusCachedPlugin_decompressor_decompressed_29 = ((_zz_IBusCachedPlugin_decompressor_decompressed[11 : 10] == 2'b11) && (_zz_IBusCachedPlugin_decompressor_decompressed[6 : 5] == 2'b00));
   assign _zz_IBusCachedPlugin_decompressor_decompressed_30 = 7'h0;
@@ -2403,164 +2407,163 @@ module VexRiscvAxi4 (
   assign _zz__zz_decode_IS_SFENCE_VMA2_16 = _zz_decode_IS_SFENCE_VMA2_8;
   assign _zz__zz_decode_IS_SFENCE_VMA2_17 = (|_zz_decode_IS_SFENCE_VMA2_9);
   assign _zz__zz_decode_IS_SFENCE_VMA2_18 = (|_zz_decode_IS_SFENCE_VMA2_9);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_19 = {(|(_zz__zz_decode_IS_SFENCE_VMA2_20 == _zz__zz_decode_IS_SFENCE_VMA2_21)),{(|_zz__zz_decode_IS_SFENCE_VMA2_22),{(|_zz__zz_decode_IS_SFENCE_VMA2_23),{_zz__zz_decode_IS_SFENCE_VMA2_26,{_zz__zz_decode_IS_SFENCE_VMA2_31,_zz__zz_decode_IS_SFENCE_VMA2_34}}}}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_19 = {(|(_zz__zz_decode_IS_SFENCE_VMA2_20 == _zz__zz_decode_IS_SFENCE_VMA2_21)),{(|_zz__zz_decode_IS_SFENCE_VMA2_22),{(|_zz__zz_decode_IS_SFENCE_VMA2_23),{_zz__zz_decode_IS_SFENCE_VMA2_24,{_zz__zz_decode_IS_SFENCE_VMA2_29,_zz__zz_decode_IS_SFENCE_VMA2_32}}}}};
   assign _zz__zz_decode_IS_SFENCE_VMA2_20 = (decode_INSTRUCTION & 32'h02004064);
   assign _zz__zz_decode_IS_SFENCE_VMA2_21 = 32'h02004020;
   assign _zz__zz_decode_IS_SFENCE_VMA2_22 = ((decode_INSTRUCTION & 32'h02004074) == 32'h02000030);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_23 = {((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_24) == 32'h00005010),((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_25) == 32'h00005020)};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_26 = (|{(_zz__zz_decode_IS_SFENCE_VMA2_27 == _zz__zz_decode_IS_SFENCE_VMA2_28),{_zz__zz_decode_IS_SFENCE_VMA2_29,_zz__zz_decode_IS_SFENCE_VMA2_30}});
-  assign _zz__zz_decode_IS_SFENCE_VMA2_31 = (|(_zz__zz_decode_IS_SFENCE_VMA2_32 == _zz__zz_decode_IS_SFENCE_VMA2_33));
-  assign _zz__zz_decode_IS_SFENCE_VMA2_34 = {(|_zz__zz_decode_IS_SFENCE_VMA2_35),{(|_zz__zz_decode_IS_SFENCE_VMA2_36),{_zz__zz_decode_IS_SFENCE_VMA2_39,{_zz__zz_decode_IS_SFENCE_VMA2_42,_zz__zz_decode_IS_SFENCE_VMA2_44}}}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_24 = 32'h00007034;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_25 = 32'h02007064;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_27 = (decode_INSTRUCTION & 32'h40003054);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_28 = 32'h40001010;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_29 = ((decode_INSTRUCTION & 32'h00007034) == 32'h00001010);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_30 = ((decode_INSTRUCTION & 32'h02007054) == 32'h00001010);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_32 = (decode_INSTRUCTION & 32'h00001000);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_33 = 32'h00001000;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_35 = ((decode_INSTRUCTION & 32'h00003000) == 32'h00002000);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_36 = {_zz_decode_IS_SFENCE_VMA2_7,(_zz__zz_decode_IS_SFENCE_VMA2_37 == _zz__zz_decode_IS_SFENCE_VMA2_38)};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_39 = (|(_zz__zz_decode_IS_SFENCE_VMA2_40 == _zz__zz_decode_IS_SFENCE_VMA2_41));
-  assign _zz__zz_decode_IS_SFENCE_VMA2_42 = (|_zz__zz_decode_IS_SFENCE_VMA2_43);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_44 = {(|_zz__zz_decode_IS_SFENCE_VMA2_45),{_zz__zz_decode_IS_SFENCE_VMA2_56,{_zz__zz_decode_IS_SFENCE_VMA2_58,_zz__zz_decode_IS_SFENCE_VMA2_61}}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_37 = (decode_INSTRUCTION & 32'h00005000);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_38 = 32'h00001000;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_40 = (decode_INSTRUCTION & 32'h00004048);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_41 = 32'h00004008;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_43 = ((decode_INSTRUCTION & 32'h00000064) == 32'h00000024);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_45 = {_zz_decode_IS_SFENCE_VMA2_8,{(_zz__zz_decode_IS_SFENCE_VMA2_46 == _zz__zz_decode_IS_SFENCE_VMA2_47),{_zz__zz_decode_IS_SFENCE_VMA2_48,{_zz__zz_decode_IS_SFENCE_VMA2_50,_zz__zz_decode_IS_SFENCE_VMA2_53}}}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_56 = (|((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_57) == 32'h00000008));
-  assign _zz__zz_decode_IS_SFENCE_VMA2_58 = (|(_zz__zz_decode_IS_SFENCE_VMA2_59 == _zz__zz_decode_IS_SFENCE_VMA2_60));
-  assign _zz__zz_decode_IS_SFENCE_VMA2_61 = {(|{_zz__zz_decode_IS_SFENCE_VMA2_62,_zz__zz_decode_IS_SFENCE_VMA2_65}),{(|_zz__zz_decode_IS_SFENCE_VMA2_76),{_zz__zz_decode_IS_SFENCE_VMA2_85,{_zz__zz_decode_IS_SFENCE_VMA2_98,_zz__zz_decode_IS_SFENCE_VMA2_112}}}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_46 = (decode_INSTRUCTION & 32'h00000034);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_47 = 32'h00000020;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_48 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_49) == 32'h00000020);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_50 = (_zz__zz_decode_IS_SFENCE_VMA2_51 == _zz__zz_decode_IS_SFENCE_VMA2_52);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_53 = (_zz__zz_decode_IS_SFENCE_VMA2_54 == _zz__zz_decode_IS_SFENCE_VMA2_55);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_57 = 32'h10000008;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_59 = (decode_INSTRUCTION & 32'h10000008);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_60 = 32'h10000008;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_62 = (_zz__zz_decode_IS_SFENCE_VMA2_63 == _zz__zz_decode_IS_SFENCE_VMA2_64);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_65 = {_zz__zz_decode_IS_SFENCE_VMA2_66,{_zz__zz_decode_IS_SFENCE_VMA2_68,_zz__zz_decode_IS_SFENCE_VMA2_71}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_76 = {_zz__zz_decode_IS_SFENCE_VMA2_77,{_zz__zz_decode_IS_SFENCE_VMA2_79,_zz__zz_decode_IS_SFENCE_VMA2_82}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_85 = (|{_zz__zz_decode_IS_SFENCE_VMA2_86,_zz__zz_decode_IS_SFENCE_VMA2_89});
-  assign _zz__zz_decode_IS_SFENCE_VMA2_98 = (|_zz__zz_decode_IS_SFENCE_VMA2_99);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_112 = {_zz__zz_decode_IS_SFENCE_VMA2_113,{_zz__zz_decode_IS_SFENCE_VMA2_129,_zz__zz_decode_IS_SFENCE_VMA2_133}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_49 = 32'h00000064;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_51 = (decode_INSTRUCTION & 32'h08000070);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_52 = 32'h08000020;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_54 = (decode_INSTRUCTION & 32'h10000070);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_55 = 32'h00000020;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_63 = (decode_INSTRUCTION & 32'h00002040);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_64 = 32'h00002040;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_66 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_67) == 32'h00001040);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_68 = (_zz__zz_decode_IS_SFENCE_VMA2_69 == _zz__zz_decode_IS_SFENCE_VMA2_70);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_71 = {_zz_decode_IS_SFENCE_VMA2_7,{_zz__zz_decode_IS_SFENCE_VMA2_72,_zz__zz_decode_IS_SFENCE_VMA2_73}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_77 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_78) == 32'h08000020);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_79 = (_zz__zz_decode_IS_SFENCE_VMA2_80 == _zz__zz_decode_IS_SFENCE_VMA2_81);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_82 = (_zz__zz_decode_IS_SFENCE_VMA2_83 == _zz__zz_decode_IS_SFENCE_VMA2_84);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_86 = (_zz__zz_decode_IS_SFENCE_VMA2_87 == _zz__zz_decode_IS_SFENCE_VMA2_88);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_89 = {_zz__zz_decode_IS_SFENCE_VMA2_90,{_zz__zz_decode_IS_SFENCE_VMA2_92,_zz__zz_decode_IS_SFENCE_VMA2_95}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_99 = {_zz_decode_IS_SFENCE_VMA2_6,{_zz__zz_decode_IS_SFENCE_VMA2_100,_zz__zz_decode_IS_SFENCE_VMA2_103}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_113 = (|{_zz__zz_decode_IS_SFENCE_VMA2_114,_zz__zz_decode_IS_SFENCE_VMA2_115});
-  assign _zz__zz_decode_IS_SFENCE_VMA2_129 = (|_zz__zz_decode_IS_SFENCE_VMA2_130);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_133 = {_zz__zz_decode_IS_SFENCE_VMA2_134,{_zz__zz_decode_IS_SFENCE_VMA2_139,_zz__zz_decode_IS_SFENCE_VMA2_143}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_67 = 32'h00001040;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_69 = (decode_INSTRUCTION & 32'h00000050);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_70 = 32'h00000040;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_72 = _zz_decode_IS_SFENCE_VMA2_4;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_73 = (_zz__zz_decode_IS_SFENCE_VMA2_74 == _zz__zz_decode_IS_SFENCE_VMA2_75);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_78 = 32'h08000020;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_80 = (decode_INSTRUCTION & 32'h10000020);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_81 = 32'h00000020;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_83 = (decode_INSTRUCTION & 32'h00000028);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_84 = 32'h00000020;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_87 = (decode_INSTRUCTION & 32'h00000040);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_88 = 32'h00000040;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_90 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_91) == 32'h00004020);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_92 = (_zz__zz_decode_IS_SFENCE_VMA2_93 == _zz__zz_decode_IS_SFENCE_VMA2_94);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_95 = {_zz_decode_IS_SFENCE_VMA2_6,_zz__zz_decode_IS_SFENCE_VMA2_96};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_100 = (_zz__zz_decode_IS_SFENCE_VMA2_101 == _zz__zz_decode_IS_SFENCE_VMA2_102);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_103 = {_zz__zz_decode_IS_SFENCE_VMA2_104,{_zz__zz_decode_IS_SFENCE_VMA2_106,_zz__zz_decode_IS_SFENCE_VMA2_109}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_114 = _zz_decode_IS_SFENCE_VMA2_2;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_115 = {_zz__zz_decode_IS_SFENCE_VMA2_116,{_zz__zz_decode_IS_SFENCE_VMA2_118,_zz__zz_decode_IS_SFENCE_VMA2_121}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_130 = {_zz_decode_IS_SFENCE_VMA2_5,_zz__zz_decode_IS_SFENCE_VMA2_131};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_134 = (|{_zz__zz_decode_IS_SFENCE_VMA2_135,_zz__zz_decode_IS_SFENCE_VMA2_136});
-  assign _zz__zz_decode_IS_SFENCE_VMA2_139 = (|_zz__zz_decode_IS_SFENCE_VMA2_140);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_143 = {_zz__zz_decode_IS_SFENCE_VMA2_144,{_zz__zz_decode_IS_SFENCE_VMA2_147,_zz__zz_decode_IS_SFENCE_VMA2_157}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_74 = (decode_INSTRUCTION & 32'h02400040);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_75 = 32'h00000040;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_91 = 32'h00004020;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_93 = (decode_INSTRUCTION & 32'h00000030);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_94 = 32'h00000010;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_96 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_97) == 32'h00000020);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_101 = (decode_INSTRUCTION & 32'h00002030);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_102 = 32'h00002010;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_104 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_105) == 32'h00000010);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_106 = (_zz__zz_decode_IS_SFENCE_VMA2_107 == _zz__zz_decode_IS_SFENCE_VMA2_108);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_109 = (_zz__zz_decode_IS_SFENCE_VMA2_110 == _zz__zz_decode_IS_SFENCE_VMA2_111);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_116 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_117) == 32'h00001010);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_118 = (_zz__zz_decode_IS_SFENCE_VMA2_119 == _zz__zz_decode_IS_SFENCE_VMA2_120);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_121 = {_zz__zz_decode_IS_SFENCE_VMA2_122,{_zz__zz_decode_IS_SFENCE_VMA2_124,_zz__zz_decode_IS_SFENCE_VMA2_127}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_131 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_132) == 32'h00000020);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_135 = _zz_decode_IS_SFENCE_VMA2_5;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_136 = (_zz__zz_decode_IS_SFENCE_VMA2_137 == _zz__zz_decode_IS_SFENCE_VMA2_138);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_140 = (_zz__zz_decode_IS_SFENCE_VMA2_141 == _zz__zz_decode_IS_SFENCE_VMA2_142);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_144 = (|_zz__zz_decode_IS_SFENCE_VMA2_145);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_147 = (|_zz__zz_decode_IS_SFENCE_VMA2_148);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_157 = {_zz__zz_decode_IS_SFENCE_VMA2_158,{_zz__zz_decode_IS_SFENCE_VMA2_162,_zz__zz_decode_IS_SFENCE_VMA2_168}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_97 = 32'h02000028;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_105 = 32'h00001030;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_107 = (decode_INSTRUCTION & 32'h02003020);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_108 = 32'h00000020;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_110 = (decode_INSTRUCTION & 32'h02002068);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_111 = 32'h00002020;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_117 = 32'h00001010;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_119 = (decode_INSTRUCTION & 32'h00002010);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_120 = 32'h00002010;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_122 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_123) == 32'h00002008);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_124 = (_zz__zz_decode_IS_SFENCE_VMA2_125 == _zz__zz_decode_IS_SFENCE_VMA2_126);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_127 = {_zz_decode_IS_SFENCE_VMA2_6,_zz__zz_decode_IS_SFENCE_VMA2_128};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_132 = 32'h00000070;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_137 = (decode_INSTRUCTION & 32'h00000020);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_138 = 32'h0;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_141 = (decode_INSTRUCTION & 32'h00004014);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_142 = 32'h00004010;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_145 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_146) == 32'h00002010);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_148 = {_zz__zz_decode_IS_SFENCE_VMA2_149,{_zz__zz_decode_IS_SFENCE_VMA2_150,_zz__zz_decode_IS_SFENCE_VMA2_151}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_158 = (|{_zz__zz_decode_IS_SFENCE_VMA2_159,_zz__zz_decode_IS_SFENCE_VMA2_160});
-  assign _zz__zz_decode_IS_SFENCE_VMA2_162 = (|_zz__zz_decode_IS_SFENCE_VMA2_163);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_168 = {_zz__zz_decode_IS_SFENCE_VMA2_169,{_zz__zz_decode_IS_SFENCE_VMA2_172,_zz__zz_decode_IS_SFENCE_VMA2_175}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_123 = 32'h00002008;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_125 = (decode_INSTRUCTION & 32'h00000050);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_126 = 32'h00000010;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_128 = ((decode_INSTRUCTION & 32'h00000024) == 32'h0);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_146 = 32'h00006014;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_149 = ((decode_INSTRUCTION & 32'h00000044) == 32'h0);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_150 = _zz_decode_IS_SFENCE_VMA2_4;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_151 = {(_zz__zz_decode_IS_SFENCE_VMA2_152 == _zz__zz_decode_IS_SFENCE_VMA2_153),{_zz__zz_decode_IS_SFENCE_VMA2_154,{_zz__zz_decode_IS_SFENCE_VMA2_155,_zz__zz_decode_IS_SFENCE_VMA2_156}}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_159 = _zz_decode_IS_SFENCE_VMA2_3;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_160 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_161) == 32'h0);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_163 = {(_zz__zz_decode_IS_SFENCE_VMA2_164 == _zz__zz_decode_IS_SFENCE_VMA2_165),{_zz__zz_decode_IS_SFENCE_VMA2_166,_zz__zz_decode_IS_SFENCE_VMA2_167}};
-  assign _zz__zz_decode_IS_SFENCE_VMA2_169 = (|{_zz_decode_IS_SFENCE_VMA2_2,{_zz__zz_decode_IS_SFENCE_VMA2_170,_zz__zz_decode_IS_SFENCE_VMA2_171}});
-  assign _zz__zz_decode_IS_SFENCE_VMA2_172 = (|{_zz__zz_decode_IS_SFENCE_VMA2_173,_zz__zz_decode_IS_SFENCE_VMA2_174});
-  assign _zz__zz_decode_IS_SFENCE_VMA2_175 = (|_zz__zz_decode_IS_SFENCE_VMA2_176);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_152 = (decode_INSTRUCTION & 32'h00006004);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_153 = 32'h00002000;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_154 = ((decode_INSTRUCTION & 32'h00005004) == 32'h00001000);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_155 = ((decode_INSTRUCTION & 32'h00004050) == 32'h00004000);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_156 = _zz_decode_IS_SFENCE_VMA2_3;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_161 = 32'h00000058;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_164 = (decode_INSTRUCTION & 32'h00000044);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_165 = 32'h00000040;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_166 = ((decode_INSTRUCTION & 32'h00002014) == 32'h00002010);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_167 = ((decode_INSTRUCTION & 32'h40000034) == 32'h40000030);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_170 = _zz_decode_IS_SFENCE_VMA2_1;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_171 = ((decode_INSTRUCTION & 32'h00002014) == 32'h00000004);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_173 = _zz_decode_IS_SFENCE_VMA2_1;
-  assign _zz__zz_decode_IS_SFENCE_VMA2_174 = ((decode_INSTRUCTION & 32'h0000004c) == 32'h00000004);
-  assign _zz__zz_decode_IS_SFENCE_VMA2_176 = ((decode_INSTRUCTION & 32'h00005048) == 32'h00001008);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_23 = ((decode_INSTRUCTION & 32'h02007054) == 32'h00005010);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_24 = (|{(_zz__zz_decode_IS_SFENCE_VMA2_25 == _zz__zz_decode_IS_SFENCE_VMA2_26),(_zz__zz_decode_IS_SFENCE_VMA2_27 == _zz__zz_decode_IS_SFENCE_VMA2_28)});
+  assign _zz__zz_decode_IS_SFENCE_VMA2_29 = (|(_zz__zz_decode_IS_SFENCE_VMA2_30 == _zz__zz_decode_IS_SFENCE_VMA2_31));
+  assign _zz__zz_decode_IS_SFENCE_VMA2_32 = {(|_zz__zz_decode_IS_SFENCE_VMA2_33),{(|_zz__zz_decode_IS_SFENCE_VMA2_34),{_zz__zz_decode_IS_SFENCE_VMA2_36,{_zz__zz_decode_IS_SFENCE_VMA2_38,_zz__zz_decode_IS_SFENCE_VMA2_41}}}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_25 = (decode_INSTRUCTION & 32'h40003054);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_26 = 32'h40001010;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_27 = (decode_INSTRUCTION & 32'h02007054);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_28 = 32'h00001010;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_30 = (decode_INSTRUCTION & 32'h00001000);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_31 = 32'h00001000;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_33 = ((decode_INSTRUCTION & 32'h00003000) == 32'h00002000);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_34 = {_zz_decode_IS_SFENCE_VMA2_7,((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_35) == 32'h00001000)};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_36 = (|((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_37) == 32'h00004008));
+  assign _zz__zz_decode_IS_SFENCE_VMA2_38 = (|(_zz__zz_decode_IS_SFENCE_VMA2_39 == _zz__zz_decode_IS_SFENCE_VMA2_40));
+  assign _zz__zz_decode_IS_SFENCE_VMA2_41 = {(|{_zz__zz_decode_IS_SFENCE_VMA2_42,_zz__zz_decode_IS_SFENCE_VMA2_43}),{(|_zz__zz_decode_IS_SFENCE_VMA2_54),{_zz__zz_decode_IS_SFENCE_VMA2_56,{_zz__zz_decode_IS_SFENCE_VMA2_59,_zz__zz_decode_IS_SFENCE_VMA2_74}}}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_35 = 32'h00005000;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_37 = 32'h00004048;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_39 = (decode_INSTRUCTION & 32'h00000064);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_40 = 32'h00000024;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_42 = _zz_decode_IS_SFENCE_VMA2_8;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_43 = {(_zz__zz_decode_IS_SFENCE_VMA2_44 == _zz__zz_decode_IS_SFENCE_VMA2_45),{_zz__zz_decode_IS_SFENCE_VMA2_46,{_zz__zz_decode_IS_SFENCE_VMA2_48,_zz__zz_decode_IS_SFENCE_VMA2_51}}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_54 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_55) == 32'h00000008);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_56 = (|(_zz__zz_decode_IS_SFENCE_VMA2_57 == _zz__zz_decode_IS_SFENCE_VMA2_58));
+  assign _zz__zz_decode_IS_SFENCE_VMA2_59 = (|{_zz__zz_decode_IS_SFENCE_VMA2_60,_zz__zz_decode_IS_SFENCE_VMA2_63});
+  assign _zz__zz_decode_IS_SFENCE_VMA2_74 = {(|_zz__zz_decode_IS_SFENCE_VMA2_75),{_zz__zz_decode_IS_SFENCE_VMA2_84,{_zz__zz_decode_IS_SFENCE_VMA2_97,_zz__zz_decode_IS_SFENCE_VMA2_111}}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_44 = (decode_INSTRUCTION & 32'h00000034);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_45 = 32'h00000020;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_46 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_47) == 32'h00000020);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_48 = (_zz__zz_decode_IS_SFENCE_VMA2_49 == _zz__zz_decode_IS_SFENCE_VMA2_50);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_51 = (_zz__zz_decode_IS_SFENCE_VMA2_52 == _zz__zz_decode_IS_SFENCE_VMA2_53);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_55 = 32'h10000008;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_57 = (decode_INSTRUCTION & 32'h10000008);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_58 = 32'h10000008;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_60 = (_zz__zz_decode_IS_SFENCE_VMA2_61 == _zz__zz_decode_IS_SFENCE_VMA2_62);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_63 = {_zz__zz_decode_IS_SFENCE_VMA2_64,{_zz__zz_decode_IS_SFENCE_VMA2_66,_zz__zz_decode_IS_SFENCE_VMA2_69}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_75 = {_zz__zz_decode_IS_SFENCE_VMA2_76,{_zz__zz_decode_IS_SFENCE_VMA2_78,_zz__zz_decode_IS_SFENCE_VMA2_81}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_84 = (|{_zz__zz_decode_IS_SFENCE_VMA2_85,_zz__zz_decode_IS_SFENCE_VMA2_88});
+  assign _zz__zz_decode_IS_SFENCE_VMA2_97 = (|_zz__zz_decode_IS_SFENCE_VMA2_98);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_111 = {_zz__zz_decode_IS_SFENCE_VMA2_112,{_zz__zz_decode_IS_SFENCE_VMA2_128,_zz__zz_decode_IS_SFENCE_VMA2_132}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_47 = 32'h00000064;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_49 = (decode_INSTRUCTION & 32'h08000070);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_50 = 32'h08000020;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_52 = (decode_INSTRUCTION & 32'h10000070);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_53 = 32'h00000020;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_61 = (decode_INSTRUCTION & 32'h00002040);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_62 = 32'h00002040;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_64 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_65) == 32'h00001040);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_66 = (_zz__zz_decode_IS_SFENCE_VMA2_67 == _zz__zz_decode_IS_SFENCE_VMA2_68);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_69 = {_zz_decode_IS_SFENCE_VMA2_7,{_zz__zz_decode_IS_SFENCE_VMA2_70,_zz__zz_decode_IS_SFENCE_VMA2_71}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_76 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_77) == 32'h08000020);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_78 = (_zz__zz_decode_IS_SFENCE_VMA2_79 == _zz__zz_decode_IS_SFENCE_VMA2_80);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_81 = (_zz__zz_decode_IS_SFENCE_VMA2_82 == _zz__zz_decode_IS_SFENCE_VMA2_83);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_85 = (_zz__zz_decode_IS_SFENCE_VMA2_86 == _zz__zz_decode_IS_SFENCE_VMA2_87);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_88 = {_zz__zz_decode_IS_SFENCE_VMA2_89,{_zz__zz_decode_IS_SFENCE_VMA2_91,_zz__zz_decode_IS_SFENCE_VMA2_94}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_98 = {_zz_decode_IS_SFENCE_VMA2_6,{_zz__zz_decode_IS_SFENCE_VMA2_99,_zz__zz_decode_IS_SFENCE_VMA2_102}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_112 = (|{_zz__zz_decode_IS_SFENCE_VMA2_113,_zz__zz_decode_IS_SFENCE_VMA2_114});
+  assign _zz__zz_decode_IS_SFENCE_VMA2_128 = (|_zz__zz_decode_IS_SFENCE_VMA2_129);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_132 = {_zz__zz_decode_IS_SFENCE_VMA2_133,{_zz__zz_decode_IS_SFENCE_VMA2_138,_zz__zz_decode_IS_SFENCE_VMA2_142}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_65 = 32'h00001040;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_67 = (decode_INSTRUCTION & 32'h00000050);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_68 = 32'h00000040;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_70 = _zz_decode_IS_SFENCE_VMA2_4;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_71 = (_zz__zz_decode_IS_SFENCE_VMA2_72 == _zz__zz_decode_IS_SFENCE_VMA2_73);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_77 = 32'h08000020;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_79 = (decode_INSTRUCTION & 32'h10000020);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_80 = 32'h00000020;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_82 = (decode_INSTRUCTION & 32'h00000028);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_83 = 32'h00000020;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_86 = (decode_INSTRUCTION & 32'h00000040);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_87 = 32'h00000040;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_89 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_90) == 32'h00004020);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_91 = (_zz__zz_decode_IS_SFENCE_VMA2_92 == _zz__zz_decode_IS_SFENCE_VMA2_93);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_94 = {_zz__zz_decode_IS_SFENCE_VMA2_95,_zz_decode_IS_SFENCE_VMA2_6};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_99 = (_zz__zz_decode_IS_SFENCE_VMA2_100 == _zz__zz_decode_IS_SFENCE_VMA2_101);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_102 = {_zz__zz_decode_IS_SFENCE_VMA2_103,{_zz__zz_decode_IS_SFENCE_VMA2_105,_zz__zz_decode_IS_SFENCE_VMA2_108}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_113 = _zz_decode_IS_SFENCE_VMA2_2;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_114 = {_zz__zz_decode_IS_SFENCE_VMA2_115,{_zz__zz_decode_IS_SFENCE_VMA2_117,_zz__zz_decode_IS_SFENCE_VMA2_120}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_129 = {_zz_decode_IS_SFENCE_VMA2_5,_zz__zz_decode_IS_SFENCE_VMA2_130};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_133 = (|{_zz__zz_decode_IS_SFENCE_VMA2_134,_zz__zz_decode_IS_SFENCE_VMA2_135});
+  assign _zz__zz_decode_IS_SFENCE_VMA2_138 = (|_zz__zz_decode_IS_SFENCE_VMA2_139);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_142 = {_zz__zz_decode_IS_SFENCE_VMA2_143,{_zz__zz_decode_IS_SFENCE_VMA2_146,_zz__zz_decode_IS_SFENCE_VMA2_156}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_72 = (decode_INSTRUCTION & 32'h02400040);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_73 = 32'h00000040;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_90 = 32'h00004020;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_92 = (decode_INSTRUCTION & 32'h00000030);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_93 = 32'h00000010;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_95 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_96) == 32'h00000010);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_100 = (decode_INSTRUCTION & 32'h00002030);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_101 = 32'h00002010;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_103 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_104) == 32'h00000010);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_105 = (_zz__zz_decode_IS_SFENCE_VMA2_106 == _zz__zz_decode_IS_SFENCE_VMA2_107);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_108 = (_zz__zz_decode_IS_SFENCE_VMA2_109 == _zz__zz_decode_IS_SFENCE_VMA2_110);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_115 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_116) == 32'h00001010);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_117 = (_zz__zz_decode_IS_SFENCE_VMA2_118 == _zz__zz_decode_IS_SFENCE_VMA2_119);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_120 = {_zz__zz_decode_IS_SFENCE_VMA2_121,{_zz__zz_decode_IS_SFENCE_VMA2_123,_zz__zz_decode_IS_SFENCE_VMA2_126}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_130 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_131) == 32'h00000020);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_134 = _zz_decode_IS_SFENCE_VMA2_5;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_135 = (_zz__zz_decode_IS_SFENCE_VMA2_136 == _zz__zz_decode_IS_SFENCE_VMA2_137);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_139 = (_zz__zz_decode_IS_SFENCE_VMA2_140 == _zz__zz_decode_IS_SFENCE_VMA2_141);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_143 = (|_zz__zz_decode_IS_SFENCE_VMA2_144);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_146 = (|_zz__zz_decode_IS_SFENCE_VMA2_147);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_156 = {_zz__zz_decode_IS_SFENCE_VMA2_157,{_zz__zz_decode_IS_SFENCE_VMA2_161,_zz__zz_decode_IS_SFENCE_VMA2_167}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_96 = 32'h02000010;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_104 = 32'h00001030;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_106 = (decode_INSTRUCTION & 32'h02003020);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_107 = 32'h00000020;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_109 = (decode_INSTRUCTION & 32'h02002068);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_110 = 32'h00002020;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_116 = 32'h00001010;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_118 = (decode_INSTRUCTION & 32'h00002010);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_119 = 32'h00002010;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_121 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_122) == 32'h00002008);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_123 = (_zz__zz_decode_IS_SFENCE_VMA2_124 == _zz__zz_decode_IS_SFENCE_VMA2_125);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_126 = {_zz_decode_IS_SFENCE_VMA2_6,_zz__zz_decode_IS_SFENCE_VMA2_127};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_131 = 32'h00000070;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_136 = (decode_INSTRUCTION & 32'h00000020);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_137 = 32'h0;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_140 = (decode_INSTRUCTION & 32'h00004014);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_141 = 32'h00004010;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_144 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_145) == 32'h00002010);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_147 = {_zz__zz_decode_IS_SFENCE_VMA2_148,{_zz__zz_decode_IS_SFENCE_VMA2_149,_zz__zz_decode_IS_SFENCE_VMA2_150}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_157 = (|{_zz__zz_decode_IS_SFENCE_VMA2_158,_zz__zz_decode_IS_SFENCE_VMA2_159});
+  assign _zz__zz_decode_IS_SFENCE_VMA2_161 = (|_zz__zz_decode_IS_SFENCE_VMA2_162);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_167 = {_zz__zz_decode_IS_SFENCE_VMA2_168,{_zz__zz_decode_IS_SFENCE_VMA2_171,_zz__zz_decode_IS_SFENCE_VMA2_174}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_122 = 32'h00002008;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_124 = (decode_INSTRUCTION & 32'h00000050);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_125 = 32'h00000010;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_127 = ((decode_INSTRUCTION & 32'h00000024) == 32'h0);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_145 = 32'h00006014;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_148 = ((decode_INSTRUCTION & 32'h00000044) == 32'h0);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_149 = _zz_decode_IS_SFENCE_VMA2_4;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_150 = {(_zz__zz_decode_IS_SFENCE_VMA2_151 == _zz__zz_decode_IS_SFENCE_VMA2_152),{_zz__zz_decode_IS_SFENCE_VMA2_153,{_zz__zz_decode_IS_SFENCE_VMA2_154,_zz__zz_decode_IS_SFENCE_VMA2_155}}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_158 = _zz_decode_IS_SFENCE_VMA2_3;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_159 = ((decode_INSTRUCTION & _zz__zz_decode_IS_SFENCE_VMA2_160) == 32'h0);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_162 = {(_zz__zz_decode_IS_SFENCE_VMA2_163 == _zz__zz_decode_IS_SFENCE_VMA2_164),{_zz__zz_decode_IS_SFENCE_VMA2_165,_zz__zz_decode_IS_SFENCE_VMA2_166}};
+  assign _zz__zz_decode_IS_SFENCE_VMA2_168 = (|{_zz_decode_IS_SFENCE_VMA2_2,{_zz__zz_decode_IS_SFENCE_VMA2_169,_zz__zz_decode_IS_SFENCE_VMA2_170}});
+  assign _zz__zz_decode_IS_SFENCE_VMA2_171 = (|{_zz__zz_decode_IS_SFENCE_VMA2_172,_zz__zz_decode_IS_SFENCE_VMA2_173});
+  assign _zz__zz_decode_IS_SFENCE_VMA2_174 = (|_zz__zz_decode_IS_SFENCE_VMA2_175);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_151 = (decode_INSTRUCTION & 32'h00006004);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_152 = 32'h00002000;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_153 = ((decode_INSTRUCTION & 32'h00005004) == 32'h00001000);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_154 = ((decode_INSTRUCTION & 32'h00004050) == 32'h00004000);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_155 = _zz_decode_IS_SFENCE_VMA2_3;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_160 = 32'h00000058;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_163 = (decode_INSTRUCTION & 32'h00000044);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_164 = 32'h00000040;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_165 = ((decode_INSTRUCTION & 32'h00002014) == 32'h00002010);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_166 = ((decode_INSTRUCTION & 32'h40000034) == 32'h40000030);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_169 = _zz_decode_IS_SFENCE_VMA2_1;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_170 = ((decode_INSTRUCTION & 32'h00002014) == 32'h00000004);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_172 = _zz_decode_IS_SFENCE_VMA2_1;
+  assign _zz__zz_decode_IS_SFENCE_VMA2_173 = ((decode_INSTRUCTION & 32'h0000004c) == 32'h00000004);
+  assign _zz__zz_decode_IS_SFENCE_VMA2_175 = ((decode_INSTRUCTION & 32'h00005048) == 32'h00001008);
   assign _zz_execute_BranchPlugin_branch_src2_6 = execute_INSTRUCTION[31];
   assign _zz_execute_BranchPlugin_branch_src2_7 = execute_INSTRUCTION[31];
   assign _zz_execute_BranchPlugin_branch_src2_8 = execute_INSTRUCTION[7];
@@ -2606,7 +2609,7 @@ module VexRiscvAxi4 (
   assign _zz_MmuPlugin_ports_1_cacheHitsCalc_17 = DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12];
   assign _zz_MmuPlugin_ports_1_cacheHitsCalc_19 = DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[31 : 22];
   assign _zz_MmuPlugin_ports_1_cacheHitsCalc_20 = DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12];
-  assign _zz_CsrPlugin_csrMapping_readDataInit_28 = 32'h0;
+  assign _zz_CsrPlugin_csrMapping_readDataInit_26 = 32'h0;
   assign _zz_RegFilePlugin_regFile_port0 = RegFilePlugin_regFile[decode_RegFilePlugin_regFileReadAddress1];
   assign _zz_RegFilePlugin_regFile_port1 = RegFilePlugin_regFile[decode_RegFilePlugin_regFileReadAddress2];
   always @(posedge clk) begin
@@ -2616,7 +2619,7 @@ module VexRiscvAxi4 (
   end
 
   initial begin
-    $readmemb("VexRiscv_CranSoC.v_toplevel_memory_AesPlugin_rom_storage.bin",memory_AesPlugin_rom_storage);
+    $readmemb("VexRiscv_CramSoC.v_toplevel_memory_AesPlugin_rom_storage.bin",memory_AesPlugin_rom_storage);
   end
   always @(posedge clk) begin
     if(_zz_memory_AesPlugin_rom_data) begin
@@ -3837,360 +3840,360 @@ module VexRiscvAxi4 (
   end
   `endif
 
-  assign memory_CALC = memory_AesPlugin_xored;
-  assign memory_MUL_LOW = ($signed(_zz_memory_MUL_LOW) + $signed(_zz_memory_MUL_LOW_7));
-  assign execute_BRANCH_CALC = {execute_BranchPlugin_branchAdder[31 : 1],1'b0};
-  assign execute_BRANCH_DO = ((execute_PREDICTION_HAD_BRANCHED2 != execute_BRANCH_COND_RESULT) || execute_BranchPlugin_missAlignedTarget);
-  assign execute_PIPELINED_CSR_READ = CsrPlugin_csrMapping_readDataSignal;
-  assign memory_MUL_HH = execute_to_memory_MUL_HH;
-  assign execute_MUL_HH = ($signed(execute_MulPlugin_aHigh) * $signed(execute_MulPlugin_bHigh));
-  assign execute_MUL_HL = ($signed(execute_MulPlugin_aHigh) * $signed(execute_MulPlugin_bSLow));
-  assign execute_MUL_LH = ($signed(execute_MulPlugin_aSLow) * $signed(execute_MulPlugin_bHigh));
-  assign execute_MUL_LL = (execute_MulPlugin_aULow * execute_MulPlugin_bULow);
-  assign execute_SHIFT_RIGHT = _zz_execute_SHIFT_RIGHT;
-  assign execute_REGFILE_WRITE_DATA = _zz_execute_REGFILE_WRITE_DATA;
-  assign execute_IS_DBUS_SHARING = MmuPlugin_dBusAccess_cmd_fire;
-  assign memory_MEMORY_STORE_DATA_RF = execute_to_memory_MEMORY_STORE_DATA_RF;
-  assign execute_MEMORY_STORE_DATA_RF = _zz_execute_MEMORY_STORE_DATA_RF;
-  assign decode_DO_EBREAK = (((! DebugPlugin_haltIt) && (decode_IS_EBREAK || ((((1'b0 || (DebugPlugin_hardwareBreakpoints_0_valid && (DebugPlugin_hardwareBreakpoints_0_pc == _zz_decode_DO_EBREAK))) || (DebugPlugin_hardwareBreakpoints_1_valid && (DebugPlugin_hardwareBreakpoints_1_pc == _zz_decode_DO_EBREAK_1))) || (DebugPlugin_hardwareBreakpoints_2_valid && (DebugPlugin_hardwareBreakpoints_2_pc == _zz_decode_DO_EBREAK_2))) || (DebugPlugin_hardwareBreakpoints_3_valid && (DebugPlugin_hardwareBreakpoints_3_pc == _zz_decode_DO_EBREAK_3))))) && DebugPlugin_allowEBreak);
-  assign decode_PREDICTION_HAD_BRANCHED2 = IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-  assign decode_CSR_READ_OPCODE = (decode_INSTRUCTION[13 : 7] != 7'h20);
-  assign decode_CSR_WRITE_OPCODE = (! (((decode_INSTRUCTION[14 : 13] == 2'b01) && (decode_INSTRUCTION[19 : 15] == 5'h0)) || ((decode_INSTRUCTION[14 : 13] == 2'b11) && (decode_INSTRUCTION[19 : 15] == 5'h0))));
-  assign decode_SRC2_FORCE_ZERO = (decode_SRC_ADD_ZERO && (! decode_SRC_USE_SUB_LESS));
-  assign _zz_decode_to_execute_BRANCH_CTRL = _zz_decode_to_execute_BRANCH_CTRL_1;
-  assign decode_IS_SFENCE_VMA2 = _zz_decode_IS_SFENCE_VMA2[36];
-  assign decode_IS_SFENCE_VMA = _zz_decode_IS_SFENCE_VMA2[35];
-  assign _zz_memory_to_writeBack_ENV_CTRL = _zz_memory_to_writeBack_ENV_CTRL_1;
-  assign _zz_execute_to_memory_ENV_CTRL = _zz_execute_to_memory_ENV_CTRL_1;
-  assign decode_ENV_CTRL = _zz_decode_ENV_CTRL;
-  assign _zz_decode_to_execute_ENV_CTRL = _zz_decode_to_execute_ENV_CTRL_1;
-  assign decode_IS_CSR = _zz_decode_IS_SFENCE_VMA2[30];
-  assign memory_IS_AES = execute_to_memory_IS_AES;
-  assign execute_IS_AES = decode_to_execute_IS_AES;
-  assign decode_IS_AES = _zz_decode_IS_SFENCE_VMA2[29];
-  assign decode_IS_RS2_SIGNED = _zz_decode_IS_SFENCE_VMA2[28];
-  assign decode_IS_RS1_SIGNED = _zz_decode_IS_SFENCE_VMA2[27];
-  assign decode_IS_DIV = _zz_decode_IS_SFENCE_VMA2[26];
-  assign memory_IS_MUL = execute_to_memory_IS_MUL;
-  assign execute_IS_MUL = decode_to_execute_IS_MUL;
-  assign decode_IS_MUL = _zz_decode_IS_SFENCE_VMA2[25];
-  assign _zz_execute_to_memory_SHIFT_CTRL = _zz_execute_to_memory_SHIFT_CTRL_1;
-  assign decode_SHIFT_CTRL = _zz_decode_SHIFT_CTRL;
-  assign _zz_decode_to_execute_SHIFT_CTRL = _zz_decode_to_execute_SHIFT_CTRL_1;
-  assign decode_ALU_BITWISE_CTRL = _zz_decode_ALU_BITWISE_CTRL;
-  assign _zz_decode_to_execute_ALU_BITWISE_CTRL = _zz_decode_to_execute_ALU_BITWISE_CTRL_1;
-  assign decode_SRC_LESS_UNSIGNED = _zz_decode_IS_SFENCE_VMA2[20];
-  assign decode_MEMORY_MANAGMENT = _zz_decode_IS_SFENCE_VMA2[19];
-  assign memory_MEMORY_LRSC = execute_to_memory_MEMORY_LRSC;
-  assign memory_MEMORY_WR = execute_to_memory_MEMORY_WR;
-  assign decode_MEMORY_WR = _zz_decode_IS_SFENCE_VMA2[13];
-  assign execute_BYPASSABLE_MEMORY_STAGE = decode_to_execute_BYPASSABLE_MEMORY_STAGE;
-  assign decode_BYPASSABLE_MEMORY_STAGE = _zz_decode_IS_SFENCE_VMA2[12];
-  assign decode_BYPASSABLE_EXECUTE_STAGE = _zz_decode_IS_SFENCE_VMA2[11];
-  assign decode_SRC2_CTRL = _zz_decode_SRC2_CTRL;
-  assign _zz_decode_to_execute_SRC2_CTRL = _zz_decode_to_execute_SRC2_CTRL_1;
-  assign decode_ALU_CTRL = _zz_decode_ALU_CTRL;
-  assign _zz_decode_to_execute_ALU_CTRL = _zz_decode_to_execute_ALU_CTRL_1;
-  assign decode_SRC1_CTRL = _zz_decode_SRC1_CTRL;
-  assign _zz_decode_to_execute_SRC1_CTRL = _zz_decode_to_execute_SRC1_CTRL_1;
-  assign decode_MEMORY_FORCE_CONSTISTENCY = _zz_decode_MEMORY_FORCE_CONSTISTENCY;
-  assign writeBack_FORMAL_PC_NEXT = memory_to_writeBack_FORMAL_PC_NEXT;
-  assign memory_FORMAL_PC_NEXT = execute_to_memory_FORMAL_PC_NEXT;
-  assign execute_FORMAL_PC_NEXT = decode_to_execute_FORMAL_PC_NEXT;
-  assign decode_FORMAL_PC_NEXT = (decode_PC + _zz_decode_FORMAL_PC_NEXT);
-  assign memory_PC = execute_to_memory_PC;
-  assign execute_DO_EBREAK = decode_to_execute_DO_EBREAK;
-  assign decode_IS_EBREAK = _zz_decode_IS_SFENCE_VMA2[34];
-  assign execute_IS_SFENCE_VMA2 = decode_to_execute_IS_SFENCE_VMA2;
-  assign memory_BRANCH_CALC = execute_to_memory_BRANCH_CALC;
-  assign memory_BRANCH_DO = execute_to_memory_BRANCH_DO;
-  assign execute_PC = decode_to_execute_PC;
-  assign execute_BRANCH_COND_RESULT = _zz_execute_BRANCH_COND_RESULT_1;
-  assign execute_PREDICTION_HAD_BRANCHED2 = decode_to_execute_PREDICTION_HAD_BRANCHED2;
-  assign execute_BRANCH_CTRL = _zz_execute_BRANCH_CTRL;
-  assign memory_PIPELINED_CSR_READ = execute_to_memory_PIPELINED_CSR_READ;
-  assign memory_IS_CSR = execute_to_memory_IS_CSR;
-  assign execute_CSR_READ_OPCODE = decode_to_execute_CSR_READ_OPCODE;
-  assign execute_CSR_WRITE_OPCODE = decode_to_execute_CSR_WRITE_OPCODE;
-  assign execute_IS_CSR = decode_to_execute_IS_CSR;
-  assign memory_ENV_CTRL = _zz_memory_ENV_CTRL;
-  assign execute_ENV_CTRL = _zz_execute_ENV_CTRL;
-  assign writeBack_ENV_CTRL = _zz_writeBack_ENV_CTRL;
-  assign execute_IS_SFENCE_VMA = decode_to_execute_IS_SFENCE_VMA;
-  assign writeBack_CALC = memory_to_writeBack_CALC;
-  assign writeBack_IS_AES = memory_to_writeBack_IS_AES;
-  assign memory_RS1 = execute_to_memory_RS1;
-  assign execute_IS_RS1_SIGNED = decode_to_execute_IS_RS1_SIGNED;
-  assign execute_IS_DIV = decode_to_execute_IS_DIV;
-  assign execute_IS_RS2_SIGNED = decode_to_execute_IS_RS2_SIGNED;
-  assign memory_IS_DIV = execute_to_memory_IS_DIV;
-  assign writeBack_IS_MUL = memory_to_writeBack_IS_MUL;
-  assign writeBack_MUL_HH = memory_to_writeBack_MUL_HH;
-  assign writeBack_MUL_LOW = memory_to_writeBack_MUL_LOW;
-  assign memory_MUL_HL = execute_to_memory_MUL_HL;
-  assign memory_MUL_LH = execute_to_memory_MUL_LH;
-  assign memory_MUL_LL = execute_to_memory_MUL_LL;
-  assign decode_RS2_USE = _zz_decode_IS_SFENCE_VMA2[17];
-  assign decode_RS1_USE = _zz_decode_IS_SFENCE_VMA2[5];
+  assign memory_CALC = memory_AesPlugin_xored; // @[Stage.scala 30:13]
+  assign memory_MUL_LOW = ($signed(_zz_memory_MUL_LOW) + $signed(_zz_memory_MUL_LOW_7)); // @[Stage.scala 30:13]
+  assign execute_BRANCH_CALC = {execute_BranchPlugin_branchAdder[31 : 1],1'b0}; // @[Stage.scala 30:13]
+  assign execute_BRANCH_DO = ((execute_PREDICTION_HAD_BRANCHED2 != execute_BRANCH_COND_RESULT) || execute_BranchPlugin_missAlignedTarget); // @[Stage.scala 30:13]
+  assign execute_PIPELINED_CSR_READ = CsrPlugin_csrMapping_readDataSignal; // @[Stage.scala 30:13]
+  assign memory_MUL_HH = execute_to_memory_MUL_HH; // @[Stage.scala 30:13]
+  assign execute_MUL_HH = ($signed(execute_MulPlugin_aHigh) * $signed(execute_MulPlugin_bHigh)); // @[Stage.scala 30:13]
+  assign execute_MUL_HL = ($signed(execute_MulPlugin_aHigh) * $signed(execute_MulPlugin_bSLow)); // @[Stage.scala 30:13]
+  assign execute_MUL_LH = ($signed(execute_MulPlugin_aSLow) * $signed(execute_MulPlugin_bHigh)); // @[Stage.scala 30:13]
+  assign execute_MUL_LL = (execute_MulPlugin_aULow * execute_MulPlugin_bULow); // @[Stage.scala 30:13]
+  assign execute_SHIFT_RIGHT = _zz_execute_SHIFT_RIGHT; // @[Stage.scala 30:13]
+  assign execute_REGFILE_WRITE_DATA = _zz_execute_REGFILE_WRITE_DATA; // @[Stage.scala 30:13]
+  assign execute_IS_DBUS_SHARING = MmuPlugin_dBusAccess_cmd_fire; // @[Stage.scala 30:13]
+  assign memory_MEMORY_STORE_DATA_RF = execute_to_memory_MEMORY_STORE_DATA_RF; // @[Stage.scala 30:13]
+  assign execute_MEMORY_STORE_DATA_RF = _zz_execute_MEMORY_STORE_DATA_RF; // @[Stage.scala 30:13]
+  assign decode_DO_EBREAK = (((! DebugPlugin_haltIt) && (decode_IS_EBREAK || ((((1'b0 || (DebugPlugin_hardwareBreakpoints_0_valid && (DebugPlugin_hardwareBreakpoints_0_pc == _zz_decode_DO_EBREAK))) || (DebugPlugin_hardwareBreakpoints_1_valid && (DebugPlugin_hardwareBreakpoints_1_pc == _zz_decode_DO_EBREAK_1))) || (DebugPlugin_hardwareBreakpoints_2_valid && (DebugPlugin_hardwareBreakpoints_2_pc == _zz_decode_DO_EBREAK_2))) || (DebugPlugin_hardwareBreakpoints_3_valid && (DebugPlugin_hardwareBreakpoints_3_pc == _zz_decode_DO_EBREAK_3))))) && DebugPlugin_allowEBreak); // @[Stage.scala 30:13]
+  assign decode_PREDICTION_HAD_BRANCHED2 = IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Stage.scala 30:13]
+  assign decode_CSR_READ_OPCODE = (decode_INSTRUCTION[13 : 7] != 7'h20); // @[Stage.scala 30:13]
+  assign decode_CSR_WRITE_OPCODE = (! (((decode_INSTRUCTION[14 : 13] == 2'b01) && (decode_INSTRUCTION[19 : 15] == 5'h0)) || ((decode_INSTRUCTION[14 : 13] == 2'b11) && (decode_INSTRUCTION[19 : 15] == 5'h0)))); // @[Stage.scala 30:13]
+  assign decode_SRC2_FORCE_ZERO = (decode_SRC_ADD_ZERO && (! decode_SRC_USE_SUB_LESS)); // @[Stage.scala 30:13]
+  assign _zz_decode_to_execute_BRANCH_CTRL = _zz_decode_to_execute_BRANCH_CTRL_1; // @[Stage.scala 39:14]
+  assign decode_IS_SFENCE_VMA2 = _zz_decode_IS_SFENCE_VMA2[36]; // @[Stage.scala 30:13]
+  assign decode_IS_SFENCE_VMA = _zz_decode_IS_SFENCE_VMA2[35]; // @[Stage.scala 30:13]
+  assign _zz_memory_to_writeBack_ENV_CTRL = _zz_memory_to_writeBack_ENV_CTRL_1; // @[Stage.scala 39:14]
+  assign _zz_execute_to_memory_ENV_CTRL = _zz_execute_to_memory_ENV_CTRL_1; // @[Stage.scala 39:14]
+  assign decode_ENV_CTRL = _zz_decode_ENV_CTRL; // @[Stage.scala 30:13]
+  assign _zz_decode_to_execute_ENV_CTRL = _zz_decode_to_execute_ENV_CTRL_1; // @[Stage.scala 39:14]
+  assign decode_IS_CSR = _zz_decode_IS_SFENCE_VMA2[30]; // @[Stage.scala 30:13]
+  assign memory_IS_AES = execute_to_memory_IS_AES; // @[Stage.scala 30:13]
+  assign execute_IS_AES = decode_to_execute_IS_AES; // @[Stage.scala 30:13]
+  assign decode_IS_AES = _zz_decode_IS_SFENCE_VMA2[29]; // @[Stage.scala 30:13]
+  assign decode_IS_RS2_SIGNED = _zz_decode_IS_SFENCE_VMA2[28]; // @[Stage.scala 30:13]
+  assign decode_IS_RS1_SIGNED = _zz_decode_IS_SFENCE_VMA2[27]; // @[Stage.scala 30:13]
+  assign decode_IS_DIV = _zz_decode_IS_SFENCE_VMA2[26]; // @[Stage.scala 30:13]
+  assign memory_IS_MUL = execute_to_memory_IS_MUL; // @[Stage.scala 30:13]
+  assign execute_IS_MUL = decode_to_execute_IS_MUL; // @[Stage.scala 30:13]
+  assign decode_IS_MUL = _zz_decode_IS_SFENCE_VMA2[25]; // @[Stage.scala 30:13]
+  assign _zz_execute_to_memory_SHIFT_CTRL = _zz_execute_to_memory_SHIFT_CTRL_1; // @[Stage.scala 39:14]
+  assign decode_SHIFT_CTRL = _zz_decode_SHIFT_CTRL; // @[Stage.scala 30:13]
+  assign _zz_decode_to_execute_SHIFT_CTRL = _zz_decode_to_execute_SHIFT_CTRL_1; // @[Stage.scala 39:14]
+  assign decode_ALU_BITWISE_CTRL = _zz_decode_ALU_BITWISE_CTRL; // @[Stage.scala 30:13]
+  assign _zz_decode_to_execute_ALU_BITWISE_CTRL = _zz_decode_to_execute_ALU_BITWISE_CTRL_1; // @[Stage.scala 39:14]
+  assign decode_SRC_LESS_UNSIGNED = _zz_decode_IS_SFENCE_VMA2[20]; // @[Stage.scala 30:13]
+  assign decode_MEMORY_MANAGMENT = _zz_decode_IS_SFENCE_VMA2[19]; // @[Stage.scala 30:13]
+  assign memory_MEMORY_LRSC = execute_to_memory_MEMORY_LRSC; // @[Stage.scala 30:13]
+  assign memory_MEMORY_WR = execute_to_memory_MEMORY_WR; // @[Stage.scala 30:13]
+  assign decode_MEMORY_WR = _zz_decode_IS_SFENCE_VMA2[13]; // @[Stage.scala 30:13]
+  assign execute_BYPASSABLE_MEMORY_STAGE = decode_to_execute_BYPASSABLE_MEMORY_STAGE; // @[Stage.scala 30:13]
+  assign decode_BYPASSABLE_MEMORY_STAGE = _zz_decode_IS_SFENCE_VMA2[12]; // @[Stage.scala 30:13]
+  assign decode_BYPASSABLE_EXECUTE_STAGE = _zz_decode_IS_SFENCE_VMA2[11]; // @[Stage.scala 30:13]
+  assign decode_SRC2_CTRL = _zz_decode_SRC2_CTRL; // @[Stage.scala 30:13]
+  assign _zz_decode_to_execute_SRC2_CTRL = _zz_decode_to_execute_SRC2_CTRL_1; // @[Stage.scala 39:14]
+  assign decode_ALU_CTRL = _zz_decode_ALU_CTRL; // @[Stage.scala 30:13]
+  assign _zz_decode_to_execute_ALU_CTRL = _zz_decode_to_execute_ALU_CTRL_1; // @[Stage.scala 39:14]
+  assign decode_SRC1_CTRL = _zz_decode_SRC1_CTRL; // @[Stage.scala 30:13]
+  assign _zz_decode_to_execute_SRC1_CTRL = _zz_decode_to_execute_SRC1_CTRL_1; // @[Stage.scala 39:14]
+  assign decode_MEMORY_FORCE_CONSTISTENCY = _zz_decode_MEMORY_FORCE_CONSTISTENCY; // @[Stage.scala 30:13]
+  assign writeBack_FORMAL_PC_NEXT = memory_to_writeBack_FORMAL_PC_NEXT; // @[Stage.scala 30:13]
+  assign memory_FORMAL_PC_NEXT = execute_to_memory_FORMAL_PC_NEXT; // @[Stage.scala 30:13]
+  assign execute_FORMAL_PC_NEXT = decode_to_execute_FORMAL_PC_NEXT; // @[Stage.scala 30:13]
+  assign decode_FORMAL_PC_NEXT = (decode_PC + _zz_decode_FORMAL_PC_NEXT); // @[Stage.scala 30:13]
+  assign memory_PC = execute_to_memory_PC; // @[Stage.scala 30:13]
+  assign execute_DO_EBREAK = decode_to_execute_DO_EBREAK; // @[Stage.scala 30:13]
+  assign decode_IS_EBREAK = _zz_decode_IS_SFENCE_VMA2[34]; // @[Stage.scala 30:13]
+  assign execute_IS_SFENCE_VMA2 = decode_to_execute_IS_SFENCE_VMA2; // @[Stage.scala 30:13]
+  assign memory_BRANCH_CALC = execute_to_memory_BRANCH_CALC; // @[Stage.scala 30:13]
+  assign memory_BRANCH_DO = execute_to_memory_BRANCH_DO; // @[Stage.scala 30:13]
+  assign execute_PC = decode_to_execute_PC; // @[Stage.scala 30:13]
+  assign execute_BRANCH_COND_RESULT = _zz_execute_BRANCH_COND_RESULT_1; // @[Stage.scala 30:13]
+  assign execute_PREDICTION_HAD_BRANCHED2 = decode_to_execute_PREDICTION_HAD_BRANCHED2; // @[Stage.scala 30:13]
+  assign execute_BRANCH_CTRL = _zz_execute_BRANCH_CTRL; // @[Stage.scala 30:13]
+  assign memory_PIPELINED_CSR_READ = execute_to_memory_PIPELINED_CSR_READ; // @[Stage.scala 30:13]
+  assign memory_IS_CSR = execute_to_memory_IS_CSR; // @[Stage.scala 30:13]
+  assign execute_CSR_READ_OPCODE = decode_to_execute_CSR_READ_OPCODE; // @[Stage.scala 30:13]
+  assign execute_CSR_WRITE_OPCODE = decode_to_execute_CSR_WRITE_OPCODE; // @[Stage.scala 30:13]
+  assign execute_IS_CSR = decode_to_execute_IS_CSR; // @[Stage.scala 30:13]
+  assign memory_ENV_CTRL = _zz_memory_ENV_CTRL; // @[Stage.scala 30:13]
+  assign execute_ENV_CTRL = _zz_execute_ENV_CTRL; // @[Stage.scala 30:13]
+  assign writeBack_ENV_CTRL = _zz_writeBack_ENV_CTRL; // @[Stage.scala 30:13]
+  assign execute_IS_SFENCE_VMA = decode_to_execute_IS_SFENCE_VMA; // @[Stage.scala 30:13]
+  assign writeBack_CALC = memory_to_writeBack_CALC; // @[Stage.scala 30:13]
+  assign writeBack_IS_AES = memory_to_writeBack_IS_AES; // @[Stage.scala 30:13]
+  assign memory_RS1 = execute_to_memory_RS1; // @[Stage.scala 30:13]
+  assign execute_IS_RS1_SIGNED = decode_to_execute_IS_RS1_SIGNED; // @[Stage.scala 30:13]
+  assign execute_IS_DIV = decode_to_execute_IS_DIV; // @[Stage.scala 30:13]
+  assign execute_IS_RS2_SIGNED = decode_to_execute_IS_RS2_SIGNED; // @[Stage.scala 30:13]
+  assign memory_IS_DIV = execute_to_memory_IS_DIV; // @[Stage.scala 30:13]
+  assign writeBack_IS_MUL = memory_to_writeBack_IS_MUL; // @[Stage.scala 30:13]
+  assign writeBack_MUL_HH = memory_to_writeBack_MUL_HH; // @[Stage.scala 30:13]
+  assign writeBack_MUL_LOW = memory_to_writeBack_MUL_LOW; // @[Stage.scala 30:13]
+  assign memory_MUL_HL = execute_to_memory_MUL_HL; // @[Stage.scala 30:13]
+  assign memory_MUL_LH = execute_to_memory_MUL_LH; // @[Stage.scala 30:13]
+  assign memory_MUL_LL = execute_to_memory_MUL_LL; // @[Stage.scala 30:13]
+  assign decode_RS2_USE = _zz_decode_IS_SFENCE_VMA2[17]; // @[Stage.scala 30:13]
+  assign decode_RS1_USE = _zz_decode_IS_SFENCE_VMA2[5]; // @[Stage.scala 30:13]
   always @(*) begin
-    _zz_decode_RS2 = execute_REGFILE_WRITE_DATA;
+    _zz_decode_RS2 = execute_REGFILE_WRITE_DATA; // @[Stage.scala 39:14]
     if(DBusCachedPlugin_forceDatapath) begin
-      _zz_decode_RS2 = MmuPlugin_dBusAccess_cmd_payload_address;
+      _zz_decode_RS2 = MmuPlugin_dBusAccess_cmd_payload_address; // @[DBusCachedPlugin.scala 533:46]
     end
   end
 
-  assign execute_REGFILE_WRITE_VALID = decode_to_execute_REGFILE_WRITE_VALID;
-  assign execute_BYPASSABLE_EXECUTE_STAGE = decode_to_execute_BYPASSABLE_EXECUTE_STAGE;
-  assign memory_REGFILE_WRITE_VALID = execute_to_memory_REGFILE_WRITE_VALID;
-  assign memory_INSTRUCTION = execute_to_memory_INSTRUCTION;
-  assign memory_BYPASSABLE_MEMORY_STAGE = execute_to_memory_BYPASSABLE_MEMORY_STAGE;
-  assign writeBack_REGFILE_WRITE_VALID = memory_to_writeBack_REGFILE_WRITE_VALID;
+  assign execute_REGFILE_WRITE_VALID = decode_to_execute_REGFILE_WRITE_VALID; // @[Stage.scala 30:13]
+  assign execute_BYPASSABLE_EXECUTE_STAGE = decode_to_execute_BYPASSABLE_EXECUTE_STAGE; // @[Stage.scala 30:13]
+  assign memory_REGFILE_WRITE_VALID = execute_to_memory_REGFILE_WRITE_VALID; // @[Stage.scala 30:13]
+  assign memory_INSTRUCTION = execute_to_memory_INSTRUCTION; // @[Stage.scala 30:13]
+  assign memory_BYPASSABLE_MEMORY_STAGE = execute_to_memory_BYPASSABLE_MEMORY_STAGE; // @[Stage.scala 30:13]
+  assign writeBack_REGFILE_WRITE_VALID = memory_to_writeBack_REGFILE_WRITE_VALID; // @[Stage.scala 30:13]
   always @(*) begin
-    decode_RS2 = decode_RegFilePlugin_rs2Data;
+    decode_RS2 = decode_RegFilePlugin_rs2Data; // @[Stage.scala 30:13]
     if(HazardSimplePlugin_writeBackBuffer_valid) begin
       if(HazardSimplePlugin_addr1Match) begin
-        decode_RS2 = HazardSimplePlugin_writeBackBuffer_payload_data;
+        decode_RS2 = HazardSimplePlugin_writeBackBuffer_payload_data; // @[HazardSimplePlugin.scala 87:34]
       end
     end
     if(when_HazardSimplePlugin_l45) begin
       if(when_HazardSimplePlugin_l47) begin
         if(when_HazardSimplePlugin_l51) begin
-          decode_RS2 = _zz_decode_RS2_2;
+          decode_RS2 = _zz_decode_RS2_2; // @[HazardSimplePlugin.scala 52:38]
         end
       end
     end
     if(when_HazardSimplePlugin_l45_1) begin
       if(memory_BYPASSABLE_MEMORY_STAGE) begin
         if(when_HazardSimplePlugin_l51_1) begin
-          decode_RS2 = _zz_decode_RS2_1;
+          decode_RS2 = _zz_decode_RS2_1; // @[HazardSimplePlugin.scala 52:38]
         end
       end
     end
     if(when_HazardSimplePlugin_l45_2) begin
       if(execute_BYPASSABLE_EXECUTE_STAGE) begin
         if(when_HazardSimplePlugin_l51_2) begin
-          decode_RS2 = _zz_decode_RS2;
+          decode_RS2 = _zz_decode_RS2; // @[HazardSimplePlugin.scala 52:38]
         end
       end
     end
   end
 
   always @(*) begin
-    decode_RS1 = decode_RegFilePlugin_rs1Data;
+    decode_RS1 = decode_RegFilePlugin_rs1Data; // @[Stage.scala 30:13]
     if(HazardSimplePlugin_writeBackBuffer_valid) begin
       if(HazardSimplePlugin_addr0Match) begin
-        decode_RS1 = HazardSimplePlugin_writeBackBuffer_payload_data;
+        decode_RS1 = HazardSimplePlugin_writeBackBuffer_payload_data; // @[HazardSimplePlugin.scala 84:34]
       end
     end
     if(when_HazardSimplePlugin_l45) begin
       if(when_HazardSimplePlugin_l47) begin
         if(when_HazardSimplePlugin_l48) begin
-          decode_RS1 = _zz_decode_RS2_2;
+          decode_RS1 = _zz_decode_RS2_2; // @[HazardSimplePlugin.scala 49:38]
         end
       end
     end
     if(when_HazardSimplePlugin_l45_1) begin
       if(memory_BYPASSABLE_MEMORY_STAGE) begin
         if(when_HazardSimplePlugin_l48_1) begin
-          decode_RS1 = _zz_decode_RS2_1;
+          decode_RS1 = _zz_decode_RS2_1; // @[HazardSimplePlugin.scala 49:38]
         end
       end
     end
     if(when_HazardSimplePlugin_l45_2) begin
       if(execute_BYPASSABLE_EXECUTE_STAGE) begin
         if(when_HazardSimplePlugin_l48_2) begin
-          decode_RS1 = _zz_decode_RS2;
+          decode_RS1 = _zz_decode_RS2; // @[HazardSimplePlugin.scala 49:38]
         end
       end
     end
   end
 
-  assign memory_SHIFT_RIGHT = execute_to_memory_SHIFT_RIGHT;
+  assign memory_SHIFT_RIGHT = execute_to_memory_SHIFT_RIGHT; // @[Stage.scala 30:13]
   always @(*) begin
-    _zz_decode_RS2_1 = memory_REGFILE_WRITE_DATA;
+    _zz_decode_RS2_1 = memory_REGFILE_WRITE_DATA; // @[Stage.scala 39:14]
     if(memory_arbitration_isValid) begin
       case(memory_SHIFT_CTRL)
         ShiftCtrlEnum_SLL_1 : begin
-          _zz_decode_RS2_1 = _zz_decode_RS2_3;
+          _zz_decode_RS2_1 = _zz_decode_RS2_3; // @[ShiftPlugins.scala 75:40]
         end
         ShiftCtrlEnum_SRL_1, ShiftCtrlEnum_SRA_1 : begin
-          _zz_decode_RS2_1 = memory_SHIFT_RIGHT;
+          _zz_decode_RS2_1 = memory_SHIFT_RIGHT; // @[ShiftPlugins.scala 78:40]
         end
         default : begin
         end
       endcase
     end
     if(when_MulDivIterativePlugin_l128) begin
-      _zz_decode_RS2_1 = memory_DivPlugin_div_result;
+      _zz_decode_RS2_1 = memory_DivPlugin_div_result; // @[MulDivIterativePlugin.scala 157:38]
     end
-    if(when_CsrPlugin_l1199) begin
-      _zz_decode_RS2_1 = memory_PIPELINED_CSR_READ;
+    if(when_CsrPlugin_l1517) begin
+      _zz_decode_RS2_1 = memory_PIPELINED_CSR_READ; // @[CsrPlugin.scala 1518:47]
     end
   end
 
-  assign memory_SHIFT_CTRL = _zz_memory_SHIFT_CTRL;
-  assign execute_SHIFT_CTRL = _zz_execute_SHIFT_CTRL;
-  assign execute_SRC_LESS_UNSIGNED = decode_to_execute_SRC_LESS_UNSIGNED;
-  assign execute_SRC2_FORCE_ZERO = decode_to_execute_SRC2_FORCE_ZERO;
-  assign execute_SRC_USE_SUB_LESS = decode_to_execute_SRC_USE_SUB_LESS;
-  assign _zz_execute_SRC2 = execute_PC;
-  assign execute_SRC2_CTRL = _zz_execute_SRC2_CTRL;
-  assign execute_IS_RVC = decode_to_execute_IS_RVC;
-  assign _zz_execute_SRC1 = execute_RS1;
-  assign execute_SRC1_CTRL = _zz_execute_SRC1_CTRL;
-  assign decode_SRC_USE_SUB_LESS = _zz_decode_IS_SFENCE_VMA2[3];
-  assign decode_SRC_ADD_ZERO = _zz_decode_IS_SFENCE_VMA2[18];
-  assign execute_SRC_ADD_SUB = execute_SrcPlugin_addSub;
-  assign execute_SRC_LESS = execute_SrcPlugin_less;
-  assign execute_ALU_CTRL = _zz_execute_ALU_CTRL;
-  assign execute_SRC2 = _zz_execute_SRC2_5;
-  assign execute_SRC1 = _zz_execute_SRC1_1;
-  assign execute_ALU_BITWISE_CTRL = _zz_execute_ALU_BITWISE_CTRL;
-  assign _zz_lastStageRegFileWrite_payload_address = writeBack_INSTRUCTION;
-  assign _zz_lastStageRegFileWrite_valid = writeBack_REGFILE_WRITE_VALID;
+  assign memory_SHIFT_CTRL = _zz_memory_SHIFT_CTRL; // @[Stage.scala 30:13]
+  assign execute_SHIFT_CTRL = _zz_execute_SHIFT_CTRL; // @[Stage.scala 30:13]
+  assign execute_SRC_LESS_UNSIGNED = decode_to_execute_SRC_LESS_UNSIGNED; // @[Stage.scala 30:13]
+  assign execute_SRC2_FORCE_ZERO = decode_to_execute_SRC2_FORCE_ZERO; // @[Stage.scala 30:13]
+  assign execute_SRC_USE_SUB_LESS = decode_to_execute_SRC_USE_SUB_LESS; // @[Stage.scala 30:13]
+  assign _zz_execute_to_memory_PC = execute_PC; // @[Stage.scala 39:14]
+  assign execute_SRC2_CTRL = _zz_execute_SRC2_CTRL; // @[Stage.scala 30:13]
+  assign execute_IS_RVC = decode_to_execute_IS_RVC; // @[Stage.scala 30:13]
+  assign _zz_execute_to_memory_RS1 = execute_RS1; // @[Stage.scala 39:14]
+  assign execute_SRC1_CTRL = _zz_execute_SRC1_CTRL; // @[Stage.scala 30:13]
+  assign decode_SRC_USE_SUB_LESS = _zz_decode_IS_SFENCE_VMA2[3]; // @[Stage.scala 30:13]
+  assign decode_SRC_ADD_ZERO = _zz_decode_IS_SFENCE_VMA2[18]; // @[Stage.scala 30:13]
+  assign execute_SRC_ADD_SUB = execute_SrcPlugin_addSub; // @[Stage.scala 30:13]
+  assign execute_SRC_LESS = execute_SrcPlugin_less; // @[Stage.scala 30:13]
+  assign execute_ALU_CTRL = _zz_execute_ALU_CTRL; // @[Stage.scala 30:13]
+  assign execute_SRC2 = _zz_execute_SRC2_4; // @[Stage.scala 30:13]
+  assign execute_SRC1 = _zz_execute_SRC1; // @[Stage.scala 30:13]
+  assign execute_ALU_BITWISE_CTRL = _zz_execute_ALU_BITWISE_CTRL; // @[Stage.scala 30:13]
+  assign _zz_lastStageRegFileWrite_payload_address = writeBack_INSTRUCTION; // @[Stage.scala 39:14]
+  assign _zz_lastStageRegFileWrite_valid = writeBack_REGFILE_WRITE_VALID; // @[Stage.scala 39:14]
   always @(*) begin
-    _zz_1 = 1'b0;
+    _zz_1 = 1'b0; // @[when.scala 47:16]
     if(lastStageRegFileWrite_valid) begin
-      _zz_1 = 1'b1;
+      _zz_1 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    decode_REGFILE_WRITE_VALID = _zz_decode_IS_SFENCE_VMA2[10];
+    decode_REGFILE_WRITE_VALID = _zz_decode_IS_SFENCE_VMA2[10]; // @[Stage.scala 30:13]
     if(when_RegFilePlugin_l63) begin
-      decode_REGFILE_WRITE_VALID = 1'b0;
+      decode_REGFILE_WRITE_VALID = 1'b0; // @[RegFilePlugin.scala 64:41]
     end
   end
 
-  assign decode_LEGAL_INSTRUCTION = (|{((decode_INSTRUCTION & 32'h0000005f) == 32'h00000017),{((decode_INSTRUCTION & 32'h0000007f) == 32'h0000006f),{((decode_INSTRUCTION & 32'h0000106f) == 32'h00000003),{((decode_INSTRUCTION & _zz_decode_LEGAL_INSTRUCTION) == 32'h00001073),{(_zz_decode_LEGAL_INSTRUCTION_1 == _zz_decode_LEGAL_INSTRUCTION_2),{_zz_decode_LEGAL_INSTRUCTION_3,{_zz_decode_LEGAL_INSTRUCTION_4,_zz_decode_LEGAL_INSTRUCTION_5}}}}}}});
-  assign writeBack_IS_DBUS_SHARING = memory_to_writeBack_IS_DBUS_SHARING;
-  assign memory_IS_DBUS_SHARING = execute_to_memory_IS_DBUS_SHARING;
+  assign decode_LEGAL_INSTRUCTION = (|{((decode_INSTRUCTION & 32'h0000005f) == 32'h00000017),{((decode_INSTRUCTION & 32'h0000007f) == 32'h0000006f),{((decode_INSTRUCTION & 32'h0000107f) == 32'h00001073),{((decode_INSTRUCTION & _zz_decode_LEGAL_INSTRUCTION) == 32'h00002073),{(_zz_decode_LEGAL_INSTRUCTION_1 == _zz_decode_LEGAL_INSTRUCTION_2),{_zz_decode_LEGAL_INSTRUCTION_3,{_zz_decode_LEGAL_INSTRUCTION_4,_zz_decode_LEGAL_INSTRUCTION_5}}}}}}}); // @[Stage.scala 30:13]
+  assign writeBack_IS_DBUS_SHARING = memory_to_writeBack_IS_DBUS_SHARING; // @[Stage.scala 30:13]
+  assign memory_IS_DBUS_SHARING = execute_to_memory_IS_DBUS_SHARING; // @[Stage.scala 30:13]
   always @(*) begin
-    _zz_decode_RS2_2 = writeBack_REGFILE_WRITE_DATA;
+    _zz_decode_RS2_2 = writeBack_REGFILE_WRITE_DATA; // @[Stage.scala 39:14]
     if(when_DBusCachedPlugin_l492) begin
-      _zz_decode_RS2_2 = writeBack_DBusCachedPlugin_rspFormated;
+      _zz_decode_RS2_2 = writeBack_DBusCachedPlugin_rspFormated; // @[DBusCachedPlugin.scala 493:36]
     end
     if(when_MulPlugin_l147) begin
       case(switch_MulPlugin_l148)
         2'b00 : begin
-          _zz_decode_RS2_2 = _zz__zz_decode_RS2_2;
+          _zz_decode_RS2_2 = _zz__zz_decode_RS2_2; // @[MulPlugin.scala 150:40]
         end
         default : begin
-          _zz_decode_RS2_2 = _zz__zz_decode_RS2_2_1;
+          _zz_decode_RS2_2 = _zz__zz_decode_RS2_2_1; // @[MulPlugin.scala 153:40]
         end
       endcase
     end
     if(writeBack_IS_AES) begin
-      _zz_decode_RS2_2 = writeBack_CALC;
+      _zz_decode_RS2_2 = writeBack_CALC; // @[AesPlugin.scala 168:36]
     end
   end
 
-  assign writeBack_MEMORY_LRSC = memory_to_writeBack_MEMORY_LRSC;
-  assign writeBack_MEMORY_WR = memory_to_writeBack_MEMORY_WR;
-  assign writeBack_MEMORY_STORE_DATA_RF = memory_to_writeBack_MEMORY_STORE_DATA_RF;
-  assign writeBack_REGFILE_WRITE_DATA = memory_to_writeBack_REGFILE_WRITE_DATA;
-  assign writeBack_MEMORY_ENABLE = memory_to_writeBack_MEMORY_ENABLE;
-  assign memory_REGFILE_WRITE_DATA = execute_to_memory_REGFILE_WRITE_DATA;
-  assign memory_MEMORY_ENABLE = execute_to_memory_MEMORY_ENABLE;
+  assign writeBack_MEMORY_LRSC = memory_to_writeBack_MEMORY_LRSC; // @[Stage.scala 30:13]
+  assign writeBack_MEMORY_WR = memory_to_writeBack_MEMORY_WR; // @[Stage.scala 30:13]
+  assign writeBack_MEMORY_STORE_DATA_RF = memory_to_writeBack_MEMORY_STORE_DATA_RF; // @[Stage.scala 30:13]
+  assign writeBack_REGFILE_WRITE_DATA = memory_to_writeBack_REGFILE_WRITE_DATA; // @[Stage.scala 30:13]
+  assign writeBack_MEMORY_ENABLE = memory_to_writeBack_MEMORY_ENABLE; // @[Stage.scala 30:13]
+  assign memory_REGFILE_WRITE_DATA = execute_to_memory_REGFILE_WRITE_DATA; // @[Stage.scala 30:13]
+  assign memory_MEMORY_ENABLE = execute_to_memory_MEMORY_ENABLE; // @[Stage.scala 30:13]
   always @(*) begin
-    execute_MEMORY_AMO = decode_to_execute_MEMORY_AMO;
+    execute_MEMORY_AMO = decode_to_execute_MEMORY_AMO; // @[Stage.scala 30:13]
     if(MmuPlugin_dBusAccess_cmd_valid) begin
       if(when_DBusCachedPlugin_l506) begin
-        execute_MEMORY_AMO = 1'b0;
+        execute_MEMORY_AMO = 1'b0; // @[DBusCachedPlugin.scala 515:50]
       end
     end
   end
 
   always @(*) begin
-    execute_MEMORY_LRSC = decode_to_execute_MEMORY_LRSC;
+    execute_MEMORY_LRSC = decode_to_execute_MEMORY_LRSC; // @[Stage.scala 30:13]
     if(MmuPlugin_dBusAccess_cmd_valid) begin
       if(when_DBusCachedPlugin_l506) begin
-        execute_MEMORY_LRSC = 1'b0;
+        execute_MEMORY_LRSC = 1'b0; // @[DBusCachedPlugin.scala 514:51]
       end
     end
   end
 
-  assign execute_MEMORY_FORCE_CONSTISTENCY = decode_to_execute_MEMORY_FORCE_CONSTISTENCY;
-  assign execute_RS1 = decode_to_execute_RS1;
-  assign execute_MEMORY_MANAGMENT = decode_to_execute_MEMORY_MANAGMENT;
-  assign execute_RS2 = decode_to_execute_RS2;
-  assign execute_MEMORY_WR = decode_to_execute_MEMORY_WR;
-  assign execute_SRC_ADD = execute_SrcPlugin_addSub;
-  assign execute_MEMORY_ENABLE = decode_to_execute_MEMORY_ENABLE;
-  assign execute_INSTRUCTION = decode_to_execute_INSTRUCTION;
-  assign decode_MEMORY_AMO = _zz_decode_IS_SFENCE_VMA2[16];
-  assign decode_MEMORY_LRSC = _zz_decode_IS_SFENCE_VMA2[15];
-  assign decode_MEMORY_ENABLE = _zz_decode_IS_SFENCE_VMA2[4];
-  assign decode_FLUSH_ALL = _zz_decode_IS_SFENCE_VMA2[0];
+  assign execute_MEMORY_FORCE_CONSTISTENCY = decode_to_execute_MEMORY_FORCE_CONSTISTENCY; // @[Stage.scala 30:13]
+  assign execute_RS1 = decode_to_execute_RS1; // @[Stage.scala 30:13]
+  assign execute_MEMORY_MANAGMENT = decode_to_execute_MEMORY_MANAGMENT; // @[Stage.scala 30:13]
+  assign execute_RS2 = decode_to_execute_RS2; // @[Stage.scala 30:13]
+  assign execute_MEMORY_WR = decode_to_execute_MEMORY_WR; // @[Stage.scala 30:13]
+  assign execute_SRC_ADD = execute_SrcPlugin_addSub; // @[Stage.scala 30:13]
+  assign execute_MEMORY_ENABLE = decode_to_execute_MEMORY_ENABLE; // @[Stage.scala 30:13]
+  assign execute_INSTRUCTION = decode_to_execute_INSTRUCTION; // @[Stage.scala 30:13]
+  assign decode_MEMORY_AMO = _zz_decode_IS_SFENCE_VMA2[16]; // @[Stage.scala 30:13]
+  assign decode_MEMORY_LRSC = _zz_decode_IS_SFENCE_VMA2[15]; // @[Stage.scala 30:13]
+  assign decode_MEMORY_ENABLE = _zz_decode_IS_SFENCE_VMA2[4]; // @[Stage.scala 30:13]
+  assign decode_FLUSH_ALL = _zz_decode_IS_SFENCE_VMA2[0]; // @[Stage.scala 30:13]
   always @(*) begin
-    IBusCachedPlugin_rsp_issueDetected_4 = IBusCachedPlugin_rsp_issueDetected_3;
+    IBusCachedPlugin_rsp_issueDetected_4 = IBusCachedPlugin_rsp_issueDetected_3; // @[Data.scala 57:9]
     if(when_IBusCachedPlugin_l256) begin
-      IBusCachedPlugin_rsp_issueDetected_4 = 1'b1;
+      IBusCachedPlugin_rsp_issueDetected_4 = 1'b1; // @[Data.scala 63:9]
     end
   end
 
   always @(*) begin
-    IBusCachedPlugin_rsp_issueDetected_3 = IBusCachedPlugin_rsp_issueDetected_2;
+    IBusCachedPlugin_rsp_issueDetected_3 = IBusCachedPlugin_rsp_issueDetected_2; // @[Data.scala 57:9]
     if(when_IBusCachedPlugin_l250) begin
-      IBusCachedPlugin_rsp_issueDetected_3 = 1'b1;
+      IBusCachedPlugin_rsp_issueDetected_3 = 1'b1; // @[Data.scala 63:9]
     end
   end
 
   always @(*) begin
-    IBusCachedPlugin_rsp_issueDetected_2 = IBusCachedPlugin_rsp_issueDetected_1;
+    IBusCachedPlugin_rsp_issueDetected_2 = IBusCachedPlugin_rsp_issueDetected_1; // @[Data.scala 57:9]
     if(when_IBusCachedPlugin_l244) begin
-      IBusCachedPlugin_rsp_issueDetected_2 = 1'b1;
+      IBusCachedPlugin_rsp_issueDetected_2 = 1'b1; // @[Data.scala 63:9]
     end
   end
 
   always @(*) begin
-    IBusCachedPlugin_rsp_issueDetected_1 = IBusCachedPlugin_rsp_issueDetected;
+    IBusCachedPlugin_rsp_issueDetected_1 = IBusCachedPlugin_rsp_issueDetected; // @[Data.scala 57:9]
     if(when_IBusCachedPlugin_l239) begin
-      IBusCachedPlugin_rsp_issueDetected_1 = 1'b1;
+      IBusCachedPlugin_rsp_issueDetected_1 = 1'b1; // @[Data.scala 63:9]
     end
   end
 
-  assign decode_BRANCH_CTRL = _zz_decode_BRANCH_CTRL_1;
+  assign decode_BRANCH_CTRL = _zz_decode_BRANCH_CTRL_1; // @[Stage.scala 30:13]
   always @(*) begin
-    decode_INSTRUCTION = IBusCachedPlugin_decompressor_output_payload_rsp_inst;
+    decode_INSTRUCTION = IBusCachedPlugin_decompressor_output_payload_rsp_inst; // @[Stage.scala 30:13]
     if(when_Fetcher_l407) begin
-      decode_INSTRUCTION = IBusCachedPlugin_injectionPort_payload_regNext;
+      decode_INSTRUCTION = IBusCachedPlugin_injectionPort_payload_regNext; // @[Fetcher.scala 408:41]
     end
   end
 
   always @(*) begin
-    _zz_memory_to_writeBack_FORMAL_PC_NEXT = memory_FORMAL_PC_NEXT;
+    _zz_memory_to_writeBack_FORMAL_PC_NEXT = memory_FORMAL_PC_NEXT; // @[Stage.scala 39:14]
     if(BranchPlugin_jumpInterface_valid) begin
-      _zz_memory_to_writeBack_FORMAL_PC_NEXT = BranchPlugin_jumpInterface_payload;
+      _zz_memory_to_writeBack_FORMAL_PC_NEXT = BranchPlugin_jumpInterface_payload; // @[Fetcher.scala 437:47]
     end
   end
 
   always @(*) begin
-    _zz_execute_to_memory_FORMAL_PC_NEXT = execute_FORMAL_PC_NEXT;
+    _zz_execute_to_memory_FORMAL_PC_NEXT = execute_FORMAL_PC_NEXT; // @[Stage.scala 39:14]
     if(CsrPlugin_redoInterface_valid) begin
-      _zz_execute_to_memory_FORMAL_PC_NEXT = CsrPlugin_redoInterface_payload;
+      _zz_execute_to_memory_FORMAL_PC_NEXT = CsrPlugin_redoInterface_payload; // @[Fetcher.scala 437:47]
     end
   end
 
   always @(*) begin
-    _zz_decode_to_execute_FORMAL_PC_NEXT = decode_FORMAL_PC_NEXT;
+    _zz_decode_to_execute_FORMAL_PC_NEXT = decode_FORMAL_PC_NEXT; // @[Stage.scala 39:14]
     if(IBusCachedPlugin_predictionJumpInterface_valid) begin
-      _zz_decode_to_execute_FORMAL_PC_NEXT = IBusCachedPlugin_predictionJumpInterface_payload;
+      _zz_decode_to_execute_FORMAL_PC_NEXT = IBusCachedPlugin_predictionJumpInterface_payload; // @[Fetcher.scala 437:47]
     end
   end
 
-  assign decode_PC = IBusCachedPlugin_decodePc_pcReg;
-  assign decode_IS_RVC = IBusCachedPlugin_decompressor_output_payload_isRvc;
-  assign writeBack_PC = memory_to_writeBack_PC;
-  assign writeBack_INSTRUCTION = memory_to_writeBack_INSTRUCTION;
+  assign decode_PC = IBusCachedPlugin_decodePc_pcReg; // @[Stage.scala 30:13]
+  assign decode_IS_RVC = IBusCachedPlugin_decompressor_output_payload_isRvc; // @[Stage.scala 30:13]
+  assign writeBack_PC = memory_to_writeBack_PC; // @[Stage.scala 30:13]
+  assign writeBack_INSTRUCTION = memory_to_writeBack_INSTRUCTION; // @[Stage.scala 30:13]
   always @(*) begin
-    decode_arbitration_haltItself = 1'b0;
+    decode_arbitration_haltItself = 1'b0; // @[Stage.scala 49:23]
     if(when_DBusCachedPlugin_l308) begin
-      decode_arbitration_haltItself = 1'b1;
+      decode_arbitration_haltItself = 1'b1; // @[DBusCachedPlugin.scala 309:32]
     end
     case(switch_Fetcher_l365)
       3'b010 : begin
-        decode_arbitration_haltItself = 1'b1;
+        decode_arbitration_haltItself = 1'b1; // @[Fetcher.scala 376:45]
       end
       default : begin
       end
@@ -4198,265 +4201,265 @@ module VexRiscvAxi4 (
   end
 
   always @(*) begin
-    decode_arbitration_haltByOther = 1'b0;
+    decode_arbitration_haltByOther = 1'b0; // @[Stage.scala 50:23]
     if(MmuPlugin_dBusAccess_cmd_valid) begin
-      decode_arbitration_haltByOther = 1'b1;
+      decode_arbitration_haltByOther = 1'b1; // @[DBusCachedPlugin.scala 504:40]
     end
     if(when_HazardSimplePlugin_l113) begin
-      decode_arbitration_haltByOther = 1'b1;
+      decode_arbitration_haltByOther = 1'b1; // @[HazardSimplePlugin.scala 114:43]
     end
     if(CsrPlugin_rescheduleLogic_rescheduleNext) begin
-      decode_arbitration_haltByOther = 1'b1;
+      decode_arbitration_haltByOther = 1'b1; // @[CsrPlugin.scala 1079:44]
     end
     if(CsrPlugin_pipelineLiberator_active) begin
-      decode_arbitration_haltByOther = 1'b1;
+      decode_arbitration_haltByOther = 1'b1; // @[CsrPlugin.scala 1253:42]
     end
-    if(when_CsrPlugin_l1129) begin
-      decode_arbitration_haltByOther = 1'b1;
+    if(when_CsrPlugin_l1447) begin
+      decode_arbitration_haltByOther = 1'b1; // @[CsrPlugin.scala 1447:38]
     end
   end
 
   always @(*) begin
-    decode_arbitration_removeIt = 1'b0;
+    decode_arbitration_removeIt = 1'b0; // @[Stage.scala 51:23]
     if(_zz_when) begin
-      decode_arbitration_removeIt = 1'b1;
+      decode_arbitration_removeIt = 1'b1; // @[CsrPlugin.scala 1171:40]
     end
     if(decode_arbitration_isFlushed) begin
-      decode_arbitration_removeIt = 1'b1;
+      decode_arbitration_removeIt = 1'b1; // @[Pipeline.scala 134:36]
     end
   end
 
-  assign decode_arbitration_flushIt = 1'b0;
+  assign decode_arbitration_flushIt = 1'b0; // @[Stage.scala 52:22]
   always @(*) begin
-    decode_arbitration_flushNext = 1'b0;
+    decode_arbitration_flushNext = 1'b0; // @[Stage.scala 53:24]
     if(IBusCachedPlugin_predictionJumpInterface_valid) begin
-      decode_arbitration_flushNext = 1'b1;
+      decode_arbitration_flushNext = 1'b1; // @[Fetcher.scala 515:38]
     end
     if(_zz_when) begin
-      decode_arbitration_flushNext = 1'b1;
+      decode_arbitration_flushNext = 1'b1; // @[CsrPlugin.scala 1170:41]
     end
   end
 
   always @(*) begin
-    execute_arbitration_haltItself = 1'b0;
+    execute_arbitration_haltItself = 1'b0; // @[Stage.scala 49:23]
     if(when_DBusCachedPlugin_l350) begin
-      execute_arbitration_haltItself = 1'b1;
+      execute_arbitration_haltItself = 1'b1; // @[DBusCachedPlugin.scala 350:30]
     end
-    if(when_CsrPlugin_l1121) begin
-      if(when_CsrPlugin_l1123) begin
-        execute_arbitration_haltItself = 1'b1;
+    if(when_CsrPlugin_l1439) begin
+      if(when_CsrPlugin_l1441) begin
+        execute_arbitration_haltItself = 1'b1; // @[CsrPlugin.scala 1442:36]
       end
     end
-    if(when_CsrPlugin_l1193) begin
+    if(when_CsrPlugin_l1511) begin
       if(execute_CsrPlugin_blockedBySideEffects) begin
-        execute_arbitration_haltItself = 1'b1;
+        execute_arbitration_haltItself = 1'b1; // @[CsrPlugin.scala 1512:34]
       end
     end
   end
 
   always @(*) begin
-    execute_arbitration_haltByOther = 1'b0;
+    execute_arbitration_haltByOther = 1'b0; // @[Stage.scala 50:23]
     if(when_DBusCachedPlugin_l366) begin
-      execute_arbitration_haltByOther = 1'b1;
+      execute_arbitration_haltByOther = 1'b1; // @[DBusCachedPlugin.scala 367:33]
     end
-    if(when_DebugPlugin_l295) begin
-      execute_arbitration_haltByOther = 1'b1;
+    if(when_DebugPlugin_l308) begin
+      execute_arbitration_haltByOther = 1'b1; // @[DebugPlugin.scala 309:41]
     end
   end
 
   always @(*) begin
-    execute_arbitration_removeIt = 1'b0;
+    execute_arbitration_removeIt = 1'b0; // @[Stage.scala 51:23]
     if(CsrPlugin_selfException_valid) begin
-      execute_arbitration_removeIt = 1'b1;
+      execute_arbitration_removeIt = 1'b1; // @[CsrPlugin.scala 1171:40]
     end
     if(execute_arbitration_isFlushed) begin
-      execute_arbitration_removeIt = 1'b1;
+      execute_arbitration_removeIt = 1'b1; // @[Pipeline.scala 134:36]
     end
   end
 
   always @(*) begin
-    execute_arbitration_flushIt = 1'b0;
-    if(when_DebugPlugin_l295) begin
-      if(when_DebugPlugin_l298) begin
-        execute_arbitration_flushIt = 1'b1;
+    execute_arbitration_flushIt = 1'b0; // @[Stage.scala 52:22]
+    if(when_DebugPlugin_l308) begin
+      if(when_DebugPlugin_l311) begin
+        execute_arbitration_flushIt = 1'b1; // @[DebugPlugin.scala 313:41]
       end
     end
   end
 
   always @(*) begin
-    execute_arbitration_flushNext = 1'b0;
+    execute_arbitration_flushNext = 1'b0; // @[Stage.scala 53:24]
     if(CsrPlugin_rescheduleLogic_rescheduleNext) begin
-      execute_arbitration_flushNext = 1'b1;
+      execute_arbitration_flushNext = 1'b1; // @[CsrPlugin.scala 1078:43]
     end
     if(CsrPlugin_selfException_valid) begin
-      execute_arbitration_flushNext = 1'b1;
+      execute_arbitration_flushNext = 1'b1; // @[CsrPlugin.scala 1170:41]
     end
-    if(when_DebugPlugin_l295) begin
-      if(when_DebugPlugin_l298) begin
-        execute_arbitration_flushNext = 1'b1;
+    if(when_DebugPlugin_l308) begin
+      if(when_DebugPlugin_l311) begin
+        execute_arbitration_flushNext = 1'b1; // @[DebugPlugin.scala 314:41]
       end
     end
     if(_zz_3) begin
-      execute_arbitration_flushNext = 1'b1;
+      execute_arbitration_flushNext = 1'b1; // @[DebugPlugin.scala 334:39]
     end
     if(_zz_3) begin
-      execute_arbitration_flushNext = 1'b1;
+      execute_arbitration_flushNext = 1'b1; // @[DebugPlugin.scala 336:41]
     end
   end
 
   always @(*) begin
-    memory_arbitration_haltItself = 1'b0;
+    memory_arbitration_haltItself = 1'b0; // @[Stage.scala 49:23]
     if(when_MulDivIterativePlugin_l128) begin
       if(when_MulDivIterativePlugin_l129) begin
-        memory_arbitration_haltItself = 1'b1;
+        memory_arbitration_haltItself = 1'b1; // @[MulDivIterativePlugin.scala 130:36]
       end
     end
   end
 
-  assign memory_arbitration_haltByOther = 1'b0;
+  assign memory_arbitration_haltByOther = 1'b0; // @[Stage.scala 50:23]
   always @(*) begin
-    memory_arbitration_removeIt = 1'b0;
+    memory_arbitration_removeIt = 1'b0; // @[Stage.scala 51:23]
     if(memory_arbitration_isFlushed) begin
-      memory_arbitration_removeIt = 1'b1;
+      memory_arbitration_removeIt = 1'b1; // @[Pipeline.scala 134:36]
     end
   end
 
-  assign memory_arbitration_flushIt = 1'b0;
+  assign memory_arbitration_flushIt = 1'b0; // @[Stage.scala 52:22]
   always @(*) begin
-    memory_arbitration_flushNext = 1'b0;
+    memory_arbitration_flushNext = 1'b0; // @[Stage.scala 53:24]
     if(BranchPlugin_jumpInterface_valid) begin
-      memory_arbitration_flushNext = 1'b1;
+      memory_arbitration_flushNext = 1'b1; // @[BranchPlugin.scala 294:29]
     end
   end
 
   always @(*) begin
-    writeBack_arbitration_haltItself = 1'b0;
+    writeBack_arbitration_haltItself = 1'b0; // @[Stage.scala 49:23]
     if(when_DBusCachedPlugin_l466) begin
-      writeBack_arbitration_haltItself = 1'b1;
+      writeBack_arbitration_haltItself = 1'b1; // @[DBusCachedPlugin.scala 466:37]
     end
   end
 
-  assign writeBack_arbitration_haltByOther = 1'b0;
+  assign writeBack_arbitration_haltByOther = 1'b0; // @[Stage.scala 50:23]
   always @(*) begin
-    writeBack_arbitration_removeIt = 1'b0;
+    writeBack_arbitration_removeIt = 1'b0; // @[Stage.scala 51:23]
     if(DBusCachedPlugin_exceptionBus_valid) begin
-      writeBack_arbitration_removeIt = 1'b1;
+      writeBack_arbitration_removeIt = 1'b1; // @[CsrPlugin.scala 1171:40]
     end
     if(writeBack_arbitration_isFlushed) begin
-      writeBack_arbitration_removeIt = 1'b1;
+      writeBack_arbitration_removeIt = 1'b1; // @[Pipeline.scala 134:36]
     end
   end
 
   always @(*) begin
-    writeBack_arbitration_flushIt = 1'b0;
+    writeBack_arbitration_flushIt = 1'b0; // @[Stage.scala 52:22]
     if(DBusCachedPlugin_redoBranch_valid) begin
-      writeBack_arbitration_flushIt = 1'b1;
+      writeBack_arbitration_flushIt = 1'b1; // @[DBusCachedPlugin.scala 436:27]
     end
   end
 
   always @(*) begin
-    writeBack_arbitration_flushNext = 1'b0;
+    writeBack_arbitration_flushNext = 1'b0; // @[Stage.scala 53:24]
     if(DBusCachedPlugin_redoBranch_valid) begin
-      writeBack_arbitration_flushNext = 1'b1;
+      writeBack_arbitration_flushNext = 1'b1; // @[DBusCachedPlugin.scala 437:29]
     end
     if(DBusCachedPlugin_exceptionBus_valid) begin
-      writeBack_arbitration_flushNext = 1'b1;
+      writeBack_arbitration_flushNext = 1'b1; // @[CsrPlugin.scala 1170:41]
     end
-    if(when_CsrPlugin_l1032) begin
-      writeBack_arbitration_flushNext = 1'b1;
+    if(when_CsrPlugin_l1310) begin
+      writeBack_arbitration_flushNext = 1'b1; // @[CsrPlugin.scala 1316:41]
     end
-    if(when_CsrPlugin_l1077) begin
-      writeBack_arbitration_flushNext = 1'b1;
+    if(when_CsrPlugin_l1376) begin
+      writeBack_arbitration_flushNext = 1'b1; // @[CsrPlugin.scala 1379:43]
     end
   end
 
-  assign lastStageInstruction = writeBack_INSTRUCTION;
-  assign lastStagePc = writeBack_PC;
-  assign lastStageIsValid = writeBack_arbitration_isValid;
-  assign lastStageIsFiring = writeBack_arbitration_isFiring;
+  assign lastStageInstruction = writeBack_INSTRUCTION; // @[Misc.scala 552:9]
+  assign lastStagePc = writeBack_PC; // @[Misc.scala 552:9]
+  assign lastStageIsValid = writeBack_arbitration_isValid; // @[Misc.scala 552:9]
+  assign lastStageIsFiring = writeBack_arbitration_isFiring; // @[Misc.scala 552:9]
   always @(*) begin
-    IBusCachedPlugin_fetcherHalt = 1'b0;
-    if(when_CsrPlugin_l935) begin
-      IBusCachedPlugin_fetcherHalt = 1'b1;
+    IBusCachedPlugin_fetcherHalt = 1'b0; // @[Fetcher.scala 67:19]
+    if(when_CsrPlugin_l1192) begin
+      IBusCachedPlugin_fetcherHalt = 1'b1; // @[Fetcher.scala 53:45]
     end
-    if(when_CsrPlugin_l1032) begin
-      IBusCachedPlugin_fetcherHalt = 1'b1;
+    if(when_CsrPlugin_l1310) begin
+      IBusCachedPlugin_fetcherHalt = 1'b1; // @[Fetcher.scala 53:45]
     end
-    if(when_CsrPlugin_l1077) begin
-      IBusCachedPlugin_fetcherHalt = 1'b1;
+    if(when_CsrPlugin_l1376) begin
+      IBusCachedPlugin_fetcherHalt = 1'b1; // @[Fetcher.scala 53:45]
     end
-    if(when_DebugPlugin_l295) begin
-      if(when_DebugPlugin_l298) begin
-        IBusCachedPlugin_fetcherHalt = 1'b1;
+    if(when_DebugPlugin_l308) begin
+      if(when_DebugPlugin_l311) begin
+        IBusCachedPlugin_fetcherHalt = 1'b1; // @[Fetcher.scala 53:45]
       end
     end
     if(DebugPlugin_haltIt) begin
-      IBusCachedPlugin_fetcherHalt = 1'b1;
+      IBusCachedPlugin_fetcherHalt = 1'b1; // @[Fetcher.scala 53:45]
     end
-    if(when_DebugPlugin_l311) begin
-      IBusCachedPlugin_fetcherHalt = 1'b1;
+    if(when_DebugPlugin_l324) begin
+      IBusCachedPlugin_fetcherHalt = 1'b1; // @[Fetcher.scala 53:45]
     end
   end
 
   always @(*) begin
-    IBusCachedPlugin_forceNoDecodeCond = 1'b0;
+    IBusCachedPlugin_forceNoDecodeCond = 1'b0; // @[Fetcher.scala 68:25]
     if(_zz_3) begin
-      IBusCachedPlugin_forceNoDecodeCond = 1'b1;
+      IBusCachedPlugin_forceNoDecodeCond = 1'b1; // @[Fetcher.scala 54:58]
     end
   end
 
   always @(*) begin
-    IBusCachedPlugin_incomingInstruction = 1'b0;
+    IBusCachedPlugin_incomingInstruction = 1'b0; // @[Fetcher.scala 69:27]
     if(when_Fetcher_l243) begin
-      IBusCachedPlugin_incomingInstruction = 1'b1;
+      IBusCachedPlugin_incomingInstruction = 1'b1; // @[Fetcher.scala 243:27]
     end
   end
 
   always @(*) begin
-    _zz_when_DBusCachedPlugin_l393 = 1'b0;
+    _zz_when_DBusCachedPlugin_l393 = 1'b0; // @[DBusCachedPlugin.scala 252:41]
     if(DebugPlugin_godmode) begin
-      _zz_when_DBusCachedPlugin_l393 = 1'b1;
+      _zz_when_DBusCachedPlugin_l393 = 1'b1; // @[DebugPlugin.scala 362:87]
     end
   end
 
-  assign CsrPlugin_csrMapping_allowCsrSignal = 1'b0;
-  assign CsrPlugin_csrMapping_readDataSignal = CsrPlugin_csrMapping_readDataInit;
+  assign CsrPlugin_csrMapping_allowCsrSignal = 1'b0; // @[CsrPlugin.scala 358:24]
+  assign CsrPlugin_csrMapping_readDataSignal = CsrPlugin_csrMapping_readDataInit; // @[CsrPlugin.scala 361:18]
   always @(*) begin
-    CsrPlugin_inWfi = 1'b0;
-    if(when_CsrPlugin_l1121) begin
-      CsrPlugin_inWfi = 1'b1;
+    CsrPlugin_inWfi = 1'b0; // @[CsrPlugin.scala 552:13]
+    if(when_CsrPlugin_l1439) begin
+      CsrPlugin_inWfi = 1'b1; // @[CsrPlugin.scala 1440:17]
     end
   end
 
   always @(*) begin
-    CsrPlugin_thirdPartyWake = 1'b0;
+    CsrPlugin_thirdPartyWake = 1'b0; // @[CsrPlugin.scala 554:22]
     if(DebugPlugin_haltIt) begin
-      CsrPlugin_thirdPartyWake = 1'b1;
+      CsrPlugin_thirdPartyWake = 1'b1; // @[CsrPlugin.scala 479:49]
     end
   end
 
   always @(*) begin
-    CsrPlugin_jumpInterface_valid = 1'b0;
-    if(when_CsrPlugin_l1032) begin
-      CsrPlugin_jumpInterface_valid = 1'b1;
+    CsrPlugin_jumpInterface_valid = 1'b0; // @[CsrPlugin.scala 596:25]
+    if(when_CsrPlugin_l1310) begin
+      CsrPlugin_jumpInterface_valid = 1'b1; // @[CsrPlugin.scala 1314:37]
     end
-    if(when_CsrPlugin_l1077) begin
-      CsrPlugin_jumpInterface_valid = 1'b1;
+    if(when_CsrPlugin_l1376) begin
+      CsrPlugin_jumpInterface_valid = 1'b1; // @[CsrPlugin.scala 1378:31]
     end
   end
 
   always @(*) begin
-    CsrPlugin_jumpInterface_payload = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
-    if(when_CsrPlugin_l1032) begin
-      CsrPlugin_jumpInterface_payload = {CsrPlugin_xtvec_base,2'b00};
+    CsrPlugin_jumpInterface_payload = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; // @[UInt.scala 467:20]
+    if(when_CsrPlugin_l1310) begin
+      CsrPlugin_jumpInterface_payload = {CsrPlugin_xtvec_base,2'b00}; // @[CsrPlugin.scala 1315:37]
     end
-    if(when_CsrPlugin_l1077) begin
-      case(switch_CsrPlugin_l1081)
+    if(when_CsrPlugin_l1376) begin
+      case(switch_CsrPlugin_l1380)
         2'b11 : begin
-          CsrPlugin_jumpInterface_payload = CsrPlugin_mepc;
+          CsrPlugin_jumpInterface_payload = CsrPlugin_mepc; // @[CsrPlugin.scala 1385:37]
         end
         2'b01 : begin
-          CsrPlugin_jumpInterface_payload = CsrPlugin_sepc;
+          CsrPlugin_jumpInterface_payload = CsrPlugin_sepc; // @[CsrPlugin.scala 1395:37]
         end
         default : begin
         end
@@ -4465,625 +4468,647 @@ module VexRiscvAxi4 (
   end
 
   always @(*) begin
-    CsrPlugin_forceMachineWire = 1'b0;
+    CsrPlugin_forceMachineWire = 1'b0; // @[CsrPlugin.scala 615:24]
     if(DebugPlugin_godmode) begin
-      CsrPlugin_forceMachineWire = 1'b1;
+      CsrPlugin_forceMachineWire = 1'b1; // @[CsrPlugin.scala 651:56]
     end
   end
 
   always @(*) begin
-    CsrPlugin_allowInterrupts = 1'b1;
-    if(when_DebugPlugin_l331) begin
-      CsrPlugin_allowInterrupts = 1'b0;
+    CsrPlugin_allowInterrupts = 1'b1; // @[CsrPlugin.scala 620:23]
+    if(when_DebugPlugin_l344) begin
+      CsrPlugin_allowInterrupts = 1'b0; // @[CsrPlugin.scala 644:53]
     end
   end
 
   always @(*) begin
-    CsrPlugin_allowException = 1'b1;
+    CsrPlugin_allowException = 1'b1; // @[CsrPlugin.scala 621:22]
     if(DebugPlugin_godmode) begin
-      CsrPlugin_allowException = 1'b0;
+      CsrPlugin_allowException = 1'b0; // @[CsrPlugin.scala 645:53]
     end
   end
 
   always @(*) begin
-    CsrPlugin_allowEbreakException = 1'b1;
+    CsrPlugin_allowEbreakException = 1'b1; // @[CsrPlugin.scala 622:28]
     if(DebugPlugin_allowEBreak) begin
-      CsrPlugin_allowEbreakException = 1'b0;
+      CsrPlugin_allowEbreakException = 1'b0; // @[CsrPlugin.scala 646:65]
     end
   end
 
   always @(*) begin
-    BranchPlugin_inDebugNoFetchFlag = 1'b0;
+    CsrPlugin_xretAwayFromMachine = 1'b0; // @[CsrPlugin.scala 637:27]
+    if(when_CsrPlugin_l1376) begin
+      case(switch_CsrPlugin_l1380)
+        2'b11 : begin
+          if(when_CsrPlugin_l1388) begin
+            CsrPlugin_xretAwayFromMachine = 1'b1; // @[CsrPlugin.scala 1388:37]
+          end
+        end
+        2'b01 : begin
+          CsrPlugin_xretAwayFromMachine = 1'b1; // @[CsrPlugin.scala 1398:37]
+        end
+        default : begin
+        end
+      endcase
+    end
+  end
+
+  always @(*) begin
+    BranchPlugin_inDebugNoFetchFlag = 1'b0; // @[BranchPlugin.scala 155:26]
     if(DebugPlugin_godmode) begin
-      BranchPlugin_inDebugNoFetchFlag = 1'b1;
+      BranchPlugin_inDebugNoFetchFlag = 1'b1; // @[BranchPlugin.scala 90:60]
     end
   end
 
-  assign IBusCachedPlugin_externalFlush = ({writeBack_arbitration_flushNext,{memory_arbitration_flushNext,{execute_arbitration_flushNext,decode_arbitration_flushNext}}} != 4'b0000);
-  assign IBusCachedPlugin_jump_pcLoad_valid = ({BranchPlugin_jumpInterface_valid,{CsrPlugin_redoInterface_valid,{CsrPlugin_jumpInterface_valid,{DBusCachedPlugin_redoBranch_valid,IBusCachedPlugin_predictionJumpInterface_valid}}}} != 5'h0);
-  assign _zz_IBusCachedPlugin_jump_pcLoad_payload = {IBusCachedPlugin_predictionJumpInterface_valid,{CsrPlugin_redoInterface_valid,{BranchPlugin_jumpInterface_valid,{CsrPlugin_jumpInterface_valid,DBusCachedPlugin_redoBranch_valid}}}};
-  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_1 = (_zz_IBusCachedPlugin_jump_pcLoad_payload & (~ _zz__zz_IBusCachedPlugin_jump_pcLoad_payload_1));
-  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_2 = _zz_IBusCachedPlugin_jump_pcLoad_payload_1[3];
-  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_3 = _zz_IBusCachedPlugin_jump_pcLoad_payload_1[4];
-  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_4 = (_zz_IBusCachedPlugin_jump_pcLoad_payload_1[1] || _zz_IBusCachedPlugin_jump_pcLoad_payload_2);
-  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_5 = (_zz_IBusCachedPlugin_jump_pcLoad_payload_1[2] || _zz_IBusCachedPlugin_jump_pcLoad_payload_2);
-  assign IBusCachedPlugin_jump_pcLoad_payload = _zz_IBusCachedPlugin_jump_pcLoad_payload_6;
+  assign IBusCachedPlugin_externalFlush = ({writeBack_arbitration_flushNext,{memory_arbitration_flushNext,{execute_arbitration_flushNext,decode_arbitration_flushNext}}} != 4'b0000); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_jump_pcLoad_valid = ({BranchPlugin_jumpInterface_valid,{CsrPlugin_redoInterface_valid,{CsrPlugin_jumpInterface_valid,{DBusCachedPlugin_redoBranch_valid,IBusCachedPlugin_predictionJumpInterface_valid}}}} != 5'h0); // @[Fetcher.scala 116:20]
+  assign _zz_IBusCachedPlugin_jump_pcLoad_payload = {IBusCachedPlugin_predictionJumpInterface_valid,{CsrPlugin_redoInterface_valid,{BranchPlugin_jumpInterface_valid,{CsrPlugin_jumpInterface_valid,DBusCachedPlugin_redoBranch_valid}}}}; // @[BaseType.scala 318:22]
+  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_1 = (_zz_IBusCachedPlugin_jump_pcLoad_payload & (~ _zz__zz_IBusCachedPlugin_jump_pcLoad_payload_1)); // @[Bits.scala 133:56]
+  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_2 = _zz_IBusCachedPlugin_jump_pcLoad_payload_1[3]; // @[BaseType.scala 305:24]
+  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_3 = _zz_IBusCachedPlugin_jump_pcLoad_payload_1[4]; // @[BaseType.scala 305:24]
+  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_4 = (_zz_IBusCachedPlugin_jump_pcLoad_payload_1[1] || _zz_IBusCachedPlugin_jump_pcLoad_payload_2); // @[BaseType.scala 305:24]
+  assign _zz_IBusCachedPlugin_jump_pcLoad_payload_5 = (_zz_IBusCachedPlugin_jump_pcLoad_payload_1[2] || _zz_IBusCachedPlugin_jump_pcLoad_payload_2); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_jump_pcLoad_payload = _zz_IBusCachedPlugin_jump_pcLoad_payload_6; // @[Fetcher.scala 117:22]
   always @(*) begin
-    IBusCachedPlugin_fetchPc_correction = 1'b0;
+    IBusCachedPlugin_fetchPc_correction = 1'b0; // @[Fetcher.scala 129:24]
     if(IBusCachedPlugin_fetchPc_redo_valid) begin
-      IBusCachedPlugin_fetchPc_correction = 1'b1;
+      IBusCachedPlugin_fetchPc_correction = 1'b1; // @[Fetcher.scala 151:20]
     end
     if(IBusCachedPlugin_jump_pcLoad_valid) begin
-      IBusCachedPlugin_fetchPc_correction = 1'b1;
+      IBusCachedPlugin_fetchPc_correction = 1'b1; // @[Fetcher.scala 156:20]
     end
   end
 
-  assign IBusCachedPlugin_fetchPc_output_fire = (IBusCachedPlugin_fetchPc_output_valid && IBusCachedPlugin_fetchPc_output_ready);
-  assign IBusCachedPlugin_fetchPc_corrected = (IBusCachedPlugin_fetchPc_correction || IBusCachedPlugin_fetchPc_correctionReg);
+  assign IBusCachedPlugin_fetchPc_output_fire = (IBusCachedPlugin_fetchPc_output_valid && IBusCachedPlugin_fetchPc_output_ready); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_fetchPc_corrected = (IBusCachedPlugin_fetchPc_correction || IBusCachedPlugin_fetchPc_correctionReg); // @[BaseType.scala 305:24]
   always @(*) begin
-    IBusCachedPlugin_fetchPc_pcRegPropagate = 1'b0;
+    IBusCachedPlugin_fetchPc_pcRegPropagate = 1'b0; // @[Fetcher.scala 132:28]
     if(IBusCachedPlugin_iBusRsp_stages_1_input_ready) begin
-      IBusCachedPlugin_fetchPc_pcRegPropagate = 1'b1;
+      IBusCachedPlugin_fetchPc_pcRegPropagate = 1'b1; // @[Fetcher.scala 235:34]
     end
   end
 
-  assign when_Fetcher_l134 = (IBusCachedPlugin_fetchPc_correction || IBusCachedPlugin_fetchPc_pcRegPropagate);
-  assign IBusCachedPlugin_fetchPc_output_fire_1 = (IBusCachedPlugin_fetchPc_output_valid && IBusCachedPlugin_fetchPc_output_ready);
-  assign when_Fetcher_l134_1 = ((! IBusCachedPlugin_fetchPc_output_valid) && IBusCachedPlugin_fetchPc_output_ready);
+  assign when_Fetcher_l134 = (IBusCachedPlugin_fetchPc_correction || IBusCachedPlugin_fetchPc_pcRegPropagate); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_fetchPc_output_fire_1 = (IBusCachedPlugin_fetchPc_output_valid && IBusCachedPlugin_fetchPc_output_ready); // @[BaseType.scala 305:24]
+  assign when_Fetcher_l134_1 = ((! IBusCachedPlugin_fetchPc_output_valid) && IBusCachedPlugin_fetchPc_output_ready); // @[BaseType.scala 305:24]
   always @(*) begin
-    IBusCachedPlugin_fetchPc_pc = (IBusCachedPlugin_fetchPc_pcReg + _zz_IBusCachedPlugin_fetchPc_pc);
+    IBusCachedPlugin_fetchPc_pc = (IBusCachedPlugin_fetchPc_pcReg + _zz_IBusCachedPlugin_fetchPc_pc); // @[BaseType.scala 299:24]
     if(IBusCachedPlugin_fetchPc_inc) begin
-      IBusCachedPlugin_fetchPc_pc[1] = 1'b0;
+      IBusCachedPlugin_fetchPc_pc[1] = 1'b0; // @[Fetcher.scala 141:15]
     end
     if(IBusCachedPlugin_fetchPc_redo_valid) begin
-      IBusCachedPlugin_fetchPc_pc = IBusCachedPlugin_fetchPc_redo_payload;
+      IBusCachedPlugin_fetchPc_pc = IBusCachedPlugin_fetchPc_redo_payload; // @[Fetcher.scala 152:12]
     end
     if(IBusCachedPlugin_jump_pcLoad_valid) begin
-      IBusCachedPlugin_fetchPc_pc = IBusCachedPlugin_jump_pcLoad_payload;
+      IBusCachedPlugin_fetchPc_pc = IBusCachedPlugin_jump_pcLoad_payload; // @[Fetcher.scala 157:12]
     end
-    IBusCachedPlugin_fetchPc_pc[0] = 1'b0;
+    IBusCachedPlugin_fetchPc_pc[0] = 1'b0; // @[Fetcher.scala 165:13]
   end
 
   always @(*) begin
-    IBusCachedPlugin_fetchPc_flushed = 1'b0;
+    IBusCachedPlugin_fetchPc_flushed = 1'b0; // @[Fetcher.scala 138:21]
     if(IBusCachedPlugin_fetchPc_redo_valid) begin
-      IBusCachedPlugin_fetchPc_flushed = 1'b1;
+      IBusCachedPlugin_fetchPc_flushed = 1'b1; // @[Fetcher.scala 153:17]
     end
     if(IBusCachedPlugin_jump_pcLoad_valid) begin
-      IBusCachedPlugin_fetchPc_flushed = 1'b1;
+      IBusCachedPlugin_fetchPc_flushed = 1'b1; // @[Fetcher.scala 158:17]
     end
   end
 
-  assign when_Fetcher_l161 = (IBusCachedPlugin_fetchPc_booted && ((IBusCachedPlugin_fetchPc_output_ready || IBusCachedPlugin_fetchPc_correction) || IBusCachedPlugin_fetchPc_pcRegPropagate));
-  assign IBusCachedPlugin_fetchPc_output_valid = ((! IBusCachedPlugin_fetcherHalt) && IBusCachedPlugin_fetchPc_booted);
-  assign IBusCachedPlugin_fetchPc_output_payload = IBusCachedPlugin_fetchPc_pc;
+  assign when_Fetcher_l161 = (IBusCachedPlugin_fetchPc_booted && ((IBusCachedPlugin_fetchPc_output_ready || IBusCachedPlugin_fetchPc_correction) || IBusCachedPlugin_fetchPc_pcRegPropagate)); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_fetchPc_output_valid = ((! IBusCachedPlugin_fetcherHalt) && IBusCachedPlugin_fetchPc_booted); // @[Fetcher.scala 168:20]
+  assign IBusCachedPlugin_fetchPc_output_payload = IBusCachedPlugin_fetchPc_pc; // @[Fetcher.scala 169:22]
   always @(*) begin
-    IBusCachedPlugin_decodePc_flushed = 1'b0;
+    IBusCachedPlugin_decodePc_flushed = 1'b0; // @[Fetcher.scala 174:21]
     if(when_Fetcher_l195) begin
-      IBusCachedPlugin_decodePc_flushed = 1'b1;
+      IBusCachedPlugin_decodePc_flushed = 1'b1; // @[Fetcher.scala 197:17]
     end
   end
 
-  assign IBusCachedPlugin_decodePc_pcPlus = (IBusCachedPlugin_decodePc_pcReg + _zz_IBusCachedPlugin_decodePc_pcPlus);
+  assign IBusCachedPlugin_decodePc_pcPlus = (IBusCachedPlugin_decodePc_pcReg + _zz_IBusCachedPlugin_decodePc_pcPlus); // @[BaseType.scala 299:24]
   always @(*) begin
-    IBusCachedPlugin_decodePc_injectedDecode = 1'b0;
+    IBusCachedPlugin_decodePc_injectedDecode = 1'b0; // @[Fetcher.scala 182:28]
     if(when_Fetcher_l363) begin
-      IBusCachedPlugin_decodePc_injectedDecode = 1'b1;
+      IBusCachedPlugin_decodePc_injectedDecode = 1'b1; // @[Fetcher.scala 363:37]
     end
   end
 
-  assign when_Fetcher_l183 = (decode_arbitration_isFiring && (! IBusCachedPlugin_decodePc_injectedDecode));
-  assign when_Fetcher_l195 = (IBusCachedPlugin_jump_pcLoad_valid && ((! decode_arbitration_isStuck) || decode_arbitration_removeIt));
+  assign when_Fetcher_l183 = (decode_arbitration_isFiring && (! IBusCachedPlugin_decodePc_injectedDecode)); // @[BaseType.scala 305:24]
+  assign when_Fetcher_l195 = (IBusCachedPlugin_jump_pcLoad_valid && ((! decode_arbitration_isStuck) || decode_arbitration_removeIt)); // @[BaseType.scala 305:24]
   always @(*) begin
-    IBusCachedPlugin_iBusRsp_redoFetch = 1'b0;
+    IBusCachedPlugin_iBusRsp_redoFetch = 1'b0; // @[Fetcher.scala 210:23]
     if(IBusCachedPlugin_rsp_redoFetch) begin
-      IBusCachedPlugin_iBusRsp_redoFetch = 1'b1;
+      IBusCachedPlugin_iBusRsp_redoFetch = 1'b1; // @[IBusCachedPlugin.scala 263:29]
     end
   end
 
-  assign IBusCachedPlugin_iBusRsp_stages_0_input_valid = IBusCachedPlugin_fetchPc_output_valid;
-  assign IBusCachedPlugin_fetchPc_output_ready = IBusCachedPlugin_iBusRsp_stages_0_input_ready;
-  assign IBusCachedPlugin_iBusRsp_stages_0_input_payload = IBusCachedPlugin_fetchPc_output_payload;
+  assign IBusCachedPlugin_iBusRsp_stages_0_input_valid = IBusCachedPlugin_fetchPc_output_valid; // @[Stream.scala 294:16]
+  assign IBusCachedPlugin_fetchPc_output_ready = IBusCachedPlugin_iBusRsp_stages_0_input_ready; // @[Stream.scala 295:16]
+  assign IBusCachedPlugin_iBusRsp_stages_0_input_payload = IBusCachedPlugin_fetchPc_output_payload; // @[Stream.scala 296:18]
   always @(*) begin
-    IBusCachedPlugin_iBusRsp_stages_0_halt = 1'b0;
+    IBusCachedPlugin_iBusRsp_stages_0_halt = 1'b0; // @[Fetcher.scala 219:16]
     if(IBusCachedPlugin_cache_io_cpu_prefetch_haltIt) begin
-      IBusCachedPlugin_iBusRsp_stages_0_halt = 1'b1;
+      IBusCachedPlugin_iBusRsp_stages_0_halt = 1'b1; // @[IBusCachedPlugin.scala 167:24]
     end
   end
 
-  assign _zz_IBusCachedPlugin_iBusRsp_stages_0_input_ready = (! IBusCachedPlugin_iBusRsp_stages_0_halt);
-  assign IBusCachedPlugin_iBusRsp_stages_0_input_ready = (IBusCachedPlugin_iBusRsp_stages_0_output_ready && _zz_IBusCachedPlugin_iBusRsp_stages_0_input_ready);
-  assign IBusCachedPlugin_iBusRsp_stages_0_output_valid = (IBusCachedPlugin_iBusRsp_stages_0_input_valid && _zz_IBusCachedPlugin_iBusRsp_stages_0_input_ready);
-  assign IBusCachedPlugin_iBusRsp_stages_0_output_payload = IBusCachedPlugin_iBusRsp_stages_0_input_payload;
+  assign _zz_IBusCachedPlugin_iBusRsp_stages_0_input_ready = (! IBusCachedPlugin_iBusRsp_stages_0_halt); // @[BaseType.scala 299:24]
+  assign IBusCachedPlugin_iBusRsp_stages_0_input_ready = (IBusCachedPlugin_iBusRsp_stages_0_output_ready && _zz_IBusCachedPlugin_iBusRsp_stages_0_input_ready); // @[Stream.scala 427:16]
+  assign IBusCachedPlugin_iBusRsp_stages_0_output_valid = (IBusCachedPlugin_iBusRsp_stages_0_input_valid && _zz_IBusCachedPlugin_iBusRsp_stages_0_input_ready); // @[Stream.scala 294:16]
+  assign IBusCachedPlugin_iBusRsp_stages_0_output_payload = IBusCachedPlugin_iBusRsp_stages_0_input_payload; // @[Stream.scala 296:18]
   always @(*) begin
-    IBusCachedPlugin_iBusRsp_stages_1_halt = 1'b0;
+    IBusCachedPlugin_iBusRsp_stages_1_halt = 1'b0; // @[Fetcher.scala 219:16]
     if(IBusCachedPlugin_mmuBus_busy) begin
-      IBusCachedPlugin_iBusRsp_stages_1_halt = 1'b1;
+      IBusCachedPlugin_iBusRsp_stages_1_halt = 1'b1; // @[IBusCachedPlugin.scala 197:53]
     end
   end
 
-  assign _zz_IBusCachedPlugin_iBusRsp_stages_1_input_ready = (! IBusCachedPlugin_iBusRsp_stages_1_halt);
-  assign IBusCachedPlugin_iBusRsp_stages_1_input_ready = (IBusCachedPlugin_iBusRsp_stages_1_output_ready && _zz_IBusCachedPlugin_iBusRsp_stages_1_input_ready);
-  assign IBusCachedPlugin_iBusRsp_stages_1_output_valid = (IBusCachedPlugin_iBusRsp_stages_1_input_valid && _zz_IBusCachedPlugin_iBusRsp_stages_1_input_ready);
-  assign IBusCachedPlugin_iBusRsp_stages_1_output_payload = IBusCachedPlugin_iBusRsp_stages_1_input_payload;
+  assign _zz_IBusCachedPlugin_iBusRsp_stages_1_input_ready = (! IBusCachedPlugin_iBusRsp_stages_1_halt); // @[BaseType.scala 299:24]
+  assign IBusCachedPlugin_iBusRsp_stages_1_input_ready = (IBusCachedPlugin_iBusRsp_stages_1_output_ready && _zz_IBusCachedPlugin_iBusRsp_stages_1_input_ready); // @[Stream.scala 427:16]
+  assign IBusCachedPlugin_iBusRsp_stages_1_output_valid = (IBusCachedPlugin_iBusRsp_stages_1_input_valid && _zz_IBusCachedPlugin_iBusRsp_stages_1_input_ready); // @[Stream.scala 294:16]
+  assign IBusCachedPlugin_iBusRsp_stages_1_output_payload = IBusCachedPlugin_iBusRsp_stages_1_input_payload; // @[Stream.scala 296:18]
   always @(*) begin
-    IBusCachedPlugin_iBusRsp_stages_2_halt = 1'b0;
+    IBusCachedPlugin_iBusRsp_stages_2_halt = 1'b0; // @[Fetcher.scala 219:16]
     if(when_IBusCachedPlugin_l267) begin
-      IBusCachedPlugin_iBusRsp_stages_2_halt = 1'b1;
+      IBusCachedPlugin_iBusRsp_stages_2_halt = 1'b1; // @[IBusCachedPlugin.scala 267:34]
     end
   end
 
-  assign _zz_IBusCachedPlugin_iBusRsp_stages_2_input_ready = (! IBusCachedPlugin_iBusRsp_stages_2_halt);
-  assign IBusCachedPlugin_iBusRsp_stages_2_input_ready = (IBusCachedPlugin_iBusRsp_stages_2_output_ready && _zz_IBusCachedPlugin_iBusRsp_stages_2_input_ready);
-  assign IBusCachedPlugin_iBusRsp_stages_2_output_valid = (IBusCachedPlugin_iBusRsp_stages_2_input_valid && _zz_IBusCachedPlugin_iBusRsp_stages_2_input_ready);
-  assign IBusCachedPlugin_iBusRsp_stages_2_output_payload = IBusCachedPlugin_iBusRsp_stages_2_input_payload;
-  assign IBusCachedPlugin_fetchPc_redo_valid = IBusCachedPlugin_iBusRsp_redoFetch;
+  assign _zz_IBusCachedPlugin_iBusRsp_stages_2_input_ready = (! IBusCachedPlugin_iBusRsp_stages_2_halt); // @[BaseType.scala 299:24]
+  assign IBusCachedPlugin_iBusRsp_stages_2_input_ready = (IBusCachedPlugin_iBusRsp_stages_2_output_ready && _zz_IBusCachedPlugin_iBusRsp_stages_2_input_ready); // @[Stream.scala 427:16]
+  assign IBusCachedPlugin_iBusRsp_stages_2_output_valid = (IBusCachedPlugin_iBusRsp_stages_2_input_valid && _zz_IBusCachedPlugin_iBusRsp_stages_2_input_ready); // @[Stream.scala 294:16]
+  assign IBusCachedPlugin_iBusRsp_stages_2_output_payload = IBusCachedPlugin_iBusRsp_stages_2_input_payload; // @[Stream.scala 296:18]
+  assign IBusCachedPlugin_fetchPc_redo_valid = IBusCachedPlugin_iBusRsp_redoFetch; // @[Fetcher.scala 224:28]
   always @(*) begin
-    IBusCachedPlugin_fetchPc_redo_payload = IBusCachedPlugin_iBusRsp_stages_2_input_payload;
+    IBusCachedPlugin_fetchPc_redo_payload = IBusCachedPlugin_iBusRsp_stages_2_input_payload; // @[Fetcher.scala 225:30]
     if(IBusCachedPlugin_decompressor_throw2BytesReg) begin
-      IBusCachedPlugin_fetchPc_redo_payload[1] = 1'b1;
+      IBusCachedPlugin_fetchPc_redo_payload[1] = 1'b1; // @[Fetcher.scala 300:33]
     end
   end
 
-  assign IBusCachedPlugin_iBusRsp_flush = ((decode_arbitration_removeIt || (decode_arbitration_flushNext && (! decode_arbitration_isStuck))) || IBusCachedPlugin_iBusRsp_redoFetch);
-  assign IBusCachedPlugin_iBusRsp_stages_0_output_ready = _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready;
-  assign _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready = ((1'b0 && (! _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready_1)) || IBusCachedPlugin_iBusRsp_stages_1_input_ready);
-  assign _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready_1 = _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready_2;
-  assign IBusCachedPlugin_iBusRsp_stages_1_input_valid = _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready_1;
-  assign IBusCachedPlugin_iBusRsp_stages_1_input_payload = IBusCachedPlugin_fetchPc_pcReg;
-  assign IBusCachedPlugin_iBusRsp_stages_1_output_ready = ((1'b0 && (! IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid)) || IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_ready);
-  assign IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid = _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid;
-  assign IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_payload = _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_payload;
-  assign IBusCachedPlugin_iBusRsp_stages_2_input_valid = IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid;
-  assign IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_ready = IBusCachedPlugin_iBusRsp_stages_2_input_ready;
-  assign IBusCachedPlugin_iBusRsp_stages_2_input_payload = IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_payload;
-  assign IBusCachedPlugin_iBusRsp_readyForError = 1'b1;
-  assign when_Fetcher_l243 = (IBusCachedPlugin_iBusRsp_stages_1_input_valid || IBusCachedPlugin_iBusRsp_stages_2_input_valid);
-  assign IBusCachedPlugin_decompressor_input_valid = (IBusCachedPlugin_iBusRsp_output_valid && (! IBusCachedPlugin_iBusRsp_redoFetch));
-  assign IBusCachedPlugin_decompressor_input_payload_pc = IBusCachedPlugin_iBusRsp_output_payload_pc;
-  assign IBusCachedPlugin_decompressor_input_payload_rsp_error = IBusCachedPlugin_iBusRsp_output_payload_rsp_error;
-  assign IBusCachedPlugin_decompressor_input_payload_rsp_inst = IBusCachedPlugin_iBusRsp_output_payload_rsp_inst;
-  assign IBusCachedPlugin_decompressor_input_payload_isRvc = IBusCachedPlugin_iBusRsp_output_payload_isRvc;
-  assign IBusCachedPlugin_iBusRsp_output_ready = IBusCachedPlugin_decompressor_input_ready;
-  assign IBusCachedPlugin_decompressor_consumeCurrent = (decode_arbitration_flushNext && IBusCachedPlugin_decompressor_output_ready);
-  assign IBusCachedPlugin_decompressor_isInputLowRvc = (IBusCachedPlugin_decompressor_input_payload_rsp_inst[1 : 0] != 2'b11);
-  assign IBusCachedPlugin_decompressor_isInputHighRvc = (IBusCachedPlugin_decompressor_input_payload_rsp_inst[17 : 16] != 2'b11);
-  assign IBusCachedPlugin_decompressor_throw2Bytes = (IBusCachedPlugin_decompressor_throw2BytesReg || IBusCachedPlugin_decompressor_input_payload_pc[1]);
-  assign IBusCachedPlugin_decompressor_unaligned = (IBusCachedPlugin_decompressor_throw2Bytes || IBusCachedPlugin_decompressor_bufferValid);
-  assign IBusCachedPlugin_decompressor_bufferValidPatched = (IBusCachedPlugin_decompressor_input_valid ? IBusCachedPlugin_decompressor_bufferValid : IBusCachedPlugin_decompressor_bufferValidLatch);
-  assign IBusCachedPlugin_decompressor_throw2BytesPatched = (IBusCachedPlugin_decompressor_input_valid ? IBusCachedPlugin_decompressor_throw2Bytes : IBusCachedPlugin_decompressor_throw2BytesLatch);
-  assign IBusCachedPlugin_decompressor_raw = (IBusCachedPlugin_decompressor_bufferValidPatched ? {IBusCachedPlugin_decompressor_input_payload_rsp_inst[15 : 0],IBusCachedPlugin_decompressor_bufferData} : {IBusCachedPlugin_decompressor_input_payload_rsp_inst[31 : 16],(IBusCachedPlugin_decompressor_throw2BytesPatched ? IBusCachedPlugin_decompressor_input_payload_rsp_inst[31 : 16] : IBusCachedPlugin_decompressor_input_payload_rsp_inst[15 : 0])});
-  assign IBusCachedPlugin_decompressor_isRvc = (IBusCachedPlugin_decompressor_raw[1 : 0] != 2'b11);
-  assign _zz_IBusCachedPlugin_decompressor_decompressed = IBusCachedPlugin_decompressor_raw[15 : 0];
+  assign IBusCachedPlugin_iBusRsp_flush = ((decode_arbitration_removeIt || (decode_arbitration_flushNext && (! decode_arbitration_isStuck))) || IBusCachedPlugin_iBusRsp_redoFetch); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_iBusRsp_stages_0_output_ready = _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready; // @[Stream.scala 304:16]
+  assign _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready = ((1'b0 && (! _zz_IBusCachedPlugin_iBusRsp_stages_1_input_valid)) || IBusCachedPlugin_iBusRsp_stages_1_input_ready); // @[Misc.scala 148:20]
+  assign _zz_IBusCachedPlugin_iBusRsp_stages_1_input_valid = _zz_IBusCachedPlugin_iBusRsp_stages_1_input_valid_1; // @[Misc.scala 158:17]
+  assign IBusCachedPlugin_iBusRsp_stages_1_input_valid = _zz_IBusCachedPlugin_iBusRsp_stages_1_input_valid; // @[Stream.scala 303:16]
+  assign IBusCachedPlugin_iBusRsp_stages_1_input_payload = IBusCachedPlugin_fetchPc_pcReg; // @[Fetcher.scala 234:31]
+  assign IBusCachedPlugin_iBusRsp_stages_1_output_ready = ((1'b0 && (! IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid)) || IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_ready); // @[Misc.scala 148:20]
+  assign IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid = _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid; // @[Misc.scala 158:17]
+  assign IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_payload = _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_payload; // @[Misc.scala 159:19]
+  assign IBusCachedPlugin_iBusRsp_stages_2_input_valid = IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid; // @[Stream.scala 294:16]
+  assign IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_ready = IBusCachedPlugin_iBusRsp_stages_2_input_ready; // @[Stream.scala 295:16]
+  assign IBusCachedPlugin_iBusRsp_stages_2_input_payload = IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_payload; // @[Stream.scala 296:18]
+  assign IBusCachedPlugin_iBusRsp_readyForError = 1'b1; // @[Fetcher.scala 241:27]
+  assign when_Fetcher_l243 = (IBusCachedPlugin_iBusRsp_stages_1_input_valid || IBusCachedPlugin_iBusRsp_stages_2_input_valid); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_decompressor_input_valid = (IBusCachedPlugin_iBusRsp_output_valid && (! IBusCachedPlugin_iBusRsp_redoFetch)); // @[Stream.scala 447:16]
+  assign IBusCachedPlugin_decompressor_input_payload_pc = IBusCachedPlugin_iBusRsp_output_payload_pc; // @[Stream.scala 448:18]
+  assign IBusCachedPlugin_decompressor_input_payload_rsp_error = IBusCachedPlugin_iBusRsp_output_payload_rsp_error; // @[Stream.scala 448:18]
+  assign IBusCachedPlugin_decompressor_input_payload_rsp_inst = IBusCachedPlugin_iBusRsp_output_payload_rsp_inst; // @[Stream.scala 448:18]
+  assign IBusCachedPlugin_decompressor_input_payload_isRvc = IBusCachedPlugin_iBusRsp_output_payload_isRvc; // @[Stream.scala 448:18]
+  assign IBusCachedPlugin_iBusRsp_output_ready = IBusCachedPlugin_decompressor_input_ready; // @[Stream.scala 449:16]
+  assign IBusCachedPlugin_decompressor_consumeCurrent = (decode_arbitration_flushNext && IBusCachedPlugin_decompressor_output_ready); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_decompressor_isInputLowRvc = (IBusCachedPlugin_decompressor_input_payload_rsp_inst[1 : 0] != 2'b11); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_decompressor_isInputHighRvc = (IBusCachedPlugin_decompressor_input_payload_rsp_inst[17 : 16] != 2'b11); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_decompressor_throw2Bytes = (IBusCachedPlugin_decompressor_throw2BytesReg || IBusCachedPlugin_decompressor_input_payload_pc[1]); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_decompressor_unaligned = (IBusCachedPlugin_decompressor_throw2Bytes || IBusCachedPlugin_decompressor_bufferValid); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_decompressor_bufferValidPatched = (IBusCachedPlugin_decompressor_input_valid ? IBusCachedPlugin_decompressor_bufferValid : IBusCachedPlugin_decompressor_bufferValidLatch); // @[Expression.scala 1420:25]
+  assign IBusCachedPlugin_decompressor_throw2BytesPatched = (IBusCachedPlugin_decompressor_input_valid ? IBusCachedPlugin_decompressor_throw2Bytes : IBusCachedPlugin_decompressor_throw2BytesLatch); // @[Expression.scala 1420:25]
+  assign IBusCachedPlugin_decompressor_raw = (IBusCachedPlugin_decompressor_bufferValidPatched ? {IBusCachedPlugin_decompressor_input_payload_rsp_inst[15 : 0],IBusCachedPlugin_decompressor_bufferData} : {IBusCachedPlugin_decompressor_input_payload_rsp_inst[31 : 16],(IBusCachedPlugin_decompressor_throw2BytesPatched ? IBusCachedPlugin_decompressor_input_payload_rsp_inst[31 : 16] : IBusCachedPlugin_decompressor_input_payload_rsp_inst[15 : 0])}); // @[Expression.scala 1420:25]
+  assign IBusCachedPlugin_decompressor_isRvc = (IBusCachedPlugin_decompressor_raw[1 : 0] != 2'b11); // @[BaseType.scala 305:24]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed = IBusCachedPlugin_decompressor_raw[15 : 0]; // @[BaseType.scala 299:24]
   always @(*) begin
-    IBusCachedPlugin_decompressor_decompressed = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
+    IBusCachedPlugin_decompressor_decompressed = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; // @[Bits.scala 231:20]
     case(switch_Misc_l44)
       5'h0 : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{{{{{2'b00,_zz_IBusCachedPlugin_decompressor_decompressed[10 : 7]},_zz_IBusCachedPlugin_decompressor_decompressed[12 : 11]},_zz_IBusCachedPlugin_decompressor_decompressed[5]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},2'b00},5'h02},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed_2},7'h13};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{{{{{2'b00,_zz_IBusCachedPlugin_decompressor_decompressed[10 : 7]},_zz_IBusCachedPlugin_decompressor_decompressed[12 : 11]},_zz_IBusCachedPlugin_decompressor_decompressed[5]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},2'b00},5'h02},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed_2},7'h13}; // @[Misc.scala 46:13]
+        if(when_Misc_l47) begin
+          IBusCachedPlugin_decompressor_decompressed = 32'h0; // @[Misc.scala 47:42]
+        end
       end
       5'h02 : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{_zz_IBusCachedPlugin_decompressor_decompressed_3,_zz_IBusCachedPlugin_decompressor_decompressed_1},3'b010},_zz_IBusCachedPlugin_decompressor_decompressed_2},7'h03};
+        IBusCachedPlugin_decompressor_decompressed = {{{{_zz_IBusCachedPlugin_decompressor_decompressed_3,_zz_IBusCachedPlugin_decompressor_decompressed_1},3'b010},_zz_IBusCachedPlugin_decompressor_decompressed_2},7'h03}; // @[Misc.scala 50:17]
       end
       5'h06 : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_3[11 : 5],_zz_IBusCachedPlugin_decompressor_decompressed_2},_zz_IBusCachedPlugin_decompressor_decompressed_1},3'b010},_zz_IBusCachedPlugin_decompressor_decompressed_3[4 : 0]},7'h23};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_3[11 : 5],_zz_IBusCachedPlugin_decompressor_decompressed_2},_zz_IBusCachedPlugin_decompressor_decompressed_1},3'b010},_zz_IBusCachedPlugin_decompressor_decompressed_3[4 : 0]},7'h23}; // @[Misc.scala 53:17]
       end
       5'h08 : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{_zz_IBusCachedPlugin_decompressor_decompressed_5,_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h13};
+        IBusCachedPlugin_decompressor_decompressed = {{{{_zz_IBusCachedPlugin_decompressor_decompressed_5,_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h13}; // @[Misc.scala 55:17]
       end
       5'h09 : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_8[20],_zz_IBusCachedPlugin_decompressor_decompressed_8[10 : 1]},_zz_IBusCachedPlugin_decompressor_decompressed_8[11]},_zz_IBusCachedPlugin_decompressor_decompressed_8[19 : 12]},_zz_IBusCachedPlugin_decompressor_decompressed_20},7'h6f};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_8[20],_zz_IBusCachedPlugin_decompressor_decompressed_8[10 : 1]},_zz_IBusCachedPlugin_decompressor_decompressed_8[11]},_zz_IBusCachedPlugin_decompressor_decompressed_8[19 : 12]},_zz_IBusCachedPlugin_decompressor_decompressed_20},7'h6f}; // @[Misc.scala 56:17]
       end
       5'h0a : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{_zz_IBusCachedPlugin_decompressor_decompressed_5,5'h0},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h13};
+        IBusCachedPlugin_decompressor_decompressed = {{{{_zz_IBusCachedPlugin_decompressor_decompressed_5,5'h0},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h13}; // @[Misc.scala 57:18]
       end
       5'h0b : begin
-        IBusCachedPlugin_decompressor_decompressed = ((_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7] == 5'h02) ? {{{{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_12,_zz_IBusCachedPlugin_decompressor_decompressed[4 : 3]},_zz_IBusCachedPlugin_decompressor_decompressed[5]},_zz_IBusCachedPlugin_decompressor_decompressed[2]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},4'b0000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h13} : {{_zz_IBusCachedPlugin_decompressor_decompressed_27[31 : 12],_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h37});
+        IBusCachedPlugin_decompressor_decompressed = ((_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7] == 5'h02) ? {{{{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_12,_zz_IBusCachedPlugin_decompressor_decompressed[4 : 3]},_zz_IBusCachedPlugin_decompressor_decompressed[5]},_zz_IBusCachedPlugin_decompressor_decompressed[2]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},4'b0000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h13} : {{_zz_IBusCachedPlugin_decompressor_decompressed_27[31 : 12],_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h37}); // @[Misc.scala 61:13]
       end
       5'h0c : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{((_zz_IBusCachedPlugin_decompressor_decompressed[11 : 10] == 2'b10) ? _zz_IBusCachedPlugin_decompressor_decompressed_26 : {{1'b0,(_zz_IBusCachedPlugin_decompressor_decompressed_28 || _zz_IBusCachedPlugin_decompressor_decompressed_29)},5'h0}),(((! _zz_IBusCachedPlugin_decompressor_decompressed[11]) || _zz_IBusCachedPlugin_decompressor_decompressed_22) ? _zz_IBusCachedPlugin_decompressor_decompressed[6 : 2] : _zz_IBusCachedPlugin_decompressor_decompressed_2)},_zz_IBusCachedPlugin_decompressor_decompressed_1},_zz_IBusCachedPlugin_decompressor_decompressed_24},_zz_IBusCachedPlugin_decompressor_decompressed_1},(_zz_IBusCachedPlugin_decompressor_decompressed_22 ? 7'h13 : 7'h33)};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{((_zz_IBusCachedPlugin_decompressor_decompressed[11 : 10] == 2'b10) ? _zz_IBusCachedPlugin_decompressor_decompressed_26 : {{1'b0,(_zz_IBusCachedPlugin_decompressor_decompressed_28 || _zz_IBusCachedPlugin_decompressor_decompressed_29)},5'h0}),(((! _zz_IBusCachedPlugin_decompressor_decompressed[11]) || _zz_IBusCachedPlugin_decompressor_decompressed_22) ? _zz_IBusCachedPlugin_decompressor_decompressed[6 : 2] : _zz_IBusCachedPlugin_decompressor_decompressed_2)},_zz_IBusCachedPlugin_decompressor_decompressed_1},_zz_IBusCachedPlugin_decompressor_decompressed_24},_zz_IBusCachedPlugin_decompressor_decompressed_1},(_zz_IBusCachedPlugin_decompressor_decompressed_22 ? 7'h13 : 7'h33)}; // @[Misc.scala 84:13]
       end
       5'h0d : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_15[20],_zz_IBusCachedPlugin_decompressor_decompressed_15[10 : 1]},_zz_IBusCachedPlugin_decompressor_decompressed_15[11]},_zz_IBusCachedPlugin_decompressor_decompressed_15[19 : 12]},_zz_IBusCachedPlugin_decompressor_decompressed_19},7'h6f};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_15[20],_zz_IBusCachedPlugin_decompressor_decompressed_15[10 : 1]},_zz_IBusCachedPlugin_decompressor_decompressed_15[11]},_zz_IBusCachedPlugin_decompressor_decompressed_15[19 : 12]},_zz_IBusCachedPlugin_decompressor_decompressed_19},7'h6f}; // @[Misc.scala 86:19]
       end
       5'h0e : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_18[12],_zz_IBusCachedPlugin_decompressor_decompressed_18[10 : 5]},_zz_IBusCachedPlugin_decompressor_decompressed_19},_zz_IBusCachedPlugin_decompressor_decompressed_1},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed_18[4 : 1]},_zz_IBusCachedPlugin_decompressor_decompressed_18[11]},7'h63};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_18[12],_zz_IBusCachedPlugin_decompressor_decompressed_18[10 : 5]},_zz_IBusCachedPlugin_decompressor_decompressed_19},_zz_IBusCachedPlugin_decompressor_decompressed_1},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed_18[4 : 1]},_zz_IBusCachedPlugin_decompressor_decompressed_18[11]},7'h63}; // @[Misc.scala 87:19]
       end
       5'h0f : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_18[12],_zz_IBusCachedPlugin_decompressor_decompressed_18[10 : 5]},_zz_IBusCachedPlugin_decompressor_decompressed_19},_zz_IBusCachedPlugin_decompressor_decompressed_1},3'b001},_zz_IBusCachedPlugin_decompressor_decompressed_18[4 : 1]},_zz_IBusCachedPlugin_decompressor_decompressed_18[11]},7'h63};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_18[12],_zz_IBusCachedPlugin_decompressor_decompressed_18[10 : 5]},_zz_IBusCachedPlugin_decompressor_decompressed_19},_zz_IBusCachedPlugin_decompressor_decompressed_1},3'b001},_zz_IBusCachedPlugin_decompressor_decompressed_18[4 : 1]},_zz_IBusCachedPlugin_decompressor_decompressed_18[11]},7'h63}; // @[Misc.scala 88:19]
       end
       5'h10 : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{7'h0,_zz_IBusCachedPlugin_decompressor_decompressed[6 : 2]},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},3'b001},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h13};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{7'h0,_zz_IBusCachedPlugin_decompressor_decompressed[6 : 2]},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},3'b001},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h13}; // @[Misc.scala 89:19]
       end
       5'h12 : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{{{{4'b0000,_zz_IBusCachedPlugin_decompressor_decompressed[3 : 2]},_zz_IBusCachedPlugin_decompressor_decompressed[12]},_zz_IBusCachedPlugin_decompressor_decompressed[6 : 4]},2'b00},_zz_IBusCachedPlugin_decompressor_decompressed_21},3'b010},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h03};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{{{{4'b0000,_zz_IBusCachedPlugin_decompressor_decompressed[3 : 2]},_zz_IBusCachedPlugin_decompressor_decompressed[12]},_zz_IBusCachedPlugin_decompressor_decompressed[6 : 4]},2'b00},_zz_IBusCachedPlugin_decompressor_decompressed_21},3'b010},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h03}; // @[Misc.scala 91:19]
       end
       5'h14 : begin
-        IBusCachedPlugin_decompressor_decompressed = ((_zz_IBusCachedPlugin_decompressor_decompressed[12 : 2] == 11'h400) ? 32'h00100073 : ((_zz_IBusCachedPlugin_decompressor_decompressed[6 : 2] == 5'h0) ? {{{{12'h0,_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},3'b000},(_zz_IBusCachedPlugin_decompressor_decompressed[12] ? _zz_IBusCachedPlugin_decompressor_decompressed_20 : _zz_IBusCachedPlugin_decompressor_decompressed_19)},7'h67} : {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_30,_zz_IBusCachedPlugin_decompressor_decompressed_31},(_zz_IBusCachedPlugin_decompressor_decompressed_32 ? _zz_IBusCachedPlugin_decompressor_decompressed_33 : _zz_IBusCachedPlugin_decompressor_decompressed_19)},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h33}));
+        IBusCachedPlugin_decompressor_decompressed = ((_zz_IBusCachedPlugin_decompressor_decompressed[12 : 2] == 11'h400) ? 32'h00100073 : ((_zz_IBusCachedPlugin_decompressor_decompressed[6 : 2] == 5'h0) ? {{{{12'h0,_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},3'b000},(_zz_IBusCachedPlugin_decompressor_decompressed[12] ? _zz_IBusCachedPlugin_decompressor_decompressed_20 : _zz_IBusCachedPlugin_decompressor_decompressed_19)},7'h67} : {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_30,_zz_IBusCachedPlugin_decompressor_decompressed_31},(_zz_IBusCachedPlugin_decompressor_decompressed_32 ? _zz_IBusCachedPlugin_decompressor_decompressed_33 : _zz_IBusCachedPlugin_decompressor_decompressed_19)},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 7]},7'h33})); // @[Misc.scala 98:13]
       end
       5'h16 : begin
-        IBusCachedPlugin_decompressor_decompressed = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_34[11 : 5],_zz_IBusCachedPlugin_decompressor_decompressed[6 : 2]},_zz_IBusCachedPlugin_decompressor_decompressed_21},3'b010},_zz_IBusCachedPlugin_decompressor_decompressed_35[4 : 0]},7'h23};
+        IBusCachedPlugin_decompressor_decompressed = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_34[11 : 5],_zz_IBusCachedPlugin_decompressor_decompressed[6 : 2]},_zz_IBusCachedPlugin_decompressor_decompressed_21},3'b010},_zz_IBusCachedPlugin_decompressor_decompressed_35[4 : 0]},7'h23}; // @[Misc.scala 102:19]
       end
       default : begin
       end
     endcase
   end
 
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_1 = {2'b01,_zz_IBusCachedPlugin_decompressor_decompressed[9 : 7]};
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_2 = {2'b01,_zz_IBusCachedPlugin_decompressor_decompressed[4 : 2]};
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_3 = {{{{5'h0,_zz_IBusCachedPlugin_decompressor_decompressed[5]},_zz_IBusCachedPlugin_decompressor_decompressed[12 : 10]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},2'b00};
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_4 = _zz_IBusCachedPlugin_decompressor_decompressed[12];
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_1 = {2'b01,_zz_IBusCachedPlugin_decompressor_decompressed[9 : 7]}; // @[BaseType.scala 299:24]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_2 = {2'b01,_zz_IBusCachedPlugin_decompressor_decompressed[4 : 2]}; // @[BaseType.scala 299:24]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_3 = {{{{5'h0,_zz_IBusCachedPlugin_decompressor_decompressed[5]},_zz_IBusCachedPlugin_decompressor_decompressed[12 : 10]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},2'b00}; // @[BaseType.scala 299:24]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_4 = _zz_IBusCachedPlugin_decompressor_decompressed[12]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_decompressor_decompressed_5[11] = _zz_IBusCachedPlugin_decompressor_decompressed_4;
-    _zz_IBusCachedPlugin_decompressor_decompressed_5[10] = _zz_IBusCachedPlugin_decompressor_decompressed_4;
-    _zz_IBusCachedPlugin_decompressor_decompressed_5[9] = _zz_IBusCachedPlugin_decompressor_decompressed_4;
-    _zz_IBusCachedPlugin_decompressor_decompressed_5[8] = _zz_IBusCachedPlugin_decompressor_decompressed_4;
-    _zz_IBusCachedPlugin_decompressor_decompressed_5[7] = _zz_IBusCachedPlugin_decompressor_decompressed_4;
-    _zz_IBusCachedPlugin_decompressor_decompressed_5[6] = _zz_IBusCachedPlugin_decompressor_decompressed_4;
-    _zz_IBusCachedPlugin_decompressor_decompressed_5[5] = _zz_IBusCachedPlugin_decompressor_decompressed_4;
-    _zz_IBusCachedPlugin_decompressor_decompressed_5[4 : 0] = _zz_IBusCachedPlugin_decompressor_decompressed[6 : 2];
+    _zz_IBusCachedPlugin_decompressor_decompressed_5[11] = _zz_IBusCachedPlugin_decompressor_decompressed_4; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_5[10] = _zz_IBusCachedPlugin_decompressor_decompressed_4; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_5[9] = _zz_IBusCachedPlugin_decompressor_decompressed_4; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_5[8] = _zz_IBusCachedPlugin_decompressor_decompressed_4; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_5[7] = _zz_IBusCachedPlugin_decompressor_decompressed_4; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_5[6] = _zz_IBusCachedPlugin_decompressor_decompressed_4; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_5[5] = _zz_IBusCachedPlugin_decompressor_decompressed_4; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_5[4 : 0] = _zz_IBusCachedPlugin_decompressor_decompressed[6 : 2]; // @[Literal.scala 99:91]
   end
 
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_6 = _zz_IBusCachedPlugin_decompressor_decompressed[12];
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_6 = _zz_IBusCachedPlugin_decompressor_decompressed[12]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[9] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[8] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[7] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[6] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[5] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[4] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[3] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[2] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[1] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
-    _zz_IBusCachedPlugin_decompressor_decompressed_7[0] = _zz_IBusCachedPlugin_decompressor_decompressed_6;
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[9] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[8] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[7] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[6] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[5] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[4] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[3] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[2] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[1] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_7[0] = _zz_IBusCachedPlugin_decompressor_decompressed_6; // @[Literal.scala 87:17]
   end
 
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_8 = {{{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_7,_zz_IBusCachedPlugin_decompressor_decompressed[8]},_zz_IBusCachedPlugin_decompressor_decompressed[10 : 9]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},_zz_IBusCachedPlugin_decompressor_decompressed[7]},_zz_IBusCachedPlugin_decompressor_decompressed[2]},_zz_IBusCachedPlugin_decompressor_decompressed[11]},_zz_IBusCachedPlugin_decompressor_decompressed[5 : 3]},1'b0};
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_9 = _zz_IBusCachedPlugin_decompressor_decompressed[12];
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_8 = {{{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_7,_zz_IBusCachedPlugin_decompressor_decompressed[8]},_zz_IBusCachedPlugin_decompressor_decompressed[10 : 9]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},_zz_IBusCachedPlugin_decompressor_decompressed[7]},_zz_IBusCachedPlugin_decompressor_decompressed[2]},_zz_IBusCachedPlugin_decompressor_decompressed[11]},_zz_IBusCachedPlugin_decompressor_decompressed[5 : 3]},1'b0}; // @[BaseType.scala 299:24]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_9 = _zz_IBusCachedPlugin_decompressor_decompressed[12]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[14] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[13] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[12] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[11] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[10] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[9] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[8] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[7] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[6] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[5] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[4] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[3] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[2] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[1] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
-    _zz_IBusCachedPlugin_decompressor_decompressed_10[0] = _zz_IBusCachedPlugin_decompressor_decompressed_9;
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[14] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[13] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[12] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[11] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[10] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[9] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[8] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[7] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[6] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[5] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[4] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[3] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[2] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[1] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_10[0] = _zz_IBusCachedPlugin_decompressor_decompressed_9; // @[Literal.scala 87:17]
   end
 
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_11 = _zz_IBusCachedPlugin_decompressor_decompressed[12];
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_11 = _zz_IBusCachedPlugin_decompressor_decompressed[12]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_decompressor_decompressed_12[2] = _zz_IBusCachedPlugin_decompressor_decompressed_11;
-    _zz_IBusCachedPlugin_decompressor_decompressed_12[1] = _zz_IBusCachedPlugin_decompressor_decompressed_11;
-    _zz_IBusCachedPlugin_decompressor_decompressed_12[0] = _zz_IBusCachedPlugin_decompressor_decompressed_11;
+    _zz_IBusCachedPlugin_decompressor_decompressed_12[2] = _zz_IBusCachedPlugin_decompressor_decompressed_11; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_12[1] = _zz_IBusCachedPlugin_decompressor_decompressed_11; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_12[0] = _zz_IBusCachedPlugin_decompressor_decompressed_11; // @[Literal.scala 87:17]
   end
 
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_13 = _zz_IBusCachedPlugin_decompressor_decompressed[12];
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_13 = _zz_IBusCachedPlugin_decompressor_decompressed[12]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[9] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[8] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[7] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[6] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[5] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[4] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[3] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[2] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[1] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
-    _zz_IBusCachedPlugin_decompressor_decompressed_14[0] = _zz_IBusCachedPlugin_decompressor_decompressed_13;
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[9] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[8] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[7] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[6] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[5] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[4] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[3] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[2] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[1] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_14[0] = _zz_IBusCachedPlugin_decompressor_decompressed_13; // @[Literal.scala 87:17]
   end
 
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_15 = {{{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_14,_zz_IBusCachedPlugin_decompressor_decompressed[8]},_zz_IBusCachedPlugin_decompressor_decompressed[10 : 9]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},_zz_IBusCachedPlugin_decompressor_decompressed[7]},_zz_IBusCachedPlugin_decompressor_decompressed[2]},_zz_IBusCachedPlugin_decompressor_decompressed[11]},_zz_IBusCachedPlugin_decompressor_decompressed[5 : 3]},1'b0};
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_16 = _zz_IBusCachedPlugin_decompressor_decompressed[12];
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_15 = {{{{{{{{_zz_IBusCachedPlugin_decompressor_decompressed_14,_zz_IBusCachedPlugin_decompressor_decompressed[8]},_zz_IBusCachedPlugin_decompressor_decompressed[10 : 9]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},_zz_IBusCachedPlugin_decompressor_decompressed[7]},_zz_IBusCachedPlugin_decompressor_decompressed[2]},_zz_IBusCachedPlugin_decompressor_decompressed[11]},_zz_IBusCachedPlugin_decompressor_decompressed[5 : 3]},1'b0}; // @[BaseType.scala 299:24]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_16 = _zz_IBusCachedPlugin_decompressor_decompressed[12]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_decompressor_decompressed_17[4] = _zz_IBusCachedPlugin_decompressor_decompressed_16;
-    _zz_IBusCachedPlugin_decompressor_decompressed_17[3] = _zz_IBusCachedPlugin_decompressor_decompressed_16;
-    _zz_IBusCachedPlugin_decompressor_decompressed_17[2] = _zz_IBusCachedPlugin_decompressor_decompressed_16;
-    _zz_IBusCachedPlugin_decompressor_decompressed_17[1] = _zz_IBusCachedPlugin_decompressor_decompressed_16;
-    _zz_IBusCachedPlugin_decompressor_decompressed_17[0] = _zz_IBusCachedPlugin_decompressor_decompressed_16;
+    _zz_IBusCachedPlugin_decompressor_decompressed_17[4] = _zz_IBusCachedPlugin_decompressor_decompressed_16; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_17[3] = _zz_IBusCachedPlugin_decompressor_decompressed_16; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_17[2] = _zz_IBusCachedPlugin_decompressor_decompressed_16; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_17[1] = _zz_IBusCachedPlugin_decompressor_decompressed_16; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_17[0] = _zz_IBusCachedPlugin_decompressor_decompressed_16; // @[Literal.scala 87:17]
   end
 
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_18 = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_17,_zz_IBusCachedPlugin_decompressor_decompressed[6 : 5]},_zz_IBusCachedPlugin_decompressor_decompressed[2]},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 10]},_zz_IBusCachedPlugin_decompressor_decompressed[4 : 3]},1'b0};
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_19 = 5'h0;
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_20 = 5'h01;
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_21 = 5'h02;
-  assign switch_Misc_l44 = {_zz_IBusCachedPlugin_decompressor_decompressed[1 : 0],_zz_IBusCachedPlugin_decompressor_decompressed[15 : 13]};
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_22 = (_zz_IBusCachedPlugin_decompressor_decompressed[11 : 10] != 2'b11);
-  assign switch_Misc_l210 = _zz_IBusCachedPlugin_decompressor_decompressed[11 : 10];
-  assign switch_Misc_l210_1 = _zz_IBusCachedPlugin_decompressor_decompressed[6 : 5];
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_18 = {{{{{_zz_IBusCachedPlugin_decompressor_decompressed_17,_zz_IBusCachedPlugin_decompressor_decompressed[6 : 5]},_zz_IBusCachedPlugin_decompressor_decompressed[2]},_zz_IBusCachedPlugin_decompressor_decompressed[11 : 10]},_zz_IBusCachedPlugin_decompressor_decompressed[4 : 3]},1'b0}; // @[BaseType.scala 299:24]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_19 = 5'h0; // @[Expression.scala 2301:18]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_20 = 5'h01; // @[Expression.scala 2301:18]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_21 = 5'h02; // @[Expression.scala 2301:18]
+  assign switch_Misc_l44 = {_zz_IBusCachedPlugin_decompressor_decompressed[1 : 0],_zz_IBusCachedPlugin_decompressor_decompressed[15 : 13]}; // @[BaseType.scala 299:24]
+  assign when_Misc_l47 = (_zz_IBusCachedPlugin_decompressor_decompressed[12 : 2] == 11'h0); // @[BaseType.scala 305:24]
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_22 = (_zz_IBusCachedPlugin_decompressor_decompressed[11 : 10] != 2'b11); // @[BaseType.scala 305:24]
+  assign switch_Misc_l226 = _zz_IBusCachedPlugin_decompressor_decompressed[11 : 10]; // @[BaseType.scala 299:24]
+  assign switch_Misc_l226_1 = _zz_IBusCachedPlugin_decompressor_decompressed[6 : 5]; // @[BaseType.scala 299:24]
   always @(*) begin
-    case(switch_Misc_l210_1)
+    case(switch_Misc_l226_1)
       2'b00 : begin
-        _zz_IBusCachedPlugin_decompressor_decompressed_23 = 3'b000;
+        _zz_IBusCachedPlugin_decompressor_decompressed_23 = 3'b000; // @[Misc.scala 239:22]
       end
       2'b01 : begin
-        _zz_IBusCachedPlugin_decompressor_decompressed_23 = 3'b100;
+        _zz_IBusCachedPlugin_decompressor_decompressed_23 = 3'b100; // @[Misc.scala 239:22]
       end
       2'b10 : begin
-        _zz_IBusCachedPlugin_decompressor_decompressed_23 = 3'b110;
+        _zz_IBusCachedPlugin_decompressor_decompressed_23 = 3'b110; // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_IBusCachedPlugin_decompressor_decompressed_23 = 3'b111;
+        _zz_IBusCachedPlugin_decompressor_decompressed_23 = 3'b111; // @[Misc.scala 239:22]
       end
     endcase
   end
 
   always @(*) begin
-    case(switch_Misc_l210)
+    case(switch_Misc_l226)
       2'b00 : begin
-        _zz_IBusCachedPlugin_decompressor_decompressed_24 = 3'b101;
+        _zz_IBusCachedPlugin_decompressor_decompressed_24 = 3'b101; // @[Misc.scala 239:22]
       end
       2'b01 : begin
-        _zz_IBusCachedPlugin_decompressor_decompressed_24 = 3'b101;
+        _zz_IBusCachedPlugin_decompressor_decompressed_24 = 3'b101; // @[Misc.scala 239:22]
       end
       2'b10 : begin
-        _zz_IBusCachedPlugin_decompressor_decompressed_24 = 3'b111;
+        _zz_IBusCachedPlugin_decompressor_decompressed_24 = 3'b111; // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_IBusCachedPlugin_decompressor_decompressed_24 = _zz_IBusCachedPlugin_decompressor_decompressed_23;
+        _zz_IBusCachedPlugin_decompressor_decompressed_24 = _zz_IBusCachedPlugin_decompressor_decompressed_23; // @[Misc.scala 239:22]
       end
     endcase
   end
 
-  assign _zz_IBusCachedPlugin_decompressor_decompressed_25 = _zz_IBusCachedPlugin_decompressor_decompressed[12];
+  assign _zz_IBusCachedPlugin_decompressor_decompressed_25 = _zz_IBusCachedPlugin_decompressor_decompressed[12]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_decompressor_decompressed_26[6] = _zz_IBusCachedPlugin_decompressor_decompressed_25;
-    _zz_IBusCachedPlugin_decompressor_decompressed_26[5] = _zz_IBusCachedPlugin_decompressor_decompressed_25;
-    _zz_IBusCachedPlugin_decompressor_decompressed_26[4] = _zz_IBusCachedPlugin_decompressor_decompressed_25;
-    _zz_IBusCachedPlugin_decompressor_decompressed_26[3] = _zz_IBusCachedPlugin_decompressor_decompressed_25;
-    _zz_IBusCachedPlugin_decompressor_decompressed_26[2] = _zz_IBusCachedPlugin_decompressor_decompressed_25;
-    _zz_IBusCachedPlugin_decompressor_decompressed_26[1] = _zz_IBusCachedPlugin_decompressor_decompressed_25;
-    _zz_IBusCachedPlugin_decompressor_decompressed_26[0] = _zz_IBusCachedPlugin_decompressor_decompressed_25;
+    _zz_IBusCachedPlugin_decompressor_decompressed_26[6] = _zz_IBusCachedPlugin_decompressor_decompressed_25; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_26[5] = _zz_IBusCachedPlugin_decompressor_decompressed_25; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_26[4] = _zz_IBusCachedPlugin_decompressor_decompressed_25; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_26[3] = _zz_IBusCachedPlugin_decompressor_decompressed_25; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_26[2] = _zz_IBusCachedPlugin_decompressor_decompressed_25; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_26[1] = _zz_IBusCachedPlugin_decompressor_decompressed_25; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decompressor_decompressed_26[0] = _zz_IBusCachedPlugin_decompressor_decompressed_25; // @[Literal.scala 87:17]
   end
 
-  assign IBusCachedPlugin_decompressor_output_valid = (IBusCachedPlugin_decompressor_input_valid && (! ((IBusCachedPlugin_decompressor_throw2Bytes && (! IBusCachedPlugin_decompressor_bufferValid)) && (! IBusCachedPlugin_decompressor_isInputHighRvc))));
-  assign IBusCachedPlugin_decompressor_output_payload_pc = IBusCachedPlugin_decompressor_input_payload_pc;
-  assign IBusCachedPlugin_decompressor_output_payload_isRvc = IBusCachedPlugin_decompressor_isRvc;
-  assign IBusCachedPlugin_decompressor_output_payload_rsp_inst = (IBusCachedPlugin_decompressor_isRvc ? IBusCachedPlugin_decompressor_decompressed : IBusCachedPlugin_decompressor_raw);
-  assign IBusCachedPlugin_decompressor_input_ready = (IBusCachedPlugin_decompressor_output_ready && (((! IBusCachedPlugin_iBusRsp_stages_2_input_valid) || decode_arbitration_flushNext) || ((! (IBusCachedPlugin_decompressor_bufferValid && IBusCachedPlugin_decompressor_isInputHighRvc)) && (! (((! IBusCachedPlugin_decompressor_unaligned) && IBusCachedPlugin_decompressor_isInputLowRvc) && IBusCachedPlugin_decompressor_isInputHighRvc)))));
-  assign IBusCachedPlugin_decompressor_output_fire = (IBusCachedPlugin_decompressor_output_valid && IBusCachedPlugin_decompressor_output_ready);
-  assign IBusCachedPlugin_decompressor_bufferFill = (((((! IBusCachedPlugin_decompressor_unaligned) && IBusCachedPlugin_decompressor_isInputLowRvc) && (! IBusCachedPlugin_decompressor_isInputHighRvc)) || (IBusCachedPlugin_decompressor_bufferValid && (! IBusCachedPlugin_decompressor_isInputHighRvc))) || ((IBusCachedPlugin_decompressor_throw2Bytes && (! IBusCachedPlugin_decompressor_isRvc)) && (! IBusCachedPlugin_decompressor_isInputHighRvc)));
-  assign when_Fetcher_l286 = (IBusCachedPlugin_decompressor_output_ready && IBusCachedPlugin_decompressor_input_valid);
-  assign when_Fetcher_l289 = (IBusCachedPlugin_decompressor_output_ready && IBusCachedPlugin_decompressor_input_valid);
-  assign when_Fetcher_l294 = (decode_arbitration_removeIt || IBusCachedPlugin_decompressor_consumeCurrent);
-  assign when_Fetcher_l332 = (! 1'b0);
-  assign when_Fetcher_l332_1 = (! execute_arbitration_isStuck);
-  assign when_Fetcher_l332_2 = (! memory_arbitration_isStuck);
-  assign when_Fetcher_l332_3 = (! writeBack_arbitration_isStuck);
-  assign IBusCachedPlugin_pcValids_0 = IBusCachedPlugin_injector_nextPcCalc_valids_0;
-  assign IBusCachedPlugin_pcValids_1 = IBusCachedPlugin_injector_nextPcCalc_valids_1;
-  assign IBusCachedPlugin_pcValids_2 = IBusCachedPlugin_injector_nextPcCalc_valids_2;
-  assign IBusCachedPlugin_pcValids_3 = IBusCachedPlugin_injector_nextPcCalc_valids_3;
-  assign IBusCachedPlugin_decompressor_output_ready = (! decode_arbitration_isStuck);
+  assign IBusCachedPlugin_decompressor_output_valid = (IBusCachedPlugin_decompressor_input_valid && (! ((IBusCachedPlugin_decompressor_throw2Bytes && (! IBusCachedPlugin_decompressor_bufferValid)) && (! IBusCachedPlugin_decompressor_isInputHighRvc)))); // @[Fetcher.scala 276:20]
+  assign IBusCachedPlugin_decompressor_output_payload_pc = IBusCachedPlugin_decompressor_input_payload_pc; // @[Fetcher.scala 277:17]
+  assign IBusCachedPlugin_decompressor_output_payload_isRvc = IBusCachedPlugin_decompressor_isRvc; // @[Fetcher.scala 278:20]
+  assign IBusCachedPlugin_decompressor_output_payload_rsp_inst = (IBusCachedPlugin_decompressor_isRvc ? IBusCachedPlugin_decompressor_decompressed : IBusCachedPlugin_decompressor_raw); // @[Fetcher.scala 279:23]
+  assign IBusCachedPlugin_decompressor_input_ready = (IBusCachedPlugin_decompressor_output_ready && (((! IBusCachedPlugin_iBusRsp_stages_2_input_valid) || decode_arbitration_flushNext) || ((! (IBusCachedPlugin_decompressor_bufferValid && IBusCachedPlugin_decompressor_isInputHighRvc)) && (! (((! IBusCachedPlugin_decompressor_unaligned) && IBusCachedPlugin_decompressor_isInputLowRvc) && IBusCachedPlugin_decompressor_isInputHighRvc))))); // @[Fetcher.scala 280:19]
+  assign IBusCachedPlugin_decompressor_output_fire = (IBusCachedPlugin_decompressor_output_valid && IBusCachedPlugin_decompressor_output_ready); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_decompressor_bufferFill = (((((! IBusCachedPlugin_decompressor_unaligned) && IBusCachedPlugin_decompressor_isInputLowRvc) && (! IBusCachedPlugin_decompressor_isInputHighRvc)) || (IBusCachedPlugin_decompressor_bufferValid && (! IBusCachedPlugin_decompressor_isInputHighRvc))) || ((IBusCachedPlugin_decompressor_throw2Bytes && (! IBusCachedPlugin_decompressor_isRvc)) && (! IBusCachedPlugin_decompressor_isInputHighRvc))); // @[BaseType.scala 305:24]
+  assign when_Fetcher_l286 = (IBusCachedPlugin_decompressor_output_ready && IBusCachedPlugin_decompressor_input_valid); // @[BaseType.scala 305:24]
+  assign when_Fetcher_l289 = (IBusCachedPlugin_decompressor_output_ready && IBusCachedPlugin_decompressor_input_valid); // @[BaseType.scala 305:24]
+  assign when_Fetcher_l294 = (decode_arbitration_removeIt || IBusCachedPlugin_decompressor_consumeCurrent); // @[BaseType.scala 305:24]
+  assign when_Fetcher_l332 = (! 1'b0); // @[BaseType.scala 299:24]
+  assign when_Fetcher_l332_1 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Fetcher_l332_2 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Fetcher_l332_3 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign IBusCachedPlugin_pcValids_0 = IBusCachedPlugin_injector_nextPcCalc_valids_0; // @[Fetcher.scala 345:18]
+  assign IBusCachedPlugin_pcValids_1 = IBusCachedPlugin_injector_nextPcCalc_valids_1; // @[Fetcher.scala 345:18]
+  assign IBusCachedPlugin_pcValids_2 = IBusCachedPlugin_injector_nextPcCalc_valids_2; // @[Fetcher.scala 345:18]
+  assign IBusCachedPlugin_pcValids_3 = IBusCachedPlugin_injector_nextPcCalc_valids_3; // @[Fetcher.scala 345:18]
+  assign IBusCachedPlugin_decompressor_output_ready = (! decode_arbitration_isStuck); // @[Fetcher.scala 351:25]
   always @(*) begin
-    decode_arbitration_isValid = IBusCachedPlugin_decompressor_output_valid;
+    decode_arbitration_isValid = IBusCachedPlugin_decompressor_output_valid; // @[Fetcher.scala 352:34]
     case(switch_Fetcher_l365)
       3'b010 : begin
-        decode_arbitration_isValid = 1'b1;
+        decode_arbitration_isValid = 1'b1; // @[Fetcher.scala 375:42]
       end
       3'b011 : begin
-        decode_arbitration_isValid = 1'b1;
+        decode_arbitration_isValid = 1'b1; // @[Fetcher.scala 380:42]
       end
       default : begin
       end
     endcase
     if(IBusCachedPlugin_forceNoDecodeCond) begin
-      decode_arbitration_isValid = 1'b0;
+      decode_arbitration_isValid = 1'b0; // @[Fetcher.scala 415:36]
     end
   end
 
-  assign _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch = _zz__zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch[11];
+  assign _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch = _zz__zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch[11]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[18] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[17] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[16] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[15] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[14] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[13] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[12] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[11] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[10] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[9] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[8] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[7] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[6] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[5] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[4] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[3] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[2] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[1] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
-    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[0] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch;
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[18] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[17] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[16] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[15] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[14] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[13] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[12] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[11] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[10] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[9] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[8] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[7] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[6] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[5] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[4] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[3] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[2] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[1] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_1[0] = _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch; // @[Literal.scala 87:17]
   end
 
-  assign IBusCachedPlugin_decodePrediction_cmd_hadBranch = ((decode_BRANCH_CTRL == BranchCtrlEnum_JAL) || ((decode_BRANCH_CTRL == BranchCtrlEnum_B) && _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_2[31]));
-  assign IBusCachedPlugin_predictionJumpInterface_valid = (decode_arbitration_isValid && IBusCachedPlugin_decodePrediction_cmd_hadBranch);
-  assign _zz_IBusCachedPlugin_predictionJumpInterface_payload = _zz__zz_IBusCachedPlugin_predictionJumpInterface_payload[19];
+  assign IBusCachedPlugin_decodePrediction_cmd_hadBranch = ((decode_BRANCH_CTRL == BranchCtrlEnum_JAL) || ((decode_BRANCH_CTRL == BranchCtrlEnum_B) && _zz_IBusCachedPlugin_decodePrediction_cmd_hadBranch_2[31])); // @[Fetcher.scala 502:40]
+  assign IBusCachedPlugin_predictionJumpInterface_valid = (decode_arbitration_isValid && IBusCachedPlugin_decodePrediction_cmd_hadBranch); // @[Fetcher.scala 513:39]
+  assign _zz_IBusCachedPlugin_predictionJumpInterface_payload = _zz__zz_IBusCachedPlugin_predictionJumpInterface_payload[19]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[10] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[9] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[8] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[7] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[6] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[5] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[4] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[3] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[2] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[1] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[0] = _zz_IBusCachedPlugin_predictionJumpInterface_payload;
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[10] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[9] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[8] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[7] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[6] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[5] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[4] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[3] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[2] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[1] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_1[0] = _zz_IBusCachedPlugin_predictionJumpInterface_payload; // @[Literal.scala 87:17]
   end
 
-  assign _zz_IBusCachedPlugin_predictionJumpInterface_payload_2 = _zz__zz_IBusCachedPlugin_predictionJumpInterface_payload_2[11];
+  assign _zz_IBusCachedPlugin_predictionJumpInterface_payload_2 = _zz__zz_IBusCachedPlugin_predictionJumpInterface_payload_2[11]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[18] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[17] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[16] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[15] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[14] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[13] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[12] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[11] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[10] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[9] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[8] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[7] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[6] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[5] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[4] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[3] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[2] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[1] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
-    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[0] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2;
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[18] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[17] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[16] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[15] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[14] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[13] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[12] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[11] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[10] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[9] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[8] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[7] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[6] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[5] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[4] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[3] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[2] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[1] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
+    _zz_IBusCachedPlugin_predictionJumpInterface_payload_3[0] = _zz_IBusCachedPlugin_predictionJumpInterface_payload_2; // @[Literal.scala 87:17]
   end
 
-  assign IBusCachedPlugin_predictionJumpInterface_payload = (decode_PC + ((decode_BRANCH_CTRL == BranchCtrlEnum_JAL) ? {{_zz_IBusCachedPlugin_predictionJumpInterface_payload_1,{{{_zz_IBusCachedPlugin_predictionJumpInterface_payload_4,_zz_IBusCachedPlugin_predictionJumpInterface_payload_5},_zz_IBusCachedPlugin_predictionJumpInterface_payload_6},decode_INSTRUCTION[30 : 21]}},1'b0} : {{_zz_IBusCachedPlugin_predictionJumpInterface_payload_3,{{{_zz_IBusCachedPlugin_predictionJumpInterface_payload_7,_zz_IBusCachedPlugin_predictionJumpInterface_payload_8},decode_INSTRUCTION[30 : 25]},decode_INSTRUCTION[11 : 8]}},1'b0}));
-  assign iBus_cmd_valid = IBusCachedPlugin_cache_io_mem_cmd_valid;
+  assign IBusCachedPlugin_predictionJumpInterface_payload = (decode_PC + ((decode_BRANCH_CTRL == BranchCtrlEnum_JAL) ? {{_zz_IBusCachedPlugin_predictionJumpInterface_payload_1,{{{_zz_IBusCachedPlugin_predictionJumpInterface_payload_4,_zz_IBusCachedPlugin_predictionJumpInterface_payload_5},_zz_IBusCachedPlugin_predictionJumpInterface_payload_6},decode_INSTRUCTION[30 : 21]}},1'b0} : {{_zz_IBusCachedPlugin_predictionJumpInterface_payload_3,{{{_zz_IBusCachedPlugin_predictionJumpInterface_payload_7,_zz_IBusCachedPlugin_predictionJumpInterface_payload_8},decode_INSTRUCTION[30 : 25]},decode_INSTRUCTION[11 : 8]}},1'b0})); // @[Fetcher.scala 514:41]
+  assign iBus_cmd_valid = IBusCachedPlugin_cache_io_mem_cmd_valid; // @[IBusCachedPlugin.scala 140:12]
   always @(*) begin
-    iBus_cmd_payload_address = IBusCachedPlugin_cache_io_mem_cmd_payload_address;
-    iBus_cmd_payload_address = IBusCachedPlugin_cache_io_mem_cmd_payload_address;
+    iBus_cmd_payload_address = IBusCachedPlugin_cache_io_mem_cmd_payload_address; // @[IBusCachedPlugin.scala 140:12]
+    iBus_cmd_payload_address = IBusCachedPlugin_cache_io_mem_cmd_payload_address; // @[IBusCachedPlugin.scala 141:38]
   end
 
-  assign iBus_cmd_payload_size = IBusCachedPlugin_cache_io_mem_cmd_payload_size;
-  assign IBusCachedPlugin_s0_tightlyCoupledHit = 1'b0;
-  assign IBusCachedPlugin_cache_io_cpu_prefetch_isValid = (IBusCachedPlugin_iBusRsp_stages_0_input_valid && (! IBusCachedPlugin_s0_tightlyCoupledHit));
-  assign IBusCachedPlugin_cache_io_cpu_fetch_isValid = (IBusCachedPlugin_iBusRsp_stages_1_input_valid && (! IBusCachedPlugin_s1_tightlyCoupledHit));
-  assign IBusCachedPlugin_cache_io_cpu_fetch_isStuck = (! IBusCachedPlugin_iBusRsp_stages_1_input_ready);
-  assign IBusCachedPlugin_mmuBus_cmd_0_isValid = IBusCachedPlugin_cache_io_cpu_fetch_isValid;
-  assign IBusCachedPlugin_mmuBus_cmd_0_isStuck = (! IBusCachedPlugin_iBusRsp_stages_1_input_ready);
-  assign IBusCachedPlugin_mmuBus_cmd_0_virtualAddress = IBusCachedPlugin_iBusRsp_stages_1_input_payload;
-  assign IBusCachedPlugin_mmuBus_cmd_0_bypassTranslation = 1'b0;
-  assign IBusCachedPlugin_mmuBus_end = (IBusCachedPlugin_iBusRsp_stages_1_input_ready || IBusCachedPlugin_externalFlush);
-  assign IBusCachedPlugin_cache_io_cpu_decode_isValid = (IBusCachedPlugin_iBusRsp_stages_2_input_valid && (! IBusCachedPlugin_s2_tightlyCoupledHit));
-  assign IBusCachedPlugin_cache_io_cpu_decode_isStuck = (! IBusCachedPlugin_iBusRsp_stages_2_input_ready);
-  assign IBusCachedPlugin_cache_io_cpu_decode_isUser = (CsrPlugin_privilege == 2'b00);
-  assign IBusCachedPlugin_rsp_iBusRspOutputHalt = 1'b0;
-  assign IBusCachedPlugin_rsp_issueDetected = 1'b0;
+  assign iBus_cmd_payload_size = IBusCachedPlugin_cache_io_mem_cmd_payload_size; // @[IBusCachedPlugin.scala 140:12]
+  assign IBusCachedPlugin_s0_tightlyCoupledHit = 1'b0; // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_cache_io_cpu_prefetch_isValid = (IBusCachedPlugin_iBusRsp_stages_0_input_valid && (! IBusCachedPlugin_s0_tightlyCoupledHit)); // @[IBusCachedPlugin.scala 165:39]
+  assign IBusCachedPlugin_cache_io_cpu_fetch_isValid = (IBusCachedPlugin_iBusRsp_stages_1_input_valid && (! IBusCachedPlugin_s1_tightlyCoupledHit)); // @[IBusCachedPlugin.scala 187:36]
+  assign IBusCachedPlugin_cache_io_cpu_fetch_isStuck = (! IBusCachedPlugin_iBusRsp_stages_1_input_ready); // @[IBusCachedPlugin.scala 188:36]
+  assign IBusCachedPlugin_mmuBus_cmd_0_isValid = IBusCachedPlugin_cache_io_cpu_fetch_isValid; // @[IBusCachedPlugin.scala 192:35]
+  assign IBusCachedPlugin_mmuBus_cmd_0_isStuck = (! IBusCachedPlugin_iBusRsp_stages_1_input_ready); // @[IBusCachedPlugin.scala 193:35]
+  assign IBusCachedPlugin_mmuBus_cmd_0_virtualAddress = IBusCachedPlugin_iBusRsp_stages_1_input_payload; // @[IBusCachedPlugin.scala 194:42]
+  assign IBusCachedPlugin_mmuBus_cmd_0_bypassTranslation = 1'b0; // @[IBusCachedPlugin.scala 195:45]
+  assign IBusCachedPlugin_mmuBus_end = (IBusCachedPlugin_iBusRsp_stages_1_input_ready || IBusCachedPlugin_externalFlush); // @[IBusCachedPlugin.scala 196:22]
+  assign IBusCachedPlugin_cache_io_cpu_decode_isValid = (IBusCachedPlugin_iBusRsp_stages_2_input_valid && (! IBusCachedPlugin_s2_tightlyCoupledHit)); // @[IBusCachedPlugin.scala 208:37]
+  assign IBusCachedPlugin_cache_io_cpu_decode_isStuck = (! IBusCachedPlugin_iBusRsp_stages_2_input_ready); // @[IBusCachedPlugin.scala 209:37]
+  assign IBusCachedPlugin_cache_io_cpu_decode_isUser = (CsrPlugin_privilege == 2'b00); // @[IBusCachedPlugin.scala 211:36]
+  assign IBusCachedPlugin_rsp_iBusRspOutputHalt = 1'b0; // @[IBusCachedPlugin.scala 219:33]
+  assign IBusCachedPlugin_rsp_issueDetected = 1'b0; // @[IBusCachedPlugin.scala 223:29]
   always @(*) begin
-    IBusCachedPlugin_rsp_redoFetch = 1'b0;
+    IBusCachedPlugin_rsp_redoFetch = 1'b0; // @[IBusCachedPlugin.scala 224:25]
     if(when_IBusCachedPlugin_l239) begin
-      IBusCachedPlugin_rsp_redoFetch = 1'b1;
+      IBusCachedPlugin_rsp_redoFetch = 1'b1; // @[IBusCachedPlugin.scala 241:21]
     end
     if(when_IBusCachedPlugin_l250) begin
-      IBusCachedPlugin_rsp_redoFetch = 1'b1;
+      IBusCachedPlugin_rsp_redoFetch = 1'b1; // @[IBusCachedPlugin.scala 253:21]
     end
   end
 
   always @(*) begin
-    IBusCachedPlugin_cache_io_cpu_fill_valid = (IBusCachedPlugin_rsp_redoFetch && (! IBusCachedPlugin_cache_io_cpu_decode_mmuRefilling));
+    IBusCachedPlugin_cache_io_cpu_fill_valid = (IBusCachedPlugin_rsp_redoFetch && (! IBusCachedPlugin_cache_io_cpu_decode_mmuRefilling)); // @[IBusCachedPlugin.scala 229:33]
     if(when_IBusCachedPlugin_l250) begin
-      IBusCachedPlugin_cache_io_cpu_fill_valid = 1'b1;
+      IBusCachedPlugin_cache_io_cpu_fill_valid = 1'b1; // @[IBusCachedPlugin.scala 252:35]
     end
   end
 
   always @(*) begin
-    IBusCachedPlugin_decodeExceptionPort_valid = 1'b0;
+    IBusCachedPlugin_decodeExceptionPort_valid = 1'b0; // @[IBusCachedPlugin.scala 234:37]
     if(when_IBusCachedPlugin_l244) begin
-      IBusCachedPlugin_decodeExceptionPort_valid = IBusCachedPlugin_iBusRsp_readyForError;
+      IBusCachedPlugin_decodeExceptionPort_valid = IBusCachedPlugin_iBusRsp_readyForError; // @[IBusCachedPlugin.scala 246:37]
     end
     if(when_IBusCachedPlugin_l256) begin
-      IBusCachedPlugin_decodeExceptionPort_valid = IBusCachedPlugin_iBusRsp_readyForError;
+      IBusCachedPlugin_decodeExceptionPort_valid = IBusCachedPlugin_iBusRsp_readyForError; // @[IBusCachedPlugin.scala 258:37]
     end
   end
 
   always @(*) begin
-    IBusCachedPlugin_decodeExceptionPort_payload_code = 4'bxxxx;
+    IBusCachedPlugin_decodeExceptionPort_payload_code = 4'bxxxx; // @[UInt.scala 467:20]
     if(when_IBusCachedPlugin_l244) begin
-      IBusCachedPlugin_decodeExceptionPort_payload_code = 4'b1100;
+      IBusCachedPlugin_decodeExceptionPort_payload_code = 4'b1100; // @[IBusCachedPlugin.scala 247:36]
     end
     if(when_IBusCachedPlugin_l256) begin
-      IBusCachedPlugin_decodeExceptionPort_payload_code = 4'b0001;
+      IBusCachedPlugin_decodeExceptionPort_payload_code = 4'b0001; // @[IBusCachedPlugin.scala 259:36]
     end
   end
 
-  assign IBusCachedPlugin_decodeExceptionPort_payload_badAddr = {IBusCachedPlugin_iBusRsp_stages_2_input_payload[31 : 2],2'b00};
-  assign when_IBusCachedPlugin_l239 = ((IBusCachedPlugin_cache_io_cpu_decode_isValid && IBusCachedPlugin_cache_io_cpu_decode_mmuRefilling) && (! IBusCachedPlugin_rsp_issueDetected));
-  assign when_IBusCachedPlugin_l244 = ((IBusCachedPlugin_cache_io_cpu_decode_isValid && IBusCachedPlugin_cache_io_cpu_decode_mmuException) && (! IBusCachedPlugin_rsp_issueDetected_1));
-  assign when_IBusCachedPlugin_l250 = ((IBusCachedPlugin_cache_io_cpu_decode_isValid && IBusCachedPlugin_cache_io_cpu_decode_cacheMiss) && (! IBusCachedPlugin_rsp_issueDetected_2));
-  assign when_IBusCachedPlugin_l256 = ((IBusCachedPlugin_cache_io_cpu_decode_isValid && IBusCachedPlugin_cache_io_cpu_decode_error) && (! IBusCachedPlugin_rsp_issueDetected_3));
-  assign when_IBusCachedPlugin_l267 = (IBusCachedPlugin_rsp_issueDetected_4 || IBusCachedPlugin_rsp_iBusRspOutputHalt);
-  assign IBusCachedPlugin_iBusRsp_output_valid = IBusCachedPlugin_iBusRsp_stages_2_output_valid;
-  assign IBusCachedPlugin_iBusRsp_stages_2_output_ready = IBusCachedPlugin_iBusRsp_output_ready;
-  assign IBusCachedPlugin_iBusRsp_output_payload_rsp_inst = IBusCachedPlugin_cache_io_cpu_decode_data;
-  assign IBusCachedPlugin_iBusRsp_output_payload_pc = IBusCachedPlugin_iBusRsp_stages_2_output_payload;
-  assign IBusCachedPlugin_cache_io_flush = (decode_arbitration_isValid && decode_FLUSH_ALL);
-  assign dataCache_1_io_mem_cmd_ready = (! dataCache_1_io_mem_cmd_rValid);
-  assign dataCache_1_io_mem_cmd_s2mPipe_valid = (dataCache_1_io_mem_cmd_valid || dataCache_1_io_mem_cmd_rValid);
-  assign dataCache_1_io_mem_cmd_s2mPipe_payload_wr = (dataCache_1_io_mem_cmd_rValid ? dataCache_1_io_mem_cmd_rData_wr : dataCache_1_io_mem_cmd_payload_wr);
-  assign dataCache_1_io_mem_cmd_s2mPipe_payload_uncached = (dataCache_1_io_mem_cmd_rValid ? dataCache_1_io_mem_cmd_rData_uncached : dataCache_1_io_mem_cmd_payload_uncached);
-  assign dataCache_1_io_mem_cmd_s2mPipe_payload_address = (dataCache_1_io_mem_cmd_rValid ? dataCache_1_io_mem_cmd_rData_address : dataCache_1_io_mem_cmd_payload_address);
-  assign dataCache_1_io_mem_cmd_s2mPipe_payload_data = (dataCache_1_io_mem_cmd_rValid ? dataCache_1_io_mem_cmd_rData_data : dataCache_1_io_mem_cmd_payload_data);
-  assign dataCache_1_io_mem_cmd_s2mPipe_payload_mask = (dataCache_1_io_mem_cmd_rValid ? dataCache_1_io_mem_cmd_rData_mask : dataCache_1_io_mem_cmd_payload_mask);
-  assign dataCache_1_io_mem_cmd_s2mPipe_payload_size = (dataCache_1_io_mem_cmd_rValid ? dataCache_1_io_mem_cmd_rData_size : dataCache_1_io_mem_cmd_payload_size);
-  assign dataCache_1_io_mem_cmd_s2mPipe_payload_last = (dataCache_1_io_mem_cmd_rValid ? dataCache_1_io_mem_cmd_rData_last : dataCache_1_io_mem_cmd_payload_last);
+  assign IBusCachedPlugin_decodeExceptionPort_payload_badAddr = {IBusCachedPlugin_iBusRsp_stages_2_input_payload[31 : 2],2'b00}; // @[IBusCachedPlugin.scala 236:39]
+  assign when_IBusCachedPlugin_l239 = ((IBusCachedPlugin_cache_io_cpu_decode_isValid && IBusCachedPlugin_cache_io_cpu_decode_mmuRefilling) && (! IBusCachedPlugin_rsp_issueDetected)); // @[BaseType.scala 305:24]
+  assign when_IBusCachedPlugin_l244 = ((IBusCachedPlugin_cache_io_cpu_decode_isValid && IBusCachedPlugin_cache_io_cpu_decode_mmuException) && (! IBusCachedPlugin_rsp_issueDetected_1)); // @[BaseType.scala 305:24]
+  assign when_IBusCachedPlugin_l250 = ((IBusCachedPlugin_cache_io_cpu_decode_isValid && IBusCachedPlugin_cache_io_cpu_decode_cacheMiss) && (! IBusCachedPlugin_rsp_issueDetected_2)); // @[BaseType.scala 305:24]
+  assign when_IBusCachedPlugin_l256 = ((IBusCachedPlugin_cache_io_cpu_decode_isValid && IBusCachedPlugin_cache_io_cpu_decode_error) && (! IBusCachedPlugin_rsp_issueDetected_3)); // @[BaseType.scala 305:24]
+  assign when_IBusCachedPlugin_l267 = (IBusCachedPlugin_rsp_issueDetected_4 || IBusCachedPlugin_rsp_iBusRspOutputHalt); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_iBusRsp_output_valid = IBusCachedPlugin_iBusRsp_stages_2_output_valid; // @[IBusCachedPlugin.scala 268:30]
+  assign IBusCachedPlugin_iBusRsp_stages_2_output_ready = IBusCachedPlugin_iBusRsp_output_ready; // @[IBusCachedPlugin.scala 269:42]
+  assign IBusCachedPlugin_iBusRsp_output_payload_rsp_inst = IBusCachedPlugin_cache_io_cpu_decode_data; // @[IBusCachedPlugin.scala 270:33]
+  assign IBusCachedPlugin_iBusRsp_output_payload_pc = IBusCachedPlugin_iBusRsp_stages_2_output_payload; // @[IBusCachedPlugin.scala 271:27]
+  assign IBusCachedPlugin_cache_io_flush = (decode_arbitration_isValid && decode_FLUSH_ALL); // @[IBusCachedPlugin.scala 287:22]
+  assign dataCache_1_io_mem_cmd_ready = (! toplevel_dataCache_1_io_mem_cmd_rValid); // @[Stream.scala 380:16]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_valid = (dataCache_1_io_mem_cmd_valid || toplevel_dataCache_1_io_mem_cmd_rValid); // @[Stream.scala 382:19]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_wr = (toplevel_dataCache_1_io_mem_cmd_rValid ? toplevel_dataCache_1_io_mem_cmd_rData_wr : dataCache_1_io_mem_cmd_payload_wr); // @[Stream.scala 383:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_uncached = (toplevel_dataCache_1_io_mem_cmd_rValid ? toplevel_dataCache_1_io_mem_cmd_rData_uncached : dataCache_1_io_mem_cmd_payload_uncached); // @[Stream.scala 383:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_address = (toplevel_dataCache_1_io_mem_cmd_rValid ? toplevel_dataCache_1_io_mem_cmd_rData_address : dataCache_1_io_mem_cmd_payload_address); // @[Stream.scala 383:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_data = (toplevel_dataCache_1_io_mem_cmd_rValid ? toplevel_dataCache_1_io_mem_cmd_rData_data : dataCache_1_io_mem_cmd_payload_data); // @[Stream.scala 383:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_mask = (toplevel_dataCache_1_io_mem_cmd_rValid ? toplevel_dataCache_1_io_mem_cmd_rData_mask : dataCache_1_io_mem_cmd_payload_mask); // @[Stream.scala 383:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_size = (toplevel_dataCache_1_io_mem_cmd_rValid ? toplevel_dataCache_1_io_mem_cmd_rData_size : dataCache_1_io_mem_cmd_payload_size); // @[Stream.scala 383:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_last = (toplevel_dataCache_1_io_mem_cmd_rValid ? toplevel_dataCache_1_io_mem_cmd_rData_last : dataCache_1_io_mem_cmd_payload_last); // @[Stream.scala 383:21]
   always @(*) begin
-    dataCache_1_io_mem_cmd_s2mPipe_ready = dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_ready;
+    toplevel_dataCache_1_io_mem_cmd_s2mPipe_ready = toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_ready; // @[Stream.scala 367:16]
     if(when_Stream_l368) begin
-      dataCache_1_io_mem_cmd_s2mPipe_ready = 1'b1;
+      toplevel_dataCache_1_io_mem_cmd_s2mPipe_ready = 1'b1; // @[Stream.scala 368:35]
     end
   end
 
-  assign when_Stream_l368 = (! dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_valid);
-  assign dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_valid = dataCache_1_io_mem_cmd_s2mPipe_rValid;
-  assign dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_wr = dataCache_1_io_mem_cmd_s2mPipe_rData_wr;
-  assign dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_uncached = dataCache_1_io_mem_cmd_s2mPipe_rData_uncached;
-  assign dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_address = dataCache_1_io_mem_cmd_s2mPipe_rData_address;
-  assign dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_data = dataCache_1_io_mem_cmd_s2mPipe_rData_data;
-  assign dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_mask = dataCache_1_io_mem_cmd_s2mPipe_rData_mask;
-  assign dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_size = dataCache_1_io_mem_cmd_s2mPipe_rData_size;
-  assign dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_last = dataCache_1_io_mem_cmd_s2mPipe_rData_last;
-  assign dBus_cmd_valid = dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_valid;
-  assign dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_ready = dBus_cmd_ready;
-  assign dBus_cmd_payload_wr = dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_wr;
-  assign dBus_cmd_payload_uncached = dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_uncached;
-  assign dBus_cmd_payload_address = dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_address;
-  assign dBus_cmd_payload_data = dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_data;
-  assign dBus_cmd_payload_mask = dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_mask;
-  assign dBus_cmd_payload_size = dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_size;
-  assign dBus_cmd_payload_last = dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_last;
-  assign when_DBusCachedPlugin_l308 = ((DBusCachedPlugin_mmuBus_busy && decode_arbitration_isValid) && decode_MEMORY_ENABLE);
+  assign when_Stream_l368 = (! toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_valid); // @[BaseType.scala 299:24]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_valid = toplevel_dataCache_1_io_mem_cmd_s2mPipe_rValid; // @[Stream.scala 370:19]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_wr = toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_wr; // @[Stream.scala 371:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_uncached = toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_uncached; // @[Stream.scala 371:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_address = toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_address; // @[Stream.scala 371:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_data = toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_data; // @[Stream.scala 371:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_mask = toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_mask; // @[Stream.scala 371:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_size = toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_size; // @[Stream.scala 371:21]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_last = toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_last; // @[Stream.scala 371:21]
+  assign dBus_cmd_valid = toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_valid; // @[Stream.scala 294:16]
+  assign toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_ready = dBus_cmd_ready; // @[Stream.scala 295:16]
+  assign dBus_cmd_payload_wr = toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_wr; // @[Stream.scala 296:18]
+  assign dBus_cmd_payload_uncached = toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_uncached; // @[Stream.scala 296:18]
+  assign dBus_cmd_payload_address = toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_address; // @[Stream.scala 296:18]
+  assign dBus_cmd_payload_data = toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_data; // @[Stream.scala 296:18]
+  assign dBus_cmd_payload_mask = toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_mask; // @[Stream.scala 296:18]
+  assign dBus_cmd_payload_size = toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_size; // @[Stream.scala 296:18]
+  assign dBus_cmd_payload_last = toplevel_dataCache_1_io_mem_cmd_s2mPipe_m2sPipe_payload_last; // @[Stream.scala 296:18]
+  assign when_DBusCachedPlugin_l308 = ((DBusCachedPlugin_mmuBus_busy && decode_arbitration_isValid) && decode_MEMORY_ENABLE); // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_decode_MEMORY_FORCE_CONSTISTENCY = 1'b0;
+    _zz_decode_MEMORY_FORCE_CONSTISTENCY = 1'b0; // @[DBusCachedPlugin.scala 315:43]
     if(when_DBusCachedPlugin_l316) begin
       if(decode_MEMORY_LRSC) begin
-        _zz_decode_MEMORY_FORCE_CONSTISTENCY = 1'b1;
+        _zz_decode_MEMORY_FORCE_CONSTISTENCY = 1'b1; // @[DBusCachedPlugin.scala 317:59]
       end
       if(decode_MEMORY_AMO) begin
-        _zz_decode_MEMORY_FORCE_CONSTISTENCY = 1'b1;
+        _zz_decode_MEMORY_FORCE_CONSTISTENCY = 1'b1; // @[DBusCachedPlugin.scala 318:58]
       end
     end
   end
 
-  assign when_DBusCachedPlugin_l316 = decode_INSTRUCTION[25];
-  assign execute_DBusCachedPlugin_size = execute_INSTRUCTION[13 : 12];
+  assign when_DBusCachedPlugin_l316 = decode_INSTRUCTION[25]; // @[BaseType.scala 305:24]
+  assign execute_DBusCachedPlugin_size = execute_INSTRUCTION[13 : 12]; // @[BaseType.scala 318:22]
   always @(*) begin
-    dataCache_1_io_cpu_execute_isValid = (execute_arbitration_isValid && execute_MEMORY_ENABLE);
+    dataCache_1_io_cpu_execute_isValid = (execute_arbitration_isValid && execute_MEMORY_ENABLE); // @[DBusCachedPlugin.scala 327:36]
     if(MmuPlugin_dBusAccess_cmd_valid) begin
       if(when_DBusCachedPlugin_l506) begin
         if(when_DBusCachedPlugin_l507) begin
-          dataCache_1_io_cpu_execute_isValid = 1'b1;
+          dataCache_1_io_cpu_execute_isValid = 1'b1; // @[DBusCachedPlugin.scala 508:42]
         end
       end
     end
   end
 
   always @(*) begin
-    dataCache_1_io_cpu_execute_address = execute_SRC_ADD;
+    dataCache_1_io_cpu_execute_address = execute_SRC_ADD; // @[DBusCachedPlugin.scala 328:36]
     if(MmuPlugin_dBusAccess_cmd_valid) begin
       if(when_DBusCachedPlugin_l506) begin
-        dataCache_1_io_cpu_execute_address = MmuPlugin_dBusAccess_cmd_payload_address;
+        dataCache_1_io_cpu_execute_address = MmuPlugin_dBusAccess_cmd_payload_address; // @[DBusCachedPlugin.scala 516:40]
       end
     end
   end
 
   always @(*) begin
-    dataCache_1_io_cpu_execute_args_wr = execute_MEMORY_WR;
+    dataCache_1_io_cpu_execute_args_wr = execute_MEMORY_WR; // @[DBusCachedPlugin.scala 329:36]
     if(MmuPlugin_dBusAccess_cmd_valid) begin
       if(when_DBusCachedPlugin_l506) begin
-        dataCache_1_io_cpu_execute_args_wr = 1'b0;
+        dataCache_1_io_cpu_execute_args_wr = 1'b0; // @[DBusCachedPlugin.scala 511:40]
       end
     end
   end
@@ -5091,304 +5116,304 @@ module VexRiscvAxi4 (
   always @(*) begin
     case(execute_DBusCachedPlugin_size)
       2'b00 : begin
-        _zz_execute_MEMORY_STORE_DATA_RF = {{{execute_RS2[7 : 0],execute_RS2[7 : 0]},execute_RS2[7 : 0]},execute_RS2[7 : 0]};
+        _zz_execute_MEMORY_STORE_DATA_RF = {{{execute_RS2[7 : 0],execute_RS2[7 : 0]},execute_RS2[7 : 0]},execute_RS2[7 : 0]}; // @[Misc.scala 239:22]
       end
       2'b01 : begin
-        _zz_execute_MEMORY_STORE_DATA_RF = {execute_RS2[15 : 0],execute_RS2[15 : 0]};
+        _zz_execute_MEMORY_STORE_DATA_RF = {execute_RS2[15 : 0],execute_RS2[15 : 0]}; // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_execute_MEMORY_STORE_DATA_RF = execute_RS2[31 : 0];
+        _zz_execute_MEMORY_STORE_DATA_RF = execute_RS2[31 : 0]; // @[Misc.scala 235:22]
       end
     endcase
   end
 
   always @(*) begin
-    dataCache_1_io_cpu_execute_args_size = execute_DBusCachedPlugin_size;
+    dataCache_1_io_cpu_execute_args_size = execute_DBusCachedPlugin_size; // @[DBusCachedPlugin.scala 335:38]
     if(MmuPlugin_dBusAccess_cmd_valid) begin
       if(when_DBusCachedPlugin_l506) begin
-        dataCache_1_io_cpu_execute_args_size = MmuPlugin_dBusAccess_cmd_payload_size;
+        dataCache_1_io_cpu_execute_args_size = MmuPlugin_dBusAccess_cmd_payload_size; // @[DBusCachedPlugin.scala 513:42]
       end
     end
   end
 
-  assign dataCache_1_io_cpu_flush_valid = (execute_arbitration_isValid && execute_MEMORY_MANAGMENT);
-  assign dataCache_1_io_cpu_flush_payload_singleLine = (execute_INSTRUCTION[19 : 15] != 5'h0);
-  assign dataCache_1_io_cpu_flush_payload_lineId = _zz_io_cpu_flush_payload_lineId[6:0];
-  assign dataCache_1_io_cpu_flush_isStall = (dataCache_1_io_cpu_flush_valid && (! dataCache_1_io_cpu_flush_ready));
-  assign when_DBusCachedPlugin_l350 = (dataCache_1_io_cpu_flush_isStall || dataCache_1_io_cpu_execute_haltIt);
+  assign dataCache_1_io_cpu_flush_valid = (execute_arbitration_isValid && execute_MEMORY_MANAGMENT); // @[DBusCachedPlugin.scala 346:32]
+  assign dataCache_1_io_cpu_flush_payload_singleLine = (execute_INSTRUCTION[19 : 15] != 5'h0); // @[DBusCachedPlugin.scala 347:37]
+  assign dataCache_1_io_cpu_flush_payload_lineId = _zz_io_cpu_flush_payload_lineId[6:0]; // @[DBusCachedPlugin.scala 348:33]
+  assign toplevel_dataCache_1_io_cpu_flush_isStall = (dataCache_1_io_cpu_flush_valid && (! dataCache_1_io_cpu_flush_ready)); // @[BaseType.scala 305:24]
+  assign when_DBusCachedPlugin_l350 = (toplevel_dataCache_1_io_cpu_flush_isStall || dataCache_1_io_cpu_execute_haltIt); // @[BaseType.scala 305:24]
   always @(*) begin
-    dataCache_1_io_cpu_execute_args_isLrsc = 1'b0;
+    dataCache_1_io_cpu_execute_args_isLrsc = 1'b0; // @[DBusCachedPlugin.scala 353:42]
     if(execute_MEMORY_LRSC) begin
-      dataCache_1_io_cpu_execute_args_isLrsc = 1'b1;
+      dataCache_1_io_cpu_execute_args_isLrsc = 1'b1; // @[DBusCachedPlugin.scala 355:44]
     end
   end
 
-  assign dataCache_1_io_cpu_execute_args_amoCtrl_alu = execute_INSTRUCTION[31 : 29];
-  assign dataCache_1_io_cpu_execute_args_amoCtrl_swap = execute_INSTRUCTION[27];
-  assign when_DBusCachedPlugin_l366 = (dataCache_1_io_cpu_execute_refilling && execute_arbitration_isValid);
+  assign dataCache_1_io_cpu_execute_args_amoCtrl_alu = execute_INSTRUCTION[31 : 29]; // @[DBusCachedPlugin.scala 361:42]
+  assign dataCache_1_io_cpu_execute_args_amoCtrl_swap = execute_INSTRUCTION[27]; // @[DBusCachedPlugin.scala 362:43]
+  assign when_DBusCachedPlugin_l366 = (dataCache_1_io_cpu_execute_refilling && execute_arbitration_isValid); // @[BaseType.scala 305:24]
   always @(*) begin
-    dataCache_1_io_cpu_memory_isValid = (memory_arbitration_isValid && memory_MEMORY_ENABLE);
+    dataCache_1_io_cpu_memory_isValid = (memory_arbitration_isValid && memory_MEMORY_ENABLE); // @[DBusCachedPlugin.scala 383:35]
     if(memory_IS_DBUS_SHARING) begin
-      dataCache_1_io_cpu_memory_isValid = 1'b1;
+      dataCache_1_io_cpu_memory_isValid = 1'b1; // @[DBusCachedPlugin.scala 524:69]
     end
   end
 
-  assign dataCache_1_io_cpu_memory_address = memory_REGFILE_WRITE_DATA;
-  assign DBusCachedPlugin_mmuBus_cmd_0_isValid = dataCache_1_io_cpu_memory_isValid;
-  assign DBusCachedPlugin_mmuBus_cmd_0_isStuck = memory_arbitration_isStuck;
-  assign DBusCachedPlugin_mmuBus_cmd_0_virtualAddress = dataCache_1_io_cpu_memory_address;
+  assign dataCache_1_io_cpu_memory_address = memory_REGFILE_WRITE_DATA; // @[DBusCachedPlugin.scala 385:35]
+  assign DBusCachedPlugin_mmuBus_cmd_0_isValid = dataCache_1_io_cpu_memory_isValid; // @[DBusCachedPlugin.scala 387:31]
+  assign DBusCachedPlugin_mmuBus_cmd_0_isStuck = memory_arbitration_isStuck; // @[DBusCachedPlugin.scala 388:31]
+  assign DBusCachedPlugin_mmuBus_cmd_0_virtualAddress = dataCache_1_io_cpu_memory_address; // @[DBusCachedPlugin.scala 389:38]
   always @(*) begin
-    DBusCachedPlugin_mmuBus_cmd_0_bypassTranslation = 1'b0;
+    DBusCachedPlugin_mmuBus_cmd_0_bypassTranslation = 1'b0; // @[DBusCachedPlugin.scala 390:41]
     if(memory_IS_DBUS_SHARING) begin
-      DBusCachedPlugin_mmuBus_cmd_0_bypassTranslation = 1'b1;
+      DBusCachedPlugin_mmuBus_cmd_0_bypassTranslation = 1'b1; // @[DBusCachedPlugin.scala 521:41]
     end
   end
 
-  assign DBusCachedPlugin_mmuBus_end = ((! memory_arbitration_isStuck) || memory_arbitration_removeIt);
+  assign DBusCachedPlugin_mmuBus_end = ((! memory_arbitration_isStuck) || memory_arbitration_removeIt); // @[DBusCachedPlugin.scala 391:18]
   always @(*) begin
-    dataCache_1_io_cpu_memory_mmuRsp_isIoAccess = DBusCachedPlugin_mmuBus_rsp_isIoAccess;
+    dataCache_1_io_cpu_memory_mmuRsp_isIoAccess = DBusCachedPlugin_mmuBus_rsp_isIoAccess; // @[DBusCachedPlugin.scala 392:34]
     if(when_DBusCachedPlugin_l393) begin
-      dataCache_1_io_cpu_memory_mmuRsp_isIoAccess = 1'b1;
+      dataCache_1_io_cpu_memory_mmuRsp_isIoAccess = 1'b1; // @[DBusCachedPlugin.scala 393:45]
     end
   end
 
-  assign when_DBusCachedPlugin_l393 = (_zz_when_DBusCachedPlugin_l393 && (! dataCache_1_io_cpu_memory_isWrite));
+  assign when_DBusCachedPlugin_l393 = (_zz_when_DBusCachedPlugin_l393 && (! dataCache_1_io_cpu_memory_isWrite)); // @[BaseType.scala 305:24]
   always @(*) begin
-    dataCache_1_io_cpu_writeBack_isValid = (writeBack_arbitration_isValid && writeBack_MEMORY_ENABLE);
+    dataCache_1_io_cpu_writeBack_isValid = (writeBack_arbitration_isValid && writeBack_MEMORY_ENABLE); // @[DBusCachedPlugin.scala 399:38]
     if(writeBack_IS_DBUS_SHARING) begin
-      dataCache_1_io_cpu_writeBack_isValid = 1'b1;
+      dataCache_1_io_cpu_writeBack_isValid = 1'b1; // @[DBusCachedPlugin.scala 525:38]
     end
     if(writeBack_arbitration_haltByOther) begin
-      dataCache_1_io_cpu_writeBack_isValid = 1'b0;
+      dataCache_1_io_cpu_writeBack_isValid = 1'b0; // @[DBusCachedPlugin.scala 544:38]
     end
   end
 
-  assign dataCache_1_io_cpu_writeBack_isUser = (CsrPlugin_privilege == 2'b00);
-  assign dataCache_1_io_cpu_writeBack_address = writeBack_REGFILE_WRITE_DATA;
-  assign dataCache_1_io_cpu_writeBack_storeData[31 : 0] = writeBack_MEMORY_STORE_DATA_RF;
+  assign dataCache_1_io_cpu_writeBack_isUser = (CsrPlugin_privilege == 2'b00); // @[DBusCachedPlugin.scala 402:38]
+  assign dataCache_1_io_cpu_writeBack_address = writeBack_REGFILE_WRITE_DATA; // @[DBusCachedPlugin.scala 403:38]
+  assign dataCache_1_io_cpu_writeBack_storeData[31 : 0] = writeBack_MEMORY_STORE_DATA_RF; // @[DBusCachedPlugin.scala 404:71]
   always @(*) begin
-    DBusCachedPlugin_redoBranch_valid = 1'b0;
+    DBusCachedPlugin_redoBranch_valid = 1'b0; // @[DBusCachedPlugin.scala 434:24]
     if(when_DBusCachedPlugin_l446) begin
       if(dataCache_1_io_cpu_redo) begin
-        DBusCachedPlugin_redoBranch_valid = 1'b1;
+        DBusCachedPlugin_redoBranch_valid = 1'b1; // @[DBusCachedPlugin.scala 461:28]
       end
     end
   end
 
-  assign DBusCachedPlugin_redoBranch_payload = writeBack_PC;
+  assign DBusCachedPlugin_redoBranch_payload = writeBack_PC; // @[DBusCachedPlugin.scala 435:26]
   always @(*) begin
-    DBusCachedPlugin_exceptionBus_valid = 1'b0;
+    DBusCachedPlugin_exceptionBus_valid = 1'b0; // @[DBusCachedPlugin.scala 440:28]
     if(when_DBusCachedPlugin_l446) begin
       if(dataCache_1_io_cpu_writeBack_accessError) begin
-        DBusCachedPlugin_exceptionBus_valid = 1'b1;
+        DBusCachedPlugin_exceptionBus_valid = 1'b1; // @[DBusCachedPlugin.scala 448:30]
       end
       if(dataCache_1_io_cpu_writeBack_mmuException) begin
-        DBusCachedPlugin_exceptionBus_valid = 1'b1;
+        DBusCachedPlugin_exceptionBus_valid = 1'b1; // @[DBusCachedPlugin.scala 452:30]
       end
       if(dataCache_1_io_cpu_writeBack_unalignedAccess) begin
-        DBusCachedPlugin_exceptionBus_valid = 1'b1;
+        DBusCachedPlugin_exceptionBus_valid = 1'b1; // @[DBusCachedPlugin.scala 456:30]
       end
       if(dataCache_1_io_cpu_redo) begin
-        DBusCachedPlugin_exceptionBus_valid = 1'b0;
+        DBusCachedPlugin_exceptionBus_valid = 1'b0; // @[DBusCachedPlugin.scala 462:49]
       end
     end
   end
 
-  assign DBusCachedPlugin_exceptionBus_payload_badAddr = writeBack_REGFILE_WRITE_DATA;
+  assign DBusCachedPlugin_exceptionBus_payload_badAddr = writeBack_REGFILE_WRITE_DATA; // @[DBusCachedPlugin.scala 441:30]
   always @(*) begin
-    DBusCachedPlugin_exceptionBus_payload_code = 4'bxxxx;
+    DBusCachedPlugin_exceptionBus_payload_code = 4'bxxxx; // @[UInt.scala 467:20]
     if(when_DBusCachedPlugin_l446) begin
       if(dataCache_1_io_cpu_writeBack_accessError) begin
-        DBusCachedPlugin_exceptionBus_payload_code = {1'd0, _zz_DBusCachedPlugin_exceptionBus_payload_code};
+        DBusCachedPlugin_exceptionBus_payload_code = {1'd0, _zz_DBusCachedPlugin_exceptionBus_payload_code}; // @[DBusCachedPlugin.scala 449:29]
       end
       if(dataCache_1_io_cpu_writeBack_mmuException) begin
-        DBusCachedPlugin_exceptionBus_payload_code = (writeBack_MEMORY_WR ? 4'b1111 : 4'b1101);
+        DBusCachedPlugin_exceptionBus_payload_code = (writeBack_MEMORY_WR ? 4'b1111 : 4'b1101); // @[DBusCachedPlugin.scala 453:29]
       end
       if(dataCache_1_io_cpu_writeBack_unalignedAccess) begin
-        DBusCachedPlugin_exceptionBus_payload_code = {1'd0, _zz_DBusCachedPlugin_exceptionBus_payload_code_1};
+        DBusCachedPlugin_exceptionBus_payload_code = {1'd0, _zz_DBusCachedPlugin_exceptionBus_payload_code_1}; // @[DBusCachedPlugin.scala 457:29]
       end
     end
   end
 
-  assign when_DBusCachedPlugin_l446 = (writeBack_arbitration_isValid && writeBack_MEMORY_ENABLE);
-  assign when_DBusCachedPlugin_l466 = (dataCache_1_io_cpu_writeBack_isValid && dataCache_1_io_cpu_writeBack_haltIt);
-  assign writeBack_DBusCachedPlugin_rspSplits_0 = dataCache_1_io_cpu_writeBack_data[7 : 0];
-  assign writeBack_DBusCachedPlugin_rspSplits_1 = dataCache_1_io_cpu_writeBack_data[15 : 8];
-  assign writeBack_DBusCachedPlugin_rspSplits_2 = dataCache_1_io_cpu_writeBack_data[23 : 16];
-  assign writeBack_DBusCachedPlugin_rspSplits_3 = dataCache_1_io_cpu_writeBack_data[31 : 24];
+  assign when_DBusCachedPlugin_l446 = (writeBack_arbitration_isValid && writeBack_MEMORY_ENABLE); // @[BaseType.scala 305:24]
+  assign when_DBusCachedPlugin_l466 = (dataCache_1_io_cpu_writeBack_isValid && dataCache_1_io_cpu_writeBack_haltIt); // @[BaseType.scala 305:24]
+  assign writeBack_DBusCachedPlugin_rspSplits_0 = dataCache_1_io_cpu_writeBack_data[7 : 0]; // @[BaseType.scala 299:24]
+  assign writeBack_DBusCachedPlugin_rspSplits_1 = dataCache_1_io_cpu_writeBack_data[15 : 8]; // @[BaseType.scala 299:24]
+  assign writeBack_DBusCachedPlugin_rspSplits_2 = dataCache_1_io_cpu_writeBack_data[23 : 16]; // @[BaseType.scala 299:24]
+  assign writeBack_DBusCachedPlugin_rspSplits_3 = dataCache_1_io_cpu_writeBack_data[31 : 24]; // @[BaseType.scala 299:24]
   always @(*) begin
-    writeBack_DBusCachedPlugin_rspShifted[7 : 0] = _zz_writeBack_DBusCachedPlugin_rspShifted;
-    writeBack_DBusCachedPlugin_rspShifted[15 : 8] = _zz_writeBack_DBusCachedPlugin_rspShifted_2;
-    writeBack_DBusCachedPlugin_rspShifted[23 : 16] = writeBack_DBusCachedPlugin_rspSplits_2;
-    writeBack_DBusCachedPlugin_rspShifted[31 : 24] = writeBack_DBusCachedPlugin_rspSplits_3;
+    writeBack_DBusCachedPlugin_rspShifted[7 : 0] = _zz_writeBack_DBusCachedPlugin_rspShifted; // @[DBusCachedPlugin.scala 478:33]
+    writeBack_DBusCachedPlugin_rspShifted[15 : 8] = _zz_writeBack_DBusCachedPlugin_rspShifted_2; // @[DBusCachedPlugin.scala 478:33]
+    writeBack_DBusCachedPlugin_rspShifted[23 : 16] = writeBack_DBusCachedPlugin_rspSplits_2; // @[DBusCachedPlugin.scala 478:33]
+    writeBack_DBusCachedPlugin_rspShifted[31 : 24] = writeBack_DBusCachedPlugin_rspSplits_3; // @[DBusCachedPlugin.scala 478:33]
   end
 
   always @(*) begin
-    writeBack_DBusCachedPlugin_rspRf = writeBack_DBusCachedPlugin_rspShifted[31 : 0];
+    writeBack_DBusCachedPlugin_rspRf = writeBack_DBusCachedPlugin_rspShifted[31 : 0]; // @[Misc.scala 552:9]
     if(when_DBusCachedPlugin_l482) begin
-      writeBack_DBusCachedPlugin_rspRf = {31'd0, _zz_writeBack_DBusCachedPlugin_rspRf};
+      writeBack_DBusCachedPlugin_rspRf = {31'd0, _zz_writeBack_DBusCachedPlugin_rspRf}; // @[DBusCachedPlugin.scala 483:15]
     end
   end
 
-  assign when_DBusCachedPlugin_l482 = (writeBack_MEMORY_LRSC && writeBack_MEMORY_WR);
-  assign switch_Misc_l210_2 = writeBack_INSTRUCTION[13 : 12];
-  assign _zz_writeBack_DBusCachedPlugin_rspFormated = (writeBack_DBusCachedPlugin_rspRf[7] && (! writeBack_INSTRUCTION[14]));
+  assign when_DBusCachedPlugin_l482 = (writeBack_MEMORY_LRSC && writeBack_MEMORY_WR); // @[BaseType.scala 305:24]
+  assign switch_Misc_l226_2 = writeBack_INSTRUCTION[13 : 12]; // @[BaseType.scala 299:24]
+  assign _zz_writeBack_DBusCachedPlugin_rspFormated = (writeBack_DBusCachedPlugin_rspRf[7] && (! writeBack_INSTRUCTION[14])); // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[31] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[30] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[29] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[28] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[27] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[26] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[25] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[24] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[23] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[22] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[21] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[20] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[19] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[18] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[17] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[16] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[15] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[14] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[13] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[12] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[11] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[10] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[9] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[8] = _zz_writeBack_DBusCachedPlugin_rspFormated;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_1[7 : 0] = writeBack_DBusCachedPlugin_rspRf[7 : 0];
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[31] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[30] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[29] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[28] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[27] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[26] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[25] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[24] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[23] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[22] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[21] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[20] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[19] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[18] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[17] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[16] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[15] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[14] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[13] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[12] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[11] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[10] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[9] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[8] = _zz_writeBack_DBusCachedPlugin_rspFormated; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_1[7 : 0] = writeBack_DBusCachedPlugin_rspRf[7 : 0]; // @[Literal.scala 99:91]
   end
 
-  assign _zz_writeBack_DBusCachedPlugin_rspFormated_2 = (writeBack_DBusCachedPlugin_rspRf[15] && (! writeBack_INSTRUCTION[14]));
+  assign _zz_writeBack_DBusCachedPlugin_rspFormated_2 = (writeBack_DBusCachedPlugin_rspRf[15] && (! writeBack_INSTRUCTION[14])); // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[31] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[30] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[29] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[28] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[27] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[26] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[25] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[24] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[23] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[22] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[21] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[20] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[19] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[18] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[17] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[16] = _zz_writeBack_DBusCachedPlugin_rspFormated_2;
-    _zz_writeBack_DBusCachedPlugin_rspFormated_3[15 : 0] = writeBack_DBusCachedPlugin_rspRf[15 : 0];
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[31] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[30] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[29] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[28] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[27] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[26] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[25] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[24] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[23] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[22] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[21] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[20] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[19] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[18] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[17] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[16] = _zz_writeBack_DBusCachedPlugin_rspFormated_2; // @[Literal.scala 87:17]
+    _zz_writeBack_DBusCachedPlugin_rspFormated_3[15 : 0] = writeBack_DBusCachedPlugin_rspRf[15 : 0]; // @[Literal.scala 99:91]
   end
 
   always @(*) begin
-    case(switch_Misc_l210_2)
+    case(switch_Misc_l226_2)
       2'b00 : begin
-        writeBack_DBusCachedPlugin_rspFormated = _zz_writeBack_DBusCachedPlugin_rspFormated_1;
+        writeBack_DBusCachedPlugin_rspFormated = _zz_writeBack_DBusCachedPlugin_rspFormated_1; // @[Misc.scala 239:22]
       end
       2'b01 : begin
-        writeBack_DBusCachedPlugin_rspFormated = _zz_writeBack_DBusCachedPlugin_rspFormated_3;
+        writeBack_DBusCachedPlugin_rspFormated = _zz_writeBack_DBusCachedPlugin_rspFormated_3; // @[Misc.scala 239:22]
       end
       default : begin
-        writeBack_DBusCachedPlugin_rspFormated = writeBack_DBusCachedPlugin_rspRf;
+        writeBack_DBusCachedPlugin_rspFormated = writeBack_DBusCachedPlugin_rspRf; // @[Misc.scala 235:22]
       end
     endcase
   end
 
-  assign when_DBusCachedPlugin_l492 = (writeBack_arbitration_isValid && writeBack_MEMORY_ENABLE);
+  assign when_DBusCachedPlugin_l492 = (writeBack_arbitration_isValid && writeBack_MEMORY_ENABLE); // @[BaseType.scala 305:24]
   always @(*) begin
-    MmuPlugin_dBusAccess_cmd_ready = 1'b0;
+    MmuPlugin_dBusAccess_cmd_ready = 1'b0; // @[DBusCachedPlugin.scala 501:28]
     if(MmuPlugin_dBusAccess_cmd_valid) begin
       if(when_DBusCachedPlugin_l506) begin
         if(when_DBusCachedPlugin_l507) begin
-          MmuPlugin_dBusAccess_cmd_ready = (! execute_arbitration_isStuck);
+          MmuPlugin_dBusAccess_cmd_ready = (! execute_arbitration_isStuck); // @[DBusCachedPlugin.scala 509:34]
         end
       end
     end
   end
 
   always @(*) begin
-    DBusCachedPlugin_forceDatapath = 1'b0;
+    DBusCachedPlugin_forceDatapath = 1'b0; // @[DBusCachedPlugin.scala 502:27]
     if(MmuPlugin_dBusAccess_cmd_valid) begin
       if(when_DBusCachedPlugin_l506) begin
-        DBusCachedPlugin_forceDatapath = 1'b1;
+        DBusCachedPlugin_forceDatapath = 1'b1; // @[DBusCachedPlugin.scala 517:25]
       end
     end
   end
 
-  assign when_DBusCachedPlugin_l506 = (! ({(writeBack_arbitration_isValid || CsrPlugin_exceptionPendings_3),{(memory_arbitration_isValid || CsrPlugin_exceptionPendings_2),(execute_arbitration_isValid || CsrPlugin_exceptionPendings_1)}} != 3'b000));
-  assign when_DBusCachedPlugin_l507 = (! dataCache_1_io_cpu_execute_refilling);
-  assign MmuPlugin_dBusAccess_cmd_fire = (MmuPlugin_dBusAccess_cmd_valid && MmuPlugin_dBusAccess_cmd_ready);
-  assign MmuPlugin_dBusAccess_rsp_valid = ((writeBack_IS_DBUS_SHARING && (! dataCache_1_io_cpu_writeBack_isWrite)) && (dataCache_1_io_cpu_redo || (! dataCache_1_io_cpu_writeBack_haltIt)));
-  assign MmuPlugin_dBusAccess_rsp_payload_data = writeBack_DBusCachedPlugin_rspRf;
-  assign MmuPlugin_dBusAccess_rsp_payload_error = (dataCache_1_io_cpu_writeBack_unalignedAccess || dataCache_1_io_cpu_writeBack_accessError);
-  assign MmuPlugin_dBusAccess_rsp_payload_redo = dataCache_1_io_cpu_redo;
-  assign _zz_decode_IS_SFENCE_VMA2_1 = ((decode_INSTRUCTION & 32'h00004050) == 32'h00004050);
-  assign _zz_decode_IS_SFENCE_VMA2_2 = ((decode_INSTRUCTION & 32'h00000048) == 32'h00000048);
-  assign _zz_decode_IS_SFENCE_VMA2_3 = ((decode_INSTRUCTION & 32'h00002050) == 32'h00002000);
-  assign _zz_decode_IS_SFENCE_VMA2_4 = ((decode_INSTRUCTION & 32'h00000018) == 32'h0);
-  assign _zz_decode_IS_SFENCE_VMA2_5 = ((decode_INSTRUCTION & 32'h00000004) == 32'h00000004);
-  assign _zz_decode_IS_SFENCE_VMA2_6 = ((decode_INSTRUCTION & 32'h0000000c) == 32'h00000004);
-  assign _zz_decode_IS_SFENCE_VMA2_7 = ((decode_INSTRUCTION & 32'h00002010) == 32'h00002000);
-  assign _zz_decode_IS_SFENCE_VMA2_8 = ((decode_INSTRUCTION & 32'h0000000c) == 32'h00000008);
-  assign _zz_decode_IS_SFENCE_VMA2_9 = ((decode_INSTRUCTION & 32'h00001000) == 32'h0);
-  assign _zz_decode_IS_SFENCE_VMA2_10 = ((decode_INSTRUCTION & 32'h10103050) == 32'h00100050);
-  assign _zz_decode_IS_SFENCE_VMA2_11 = ((decode_INSTRUCTION & 32'h02003050) == 32'h02000050);
-  assign _zz_decode_IS_SFENCE_VMA2 = {(|{_zz_decode_IS_SFENCE_VMA2_2,(_zz__zz_decode_IS_SFENCE_VMA2 == _zz__zz_decode_IS_SFENCE_VMA2_1)}),{(|(_zz__zz_decode_IS_SFENCE_VMA2_2 == _zz__zz_decode_IS_SFENCE_VMA2_3)),{(|_zz_decode_IS_SFENCE_VMA2_11),{(|_zz__zz_decode_IS_SFENCE_VMA2_4),{_zz__zz_decode_IS_SFENCE_VMA2_5,{_zz__zz_decode_IS_SFENCE_VMA2_6,_zz__zz_decode_IS_SFENCE_VMA2_7}}}}}};
-  assign _zz_decode_SRC1_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[2 : 1];
-  assign _zz_decode_SRC1_CTRL_1 = _zz_decode_SRC1_CTRL_2;
-  assign _zz_decode_ALU_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[7 : 6];
-  assign _zz_decode_ALU_CTRL_1 = _zz_decode_ALU_CTRL_2;
-  assign _zz_decode_SRC2_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[9 : 8];
-  assign _zz_decode_SRC2_CTRL_1 = _zz_decode_SRC2_CTRL_2;
-  assign _zz_decode_ALU_BITWISE_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[22 : 21];
-  assign _zz_decode_ALU_BITWISE_CTRL_1 = _zz_decode_ALU_BITWISE_CTRL_2;
-  assign _zz_decode_SHIFT_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[24 : 23];
-  assign _zz_decode_SHIFT_CTRL_1 = _zz_decode_SHIFT_CTRL_2;
-  assign _zz_decode_ENV_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[33 : 31];
-  assign _zz_decode_ENV_CTRL_1 = _zz_decode_ENV_CTRL_2;
-  assign _zz_decode_BRANCH_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[38 : 37];
-  assign _zz_decode_BRANCH_CTRL = _zz_decode_BRANCH_CTRL_2;
-  assign decodeExceptionPort_valid = (decode_arbitration_isValid && (! decode_LEGAL_INSTRUCTION));
-  assign decodeExceptionPort_payload_code = 4'b0010;
-  assign decodeExceptionPort_payload_badAddr = decode_INSTRUCTION;
-  assign when_RegFilePlugin_l63 = (decode_INSTRUCTION[11 : 7] == 5'h0);
-  assign decode_RegFilePlugin_regFileReadAddress1 = decode_INSTRUCTION[19 : 15];
-  assign decode_RegFilePlugin_regFileReadAddress2 = decode_INSTRUCTION[24 : 20];
-  assign decode_RegFilePlugin_rs1Data = _zz_RegFilePlugin_regFile_port0;
-  assign decode_RegFilePlugin_rs2Data = _zz_RegFilePlugin_regFile_port1;
+  assign when_DBusCachedPlugin_l506 = (! ({(writeBack_arbitration_isValid || CsrPlugin_exceptionPendings_3),{(memory_arbitration_isValid || CsrPlugin_exceptionPendings_2),(execute_arbitration_isValid || CsrPlugin_exceptionPendings_1)}} != 3'b000)); // @[BaseType.scala 299:24]
+  assign when_DBusCachedPlugin_l507 = (! dataCache_1_io_cpu_execute_refilling); // @[BaseType.scala 299:24]
+  assign MmuPlugin_dBusAccess_cmd_fire = (MmuPlugin_dBusAccess_cmd_valid && MmuPlugin_dBusAccess_cmd_ready); // @[BaseType.scala 305:24]
+  assign MmuPlugin_dBusAccess_rsp_valid = ((writeBack_IS_DBUS_SHARING && (! dataCache_1_io_cpu_writeBack_isWrite)) && (dataCache_1_io_cpu_redo || (! dataCache_1_io_cpu_writeBack_haltIt))); // @[DBusCachedPlugin.scala 526:28]
+  assign MmuPlugin_dBusAccess_rsp_payload_data = writeBack_DBusCachedPlugin_rspRf; // @[DBusCachedPlugin.scala 527:27]
+  assign MmuPlugin_dBusAccess_rsp_payload_error = (dataCache_1_io_cpu_writeBack_unalignedAccess || dataCache_1_io_cpu_writeBack_accessError); // @[DBusCachedPlugin.scala 528:28]
+  assign MmuPlugin_dBusAccess_rsp_payload_redo = dataCache_1_io_cpu_redo; // @[DBusCachedPlugin.scala 529:27]
+  assign _zz_decode_IS_SFENCE_VMA2_1 = ((decode_INSTRUCTION & 32'h00004050) == 32'h00004050); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_2 = ((decode_INSTRUCTION & 32'h00000048) == 32'h00000048); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_3 = ((decode_INSTRUCTION & 32'h00002050) == 32'h00002000); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_4 = ((decode_INSTRUCTION & 32'h00000018) == 32'h0); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_5 = ((decode_INSTRUCTION & 32'h00000004) == 32'h00000004); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_6 = ((decode_INSTRUCTION & 32'h0000000c) == 32'h00000004); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_7 = ((decode_INSTRUCTION & 32'h00002010) == 32'h00002000); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_8 = ((decode_INSTRUCTION & 32'h0000000c) == 32'h00000008); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_9 = ((decode_INSTRUCTION & 32'h00001000) == 32'h0); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_10 = ((decode_INSTRUCTION & 32'h10103050) == 32'h00100050); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2_11 = ((decode_INSTRUCTION & 32'h02003050) == 32'h02000050); // @[BaseType.scala 305:24]
+  assign _zz_decode_IS_SFENCE_VMA2 = {(|{_zz_decode_IS_SFENCE_VMA2_2,(_zz__zz_decode_IS_SFENCE_VMA2 == _zz__zz_decode_IS_SFENCE_VMA2_1)}),{(|(_zz__zz_decode_IS_SFENCE_VMA2_2 == _zz__zz_decode_IS_SFENCE_VMA2_3)),{(|_zz_decode_IS_SFENCE_VMA2_11),{(|_zz__zz_decode_IS_SFENCE_VMA2_4),{_zz__zz_decode_IS_SFENCE_VMA2_5,{_zz__zz_decode_IS_SFENCE_VMA2_6,_zz__zz_decode_IS_SFENCE_VMA2_7}}}}}}; // @[DecoderSimplePlugin.scala 161:19]
+  assign _zz_decode_SRC1_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[2 : 1]; // @[Enum.scala 186:17]
+  assign _zz_decode_SRC1_CTRL_1 = _zz_decode_SRC1_CTRL_2; // @[Enum.scala 188:10]
+  assign _zz_decode_ALU_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[7 : 6]; // @[Enum.scala 186:17]
+  assign _zz_decode_ALU_CTRL_1 = _zz_decode_ALU_CTRL_2; // @[Enum.scala 188:10]
+  assign _zz_decode_SRC2_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[9 : 8]; // @[Enum.scala 186:17]
+  assign _zz_decode_SRC2_CTRL_1 = _zz_decode_SRC2_CTRL_2; // @[Enum.scala 188:10]
+  assign _zz_decode_ALU_BITWISE_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[22 : 21]; // @[Enum.scala 186:17]
+  assign _zz_decode_ALU_BITWISE_CTRL_1 = _zz_decode_ALU_BITWISE_CTRL_2; // @[Enum.scala 188:10]
+  assign _zz_decode_SHIFT_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[24 : 23]; // @[Enum.scala 186:17]
+  assign _zz_decode_SHIFT_CTRL_1 = _zz_decode_SHIFT_CTRL_2; // @[Enum.scala 188:10]
+  assign _zz_decode_ENV_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[33 : 31]; // @[Enum.scala 186:17]
+  assign _zz_decode_ENV_CTRL_1 = _zz_decode_ENV_CTRL_2; // @[Enum.scala 188:10]
+  assign _zz_decode_BRANCH_CTRL_2 = _zz_decode_IS_SFENCE_VMA2[38 : 37]; // @[Enum.scala 186:17]
+  assign _zz_decode_BRANCH_CTRL = _zz_decode_BRANCH_CTRL_2; // @[Enum.scala 188:10]
+  assign decodeExceptionPort_valid = (decode_arbitration_isValid && (! decode_LEGAL_INSTRUCTION)); // @[DecoderSimplePlugin.scala 187:33]
+  assign decodeExceptionPort_payload_code = 4'b0010; // @[DecoderSimplePlugin.scala 188:32]
+  assign decodeExceptionPort_payload_badAddr = decode_INSTRUCTION; // @[DecoderSimplePlugin.scala 189:35]
+  assign when_RegFilePlugin_l63 = (decode_INSTRUCTION[11 : 7] == 5'h0); // @[BaseType.scala 305:24]
+  assign decode_RegFilePlugin_regFileReadAddress1 = decode_INSTRUCTION[19 : 15]; // @[BaseType.scala 318:22]
+  assign decode_RegFilePlugin_regFileReadAddress2 = decode_INSTRUCTION[24 : 20]; // @[BaseType.scala 318:22]
+  assign decode_RegFilePlugin_rs1Data = _zz_RegFilePlugin_regFile_port0; // @[Bits.scala 133:56]
+  assign decode_RegFilePlugin_rs2Data = _zz_RegFilePlugin_regFile_port1; // @[Bits.scala 133:56]
   always @(*) begin
-    lastStageRegFileWrite_valid = (_zz_lastStageRegFileWrite_valid && writeBack_arbitration_isFiring);
+    lastStageRegFileWrite_valid = (_zz_lastStageRegFileWrite_valid && writeBack_arbitration_isFiring); // @[RegFilePlugin.scala 102:26]
     if(_zz_2) begin
-      lastStageRegFileWrite_valid = 1'b1;
+      lastStageRegFileWrite_valid = 1'b1; // @[RegFilePlugin.scala 114:28]
     end
   end
 
   always @(*) begin
-    lastStageRegFileWrite_payload_address = _zz_lastStageRegFileWrite_payload_address[11 : 7];
+    lastStageRegFileWrite_payload_address = _zz_lastStageRegFileWrite_payload_address[11 : 7]; // @[RegFilePlugin.scala 103:28]
     if(_zz_2) begin
-      lastStageRegFileWrite_payload_address = 5'h0;
+      lastStageRegFileWrite_payload_address = 5'h0; // @[RegFilePlugin.scala 116:32]
     end
   end
 
   always @(*) begin
-    lastStageRegFileWrite_payload_data = _zz_decode_RS2_2;
+    lastStageRegFileWrite_payload_data = _zz_decode_RS2_2; // @[RegFilePlugin.scala 104:25]
     if(_zz_2) begin
-      lastStageRegFileWrite_payload_data = 32'h0;
+      lastStageRegFileWrite_payload_data = 32'h0; // @[RegFilePlugin.scala 117:29]
     end
   end
 
   always @(*) begin
     case(execute_ALU_BITWISE_CTRL)
       AluBitwiseCtrlEnum_AND_1 : begin
-        execute_IntAluPlugin_bitwise = (execute_SRC1 & execute_SRC2);
+        execute_IntAluPlugin_bitwise = (execute_SRC1 & execute_SRC2); // @[Misc.scala 239:22]
       end
       AluBitwiseCtrlEnum_OR_1 : begin
-        execute_IntAluPlugin_bitwise = (execute_SRC1 | execute_SRC2);
+        execute_IntAluPlugin_bitwise = (execute_SRC1 | execute_SRC2); // @[Misc.scala 239:22]
       end
       default : begin
-        execute_IntAluPlugin_bitwise = (execute_SRC1 ^ execute_SRC2);
+        execute_IntAluPlugin_bitwise = (execute_SRC1 ^ execute_SRC2); // @[Misc.scala 239:22]
       end
     endcase
   end
@@ -5396,13 +5421,13 @@ module VexRiscvAxi4 (
   always @(*) begin
     case(execute_ALU_CTRL)
       AluCtrlEnum_BITWISE : begin
-        _zz_execute_REGFILE_WRITE_DATA = execute_IntAluPlugin_bitwise;
+        _zz_execute_REGFILE_WRITE_DATA = execute_IntAluPlugin_bitwise; // @[Misc.scala 239:22]
       end
       AluCtrlEnum_SLT_SLTU : begin
-        _zz_execute_REGFILE_WRITE_DATA = {31'd0, _zz__zz_execute_REGFILE_WRITE_DATA};
+        _zz_execute_REGFILE_WRITE_DATA = {31'd0, _zz__zz_execute_REGFILE_WRITE_DATA}; // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_execute_REGFILE_WRITE_DATA = execute_SRC_ADD_SUB;
+        _zz_execute_REGFILE_WRITE_DATA = execute_SRC_ADD_SUB; // @[Misc.scala 239:22]
       end
     endcase
   end
@@ -5410,258 +5435,258 @@ module VexRiscvAxi4 (
   always @(*) begin
     case(execute_SRC1_CTRL)
       Src1CtrlEnum_RS : begin
-        _zz_execute_SRC1_1 = _zz_execute_SRC1;
+        _zz_execute_SRC1 = _zz_execute_to_memory_RS1; // @[Misc.scala 239:22]
       end
       Src1CtrlEnum_PC_INCREMENT : begin
-        _zz_execute_SRC1_1 = {29'd0, _zz__zz_execute_SRC1_1};
+        _zz_execute_SRC1 = {29'd0, _zz__zz_execute_SRC1}; // @[Misc.scala 239:22]
       end
       Src1CtrlEnum_IMU : begin
-        _zz_execute_SRC1_1 = {execute_INSTRUCTION[31 : 12],12'h0};
+        _zz_execute_SRC1 = {execute_INSTRUCTION[31 : 12],12'h0}; // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_execute_SRC1_1 = {27'd0, _zz__zz_execute_SRC1_1_1};
+        _zz_execute_SRC1 = {27'd0, _zz__zz_execute_SRC1_1}; // @[Misc.scala 239:22]
       end
     endcase
   end
 
-  assign _zz_execute_SRC2_1 = execute_INSTRUCTION[31];
+  assign _zz_execute_SRC2 = execute_INSTRUCTION[31]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_execute_SRC2_2[19] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[18] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[17] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[16] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[15] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[14] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[13] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[12] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[11] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[10] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[9] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[8] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[7] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[6] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[5] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[4] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[3] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[2] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[1] = _zz_execute_SRC2_1;
-    _zz_execute_SRC2_2[0] = _zz_execute_SRC2_1;
+    _zz_execute_SRC2_1[19] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[18] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[17] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[16] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[15] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[14] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[13] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[12] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[11] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[10] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[9] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[8] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[7] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[6] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[5] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[4] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[3] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[2] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[1] = _zz_execute_SRC2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_1[0] = _zz_execute_SRC2; // @[Literal.scala 87:17]
   end
 
-  assign _zz_execute_SRC2_3 = _zz__zz_execute_SRC2_3[11];
+  assign _zz_execute_SRC2_2 = _zz__zz_execute_SRC2_2[11]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_execute_SRC2_4[19] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[18] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[17] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[16] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[15] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[14] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[13] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[12] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[11] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[10] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[9] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[8] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[7] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[6] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[5] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[4] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[3] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[2] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[1] = _zz_execute_SRC2_3;
-    _zz_execute_SRC2_4[0] = _zz_execute_SRC2_3;
+    _zz_execute_SRC2_3[19] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[18] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[17] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[16] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[15] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[14] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[13] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[12] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[11] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[10] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[9] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[8] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[7] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[6] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[5] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[4] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[3] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[2] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[1] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
+    _zz_execute_SRC2_3[0] = _zz_execute_SRC2_2; // @[Literal.scala 87:17]
   end
 
   always @(*) begin
     case(execute_SRC2_CTRL)
       Src2CtrlEnum_RS : begin
-        _zz_execute_SRC2_5 = execute_RS2;
+        _zz_execute_SRC2_4 = execute_RS2; // @[Misc.scala 239:22]
       end
       Src2CtrlEnum_IMI : begin
-        _zz_execute_SRC2_5 = {_zz_execute_SRC2_2,execute_INSTRUCTION[31 : 20]};
+        _zz_execute_SRC2_4 = {_zz_execute_SRC2_1,execute_INSTRUCTION[31 : 20]}; // @[Misc.scala 239:22]
       end
       Src2CtrlEnum_IMS : begin
-        _zz_execute_SRC2_5 = {_zz_execute_SRC2_4,{execute_INSTRUCTION[31 : 25],execute_INSTRUCTION[11 : 7]}};
+        _zz_execute_SRC2_4 = {_zz_execute_SRC2_3,{execute_INSTRUCTION[31 : 25],execute_INSTRUCTION[11 : 7]}}; // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_execute_SRC2_5 = _zz_execute_SRC2;
+        _zz_execute_SRC2_4 = _zz_execute_to_memory_PC; // @[Misc.scala 239:22]
       end
     endcase
   end
 
   always @(*) begin
-    execute_SrcPlugin_addSub = _zz_execute_SrcPlugin_addSub;
+    execute_SrcPlugin_addSub = _zz_execute_SrcPlugin_addSub; // @[BaseType.scala 318:22]
     if(execute_SRC2_FORCE_ZERO) begin
-      execute_SrcPlugin_addSub = execute_SRC1;
+      execute_SrcPlugin_addSub = execute_SRC1; // @[SrcPlugin.scala 69:46]
     end
   end
 
-  assign execute_SrcPlugin_less = ((execute_SRC1[31] == execute_SRC2[31]) ? execute_SrcPlugin_addSub[31] : (execute_SRC_LESS_UNSIGNED ? execute_SRC2[31] : execute_SRC1[31]));
-  assign execute_FullBarrelShifterPlugin_amplitude = execute_SRC2[4 : 0];
+  assign execute_SrcPlugin_less = ((execute_SRC1[31] == execute_SRC2[31]) ? execute_SrcPlugin_addSub[31] : (execute_SRC_LESS_UNSIGNED ? execute_SRC2[31] : execute_SRC1[31])); // @[Expression.scala 1420:25]
+  assign execute_FullBarrelShifterPlugin_amplitude = execute_SRC2[4 : 0]; // @[BaseType.scala 318:22]
   always @(*) begin
-    _zz_execute_FullBarrelShifterPlugin_reversed[0] = execute_SRC1[31];
-    _zz_execute_FullBarrelShifterPlugin_reversed[1] = execute_SRC1[30];
-    _zz_execute_FullBarrelShifterPlugin_reversed[2] = execute_SRC1[29];
-    _zz_execute_FullBarrelShifterPlugin_reversed[3] = execute_SRC1[28];
-    _zz_execute_FullBarrelShifterPlugin_reversed[4] = execute_SRC1[27];
-    _zz_execute_FullBarrelShifterPlugin_reversed[5] = execute_SRC1[26];
-    _zz_execute_FullBarrelShifterPlugin_reversed[6] = execute_SRC1[25];
-    _zz_execute_FullBarrelShifterPlugin_reversed[7] = execute_SRC1[24];
-    _zz_execute_FullBarrelShifterPlugin_reversed[8] = execute_SRC1[23];
-    _zz_execute_FullBarrelShifterPlugin_reversed[9] = execute_SRC1[22];
-    _zz_execute_FullBarrelShifterPlugin_reversed[10] = execute_SRC1[21];
-    _zz_execute_FullBarrelShifterPlugin_reversed[11] = execute_SRC1[20];
-    _zz_execute_FullBarrelShifterPlugin_reversed[12] = execute_SRC1[19];
-    _zz_execute_FullBarrelShifterPlugin_reversed[13] = execute_SRC1[18];
-    _zz_execute_FullBarrelShifterPlugin_reversed[14] = execute_SRC1[17];
-    _zz_execute_FullBarrelShifterPlugin_reversed[15] = execute_SRC1[16];
-    _zz_execute_FullBarrelShifterPlugin_reversed[16] = execute_SRC1[15];
-    _zz_execute_FullBarrelShifterPlugin_reversed[17] = execute_SRC1[14];
-    _zz_execute_FullBarrelShifterPlugin_reversed[18] = execute_SRC1[13];
-    _zz_execute_FullBarrelShifterPlugin_reversed[19] = execute_SRC1[12];
-    _zz_execute_FullBarrelShifterPlugin_reversed[20] = execute_SRC1[11];
-    _zz_execute_FullBarrelShifterPlugin_reversed[21] = execute_SRC1[10];
-    _zz_execute_FullBarrelShifterPlugin_reversed[22] = execute_SRC1[9];
-    _zz_execute_FullBarrelShifterPlugin_reversed[23] = execute_SRC1[8];
-    _zz_execute_FullBarrelShifterPlugin_reversed[24] = execute_SRC1[7];
-    _zz_execute_FullBarrelShifterPlugin_reversed[25] = execute_SRC1[6];
-    _zz_execute_FullBarrelShifterPlugin_reversed[26] = execute_SRC1[5];
-    _zz_execute_FullBarrelShifterPlugin_reversed[27] = execute_SRC1[4];
-    _zz_execute_FullBarrelShifterPlugin_reversed[28] = execute_SRC1[3];
-    _zz_execute_FullBarrelShifterPlugin_reversed[29] = execute_SRC1[2];
-    _zz_execute_FullBarrelShifterPlugin_reversed[30] = execute_SRC1[1];
-    _zz_execute_FullBarrelShifterPlugin_reversed[31] = execute_SRC1[0];
+    _zz_execute_FullBarrelShifterPlugin_reversed[0] = execute_SRC1[31]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[1] = execute_SRC1[30]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[2] = execute_SRC1[29]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[3] = execute_SRC1[28]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[4] = execute_SRC1[27]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[5] = execute_SRC1[26]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[6] = execute_SRC1[25]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[7] = execute_SRC1[24]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[8] = execute_SRC1[23]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[9] = execute_SRC1[22]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[10] = execute_SRC1[21]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[11] = execute_SRC1[20]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[12] = execute_SRC1[19]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[13] = execute_SRC1[18]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[14] = execute_SRC1[17]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[15] = execute_SRC1[16]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[16] = execute_SRC1[15]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[17] = execute_SRC1[14]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[18] = execute_SRC1[13]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[19] = execute_SRC1[12]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[20] = execute_SRC1[11]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[21] = execute_SRC1[10]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[22] = execute_SRC1[9]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[23] = execute_SRC1[8]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[24] = execute_SRC1[7]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[25] = execute_SRC1[6]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[26] = execute_SRC1[5]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[27] = execute_SRC1[4]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[28] = execute_SRC1[3]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[29] = execute_SRC1[2]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[30] = execute_SRC1[1]; // @[Utils.scala 432:14]
+    _zz_execute_FullBarrelShifterPlugin_reversed[31] = execute_SRC1[0]; // @[Utils.scala 432:14]
   end
 
-  assign execute_FullBarrelShifterPlugin_reversed = ((execute_SHIFT_CTRL == ShiftCtrlEnum_SLL_1) ? _zz_execute_FullBarrelShifterPlugin_reversed : execute_SRC1);
+  assign execute_FullBarrelShifterPlugin_reversed = ((execute_SHIFT_CTRL == ShiftCtrlEnum_SLL_1) ? _zz_execute_FullBarrelShifterPlugin_reversed : execute_SRC1); // @[Expression.scala 1420:25]
   always @(*) begin
-    _zz_decode_RS2_3[0] = memory_SHIFT_RIGHT[31];
-    _zz_decode_RS2_3[1] = memory_SHIFT_RIGHT[30];
-    _zz_decode_RS2_3[2] = memory_SHIFT_RIGHT[29];
-    _zz_decode_RS2_3[3] = memory_SHIFT_RIGHT[28];
-    _zz_decode_RS2_3[4] = memory_SHIFT_RIGHT[27];
-    _zz_decode_RS2_3[5] = memory_SHIFT_RIGHT[26];
-    _zz_decode_RS2_3[6] = memory_SHIFT_RIGHT[25];
-    _zz_decode_RS2_3[7] = memory_SHIFT_RIGHT[24];
-    _zz_decode_RS2_3[8] = memory_SHIFT_RIGHT[23];
-    _zz_decode_RS2_3[9] = memory_SHIFT_RIGHT[22];
-    _zz_decode_RS2_3[10] = memory_SHIFT_RIGHT[21];
-    _zz_decode_RS2_3[11] = memory_SHIFT_RIGHT[20];
-    _zz_decode_RS2_3[12] = memory_SHIFT_RIGHT[19];
-    _zz_decode_RS2_3[13] = memory_SHIFT_RIGHT[18];
-    _zz_decode_RS2_3[14] = memory_SHIFT_RIGHT[17];
-    _zz_decode_RS2_3[15] = memory_SHIFT_RIGHT[16];
-    _zz_decode_RS2_3[16] = memory_SHIFT_RIGHT[15];
-    _zz_decode_RS2_3[17] = memory_SHIFT_RIGHT[14];
-    _zz_decode_RS2_3[18] = memory_SHIFT_RIGHT[13];
-    _zz_decode_RS2_3[19] = memory_SHIFT_RIGHT[12];
-    _zz_decode_RS2_3[20] = memory_SHIFT_RIGHT[11];
-    _zz_decode_RS2_3[21] = memory_SHIFT_RIGHT[10];
-    _zz_decode_RS2_3[22] = memory_SHIFT_RIGHT[9];
-    _zz_decode_RS2_3[23] = memory_SHIFT_RIGHT[8];
-    _zz_decode_RS2_3[24] = memory_SHIFT_RIGHT[7];
-    _zz_decode_RS2_3[25] = memory_SHIFT_RIGHT[6];
-    _zz_decode_RS2_3[26] = memory_SHIFT_RIGHT[5];
-    _zz_decode_RS2_3[27] = memory_SHIFT_RIGHT[4];
-    _zz_decode_RS2_3[28] = memory_SHIFT_RIGHT[3];
-    _zz_decode_RS2_3[29] = memory_SHIFT_RIGHT[2];
-    _zz_decode_RS2_3[30] = memory_SHIFT_RIGHT[1];
-    _zz_decode_RS2_3[31] = memory_SHIFT_RIGHT[0];
+    _zz_decode_RS2_3[0] = memory_SHIFT_RIGHT[31]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[1] = memory_SHIFT_RIGHT[30]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[2] = memory_SHIFT_RIGHT[29]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[3] = memory_SHIFT_RIGHT[28]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[4] = memory_SHIFT_RIGHT[27]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[5] = memory_SHIFT_RIGHT[26]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[6] = memory_SHIFT_RIGHT[25]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[7] = memory_SHIFT_RIGHT[24]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[8] = memory_SHIFT_RIGHT[23]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[9] = memory_SHIFT_RIGHT[22]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[10] = memory_SHIFT_RIGHT[21]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[11] = memory_SHIFT_RIGHT[20]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[12] = memory_SHIFT_RIGHT[19]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[13] = memory_SHIFT_RIGHT[18]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[14] = memory_SHIFT_RIGHT[17]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[15] = memory_SHIFT_RIGHT[16]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[16] = memory_SHIFT_RIGHT[15]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[17] = memory_SHIFT_RIGHT[14]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[18] = memory_SHIFT_RIGHT[13]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[19] = memory_SHIFT_RIGHT[12]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[20] = memory_SHIFT_RIGHT[11]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[21] = memory_SHIFT_RIGHT[10]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[22] = memory_SHIFT_RIGHT[9]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[23] = memory_SHIFT_RIGHT[8]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[24] = memory_SHIFT_RIGHT[7]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[25] = memory_SHIFT_RIGHT[6]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[26] = memory_SHIFT_RIGHT[5]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[27] = memory_SHIFT_RIGHT[4]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[28] = memory_SHIFT_RIGHT[3]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[29] = memory_SHIFT_RIGHT[2]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[30] = memory_SHIFT_RIGHT[1]; // @[Utils.scala 432:14]
+    _zz_decode_RS2_3[31] = memory_SHIFT_RIGHT[0]; // @[Utils.scala 432:14]
   end
 
   always @(*) begin
-    HazardSimplePlugin_src0Hazard = 1'b0;
+    HazardSimplePlugin_src0Hazard = 1'b0; // @[HazardSimplePlugin.scala 36:24]
     if(when_HazardSimplePlugin_l57) begin
       if(when_HazardSimplePlugin_l58) begin
         if(when_HazardSimplePlugin_l48) begin
-          HazardSimplePlugin_src0Hazard = 1'b1;
+          HazardSimplePlugin_src0Hazard = 1'b1; // @[HazardSimplePlugin.scala 60:26]
         end
       end
     end
     if(when_HazardSimplePlugin_l57_1) begin
       if(when_HazardSimplePlugin_l58_1) begin
         if(when_HazardSimplePlugin_l48_1) begin
-          HazardSimplePlugin_src0Hazard = 1'b1;
+          HazardSimplePlugin_src0Hazard = 1'b1; // @[HazardSimplePlugin.scala 60:26]
         end
       end
     end
     if(when_HazardSimplePlugin_l57_2) begin
       if(when_HazardSimplePlugin_l58_2) begin
         if(when_HazardSimplePlugin_l48_2) begin
-          HazardSimplePlugin_src0Hazard = 1'b1;
+          HazardSimplePlugin_src0Hazard = 1'b1; // @[HazardSimplePlugin.scala 60:26]
         end
       end
     end
     if(when_HazardSimplePlugin_l105) begin
-      HazardSimplePlugin_src0Hazard = 1'b0;
+      HazardSimplePlugin_src0Hazard = 1'b0; // @[HazardSimplePlugin.scala 106:22]
     end
   end
 
   always @(*) begin
-    HazardSimplePlugin_src1Hazard = 1'b0;
+    HazardSimplePlugin_src1Hazard = 1'b0; // @[HazardSimplePlugin.scala 37:24]
     if(when_HazardSimplePlugin_l57) begin
       if(when_HazardSimplePlugin_l58) begin
         if(when_HazardSimplePlugin_l51) begin
-          HazardSimplePlugin_src1Hazard = 1'b1;
+          HazardSimplePlugin_src1Hazard = 1'b1; // @[HazardSimplePlugin.scala 63:26]
         end
       end
     end
     if(when_HazardSimplePlugin_l57_1) begin
       if(when_HazardSimplePlugin_l58_1) begin
         if(when_HazardSimplePlugin_l51_1) begin
-          HazardSimplePlugin_src1Hazard = 1'b1;
+          HazardSimplePlugin_src1Hazard = 1'b1; // @[HazardSimplePlugin.scala 63:26]
         end
       end
     end
     if(when_HazardSimplePlugin_l57_2) begin
       if(when_HazardSimplePlugin_l58_2) begin
         if(when_HazardSimplePlugin_l51_2) begin
-          HazardSimplePlugin_src1Hazard = 1'b1;
+          HazardSimplePlugin_src1Hazard = 1'b1; // @[HazardSimplePlugin.scala 63:26]
         end
       end
     end
     if(when_HazardSimplePlugin_l108) begin
-      HazardSimplePlugin_src1Hazard = 1'b0;
+      HazardSimplePlugin_src1Hazard = 1'b0; // @[HazardSimplePlugin.scala 109:22]
     end
   end
 
-  assign HazardSimplePlugin_writeBackWrites_valid = (_zz_lastStageRegFileWrite_valid && writeBack_arbitration_isFiring);
-  assign HazardSimplePlugin_writeBackWrites_payload_address = _zz_lastStageRegFileWrite_payload_address[11 : 7];
-  assign HazardSimplePlugin_writeBackWrites_payload_data = _zz_decode_RS2_2;
-  assign HazardSimplePlugin_addr0Match = (HazardSimplePlugin_writeBackBuffer_payload_address == decode_INSTRUCTION[19 : 15]);
-  assign HazardSimplePlugin_addr1Match = (HazardSimplePlugin_writeBackBuffer_payload_address == decode_INSTRUCTION[24 : 20]);
-  assign when_HazardSimplePlugin_l47 = 1'b1;
-  assign when_HazardSimplePlugin_l48 = (writeBack_INSTRUCTION[11 : 7] == decode_INSTRUCTION[19 : 15]);
-  assign when_HazardSimplePlugin_l51 = (writeBack_INSTRUCTION[11 : 7] == decode_INSTRUCTION[24 : 20]);
-  assign when_HazardSimplePlugin_l45 = (writeBack_arbitration_isValid && writeBack_REGFILE_WRITE_VALID);
-  assign when_HazardSimplePlugin_l57 = (writeBack_arbitration_isValid && writeBack_REGFILE_WRITE_VALID);
-  assign when_HazardSimplePlugin_l58 = (1'b0 || (! when_HazardSimplePlugin_l47));
-  assign when_HazardSimplePlugin_l48_1 = (memory_INSTRUCTION[11 : 7] == decode_INSTRUCTION[19 : 15]);
-  assign when_HazardSimplePlugin_l51_1 = (memory_INSTRUCTION[11 : 7] == decode_INSTRUCTION[24 : 20]);
-  assign when_HazardSimplePlugin_l45_1 = (memory_arbitration_isValid && memory_REGFILE_WRITE_VALID);
-  assign when_HazardSimplePlugin_l57_1 = (memory_arbitration_isValid && memory_REGFILE_WRITE_VALID);
-  assign when_HazardSimplePlugin_l58_1 = (1'b0 || (! memory_BYPASSABLE_MEMORY_STAGE));
-  assign when_HazardSimplePlugin_l48_2 = (execute_INSTRUCTION[11 : 7] == decode_INSTRUCTION[19 : 15]);
-  assign when_HazardSimplePlugin_l51_2 = (execute_INSTRUCTION[11 : 7] == decode_INSTRUCTION[24 : 20]);
-  assign when_HazardSimplePlugin_l45_2 = (execute_arbitration_isValid && execute_REGFILE_WRITE_VALID);
-  assign when_HazardSimplePlugin_l57_2 = (execute_arbitration_isValid && execute_REGFILE_WRITE_VALID);
-  assign when_HazardSimplePlugin_l58_2 = (1'b0 || (! execute_BYPASSABLE_EXECUTE_STAGE));
-  assign when_HazardSimplePlugin_l105 = (! decode_RS1_USE);
-  assign when_HazardSimplePlugin_l108 = (! decode_RS2_USE);
-  assign when_HazardSimplePlugin_l113 = (decode_arbitration_isValid && (HazardSimplePlugin_src0Hazard || HazardSimplePlugin_src1Hazard));
-  assign execute_MulPlugin_a = execute_RS1;
-  assign execute_MulPlugin_b = execute_RS2;
-  assign switch_MulPlugin_l87 = execute_INSTRUCTION[13 : 12];
+  assign HazardSimplePlugin_writeBackWrites_valid = (_zz_lastStageRegFileWrite_valid && writeBack_arbitration_isFiring); // @[HazardSimplePlugin.scala 74:29]
+  assign HazardSimplePlugin_writeBackWrites_payload_address = _zz_lastStageRegFileWrite_payload_address[11 : 7]; // @[HazardSimplePlugin.scala 75:31]
+  assign HazardSimplePlugin_writeBackWrites_payload_data = _zz_decode_RS2_2; // @[HazardSimplePlugin.scala 76:28]
+  assign HazardSimplePlugin_addr0Match = (HazardSimplePlugin_writeBackBuffer_payload_address == decode_INSTRUCTION[19 : 15]); // @[BaseType.scala 305:24]
+  assign HazardSimplePlugin_addr1Match = (HazardSimplePlugin_writeBackBuffer_payload_address == decode_INSTRUCTION[24 : 20]); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l47 = 1'b1; // @[HazardSimplePlugin.scala 42:105]
+  assign when_HazardSimplePlugin_l48 = (writeBack_INSTRUCTION[11 : 7] == decode_INSTRUCTION[19 : 15]); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l51 = (writeBack_INSTRUCTION[11 : 7] == decode_INSTRUCTION[24 : 20]); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l45 = (writeBack_arbitration_isValid && writeBack_REGFILE_WRITE_VALID); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l57 = (writeBack_arbitration_isValid && writeBack_REGFILE_WRITE_VALID); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l58 = (1'b0 || (! when_HazardSimplePlugin_l47)); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l48_1 = (memory_INSTRUCTION[11 : 7] == decode_INSTRUCTION[19 : 15]); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l51_1 = (memory_INSTRUCTION[11 : 7] == decode_INSTRUCTION[24 : 20]); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l45_1 = (memory_arbitration_isValid && memory_REGFILE_WRITE_VALID); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l57_1 = (memory_arbitration_isValid && memory_REGFILE_WRITE_VALID); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l58_1 = (1'b0 || (! memory_BYPASSABLE_MEMORY_STAGE)); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l48_2 = (execute_INSTRUCTION[11 : 7] == decode_INSTRUCTION[19 : 15]); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l51_2 = (execute_INSTRUCTION[11 : 7] == decode_INSTRUCTION[24 : 20]); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l45_2 = (execute_arbitration_isValid && execute_REGFILE_WRITE_VALID); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l57_2 = (execute_arbitration_isValid && execute_REGFILE_WRITE_VALID); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l58_2 = (1'b0 || (! execute_BYPASSABLE_EXECUTE_STAGE)); // @[BaseType.scala 305:24]
+  assign when_HazardSimplePlugin_l105 = (! decode_RS1_USE); // @[BaseType.scala 299:24]
+  assign when_HazardSimplePlugin_l108 = (! decode_RS2_USE); // @[BaseType.scala 299:24]
+  assign when_HazardSimplePlugin_l113 = (decode_arbitration_isValid && (HazardSimplePlugin_src0Hazard || HazardSimplePlugin_src1Hazard)); // @[BaseType.scala 305:24]
+  assign execute_MulPlugin_a = execute_RS1; // @[MulPlugin.scala 83:11]
+  assign execute_MulPlugin_b = execute_RS2; // @[MulPlugin.scala 84:11]
+  assign switch_MulPlugin_l87 = execute_INSTRUCTION[13 : 12]; // @[BaseType.scala 299:24]
   always @(*) begin
     case(switch_MulPlugin_l87)
       2'b01 : begin
-        execute_MulPlugin_aSigned = 1'b1;
+        execute_MulPlugin_aSigned = 1'b1; // @[MulPlugin.scala 89:19]
       end
       2'b10 : begin
-        execute_MulPlugin_aSigned = 1'b1;
+        execute_MulPlugin_aSigned = 1'b1; // @[MulPlugin.scala 93:19]
       end
       default : begin
-        execute_MulPlugin_aSigned = 1'b0;
+        execute_MulPlugin_aSigned = 1'b0; // @[MulPlugin.scala 97:19]
       end
     endcase
   end
@@ -5669,128 +5694,128 @@ module VexRiscvAxi4 (
   always @(*) begin
     case(switch_MulPlugin_l87)
       2'b01 : begin
-        execute_MulPlugin_bSigned = 1'b1;
+        execute_MulPlugin_bSigned = 1'b1; // @[MulPlugin.scala 90:19]
       end
       2'b10 : begin
-        execute_MulPlugin_bSigned = 1'b0;
+        execute_MulPlugin_bSigned = 1'b0; // @[MulPlugin.scala 94:19]
       end
       default : begin
-        execute_MulPlugin_bSigned = 1'b0;
+        execute_MulPlugin_bSigned = 1'b0; // @[MulPlugin.scala 98:19]
       end
     endcase
   end
 
-  assign execute_MulPlugin_aULow = execute_MulPlugin_a[15 : 0];
-  assign execute_MulPlugin_bULow = execute_MulPlugin_b[15 : 0];
-  assign execute_MulPlugin_aSLow = {1'b0,execute_MulPlugin_a[15 : 0]};
-  assign execute_MulPlugin_bSLow = {1'b0,execute_MulPlugin_b[15 : 0]};
-  assign execute_MulPlugin_aHigh = {(execute_MulPlugin_aSigned && execute_MulPlugin_a[31]),execute_MulPlugin_a[31 : 16]};
-  assign execute_MulPlugin_bHigh = {(execute_MulPlugin_bSigned && execute_MulPlugin_b[31]),execute_MulPlugin_b[31 : 16]};
-  assign writeBack_MulPlugin_result = ($signed(_zz_writeBack_MulPlugin_result) + $signed(_zz_writeBack_MulPlugin_result_1));
-  assign when_MulPlugin_l147 = (writeBack_arbitration_isValid && writeBack_IS_MUL);
-  assign switch_MulPlugin_l148 = writeBack_INSTRUCTION[13 : 12];
-  assign memory_DivPlugin_frontendOk = 1'b1;
+  assign execute_MulPlugin_aULow = execute_MulPlugin_a[15 : 0]; // @[BaseType.scala 318:22]
+  assign execute_MulPlugin_bULow = execute_MulPlugin_b[15 : 0]; // @[BaseType.scala 318:22]
+  assign execute_MulPlugin_aSLow = {1'b0,execute_MulPlugin_a[15 : 0]}; // @[BaseType.scala 318:22]
+  assign execute_MulPlugin_bSLow = {1'b0,execute_MulPlugin_b[15 : 0]}; // @[BaseType.scala 318:22]
+  assign execute_MulPlugin_aHigh = {(execute_MulPlugin_aSigned && execute_MulPlugin_a[31]),execute_MulPlugin_a[31 : 16]}; // @[BaseType.scala 318:22]
+  assign execute_MulPlugin_bHigh = {(execute_MulPlugin_bSigned && execute_MulPlugin_b[31]),execute_MulPlugin_b[31 : 16]}; // @[BaseType.scala 318:22]
+  assign writeBack_MulPlugin_result = ($signed(_zz_writeBack_MulPlugin_result) + $signed(_zz_writeBack_MulPlugin_result_1)); // @[BaseType.scala 299:24]
+  assign when_MulPlugin_l147 = (writeBack_arbitration_isValid && writeBack_IS_MUL); // @[BaseType.scala 305:24]
+  assign switch_MulPlugin_l148 = writeBack_INSTRUCTION[13 : 12]; // @[BaseType.scala 299:24]
+  assign memory_DivPlugin_frontendOk = 1'b1; // @[MulDivIterativePlugin.scala 90:50]
   always @(*) begin
-    memory_DivPlugin_div_counter_willIncrement = 1'b0;
+    memory_DivPlugin_div_counter_willIncrement = 1'b0; // @[Utils.scala 536:23]
     if(when_MulDivIterativePlugin_l128) begin
       if(when_MulDivIterativePlugin_l132) begin
-        memory_DivPlugin_div_counter_willIncrement = 1'b1;
+        memory_DivPlugin_div_counter_willIncrement = 1'b1; // @[Utils.scala 540:41]
       end
     end
   end
 
   always @(*) begin
-    memory_DivPlugin_div_counter_willClear = 1'b0;
+    memory_DivPlugin_div_counter_willClear = 1'b0; // @[Utils.scala 537:19]
     if(when_MulDivIterativePlugin_l162) begin
-      memory_DivPlugin_div_counter_willClear = 1'b1;
+      memory_DivPlugin_div_counter_willClear = 1'b1; // @[Utils.scala 539:33]
     end
   end
 
-  assign memory_DivPlugin_div_counter_willOverflowIfInc = (memory_DivPlugin_div_counter_value == 6'h21);
-  assign memory_DivPlugin_div_counter_willOverflow = (memory_DivPlugin_div_counter_willOverflowIfInc && memory_DivPlugin_div_counter_willIncrement);
+  assign memory_DivPlugin_div_counter_willOverflowIfInc = (memory_DivPlugin_div_counter_value == 6'h21); // @[BaseType.scala 305:24]
+  assign memory_DivPlugin_div_counter_willOverflow = (memory_DivPlugin_div_counter_willOverflowIfInc && memory_DivPlugin_div_counter_willIncrement); // @[BaseType.scala 305:24]
   always @(*) begin
     if(memory_DivPlugin_div_counter_willOverflow) begin
-      memory_DivPlugin_div_counter_valueNext = 6'h0;
+      memory_DivPlugin_div_counter_valueNext = 6'h0; // @[Utils.scala 552:17]
     end else begin
-      memory_DivPlugin_div_counter_valueNext = (memory_DivPlugin_div_counter_value + _zz_memory_DivPlugin_div_counter_valueNext);
+      memory_DivPlugin_div_counter_valueNext = (memory_DivPlugin_div_counter_value + _zz_memory_DivPlugin_div_counter_valueNext); // @[Utils.scala 554:17]
     end
     if(memory_DivPlugin_div_counter_willClear) begin
-      memory_DivPlugin_div_counter_valueNext = 6'h0;
+      memory_DivPlugin_div_counter_valueNext = 6'h0; // @[Utils.scala 558:15]
     end
   end
 
-  assign when_MulDivIterativePlugin_l126 = (memory_DivPlugin_div_counter_value == 6'h20);
-  assign when_MulDivIterativePlugin_l126_1 = (! memory_arbitration_isStuck);
-  assign when_MulDivIterativePlugin_l128 = (memory_arbitration_isValid && memory_IS_DIV);
-  assign when_MulDivIterativePlugin_l129 = ((! memory_DivPlugin_frontendOk) || (! memory_DivPlugin_div_done));
-  assign when_MulDivIterativePlugin_l132 = (memory_DivPlugin_frontendOk && (! memory_DivPlugin_div_done));
-  assign _zz_memory_DivPlugin_div_stage_0_remainderShifted = memory_DivPlugin_rs1[31 : 0];
-  assign memory_DivPlugin_div_stage_0_remainderShifted = {memory_DivPlugin_accumulator[31 : 0],_zz_memory_DivPlugin_div_stage_0_remainderShifted[31]};
-  assign memory_DivPlugin_div_stage_0_remainderMinusDenominator = (memory_DivPlugin_div_stage_0_remainderShifted - _zz_memory_DivPlugin_div_stage_0_remainderMinusDenominator);
-  assign memory_DivPlugin_div_stage_0_outRemainder = ((! memory_DivPlugin_div_stage_0_remainderMinusDenominator[32]) ? _zz_memory_DivPlugin_div_stage_0_outRemainder : _zz_memory_DivPlugin_div_stage_0_outRemainder_1);
-  assign memory_DivPlugin_div_stage_0_outNumerator = _zz_memory_DivPlugin_div_stage_0_outNumerator[31:0];
-  assign when_MulDivIterativePlugin_l151 = (memory_DivPlugin_div_counter_value == 6'h20);
-  assign _zz_memory_DivPlugin_div_result = (memory_INSTRUCTION[13] ? memory_DivPlugin_accumulator[31 : 0] : memory_DivPlugin_rs1[31 : 0]);
-  assign when_MulDivIterativePlugin_l162 = (! memory_arbitration_isStuck);
-  assign _zz_memory_DivPlugin_rs2 = (execute_RS2[31] && execute_IS_RS2_SIGNED);
-  assign _zz_memory_DivPlugin_rs1 = (1'b0 || ((execute_IS_DIV && execute_RS1[31]) && execute_IS_RS1_SIGNED));
+  assign when_MulDivIterativePlugin_l126 = (memory_DivPlugin_div_counter_value == 6'h20); // @[BaseType.scala 305:24]
+  assign when_MulDivIterativePlugin_l126_1 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_MulDivIterativePlugin_l128 = (memory_arbitration_isValid && memory_IS_DIV); // @[BaseType.scala 305:24]
+  assign when_MulDivIterativePlugin_l129 = ((! memory_DivPlugin_frontendOk) || (! memory_DivPlugin_div_done)); // @[BaseType.scala 305:24]
+  assign when_MulDivIterativePlugin_l132 = (memory_DivPlugin_frontendOk && (! memory_DivPlugin_div_done)); // @[BaseType.scala 305:24]
+  assign _zz_memory_DivPlugin_div_stage_0_remainderShifted = memory_DivPlugin_rs1[31 : 0]; // @[BaseType.scala 299:24]
+  assign memory_DivPlugin_div_stage_0_remainderShifted = {memory_DivPlugin_accumulator[31 : 0],_zz_memory_DivPlugin_div_stage_0_remainderShifted[31]}; // @[BaseType.scala 318:22]
+  assign memory_DivPlugin_div_stage_0_remainderMinusDenominator = (memory_DivPlugin_div_stage_0_remainderShifted - _zz_memory_DivPlugin_div_stage_0_remainderMinusDenominator); // @[BaseType.scala 299:24]
+  assign memory_DivPlugin_div_stage_0_outRemainder = ((! memory_DivPlugin_div_stage_0_remainderMinusDenominator[32]) ? _zz_memory_DivPlugin_div_stage_0_outRemainder : _zz_memory_DivPlugin_div_stage_0_outRemainder_1); // @[Expression.scala 1420:25]
+  assign memory_DivPlugin_div_stage_0_outNumerator = _zz_memory_DivPlugin_div_stage_0_outNumerator[31:0]; // @[BaseType.scala 299:24]
+  assign when_MulDivIterativePlugin_l151 = (memory_DivPlugin_div_counter_value == 6'h20); // @[BaseType.scala 305:24]
+  assign _zz_memory_DivPlugin_div_result = (memory_INSTRUCTION[13] ? memory_DivPlugin_accumulator[31 : 0] : memory_DivPlugin_rs1[31 : 0]); // @[Expression.scala 1420:25]
+  assign when_MulDivIterativePlugin_l162 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_memory_DivPlugin_rs2 = (execute_RS2[31] && execute_IS_RS2_SIGNED); // @[BaseType.scala 305:24]
+  assign _zz_memory_DivPlugin_rs1 = (1'b0 || ((execute_IS_DIV && execute_RS1[31]) && execute_IS_RS1_SIGNED)); // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_memory_DivPlugin_rs1_1[32] = (execute_IS_RS1_SIGNED && execute_RS1[31]);
-    _zz_memory_DivPlugin_rs1_1[31 : 0] = execute_RS1;
+    _zz_memory_DivPlugin_rs1_1[32] = (execute_IS_RS1_SIGNED && execute_RS1[31]); // @[Literal.scala 87:17]
+    _zz_memory_DivPlugin_rs1_1[31 : 0] = execute_RS1; // @[Literal.scala 99:91]
   end
 
-  assign execute_AesPlugin_byteSel = execute_INSTRUCTION[29 : 28];
-  assign execute_AesPlugin_bankSel = (execute_INSTRUCTION[25] && (! execute_INSTRUCTION[26]));
-  assign execute_AesPlugin_romAddress = {execute_AesPlugin_bankSel,_zz_execute_AesPlugin_romAddress};
-  assign _zz_memory_AesPlugin_rom_data = (! memory_arbitration_isStuck);
-  assign memory_AesPlugin_rom_data = _zz_memory_AesPlugin_rom_storage_port0;
-  assign memory_AesPlugin_rom_bytes_0 = memory_AesPlugin_rom_data[7 : 0];
-  assign memory_AesPlugin_rom_bytes_1 = memory_AesPlugin_rom_data[15 : 8];
-  assign memory_AesPlugin_rom_bytes_2 = memory_AesPlugin_rom_data[23 : 16];
-  assign memory_AesPlugin_rom_bytes_3 = memory_AesPlugin_rom_data[31 : 24];
-  assign memory_AesPlugin_rom_remap_0_0 = 2'b10;
-  assign memory_AesPlugin_rom_remap_0_1 = 2'b00;
-  assign memory_AesPlugin_rom_remap_0_2 = 2'b00;
-  assign memory_AesPlugin_rom_remap_0_3 = 2'b01;
-  assign memory_AesPlugin_rom_remap_1_0 = 2'b00;
-  assign memory_AesPlugin_rom_remap_1_1 = 2'b00;
-  assign memory_AesPlugin_rom_remap_1_2 = 2'b00;
-  assign memory_AesPlugin_rom_remap_1_3 = 2'b00;
-  assign memory_AesPlugin_rom_remap_2_0 = 2'b11;
-  assign memory_AesPlugin_rom_remap_2_1 = 2'b10;
-  assign memory_AesPlugin_rom_remap_2_2 = 2'b01;
-  assign memory_AesPlugin_rom_remap_2_3 = 2'b00;
-  assign memory_AesPlugin_rom_remap_3_0 = 2'b11;
-  assign memory_AesPlugin_rom_remap_3_1 = 2'b11;
-  assign memory_AesPlugin_rom_remap_3_2 = 2'b11;
-  assign memory_AesPlugin_rom_remap_3_3 = 2'b11;
-  assign memory_AesPlugin_rom_address = {memory_INSTRUCTION[25],memory_INSTRUCTION[26]};
-  assign memory_AesPlugin_rom_output_0 = _zz_memory_AesPlugin_rom_output_0;
-  assign memory_AesPlugin_rom_output_1 = _zz_memory_AesPlugin_rom_output_1;
-  assign memory_AesPlugin_rom_output_2 = _zz_memory_AesPlugin_rom_output_2;
-  assign memory_AesPlugin_rom_output_3 = _zz_memory_AesPlugin_rom_output_3;
+  assign execute_AesPlugin_byteSel = execute_INSTRUCTION[29 : 28]; // @[BaseType.scala 318:22]
+  assign execute_AesPlugin_bankSel = (execute_INSTRUCTION[25] && (! execute_INSTRUCTION[26])); // @[BaseType.scala 305:24]
+  assign execute_AesPlugin_romAddress = {execute_AesPlugin_bankSel,_zz_execute_AesPlugin_romAddress}; // @[BaseType.scala 318:22]
+  assign _zz_memory_AesPlugin_rom_data = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign memory_AesPlugin_rom_data = _zz_memory_AesPlugin_rom_storage_port0; // @[Bits.scala 133:56]
+  assign memory_AesPlugin_rom_bytes_0 = memory_AesPlugin_rom_data[7 : 0]; // @[BaseType.scala 299:24]
+  assign memory_AesPlugin_rom_bytes_1 = memory_AesPlugin_rom_data[15 : 8]; // @[BaseType.scala 299:24]
+  assign memory_AesPlugin_rom_bytes_2 = memory_AesPlugin_rom_data[23 : 16]; // @[BaseType.scala 299:24]
+  assign memory_AesPlugin_rom_bytes_3 = memory_AesPlugin_rom_data[31 : 24]; // @[BaseType.scala 299:24]
+  assign memory_AesPlugin_rom_remap_0_0 = 2'b10; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_0_1 = 2'b00; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_0_2 = 2'b00; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_0_3 = 2'b01; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_1_0 = 2'b00; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_1_1 = 2'b00; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_1_2 = 2'b00; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_1_3 = 2'b00; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_2_0 = 2'b11; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_2_1 = 2'b10; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_2_2 = 2'b01; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_2_3 = 2'b00; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_3_0 = 2'b11; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_3_1 = 2'b11; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_3_2 = 2'b11; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_remap_3_3 = 2'b11; // @[Expression.scala 2342:18]
+  assign memory_AesPlugin_rom_address = {memory_INSTRUCTION[25],memory_INSTRUCTION[26]}; // @[BaseType.scala 318:22]
+  assign memory_AesPlugin_rom_output_0 = _zz_memory_AesPlugin_rom_output_0; // @[Vec.scala 202:25]
+  assign memory_AesPlugin_rom_output_1 = _zz_memory_AesPlugin_rom_output_1; // @[Vec.scala 202:25]
+  assign memory_AesPlugin_rom_output_2 = _zz_memory_AesPlugin_rom_output_2; // @[Vec.scala 202:25]
+  assign memory_AesPlugin_rom_output_3 = _zz_memory_AesPlugin_rom_output_3; // @[Vec.scala 202:25]
   always @(*) begin
-    memory_AesPlugin_wordDesuffle_zero = 4'b0000;
+    memory_AesPlugin_wordDesuffle_zero = 4'b0000; // @[Expression.scala 2301:18]
     if(when_AesPlugin_l146) begin
-      memory_AesPlugin_wordDesuffle_zero = 4'b1111;
-      memory_AesPlugin_wordDesuffle_zero[memory_AesPlugin_wordDesuffle_byteSel] = 1'b0;
+      memory_AesPlugin_wordDesuffle_zero = 4'b1111; // @[AesPlugin.scala 147:16]
+      memory_AesPlugin_wordDesuffle_zero[memory_AesPlugin_wordDesuffle_byteSel] = 1'b0; // @[AesPlugin.scala 148:25]
     end
   end
 
-  assign memory_AesPlugin_wordDesuffle_byteSel = memory_INSTRUCTION[29 : 28];
+  assign memory_AesPlugin_wordDesuffle_byteSel = memory_INSTRUCTION[29 : 28]; // @[BaseType.scala 318:22]
   always @(*) begin
     case(memory_AesPlugin_wordDesuffle_byteSel)
       2'b00 : begin
-        memory_AesPlugin_wordDesuffle_sel_0 = memory_AesPlugin_rom_output_3;
+        memory_AesPlugin_wordDesuffle_sel_0 = memory_AesPlugin_rom_output_3; // @[Misc.scala 239:22]
       end
       2'b01 : begin
-        memory_AesPlugin_wordDesuffle_sel_0 = memory_AesPlugin_rom_output_0;
+        memory_AesPlugin_wordDesuffle_sel_0 = memory_AesPlugin_rom_output_0; // @[Misc.scala 239:22]
       end
       2'b10 : begin
-        memory_AesPlugin_wordDesuffle_sel_0 = memory_AesPlugin_rom_output_1;
+        memory_AesPlugin_wordDesuffle_sel_0 = memory_AesPlugin_rom_output_1; // @[Misc.scala 239:22]
       end
       default : begin
-        memory_AesPlugin_wordDesuffle_sel_0 = memory_AesPlugin_rom_output_2;
+        memory_AesPlugin_wordDesuffle_sel_0 = memory_AesPlugin_rom_output_2; // @[Misc.scala 239:22]
       end
     endcase
   end
@@ -5798,16 +5823,16 @@ module VexRiscvAxi4 (
   always @(*) begin
     case(memory_AesPlugin_wordDesuffle_byteSel)
       2'b00 : begin
-        memory_AesPlugin_wordDesuffle_sel_1 = memory_AesPlugin_rom_output_2;
+        memory_AesPlugin_wordDesuffle_sel_1 = memory_AesPlugin_rom_output_2; // @[Misc.scala 239:22]
       end
       2'b01 : begin
-        memory_AesPlugin_wordDesuffle_sel_1 = memory_AesPlugin_rom_output_3;
+        memory_AesPlugin_wordDesuffle_sel_1 = memory_AesPlugin_rom_output_3; // @[Misc.scala 239:22]
       end
       2'b10 : begin
-        memory_AesPlugin_wordDesuffle_sel_1 = memory_AesPlugin_rom_output_0;
+        memory_AesPlugin_wordDesuffle_sel_1 = memory_AesPlugin_rom_output_0; // @[Misc.scala 239:22]
       end
       default : begin
-        memory_AesPlugin_wordDesuffle_sel_1 = memory_AesPlugin_rom_output_1;
+        memory_AesPlugin_wordDesuffle_sel_1 = memory_AesPlugin_rom_output_1; // @[Misc.scala 239:22]
       end
     endcase
   end
@@ -5815,16 +5840,16 @@ module VexRiscvAxi4 (
   always @(*) begin
     case(memory_AesPlugin_wordDesuffle_byteSel)
       2'b00 : begin
-        memory_AesPlugin_wordDesuffle_sel_2 = memory_AesPlugin_rom_output_1;
+        memory_AesPlugin_wordDesuffle_sel_2 = memory_AesPlugin_rom_output_1; // @[Misc.scala 239:22]
       end
       2'b01 : begin
-        memory_AesPlugin_wordDesuffle_sel_2 = memory_AesPlugin_rom_output_2;
+        memory_AesPlugin_wordDesuffle_sel_2 = memory_AesPlugin_rom_output_2; // @[Misc.scala 239:22]
       end
       2'b10 : begin
-        memory_AesPlugin_wordDesuffle_sel_2 = memory_AesPlugin_rom_output_3;
+        memory_AesPlugin_wordDesuffle_sel_2 = memory_AesPlugin_rom_output_3; // @[Misc.scala 239:22]
       end
       default : begin
-        memory_AesPlugin_wordDesuffle_sel_2 = memory_AesPlugin_rom_output_0;
+        memory_AesPlugin_wordDesuffle_sel_2 = memory_AesPlugin_rom_output_0; // @[Misc.scala 239:22]
       end
     endcase
   end
@@ -5832,152 +5857,152 @@ module VexRiscvAxi4 (
   always @(*) begin
     case(memory_AesPlugin_wordDesuffle_byteSel)
       2'b00 : begin
-        memory_AesPlugin_wordDesuffle_sel_3 = memory_AesPlugin_rom_output_0;
+        memory_AesPlugin_wordDesuffle_sel_3 = memory_AesPlugin_rom_output_0; // @[Misc.scala 239:22]
       end
       2'b01 : begin
-        memory_AesPlugin_wordDesuffle_sel_3 = memory_AesPlugin_rom_output_1;
+        memory_AesPlugin_wordDesuffle_sel_3 = memory_AesPlugin_rom_output_1; // @[Misc.scala 239:22]
       end
       2'b10 : begin
-        memory_AesPlugin_wordDesuffle_sel_3 = memory_AesPlugin_rom_output_2;
+        memory_AesPlugin_wordDesuffle_sel_3 = memory_AesPlugin_rom_output_2; // @[Misc.scala 239:22]
       end
       default : begin
-        memory_AesPlugin_wordDesuffle_sel_3 = memory_AesPlugin_rom_output_3;
+        memory_AesPlugin_wordDesuffle_sel_3 = memory_AesPlugin_rom_output_3; // @[Misc.scala 239:22]
       end
     endcase
   end
 
-  assign when_AesPlugin_l146 = memory_INSTRUCTION[26];
+  assign when_AesPlugin_l146 = memory_INSTRUCTION[26]; // @[BaseType.scala 305:24]
   always @(*) begin
-    memory_AesPlugin_wordDesuffle_output_0 = _zz_memory_AesPlugin_wordDesuffle_output_0;
+    memory_AesPlugin_wordDesuffle_output_0 = _zz_memory_AesPlugin_wordDesuffle_output_0; // @[AesPlugin.scala 153:26]
     if(when_AesPlugin_l154) begin
-      memory_AesPlugin_wordDesuffle_output_0 = 8'h0;
+      memory_AesPlugin_wordDesuffle_output_0 = 8'h0; // @[AesPlugin.scala 155:28]
     end
   end
 
-  assign when_AesPlugin_l154 = memory_AesPlugin_wordDesuffle_zero[0];
+  assign when_AesPlugin_l154 = memory_AesPlugin_wordDesuffle_zero[0]; // @[BaseType.scala 305:24]
   always @(*) begin
-    memory_AesPlugin_wordDesuffle_output_1 = _zz_memory_AesPlugin_wordDesuffle_output_1;
+    memory_AesPlugin_wordDesuffle_output_1 = _zz_memory_AesPlugin_wordDesuffle_output_1; // @[AesPlugin.scala 153:26]
     if(when_AesPlugin_l154_1) begin
-      memory_AesPlugin_wordDesuffle_output_1 = 8'h0;
+      memory_AesPlugin_wordDesuffle_output_1 = 8'h0; // @[AesPlugin.scala 155:28]
     end
   end
 
-  assign when_AesPlugin_l154_1 = memory_AesPlugin_wordDesuffle_zero[1];
+  assign when_AesPlugin_l154_1 = memory_AesPlugin_wordDesuffle_zero[1]; // @[BaseType.scala 305:24]
   always @(*) begin
-    memory_AesPlugin_wordDesuffle_output_2 = _zz_memory_AesPlugin_wordDesuffle_output_2;
+    memory_AesPlugin_wordDesuffle_output_2 = _zz_memory_AesPlugin_wordDesuffle_output_2; // @[AesPlugin.scala 153:26]
     if(when_AesPlugin_l154_2) begin
-      memory_AesPlugin_wordDesuffle_output_2 = 8'h0;
+      memory_AesPlugin_wordDesuffle_output_2 = 8'h0; // @[AesPlugin.scala 155:28]
     end
   end
 
-  assign when_AesPlugin_l154_2 = memory_AesPlugin_wordDesuffle_zero[2];
+  assign when_AesPlugin_l154_2 = memory_AesPlugin_wordDesuffle_zero[2]; // @[BaseType.scala 305:24]
   always @(*) begin
-    memory_AesPlugin_wordDesuffle_output_3 = _zz_memory_AesPlugin_wordDesuffle_output_3;
+    memory_AesPlugin_wordDesuffle_output_3 = _zz_memory_AesPlugin_wordDesuffle_output_3; // @[AesPlugin.scala 153:26]
     if(when_AesPlugin_l154_3) begin
-      memory_AesPlugin_wordDesuffle_output_3 = 8'h0;
+      memory_AesPlugin_wordDesuffle_output_3 = 8'h0; // @[AesPlugin.scala 155:28]
     end
   end
 
-  assign when_AesPlugin_l154_3 = memory_AesPlugin_wordDesuffle_zero[3];
-  assign memory_AesPlugin_xored = ({memory_AesPlugin_wordDesuffle_output_3,{memory_AesPlugin_wordDesuffle_output_2,{memory_AesPlugin_wordDesuffle_output_1,memory_AesPlugin_wordDesuffle_output_0}}} ^ memory_RS1);
+  assign when_AesPlugin_l154_3 = memory_AesPlugin_wordDesuffle_zero[3]; // @[BaseType.scala 305:24]
+  assign memory_AesPlugin_xored = ({memory_AesPlugin_wordDesuffle_output_3,{memory_AesPlugin_wordDesuffle_output_2,{memory_AesPlugin_wordDesuffle_output_1,memory_AesPlugin_wordDesuffle_output_0}}} ^ memory_RS1); // @[BaseType.scala 299:24]
   always @(*) begin
-    CsrPlugin_privilege = _zz_CsrPlugin_privilege;
+    CsrPlugin_privilege = _zz_CsrPlugin_privilege; // @[CsrPlugin.scala 680:15]
     if(CsrPlugin_forceMachineWire) begin
-      CsrPlugin_privilege = 2'b11;
+      CsrPlugin_privilege = 2'b11; // @[CsrPlugin.scala 682:40]
     end
   end
 
   assign CsrPlugin_misa_base = 2'b01;
   assign CsrPlugin_misa_extensions = 26'h0;
-  assign CsrPlugin_sip_SEIP_OR = (CsrPlugin_sip_SEIP_SOFT || CsrPlugin_sip_SEIP_INPUT);
+  assign CsrPlugin_sip_SEIP_OR = (CsrPlugin_sip_SEIP_SOFT || CsrPlugin_sip_SEIP_INPUT); // @[BaseType.scala 305:24]
   always @(*) begin
-    CsrPlugin_redoInterface_valid = 1'b0;
+    CsrPlugin_redoInterface_valid = 1'b0; // @[CsrPlugin.scala 1069:31]
     if(CsrPlugin_rescheduleLogic_rescheduleNext) begin
-      CsrPlugin_redoInterface_valid = 1'b1;
+      CsrPlugin_redoInterface_valid = 1'b1; // @[CsrPlugin.scala 1077:33]
     end
   end
 
-  assign CsrPlugin_redoInterface_payload = decode_PC;
+  assign CsrPlugin_redoInterface_payload = decode_PC; // @[CsrPlugin.scala 1070:33]
   always @(*) begin
-    CsrPlugin_rescheduleLogic_rescheduleNext = 1'b0;
-    if(when_CsrPlugin_l816) begin
-      CsrPlugin_rescheduleLogic_rescheduleNext = 1'b1;
+    CsrPlugin_rescheduleLogic_rescheduleNext = 1'b0; // @[CsrPlugin.scala 1072:32]
+    if(when_CsrPlugin_l1073) begin
+      CsrPlugin_rescheduleLogic_rescheduleNext = 1'b1; // @[CsrPlugin.scala 1073:94]
     end
     if(execute_CsrPlugin_csr_384) begin
       if(execute_CsrPlugin_writeInstruction) begin
-        CsrPlugin_rescheduleLogic_rescheduleNext = 1'b1;
+        CsrPlugin_rescheduleLogic_rescheduleNext = 1'b1; // @[CsrPlugin.scala 1074:50]
       end
     end
   end
 
-  assign when_CsrPlugin_l816 = (execute_arbitration_isValid && execute_IS_SFENCE_VMA);
-  assign _zz_when_CsrPlugin_l965 = (CsrPlugin_sip_STIP && CsrPlugin_sie_STIE);
-  assign _zz_when_CsrPlugin_l965_1 = (CsrPlugin_sip_SSIP && CsrPlugin_sie_SSIE);
-  assign _zz_when_CsrPlugin_l965_2 = (CsrPlugin_sip_SEIP_OR && CsrPlugin_sie_SEIE);
-  assign _zz_when_CsrPlugin_l965_3 = (CsrPlugin_mip_MTIP && CsrPlugin_mie_MTIE);
-  assign _zz_when_CsrPlugin_l965_4 = (CsrPlugin_mip_MSIP && CsrPlugin_mie_MSIE);
-  assign _zz_when_CsrPlugin_l965_5 = (CsrPlugin_mip_MEIP && CsrPlugin_mie_MEIE);
+  assign when_CsrPlugin_l1073 = (execute_arbitration_isValid && execute_IS_SFENCE_VMA); // @[BaseType.scala 305:24]
+  assign _zz_when_CsrPlugin_l1222 = (CsrPlugin_sip_STIP && CsrPlugin_sie_STIE); // @[BaseType.scala 305:24]
+  assign _zz_when_CsrPlugin_l1222_1 = (CsrPlugin_sip_SSIP && CsrPlugin_sie_SSIE); // @[BaseType.scala 305:24]
+  assign _zz_when_CsrPlugin_l1222_2 = (CsrPlugin_sip_SEIP_OR && CsrPlugin_sie_SEIE); // @[BaseType.scala 305:24]
+  assign _zz_when_CsrPlugin_l1222_3 = (CsrPlugin_mip_MTIP && CsrPlugin_mie_MTIE); // @[BaseType.scala 305:24]
+  assign _zz_when_CsrPlugin_l1222_4 = (CsrPlugin_mip_MSIP && CsrPlugin_mie_MSIE); // @[BaseType.scala 305:24]
+  assign _zz_when_CsrPlugin_l1222_5 = (CsrPlugin_mip_MEIP && CsrPlugin_mie_MEIE); // @[BaseType.scala 305:24]
   always @(*) begin
-    CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b11;
+    CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b11; // @[Expression.scala 2342:18]
     case(CsrPlugin_exceptionPortCtrl_exceptionContext_code)
       4'b0000 : begin
-        if(when_CsrPlugin_l879) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b0001 : begin
-        if(when_CsrPlugin_l879_1) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_1) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b0010 : begin
-        if(when_CsrPlugin_l879_2) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_2) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b0100 : begin
-        if(when_CsrPlugin_l879_3) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_3) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b0101 : begin
-        if(when_CsrPlugin_l879_4) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_4) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b0110 : begin
-        if(when_CsrPlugin_l879_5) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_5) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b0111 : begin
-        if(when_CsrPlugin_l879_6) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_6) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b1000 : begin
-        if(when_CsrPlugin_l879_7) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_7) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b1001 : begin
-        if(when_CsrPlugin_l879_8) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_8) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b1100 : begin
-        if(when_CsrPlugin_l879_9) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_9) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b1101 : begin
-        if(when_CsrPlugin_l879_10) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_10) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       4'b1111 : begin
-        if(when_CsrPlugin_l879_11) begin
-          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01;
+        if(when_CsrPlugin_l1136_11) begin
+          CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped = 2'b01; // @[CsrPlugin.scala 1137:54]
         end
       end
       default : begin
@@ -5985,118 +6010,119 @@ module VexRiscvAxi4 (
     endcase
   end
 
-  assign when_CsrPlugin_l879 = ((1'b1 && CsrPlugin_medeleg_IAM) && (! 1'b0));
-  assign when_CsrPlugin_l879_1 = ((1'b1 && CsrPlugin_medeleg_IAF) && (! 1'b0));
-  assign when_CsrPlugin_l879_2 = ((1'b1 && CsrPlugin_medeleg_II) && (! 1'b0));
-  assign when_CsrPlugin_l879_3 = ((1'b1 && CsrPlugin_medeleg_LAM) && (! 1'b0));
-  assign when_CsrPlugin_l879_4 = ((1'b1 && CsrPlugin_medeleg_LAF) && (! 1'b0));
-  assign when_CsrPlugin_l879_5 = ((1'b1 && CsrPlugin_medeleg_SAM) && (! 1'b0));
-  assign when_CsrPlugin_l879_6 = ((1'b1 && CsrPlugin_medeleg_SAF) && (! 1'b0));
-  assign when_CsrPlugin_l879_7 = ((1'b1 && CsrPlugin_medeleg_EU) && (! 1'b0));
-  assign when_CsrPlugin_l879_8 = ((1'b1 && CsrPlugin_medeleg_ES) && (! 1'b0));
-  assign when_CsrPlugin_l879_9 = ((1'b1 && CsrPlugin_medeleg_IPF) && (! 1'b0));
-  assign when_CsrPlugin_l879_10 = ((1'b1 && CsrPlugin_medeleg_LPF) && (! 1'b0));
-  assign when_CsrPlugin_l879_11 = ((1'b1 && CsrPlugin_medeleg_SPF) && (! 1'b0));
-  assign CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilege = ((CsrPlugin_privilege < CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped) ? CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped : CsrPlugin_privilege);
-  assign _zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code = {decodeExceptionPort_valid,IBusCachedPlugin_decodeExceptionPort_valid};
-  assign _zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code_1 = _zz__zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code_1[0];
+  assign when_CsrPlugin_l1136 = ((1'b1 && CsrPlugin_medeleg_IAM) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_1 = ((1'b1 && CsrPlugin_medeleg_IAF) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_2 = ((1'b1 && CsrPlugin_medeleg_II) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_3 = ((1'b1 && CsrPlugin_medeleg_LAM) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_4 = ((1'b1 && CsrPlugin_medeleg_LAF) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_5 = ((1'b1 && CsrPlugin_medeleg_SAM) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_6 = ((1'b1 && CsrPlugin_medeleg_SAF) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_7 = ((1'b1 && CsrPlugin_medeleg_EU) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_8 = ((1'b1 && CsrPlugin_medeleg_ES) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_9 = ((1'b1 && CsrPlugin_medeleg_IPF) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_10 = ((1'b1 && CsrPlugin_medeleg_LPF) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1136_11 = ((1'b1 && CsrPlugin_medeleg_SPF) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilege = ((CsrPlugin_privilege < CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped) ? CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilegeUncapped : CsrPlugin_privilege); // @[Expression.scala 1420:25]
+  assign _zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code = {decodeExceptionPort_valid,IBusCachedPlugin_decodeExceptionPort_valid}; // @[BaseType.scala 318:22]
+  assign _zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code_1 = _zz__zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code_1[0]; // @[BaseType.scala 305:24]
   always @(*) begin
-    CsrPlugin_exceptionPortCtrl_exceptionValids_decode = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode;
+    CsrPlugin_exceptionPortCtrl_exceptionValids_decode = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode; // @[CsrPlugin.scala 1167:25]
     if(_zz_when) begin
-      CsrPlugin_exceptionPortCtrl_exceptionValids_decode = 1'b1;
+      CsrPlugin_exceptionPortCtrl_exceptionValids_decode = 1'b1; // @[CsrPlugin.scala 1172:38]
     end
     if(decode_arbitration_isFlushed) begin
-      CsrPlugin_exceptionPortCtrl_exceptionValids_decode = 1'b0;
+      CsrPlugin_exceptionPortCtrl_exceptionValids_decode = 1'b0; // @[CsrPlugin.scala 1188:38]
     end
   end
 
   always @(*) begin
-    CsrPlugin_exceptionPortCtrl_exceptionValids_execute = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute;
+    CsrPlugin_exceptionPortCtrl_exceptionValids_execute = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute; // @[CsrPlugin.scala 1167:25]
     if(CsrPlugin_selfException_valid) begin
-      CsrPlugin_exceptionPortCtrl_exceptionValids_execute = 1'b1;
+      CsrPlugin_exceptionPortCtrl_exceptionValids_execute = 1'b1; // @[CsrPlugin.scala 1172:38]
     end
     if(execute_arbitration_isFlushed) begin
-      CsrPlugin_exceptionPortCtrl_exceptionValids_execute = 1'b0;
+      CsrPlugin_exceptionPortCtrl_exceptionValids_execute = 1'b0; // @[CsrPlugin.scala 1188:38]
     end
   end
 
   always @(*) begin
-    CsrPlugin_exceptionPortCtrl_exceptionValids_memory = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory;
+    CsrPlugin_exceptionPortCtrl_exceptionValids_memory = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory; // @[CsrPlugin.scala 1167:25]
     if(memory_arbitration_isFlushed) begin
-      CsrPlugin_exceptionPortCtrl_exceptionValids_memory = 1'b0;
+      CsrPlugin_exceptionPortCtrl_exceptionValids_memory = 1'b0; // @[CsrPlugin.scala 1188:38]
     end
   end
 
   always @(*) begin
-    CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack;
+    CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack; // @[CsrPlugin.scala 1167:25]
     if(DBusCachedPlugin_exceptionBus_valid) begin
-      CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack = 1'b1;
+      CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack = 1'b1; // @[CsrPlugin.scala 1172:38]
     end
     if(writeBack_arbitration_isFlushed) begin
-      CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack = 1'b0;
+      CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack = 1'b0; // @[CsrPlugin.scala 1188:38]
     end
   end
 
-  assign when_CsrPlugin_l922 = (! decode_arbitration_isStuck);
-  assign when_CsrPlugin_l922_1 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l922_2 = (! memory_arbitration_isStuck);
-  assign when_CsrPlugin_l922_3 = (! writeBack_arbitration_isStuck);
-  assign when_CsrPlugin_l935 = ({CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack,{CsrPlugin_exceptionPortCtrl_exceptionValids_memory,{CsrPlugin_exceptionPortCtrl_exceptionValids_execute,CsrPlugin_exceptionPortCtrl_exceptionValids_decode}}} != 4'b0000);
-  assign CsrPlugin_exceptionPendings_0 = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode;
-  assign CsrPlugin_exceptionPendings_1 = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute;
-  assign CsrPlugin_exceptionPendings_2 = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory;
-  assign CsrPlugin_exceptionPendings_3 = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack;
-  assign when_CsrPlugin_l959 = ((CsrPlugin_sstatus_SIE && (CsrPlugin_privilege == 2'b01)) || (CsrPlugin_privilege < 2'b01));
-  assign when_CsrPlugin_l959_1 = (CsrPlugin_mstatus_MIE || (CsrPlugin_privilege < 2'b11));
-  assign when_CsrPlugin_l965 = ((_zz_when_CsrPlugin_l965 && (1'b1 && CsrPlugin_mideleg_ST)) && (! 1'b0));
-  assign when_CsrPlugin_l965_1 = ((_zz_when_CsrPlugin_l965_1 && (1'b1 && CsrPlugin_mideleg_SS)) && (! 1'b0));
-  assign when_CsrPlugin_l965_2 = ((_zz_when_CsrPlugin_l965_2 && (1'b1 && CsrPlugin_mideleg_SE)) && (! 1'b0));
-  assign when_CsrPlugin_l965_3 = ((_zz_when_CsrPlugin_l965 && 1'b1) && (! (CsrPlugin_mideleg_ST != 1'b0)));
-  assign when_CsrPlugin_l965_4 = ((_zz_when_CsrPlugin_l965_1 && 1'b1) && (! (CsrPlugin_mideleg_SS != 1'b0)));
-  assign when_CsrPlugin_l965_5 = ((_zz_when_CsrPlugin_l965_2 && 1'b1) && (! (CsrPlugin_mideleg_SE != 1'b0)));
-  assign when_CsrPlugin_l965_6 = ((_zz_when_CsrPlugin_l965_3 && 1'b1) && (! 1'b0));
-  assign when_CsrPlugin_l965_7 = ((_zz_when_CsrPlugin_l965_4 && 1'b1) && (! 1'b0));
-  assign when_CsrPlugin_l965_8 = ((_zz_when_CsrPlugin_l965_5 && 1'b1) && (! 1'b0));
-  assign CsrPlugin_exception = (CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack && CsrPlugin_allowException);
-  assign CsrPlugin_pipelineLiberator_active = ((CsrPlugin_interrupt_valid && CsrPlugin_allowInterrupts) && decode_arbitration_isValid);
-  assign when_CsrPlugin_l993 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l993_1 = (! memory_arbitration_isStuck);
-  assign when_CsrPlugin_l993_2 = (! writeBack_arbitration_isStuck);
-  assign when_CsrPlugin_l998 = ((! CsrPlugin_pipelineLiberator_active) || decode_arbitration_removeIt);
+  assign when_CsrPlugin_l1179 = (! decode_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1179_1 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1179_2 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1179_3 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1192 = ({CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack,{CsrPlugin_exceptionPortCtrl_exceptionValids_memory,{CsrPlugin_exceptionPortCtrl_exceptionValids_execute,CsrPlugin_exceptionPortCtrl_exceptionValids_decode}}} != 4'b0000); // @[BaseType.scala 305:24]
+  assign CsrPlugin_exceptionPendings_0 = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode; // @[CsrPlugin.scala 1198:27]
+  assign CsrPlugin_exceptionPendings_1 = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute; // @[CsrPlugin.scala 1198:27]
+  assign CsrPlugin_exceptionPendings_2 = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory; // @[CsrPlugin.scala 1198:27]
+  assign CsrPlugin_exceptionPendings_3 = CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack; // @[CsrPlugin.scala 1198:27]
+  assign when_CsrPlugin_l1216 = ((CsrPlugin_sstatus_SIE && (CsrPlugin_privilege == 2'b01)) || (CsrPlugin_privilege < 2'b01)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1216_1 = (CsrPlugin_mstatus_MIE || (CsrPlugin_privilege < 2'b11)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1222 = ((_zz_when_CsrPlugin_l1222 && (1'b1 && CsrPlugin_mideleg_ST)) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1222_1 = ((_zz_when_CsrPlugin_l1222_1 && (1'b1 && CsrPlugin_mideleg_SS)) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1222_2 = ((_zz_when_CsrPlugin_l1222_2 && (1'b1 && CsrPlugin_mideleg_SE)) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1222_3 = ((_zz_when_CsrPlugin_l1222 && 1'b1) && (! (CsrPlugin_mideleg_ST != 1'b0))); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1222_4 = ((_zz_when_CsrPlugin_l1222_1 && 1'b1) && (! (CsrPlugin_mideleg_SS != 1'b0))); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1222_5 = ((_zz_when_CsrPlugin_l1222_2 && 1'b1) && (! (CsrPlugin_mideleg_SE != 1'b0))); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1222_6 = ((_zz_when_CsrPlugin_l1222_3 && 1'b1) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1222_7 = ((_zz_when_CsrPlugin_l1222_4 && 1'b1) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1222_8 = ((_zz_when_CsrPlugin_l1222_5 && 1'b1) && (! 1'b0)); // @[BaseType.scala 305:24]
+  assign CsrPlugin_exception = (CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack && CsrPlugin_allowException); // @[BaseType.scala 305:24]
+  assign CsrPlugin_pipelineLiberator_active = ((CsrPlugin_interrupt_valid && CsrPlugin_allowInterrupts) && decode_arbitration_isValid); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1255 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1255_1 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1255_2 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1260 = ((! CsrPlugin_pipelineLiberator_active) || decode_arbitration_removeIt); // @[BaseType.scala 305:24]
   always @(*) begin
-    CsrPlugin_pipelineLiberator_done = CsrPlugin_pipelineLiberator_pcValids_2;
-    if(when_CsrPlugin_l1004) begin
-      CsrPlugin_pipelineLiberator_done = 1'b0;
+    CsrPlugin_pipelineLiberator_done = CsrPlugin_pipelineLiberator_pcValids_2; // @[Misc.scala 552:9]
+    if(when_CsrPlugin_l1266) begin
+      CsrPlugin_pipelineLiberator_done = 1'b0; // @[CsrPlugin.scala 1266:53]
     end
     if(CsrPlugin_hadException) begin
-      CsrPlugin_pipelineLiberator_done = 1'b0;
+      CsrPlugin_pipelineLiberator_done = 1'b0; // @[CsrPlugin.scala 1275:39]
     end
   end
 
-  assign when_CsrPlugin_l1004 = ({CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack,{CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory,CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute}} != 3'b000);
-  assign CsrPlugin_interruptJump = ((CsrPlugin_interrupt_valid && CsrPlugin_pipelineLiberator_done) && CsrPlugin_allowInterrupts);
+  assign when_CsrPlugin_l1266 = ({CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack,{CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory,CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute}} != 3'b000); // @[BaseType.scala 305:24]
+  assign CsrPlugin_interruptJump = ((CsrPlugin_interrupt_valid && CsrPlugin_pipelineLiberator_done) && CsrPlugin_allowInterrupts); // @[CsrPlugin.scala 1271:21]
   always @(*) begin
-    CsrPlugin_targetPrivilege = CsrPlugin_interrupt_targetPrivilege;
+    CsrPlugin_targetPrivilege = CsrPlugin_interrupt_targetPrivilege; // @[Misc.scala 552:9]
     if(CsrPlugin_hadException) begin
-      CsrPlugin_targetPrivilege = CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilege;
+      CsrPlugin_targetPrivilege = CsrPlugin_exceptionPortCtrl_exceptionTargetPrivilege; // @[CsrPlugin.scala 1285:25]
     end
   end
 
   always @(*) begin
-    CsrPlugin_trapCause = CsrPlugin_interrupt_code;
+    CsrPlugin_trapCause = CsrPlugin_interrupt_code; // @[Misc.scala 552:9]
     if(CsrPlugin_hadException) begin
-      CsrPlugin_trapCause = CsrPlugin_exceptionPortCtrl_exceptionContext_code;
+      CsrPlugin_trapCause = CsrPlugin_exceptionPortCtrl_exceptionContext_code; // @[CsrPlugin.scala 1291:19]
     end
   end
 
+  assign CsrPlugin_trapCauseEbreakDebug = 1'b0; // @[CsrPlugin.scala 1289:34]
   always @(*) begin
-    CsrPlugin_xtvec_mode = 2'bxx;
+    CsrPlugin_xtvec_mode = 2'bxx; // @[Bits.scala 231:20]
     case(CsrPlugin_targetPrivilege)
       2'b01 : begin
-        CsrPlugin_xtvec_mode = CsrPlugin_stvec_mode;
+        CsrPlugin_xtvec_mode = CsrPlugin_stvec_mode; // @[CsrPlugin.scala 1304:41]
       end
       2'b11 : begin
-        CsrPlugin_xtvec_mode = CsrPlugin_mtvec_mode;
+        CsrPlugin_xtvec_mode = CsrPlugin_mtvec_mode; // @[CsrPlugin.scala 1305:22]
       end
       default : begin
       end
@@ -6104,257 +6130,260 @@ module VexRiscvAxi4 (
   end
 
   always @(*) begin
-    CsrPlugin_xtvec_base = 30'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
+    CsrPlugin_xtvec_base = 30'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; // @[UInt.scala 467:20]
     case(CsrPlugin_targetPrivilege)
       2'b01 : begin
-        CsrPlugin_xtvec_base = CsrPlugin_stvec_base;
+        CsrPlugin_xtvec_base = CsrPlugin_stvec_base; // @[CsrPlugin.scala 1304:41]
       end
       2'b11 : begin
-        CsrPlugin_xtvec_base = CsrPlugin_mtvec_base;
+        CsrPlugin_xtvec_base = CsrPlugin_mtvec_base; // @[CsrPlugin.scala 1305:22]
       end
       default : begin
       end
     endcase
   end
 
-  assign when_CsrPlugin_l1032 = (CsrPlugin_hadException || CsrPlugin_interruptJump);
-  assign when_CsrPlugin_l1077 = (writeBack_arbitration_isValid && (writeBack_ENV_CTRL == EnvCtrlEnum_XRET));
-  assign switch_CsrPlugin_l1081 = writeBack_INSTRUCTION[29 : 28];
-  assign contextSwitching = CsrPlugin_jumpInterface_valid;
-  assign when_CsrPlugin_l1121 = (execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_WFI));
-  assign when_CsrPlugin_l1123 = (! execute_CsrPlugin_wfiWake);
-  assign when_CsrPlugin_l1129 = (|{(writeBack_arbitration_isValid && (writeBack_ENV_CTRL == EnvCtrlEnum_XRET)),{(memory_arbitration_isValid && (memory_ENV_CTRL == EnvCtrlEnum_XRET)),(execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_XRET))}});
-  assign execute_CsrPlugin_blockedBySideEffects = ((|{writeBack_arbitration_isValid,memory_arbitration_isValid}) || 1'b0);
+  assign CsrPlugin_trapEnterDebug = 1'b0; // @[CsrPlugin.scala 1308:28]
+  assign when_CsrPlugin_l1310 = (CsrPlugin_hadException || CsrPlugin_interruptJump); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1318 = (! CsrPlugin_trapEnterDebug); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1376 = (writeBack_arbitration_isValid && (writeBack_ENV_CTRL == EnvCtrlEnum_XRET)); // @[BaseType.scala 305:24]
+  assign switch_CsrPlugin_l1380 = writeBack_INSTRUCTION[29 : 28]; // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1388 = (CsrPlugin_mstatus_MPP < 2'b11); // @[BaseType.scala 305:24]
+  assign contextSwitching = CsrPlugin_jumpInterface_valid; // @[CsrPlugin.scala 1405:24]
+  assign when_CsrPlugin_l1439 = (execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_WFI)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1441 = (! execute_CsrPlugin_wfiWake); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1447 = (|{(writeBack_arbitration_isValid && (writeBack_ENV_CTRL == EnvCtrlEnum_XRET)),{(memory_arbitration_isValid && (memory_ENV_CTRL == EnvCtrlEnum_XRET)),(execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_XRET))}}); // @[BaseType.scala 312:24]
+  assign execute_CsrPlugin_blockedBySideEffects = ((|{writeBack_arbitration_isValid,memory_arbitration_isValid}) || 1'b0); // @[BaseType.scala 305:24]
   always @(*) begin
-    execute_CsrPlugin_illegalAccess = 1'b1;
+    execute_CsrPlugin_illegalAccess = 1'b1; // @[CsrPlugin.scala 1454:29]
     if(execute_CsrPlugin_csr_3264) begin
       if(execute_CSR_READ_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1532:52]
       end
     end
     if(execute_CsrPlugin_csr_3857) begin
       if(execute_CSR_READ_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1532:52]
       end
     end
     if(execute_CsrPlugin_csr_3858) begin
       if(execute_CSR_READ_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1532:52]
       end
     end
     if(execute_CsrPlugin_csr_3859) begin
       if(execute_CSR_READ_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1532:52]
       end
     end
     if(execute_CsrPlugin_csr_3860) begin
       if(execute_CSR_READ_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1532:52]
       end
     end
     if(execute_CsrPlugin_csr_768) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_836) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_772) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_773) begin
       if(execute_CSR_WRITE_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1531:53]
       end
     end
     if(execute_CsrPlugin_csr_833) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_832) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_834) begin
       if(execute_CSR_READ_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1532:52]
       end
     end
     if(execute_CsrPlugin_csr_835) begin
       if(execute_CSR_READ_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1532:52]
       end
     end
     if(execute_CsrPlugin_csr_770) begin
       if(execute_CSR_WRITE_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1531:53]
       end
     end
     if(execute_CsrPlugin_csr_771) begin
       if(execute_CSR_WRITE_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1531:53]
       end
     end
     if(execute_CsrPlugin_csr_256) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_324) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_260) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_261) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_321) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_320) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_322) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_323) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_384) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_3008) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_4032) begin
       if(execute_CSR_READ_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1532:52]
       end
     end
     if(execute_CsrPlugin_csr_2496) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1529:29]
     end
     if(execute_CsrPlugin_csr_3520) begin
       if(execute_CSR_READ_OPCODE) begin
-        execute_CsrPlugin_illegalAccess = 1'b0;
+        execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1532:52]
       end
     end
     if(CsrPlugin_csrMapping_allowCsrSignal) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1620:25]
     end
-    if(when_CsrPlugin_l1310) begin
-      execute_CsrPlugin_illegalAccess = 1'b1;
+    if(when_CsrPlugin_l1625) begin
+      execute_CsrPlugin_illegalAccess = 1'b1; // @[CsrPlugin.scala 1626:27]
     end
-    if(when_CsrPlugin_l1315) begin
-      execute_CsrPlugin_illegalAccess = 1'b0;
+    if(when_CsrPlugin_l1631) begin
+      execute_CsrPlugin_illegalAccess = 1'b0; // @[CsrPlugin.scala 1631:25]
     end
   end
 
   always @(*) begin
-    execute_CsrPlugin_illegalInstruction = 1'b0;
-    if(when_CsrPlugin_l1149) begin
-      if(when_CsrPlugin_l1150) begin
-        execute_CsrPlugin_illegalInstruction = 1'b1;
+    execute_CsrPlugin_illegalInstruction = 1'b0; // @[CsrPlugin.scala 1455:34]
+    if(when_CsrPlugin_l1467) begin
+      if(when_CsrPlugin_l1468) begin
+        execute_CsrPlugin_illegalInstruction = 1'b1; // @[CsrPlugin.scala 1469:32]
       end
     end
   end
 
   always @(*) begin
-    CsrPlugin_selfException_valid = 1'b0;
-    if(when_CsrPlugin_l1142) begin
-      CsrPlugin_selfException_valid = 1'b1;
+    CsrPlugin_selfException_valid = 1'b0; // @[CsrPlugin.scala 1457:31]
+    if(when_CsrPlugin_l1460) begin
+      CsrPlugin_selfException_valid = 1'b1; // @[CsrPlugin.scala 1461:33]
     end
-    if(when_CsrPlugin_l1157) begin
-      CsrPlugin_selfException_valid = 1'b1;
+    if(when_CsrPlugin_l1475) begin
+      CsrPlugin_selfException_valid = 1'b1; // @[CsrPlugin.scala 1476:31]
     end
-    if(when_CsrPlugin_l1167) begin
-      CsrPlugin_selfException_valid = 1'b1;
+    if(when_CsrPlugin_l1485) begin
+      CsrPlugin_selfException_valid = 1'b1; // @[CsrPlugin.scala 1486:31]
     end
   end
 
   always @(*) begin
-    CsrPlugin_selfException_payload_code = 4'bxxxx;
-    if(when_CsrPlugin_l1142) begin
-      CsrPlugin_selfException_payload_code = 4'b0010;
+    CsrPlugin_selfException_payload_code = 4'bxxxx; // @[UInt.scala 467:20]
+    if(when_CsrPlugin_l1460) begin
+      CsrPlugin_selfException_payload_code = 4'b0010; // @[CsrPlugin.scala 1462:32]
     end
-    if(when_CsrPlugin_l1157) begin
+    if(when_CsrPlugin_l1475) begin
       case(CsrPlugin_privilege)
         2'b00 : begin
-          CsrPlugin_selfException_payload_code = 4'b1000;
+          CsrPlugin_selfException_payload_code = 4'b1000; // @[CsrPlugin.scala 1478:40]
         end
         2'b01 : begin
-          CsrPlugin_selfException_payload_code = 4'b1001;
+          CsrPlugin_selfException_payload_code = 4'b1001; // @[CsrPlugin.scala 1479:58]
         end
         default : begin
-          CsrPlugin_selfException_payload_code = 4'b1011;
+          CsrPlugin_selfException_payload_code = 4'b1011; // @[CsrPlugin.scala 1480:42]
         end
       endcase
     end
-    if(when_CsrPlugin_l1167) begin
-      CsrPlugin_selfException_payload_code = 4'b0011;
+    if(when_CsrPlugin_l1485) begin
+      CsrPlugin_selfException_payload_code = 4'b0011; // @[CsrPlugin.scala 1487:30]
     end
   end
 
-  assign CsrPlugin_selfException_payload_badAddr = execute_INSTRUCTION;
-  assign when_CsrPlugin_l1142 = (execute_CsrPlugin_illegalAccess || execute_CsrPlugin_illegalInstruction);
-  assign when_CsrPlugin_l1149 = (execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_XRET));
-  assign when_CsrPlugin_l1150 = (CsrPlugin_privilege < execute_INSTRUCTION[29 : 28]);
-  assign when_CsrPlugin_l1157 = (execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_ECALL));
-  assign when_CsrPlugin_l1167 = ((execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_EBREAK)) && CsrPlugin_allowEbreakException);
+  assign CsrPlugin_selfException_payload_badAddr = execute_INSTRUCTION; // @[CsrPlugin.scala 1459:33]
+  assign when_CsrPlugin_l1460 = (execute_CsrPlugin_illegalAccess || execute_CsrPlugin_illegalInstruction); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1467 = (execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_XRET)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1468 = (CsrPlugin_privilege < execute_INSTRUCTION[29 : 28]); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1475 = (execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_ECALL)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1485 = ((execute_arbitration_isValid && (execute_ENV_CTRL == EnvCtrlEnum_EBREAK)) && CsrPlugin_allowEbreakException); // @[BaseType.scala 305:24]
   always @(*) begin
-    execute_CsrPlugin_writeInstruction = ((execute_arbitration_isValid && execute_IS_CSR) && execute_CSR_WRITE_OPCODE);
-    if(when_CsrPlugin_l1310) begin
-      execute_CsrPlugin_writeInstruction = 1'b0;
+    execute_CsrPlugin_writeInstruction = ((execute_arbitration_isValid && execute_IS_CSR) && execute_CSR_WRITE_OPCODE); // @[BaseType.scala 305:24]
+    if(when_CsrPlugin_l1625) begin
+      execute_CsrPlugin_writeInstruction = 1'b0; // @[CsrPlugin.scala 1628:30]
     end
   end
 
   always @(*) begin
-    execute_CsrPlugin_readInstruction = ((execute_arbitration_isValid && execute_IS_CSR) && execute_CSR_READ_OPCODE);
-    if(when_CsrPlugin_l1310) begin
-      execute_CsrPlugin_readInstruction = 1'b0;
+    execute_CsrPlugin_readInstruction = ((execute_arbitration_isValid && execute_IS_CSR) && execute_CSR_READ_OPCODE); // @[BaseType.scala 305:24]
+    if(when_CsrPlugin_l1625) begin
+      execute_CsrPlugin_readInstruction = 1'b0; // @[CsrPlugin.scala 1627:29]
     end
   end
 
-  assign execute_CsrPlugin_writeEnable = (execute_CsrPlugin_writeInstruction && (! execute_arbitration_isStuck));
-  assign execute_CsrPlugin_readEnable = (execute_CsrPlugin_readInstruction && (! execute_arbitration_isStuck));
-  assign CsrPlugin_csrMapping_hazardFree = (! execute_CsrPlugin_blockedBySideEffects);
+  assign execute_CsrPlugin_writeEnable = (execute_CsrPlugin_writeInstruction && (! execute_arbitration_isStuck)); // @[BaseType.scala 305:24]
+  assign execute_CsrPlugin_readEnable = (execute_CsrPlugin_readInstruction && (! execute_arbitration_isStuck)); // @[BaseType.scala 305:24]
+  assign CsrPlugin_csrMapping_hazardFree = (! execute_CsrPlugin_blockedBySideEffects); // @[CsrPlugin.scala 1499:31]
   always @(*) begin
-    execute_CsrPlugin_readToWriteData = CsrPlugin_csrMapping_readDataSignal;
+    execute_CsrPlugin_readToWriteData = CsrPlugin_csrMapping_readDataSignal; // @[Misc.scala 552:9]
     if(execute_CsrPlugin_csr_836) begin
-      execute_CsrPlugin_readToWriteData[9 : 9] = CsrPlugin_sip_SEIP_SOFT;
+      execute_CsrPlugin_readToWriteData[9 : 9] = CsrPlugin_sip_SEIP_SOFT; // @[CsrPlugin.scala 1561:156]
     end
     if(execute_CsrPlugin_csr_324) begin
-      execute_CsrPlugin_readToWriteData[9 : 9] = CsrPlugin_sip_SEIP_SOFT;
+      execute_CsrPlugin_readToWriteData[9 : 9] = CsrPlugin_sip_SEIP_SOFT; // @[CsrPlugin.scala 1561:156]
     end
   end
 
-  assign switch_Misc_l210_3 = execute_INSTRUCTION[13];
+  assign switch_Misc_l226_3 = execute_INSTRUCTION[13]; // @[BaseType.scala 305:24]
   always @(*) begin
-    case(switch_Misc_l210_3)
+    case(switch_Misc_l226_3)
       1'b0 : begin
-        _zz_CsrPlugin_csrMapping_writeDataSignal = execute_SRC1;
+        _zz_CsrPlugin_csrMapping_writeDataSignal = execute_SRC1; // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_CsrPlugin_csrMapping_writeDataSignal = (execute_INSTRUCTION[12] ? (execute_CsrPlugin_readToWriteData & (~ execute_SRC1)) : (execute_CsrPlugin_readToWriteData | execute_SRC1));
+        _zz_CsrPlugin_csrMapping_writeDataSignal = (execute_INSTRUCTION[12] ? (execute_CsrPlugin_readToWriteData & (~ execute_SRC1)) : (execute_CsrPlugin_readToWriteData | execute_SRC1)); // @[Misc.scala 239:22]
       end
     endcase
   end
 
-  assign CsrPlugin_csrMapping_writeDataSignal = _zz_CsrPlugin_csrMapping_writeDataSignal;
-  assign when_CsrPlugin_l1193 = (execute_arbitration_isValid && (execute_IS_CSR || execute_IS_SFENCE_VMA));
-  assign when_CsrPlugin_l1199 = (memory_arbitration_isValid && memory_IS_CSR);
-  assign execute_CsrPlugin_csrAddress = execute_INSTRUCTION[31 : 20];
-  assign execute_BranchPlugin_eq = (execute_SRC1 == execute_SRC2);
-  assign switch_Misc_l210_4 = execute_INSTRUCTION[14 : 12];
+  assign CsrPlugin_csrMapping_writeDataSignal = _zz_CsrPlugin_csrMapping_writeDataSignal; // @[CsrPlugin.scala 1502:19]
+  assign when_CsrPlugin_l1511 = (execute_arbitration_isValid && (execute_IS_CSR || execute_IS_SFENCE_VMA)); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1517 = (memory_arbitration_isValid && memory_IS_CSR); // @[BaseType.scala 305:24]
+  assign execute_CsrPlugin_csrAddress = execute_INSTRUCTION[31 : 20]; // @[BaseType.scala 299:24]
+  assign execute_BranchPlugin_eq = (execute_SRC1 == execute_SRC2); // @[BaseType.scala 305:24]
+  assign switch_Misc_l226_4 = execute_INSTRUCTION[14 : 12]; // @[BaseType.scala 299:24]
   always @(*) begin
-    casez(switch_Misc_l210_4)
+    casez(switch_Misc_l226_4)
       3'b000 : begin
-        _zz_execute_BRANCH_COND_RESULT = execute_BranchPlugin_eq;
+        _zz_execute_BRANCH_COND_RESULT = execute_BranchPlugin_eq; // @[Misc.scala 239:22]
       end
       3'b001 : begin
-        _zz_execute_BRANCH_COND_RESULT = (! execute_BranchPlugin_eq);
+        _zz_execute_BRANCH_COND_RESULT = (! execute_BranchPlugin_eq); // @[Misc.scala 239:22]
       end
       3'b1?1 : begin
-        _zz_execute_BRANCH_COND_RESULT = (! execute_SRC_LESS);
+        _zz_execute_BRANCH_COND_RESULT = (! execute_SRC_LESS); // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_execute_BRANCH_COND_RESULT = execute_SRC_LESS;
+        _zz_execute_BRANCH_COND_RESULT = execute_SRC_LESS; // @[Misc.scala 235:22]
       end
     endcase
   end
@@ -6362,474 +6391,474 @@ module VexRiscvAxi4 (
   always @(*) begin
     case(execute_BRANCH_CTRL)
       BranchCtrlEnum_INC : begin
-        _zz_execute_BRANCH_COND_RESULT_1 = 1'b0;
+        _zz_execute_BRANCH_COND_RESULT_1 = 1'b0; // @[Misc.scala 239:22]
       end
       BranchCtrlEnum_JAL : begin
-        _zz_execute_BRANCH_COND_RESULT_1 = 1'b1;
+        _zz_execute_BRANCH_COND_RESULT_1 = 1'b1; // @[Misc.scala 239:22]
       end
       BranchCtrlEnum_JALR : begin
-        _zz_execute_BRANCH_COND_RESULT_1 = 1'b1;
+        _zz_execute_BRANCH_COND_RESULT_1 = 1'b1; // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_execute_BRANCH_COND_RESULT_1 = _zz_execute_BRANCH_COND_RESULT;
+        _zz_execute_BRANCH_COND_RESULT_1 = _zz_execute_BRANCH_COND_RESULT; // @[Misc.scala 239:22]
       end
     endcase
   end
 
-  assign execute_BranchPlugin_missAlignedTarget = 1'b0;
+  assign execute_BranchPlugin_missAlignedTarget = 1'b0; // @[BranchPlugin.scala 260:59]
   always @(*) begin
     case(execute_BRANCH_CTRL)
       BranchCtrlEnum_JALR : begin
-        execute_BranchPlugin_branch_src1 = execute_RS1;
+        execute_BranchPlugin_branch_src1 = execute_RS1; // @[BranchPlugin.scala 272:23]
       end
       default : begin
-        execute_BranchPlugin_branch_src1 = execute_PC;
+        execute_BranchPlugin_branch_src1 = execute_PC; // @[BranchPlugin.scala 276:23]
       end
     endcase
   end
 
-  assign _zz_execute_BranchPlugin_branch_src2 = execute_INSTRUCTION[31];
+  assign _zz_execute_BranchPlugin_branch_src2 = execute_INSTRUCTION[31]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_execute_BranchPlugin_branch_src2_1[19] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[18] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[17] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[16] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[15] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[14] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[13] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[12] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[11] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[10] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[9] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[8] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[7] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[6] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[5] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[4] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[3] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[2] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[1] = _zz_execute_BranchPlugin_branch_src2;
-    _zz_execute_BranchPlugin_branch_src2_1[0] = _zz_execute_BranchPlugin_branch_src2;
+    _zz_execute_BranchPlugin_branch_src2_1[19] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[18] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[17] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[16] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[15] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[14] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[13] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[12] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[11] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[10] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[9] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[8] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[7] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[6] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[5] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[4] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[3] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[2] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[1] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_1[0] = _zz_execute_BranchPlugin_branch_src2; // @[Literal.scala 87:17]
   end
 
   always @(*) begin
     case(execute_BRANCH_CTRL)
       BranchCtrlEnum_JALR : begin
-        execute_BranchPlugin_branch_src2 = {_zz_execute_BranchPlugin_branch_src2_1,execute_INSTRUCTION[31 : 20]};
+        execute_BranchPlugin_branch_src2 = {_zz_execute_BranchPlugin_branch_src2_1,execute_INSTRUCTION[31 : 20]}; // @[BranchPlugin.scala 273:23]
       end
       default : begin
-        execute_BranchPlugin_branch_src2 = ((execute_BRANCH_CTRL == BranchCtrlEnum_JAL) ? {{_zz_execute_BranchPlugin_branch_src2_3,{{{_zz_execute_BranchPlugin_branch_src2_6,execute_INSTRUCTION[19 : 12]},execute_INSTRUCTION[20]},execute_INSTRUCTION[30 : 21]}},1'b0} : {{_zz_execute_BranchPlugin_branch_src2_5,{{{_zz_execute_BranchPlugin_branch_src2_7,_zz_execute_BranchPlugin_branch_src2_8},execute_INSTRUCTION[30 : 25]},execute_INSTRUCTION[11 : 8]}},1'b0});
+        execute_BranchPlugin_branch_src2 = ((execute_BRANCH_CTRL == BranchCtrlEnum_JAL) ? {{_zz_execute_BranchPlugin_branch_src2_3,{{{_zz_execute_BranchPlugin_branch_src2_6,execute_INSTRUCTION[19 : 12]},execute_INSTRUCTION[20]},execute_INSTRUCTION[30 : 21]}},1'b0} : {{_zz_execute_BranchPlugin_branch_src2_5,{{{_zz_execute_BranchPlugin_branch_src2_7,_zz_execute_BranchPlugin_branch_src2_8},execute_INSTRUCTION[30 : 25]},execute_INSTRUCTION[11 : 8]}},1'b0}); // @[BranchPlugin.scala 277:23]
         if(execute_PREDICTION_HAD_BRANCHED2) begin
-          execute_BranchPlugin_branch_src2 = {29'd0, _zz_execute_BranchPlugin_branch_src2_9};
+          execute_BranchPlugin_branch_src2 = {29'd0, _zz_execute_BranchPlugin_branch_src2_9}; // @[BranchPlugin.scala 279:25]
         end
       end
     endcase
   end
 
-  assign _zz_execute_BranchPlugin_branch_src2_2 = _zz__zz_execute_BranchPlugin_branch_src2_2[19];
+  assign _zz_execute_BranchPlugin_branch_src2_2 = _zz__zz_execute_BranchPlugin_branch_src2_2[19]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_execute_BranchPlugin_branch_src2_3[10] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[9] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[8] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[7] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[6] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[5] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[4] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[3] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[2] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[1] = _zz_execute_BranchPlugin_branch_src2_2;
-    _zz_execute_BranchPlugin_branch_src2_3[0] = _zz_execute_BranchPlugin_branch_src2_2;
+    _zz_execute_BranchPlugin_branch_src2_3[10] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[9] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[8] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[7] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[6] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[5] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[4] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[3] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[2] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[1] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_3[0] = _zz_execute_BranchPlugin_branch_src2_2; // @[Literal.scala 87:17]
   end
 
-  assign _zz_execute_BranchPlugin_branch_src2_4 = _zz__zz_execute_BranchPlugin_branch_src2_4[11];
+  assign _zz_execute_BranchPlugin_branch_src2_4 = _zz__zz_execute_BranchPlugin_branch_src2_4[11]; // @[BaseType.scala 305:24]
   always @(*) begin
-    _zz_execute_BranchPlugin_branch_src2_5[18] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[17] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[16] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[15] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[14] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[13] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[12] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[11] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[10] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[9] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[8] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[7] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[6] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[5] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[4] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[3] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[2] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[1] = _zz_execute_BranchPlugin_branch_src2_4;
-    _zz_execute_BranchPlugin_branch_src2_5[0] = _zz_execute_BranchPlugin_branch_src2_4;
+    _zz_execute_BranchPlugin_branch_src2_5[18] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[17] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[16] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[15] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[14] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[13] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[12] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[11] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[10] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[9] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[8] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[7] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[6] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[5] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[4] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[3] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[2] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[1] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
+    _zz_execute_BranchPlugin_branch_src2_5[0] = _zz_execute_BranchPlugin_branch_src2_4; // @[Literal.scala 87:17]
   end
 
-  assign execute_BranchPlugin_branchAdder = (execute_BranchPlugin_branch_src1 + execute_BranchPlugin_branch_src2);
-  assign BranchPlugin_jumpInterface_valid = ((memory_arbitration_isValid && memory_BRANCH_DO) && (! 1'b0));
-  assign BranchPlugin_jumpInterface_payload = memory_BRANCH_CALC;
-  assign IBusCachedPlugin_decodePrediction_rsp_wasWrong = BranchPlugin_jumpInterface_valid;
+  assign execute_BranchPlugin_branchAdder = (execute_BranchPlugin_branch_src1 + execute_BranchPlugin_branch_src2); // @[BaseType.scala 299:24]
+  assign BranchPlugin_jumpInterface_valid = ((memory_arbitration_isValid && memory_BRANCH_DO) && (! 1'b0)); // @[BranchPlugin.scala 292:27]
+  assign BranchPlugin_jumpInterface_payload = memory_BRANCH_CALC; // @[BranchPlugin.scala 293:29]
+  assign IBusCachedPlugin_decodePrediction_rsp_wasWrong = BranchPlugin_jumpInterface_valid; // @[BranchPlugin.scala 306:35]
   assign MmuPlugin_ports_0_dirty = 1'b0;
   always @(*) begin
-    MmuPlugin_ports_0_requireMmuLockupCalc = ((1'b1 && (! IBusCachedPlugin_mmuBus_cmd_0_bypassTranslation)) && MmuPlugin_satp_mode);
-    if(when_MmuPlugin_l125) begin
-      MmuPlugin_ports_0_requireMmuLockupCalc = 1'b0;
+    MmuPlugin_ports_0_requireMmuLockupCalc = ((1'b1 && (! IBusCachedPlugin_mmuBus_cmd_0_bypassTranslation)) && MmuPlugin_satp_mode); // @[BaseType.scala 305:24]
+    if(when_MmuPlugin_l136) begin
+      MmuPlugin_ports_0_requireMmuLockupCalc = 1'b0; // @[MmuPlugin.scala 136:32]
     end
-    if(when_MmuPlugin_l126) begin
-      MmuPlugin_ports_0_requireMmuLockupCalc = 1'b0;
+    if(when_MmuPlugin_l137) begin
+      MmuPlugin_ports_0_requireMmuLockupCalc = 1'b0; // @[MmuPlugin.scala 141:36]
     end
   end
 
-  assign when_MmuPlugin_l125 = ((! MmuPlugin_status_mprv) && (CsrPlugin_privilege == 2'b11));
-  assign when_MmuPlugin_l126 = (CsrPlugin_privilege == 2'b11);
-  assign MmuPlugin_ports_0_cacheHitsCalc = {((MmuPlugin_ports_0_cache_7_valid && (MmuPlugin_ports_0_cache_7_virtualAddress_1 == _zz_MmuPlugin_ports_0_cacheHitsCalc)) && (MmuPlugin_ports_0_cache_7_superPage || (MmuPlugin_ports_0_cache_7_virtualAddress_0 == _zz_MmuPlugin_ports_0_cacheHitsCalc_1))),{((MmuPlugin_ports_0_cache_6_valid && _zz_MmuPlugin_ports_0_cacheHitsCalc_2) && (MmuPlugin_ports_0_cache_6_superPage || _zz_MmuPlugin_ports_0_cacheHitsCalc_3)),{(_zz_MmuPlugin_ports_0_cacheHitsCalc_4 && _zz_MmuPlugin_ports_0_cacheHitsCalc_5),{_zz_MmuPlugin_ports_0_cacheHitsCalc_6,{_zz_MmuPlugin_ports_0_cacheHitsCalc_9,_zz_MmuPlugin_ports_0_cacheHitsCalc_12}}}}};
-  assign MmuPlugin_ports_0_cacheHit = (|MmuPlugin_ports_0_cacheHitsCalc);
-  assign _zz_MmuPlugin_ports_0_cacheLine_valid = MmuPlugin_ports_0_cacheHitsCalc[3];
-  assign _zz_MmuPlugin_ports_0_cacheLine_valid_1 = MmuPlugin_ports_0_cacheHitsCalc[5];
-  assign _zz_MmuPlugin_ports_0_cacheLine_valid_2 = MmuPlugin_ports_0_cacheHitsCalc[6];
-  assign _zz_MmuPlugin_ports_0_cacheLine_valid_3 = MmuPlugin_ports_0_cacheHitsCalc[7];
-  assign _zz_MmuPlugin_ports_0_cacheLine_valid_4 = (((MmuPlugin_ports_0_cacheHitsCalc[1] || _zz_MmuPlugin_ports_0_cacheLine_valid) || _zz_MmuPlugin_ports_0_cacheLine_valid_1) || _zz_MmuPlugin_ports_0_cacheLine_valid_3);
-  assign _zz_MmuPlugin_ports_0_cacheLine_valid_5 = (((MmuPlugin_ports_0_cacheHitsCalc[2] || _zz_MmuPlugin_ports_0_cacheLine_valid) || _zz_MmuPlugin_ports_0_cacheLine_valid_2) || _zz_MmuPlugin_ports_0_cacheLine_valid_3);
-  assign _zz_MmuPlugin_ports_0_cacheLine_valid_6 = (((MmuPlugin_ports_0_cacheHitsCalc[4] || _zz_MmuPlugin_ports_0_cacheLine_valid_1) || _zz_MmuPlugin_ports_0_cacheLine_valid_2) || _zz_MmuPlugin_ports_0_cacheLine_valid_3);
-  assign _zz_MmuPlugin_ports_0_cacheLine_valid_7 = {_zz_MmuPlugin_ports_0_cacheLine_valid_6,{_zz_MmuPlugin_ports_0_cacheLine_valid_5,_zz_MmuPlugin_ports_0_cacheLine_valid_4}};
-  assign MmuPlugin_ports_0_cacheLine_valid = _zz_MmuPlugin_ports_0_cacheLine_valid_8;
-  assign MmuPlugin_ports_0_cacheLine_exception = _zz_MmuPlugin_ports_0_cacheLine_exception;
-  assign MmuPlugin_ports_0_cacheLine_superPage = _zz_MmuPlugin_ports_0_cacheLine_superPage;
-  assign MmuPlugin_ports_0_cacheLine_virtualAddress_0 = _zz_MmuPlugin_ports_0_cacheLine_virtualAddress_0;
-  assign MmuPlugin_ports_0_cacheLine_virtualAddress_1 = _zz_MmuPlugin_ports_0_cacheLine_virtualAddress_1;
-  assign MmuPlugin_ports_0_cacheLine_physicalAddress_0 = _zz_MmuPlugin_ports_0_cacheLine_physicalAddress_0;
-  assign MmuPlugin_ports_0_cacheLine_physicalAddress_1 = _zz_MmuPlugin_ports_0_cacheLine_physicalAddress_1;
-  assign MmuPlugin_ports_0_cacheLine_allowRead = _zz_MmuPlugin_ports_0_cacheLine_allowRead;
-  assign MmuPlugin_ports_0_cacheLine_allowWrite = _zz_MmuPlugin_ports_0_cacheLine_allowWrite;
-  assign MmuPlugin_ports_0_cacheLine_allowExecute = _zz_MmuPlugin_ports_0_cacheLine_allowExecute;
-  assign MmuPlugin_ports_0_cacheLine_allowUser = _zz_MmuPlugin_ports_0_cacheLine_allowUser;
+  assign when_MmuPlugin_l136 = ((! MmuPlugin_status_mprv) && (CsrPlugin_privilege == 2'b11)); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l137 = (CsrPlugin_privilege == 2'b11); // @[BaseType.scala 305:24]
+  assign MmuPlugin_ports_0_cacheHitsCalc = {((MmuPlugin_ports_0_cache_7_valid && (MmuPlugin_ports_0_cache_7_virtualAddress_1 == _zz_MmuPlugin_ports_0_cacheHitsCalc)) && (MmuPlugin_ports_0_cache_7_superPage || (MmuPlugin_ports_0_cache_7_virtualAddress_0 == _zz_MmuPlugin_ports_0_cacheHitsCalc_1))),{((MmuPlugin_ports_0_cache_6_valid && _zz_MmuPlugin_ports_0_cacheHitsCalc_2) && (MmuPlugin_ports_0_cache_6_superPage || _zz_MmuPlugin_ports_0_cacheHitsCalc_3)),{(_zz_MmuPlugin_ports_0_cacheHitsCalc_4 && _zz_MmuPlugin_ports_0_cacheHitsCalc_5),{_zz_MmuPlugin_ports_0_cacheHitsCalc_6,{_zz_MmuPlugin_ports_0_cacheHitsCalc_9,_zz_MmuPlugin_ports_0_cacheHitsCalc_12}}}}}; // @[BaseType.scala 299:24]
+  assign MmuPlugin_ports_0_cacheHit = (|MmuPlugin_ports_0_cacheHitsCalc); // @[BaseType.scala 312:24]
+  assign _zz_MmuPlugin_ports_0_cacheLine_valid = MmuPlugin_ports_0_cacheHitsCalc[3]; // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_0_cacheLine_valid_1 = MmuPlugin_ports_0_cacheHitsCalc[5]; // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_0_cacheLine_valid_2 = MmuPlugin_ports_0_cacheHitsCalc[6]; // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_0_cacheLine_valid_3 = MmuPlugin_ports_0_cacheHitsCalc[7]; // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_0_cacheLine_valid_4 = (((MmuPlugin_ports_0_cacheHitsCalc[1] || _zz_MmuPlugin_ports_0_cacheLine_valid) || _zz_MmuPlugin_ports_0_cacheLine_valid_1) || _zz_MmuPlugin_ports_0_cacheLine_valid_3); // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_0_cacheLine_valid_5 = (((MmuPlugin_ports_0_cacheHitsCalc[2] || _zz_MmuPlugin_ports_0_cacheLine_valid) || _zz_MmuPlugin_ports_0_cacheLine_valid_2) || _zz_MmuPlugin_ports_0_cacheLine_valid_3); // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_0_cacheLine_valid_6 = (((MmuPlugin_ports_0_cacheHitsCalc[4] || _zz_MmuPlugin_ports_0_cacheLine_valid_1) || _zz_MmuPlugin_ports_0_cacheLine_valid_2) || _zz_MmuPlugin_ports_0_cacheLine_valid_3); // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_0_cacheLine_valid_7 = {_zz_MmuPlugin_ports_0_cacheLine_valid_6,{_zz_MmuPlugin_ports_0_cacheLine_valid_5,_zz_MmuPlugin_ports_0_cacheLine_valid_4}}; // @[BaseType.scala 318:22]
+  assign MmuPlugin_ports_0_cacheLine_valid = _zz_MmuPlugin_ports_0_cacheLine_valid_8; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_exception = _zz_MmuPlugin_ports_0_cacheLine_exception; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_superPage = _zz_MmuPlugin_ports_0_cacheLine_superPage; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_virtualAddress_0 = _zz_MmuPlugin_ports_0_cacheLine_virtualAddress_0; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_virtualAddress_1 = _zz_MmuPlugin_ports_0_cacheLine_virtualAddress_1; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_physicalAddress_0 = _zz_MmuPlugin_ports_0_cacheLine_physicalAddress_0; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_physicalAddress_1 = _zz_MmuPlugin_ports_0_cacheLine_physicalAddress_1; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_allowRead = _zz_MmuPlugin_ports_0_cacheLine_allowRead; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_allowWrite = _zz_MmuPlugin_ports_0_cacheLine_allowWrite; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_allowExecute = _zz_MmuPlugin_ports_0_cacheLine_allowExecute; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_0_cacheLine_allowUser = _zz_MmuPlugin_ports_0_cacheLine_allowUser; // @[Vec.scala 202:25]
   always @(*) begin
-    MmuPlugin_ports_0_entryToReplace_willIncrement = 1'b0;
-    if(when_MmuPlugin_l272) begin
-      if(when_MmuPlugin_l274) begin
-        MmuPlugin_ports_0_entryToReplace_willIncrement = 1'b1;
+    MmuPlugin_ports_0_entryToReplace_willIncrement = 1'b0; // @[Utils.scala 536:23]
+    if(when_MmuPlugin_l283) begin
+      if(when_MmuPlugin_l285) begin
+        MmuPlugin_ports_0_entryToReplace_willIncrement = 1'b1; // @[Utils.scala 540:41]
       end
     end
   end
 
-  assign MmuPlugin_ports_0_entryToReplace_willClear = 1'b0;
-  assign MmuPlugin_ports_0_entryToReplace_willOverflowIfInc = (MmuPlugin_ports_0_entryToReplace_value == 3'b111);
-  assign MmuPlugin_ports_0_entryToReplace_willOverflow = (MmuPlugin_ports_0_entryToReplace_willOverflowIfInc && MmuPlugin_ports_0_entryToReplace_willIncrement);
+  assign MmuPlugin_ports_0_entryToReplace_willClear = 1'b0; // @[Utils.scala 537:19]
+  assign MmuPlugin_ports_0_entryToReplace_willOverflowIfInc = (MmuPlugin_ports_0_entryToReplace_value == 3'b111); // @[BaseType.scala 305:24]
+  assign MmuPlugin_ports_0_entryToReplace_willOverflow = (MmuPlugin_ports_0_entryToReplace_willOverflowIfInc && MmuPlugin_ports_0_entryToReplace_willIncrement); // @[BaseType.scala 305:24]
   always @(*) begin
-    MmuPlugin_ports_0_entryToReplace_valueNext = (MmuPlugin_ports_0_entryToReplace_value + _zz_MmuPlugin_ports_0_entryToReplace_valueNext);
+    MmuPlugin_ports_0_entryToReplace_valueNext = (MmuPlugin_ports_0_entryToReplace_value + _zz_MmuPlugin_ports_0_entryToReplace_valueNext); // @[Utils.scala 548:15]
     if(MmuPlugin_ports_0_entryToReplace_willClear) begin
-      MmuPlugin_ports_0_entryToReplace_valueNext = 3'b000;
+      MmuPlugin_ports_0_entryToReplace_valueNext = 3'b000; // @[Utils.scala 558:15]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_0_requireMmuLockupCalc) begin
-      IBusCachedPlugin_mmuBus_rsp_physicalAddress = {{MmuPlugin_ports_0_cacheLine_physicalAddress_1,(MmuPlugin_ports_0_cacheLine_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cacheLine_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
+      IBusCachedPlugin_mmuBus_rsp_physicalAddress = {{MmuPlugin_ports_0_cacheLine_physicalAddress_1,(MmuPlugin_ports_0_cacheLine_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cacheLine_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 159:40]
     end else begin
-      IBusCachedPlugin_mmuBus_rsp_physicalAddress = IBusCachedPlugin_mmuBus_cmd_0_virtualAddress;
+      IBusCachedPlugin_mmuBus_rsp_physicalAddress = IBusCachedPlugin_mmuBus_cmd_0_virtualAddress; // @[MmuPlugin.scala 167:40]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_0_requireMmuLockupCalc) begin
-      IBusCachedPlugin_mmuBus_rsp_allowRead = (MmuPlugin_ports_0_cacheLine_allowRead || (MmuPlugin_status_mxr && MmuPlugin_ports_0_cacheLine_allowExecute));
+      IBusCachedPlugin_mmuBus_rsp_allowRead = (MmuPlugin_ports_0_cacheLine_allowRead || (MmuPlugin_status_mxr && MmuPlugin_ports_0_cacheLine_allowExecute)); // @[MmuPlugin.scala 160:34]
     end else begin
-      IBusCachedPlugin_mmuBus_rsp_allowRead = 1'b1;
+      IBusCachedPlugin_mmuBus_rsp_allowRead = 1'b1; // @[MmuPlugin.scala 168:34]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_0_requireMmuLockupCalc) begin
-      IBusCachedPlugin_mmuBus_rsp_allowWrite = MmuPlugin_ports_0_cacheLine_allowWrite;
+      IBusCachedPlugin_mmuBus_rsp_allowWrite = MmuPlugin_ports_0_cacheLine_allowWrite; // @[MmuPlugin.scala 161:35]
     end else begin
-      IBusCachedPlugin_mmuBus_rsp_allowWrite = 1'b1;
+      IBusCachedPlugin_mmuBus_rsp_allowWrite = 1'b1; // @[MmuPlugin.scala 169:35]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_0_requireMmuLockupCalc) begin
-      IBusCachedPlugin_mmuBus_rsp_allowExecute = MmuPlugin_ports_0_cacheLine_allowExecute;
+      IBusCachedPlugin_mmuBus_rsp_allowExecute = MmuPlugin_ports_0_cacheLine_allowExecute; // @[MmuPlugin.scala 162:37]
     end else begin
-      IBusCachedPlugin_mmuBus_rsp_allowExecute = 1'b1;
+      IBusCachedPlugin_mmuBus_rsp_allowExecute = 1'b1; // @[MmuPlugin.scala 170:37]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_0_requireMmuLockupCalc) begin
-      IBusCachedPlugin_mmuBus_rsp_exception = (((! MmuPlugin_ports_0_dirty) && MmuPlugin_ports_0_cacheHit) && ((MmuPlugin_ports_0_cacheLine_exception || ((MmuPlugin_ports_0_cacheLine_allowUser && (CsrPlugin_privilege == 2'b01)) && (! MmuPlugin_status_sum))) || ((! MmuPlugin_ports_0_cacheLine_allowUser) && (CsrPlugin_privilege == 2'b00))));
+      IBusCachedPlugin_mmuBus_rsp_exception = (((! MmuPlugin_ports_0_dirty) && MmuPlugin_ports_0_cacheHit) && ((MmuPlugin_ports_0_cacheLine_exception || ((MmuPlugin_ports_0_cacheLine_allowUser && (CsrPlugin_privilege == 2'b01)) && (! MmuPlugin_status_sum))) || ((! MmuPlugin_ports_0_cacheLine_allowUser) && (CsrPlugin_privilege == 2'b00)))); // @[MmuPlugin.scala 163:34]
     end else begin
-      IBusCachedPlugin_mmuBus_rsp_exception = 1'b0;
+      IBusCachedPlugin_mmuBus_rsp_exception = 1'b0; // @[MmuPlugin.scala 171:34]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_0_requireMmuLockupCalc) begin
-      IBusCachedPlugin_mmuBus_rsp_refilling = (MmuPlugin_ports_0_dirty || (! MmuPlugin_ports_0_cacheHit));
+      IBusCachedPlugin_mmuBus_rsp_refilling = (MmuPlugin_ports_0_dirty || (! MmuPlugin_ports_0_cacheHit)); // @[MmuPlugin.scala 164:34]
     end else begin
-      IBusCachedPlugin_mmuBus_rsp_refilling = 1'b0;
+      IBusCachedPlugin_mmuBus_rsp_refilling = 1'b0; // @[MmuPlugin.scala 172:34]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_0_requireMmuLockupCalc) begin
-      IBusCachedPlugin_mmuBus_rsp_isPaging = 1'b1;
+      IBusCachedPlugin_mmuBus_rsp_isPaging = 1'b1; // @[MmuPlugin.scala 165:33]
     end else begin
-      IBusCachedPlugin_mmuBus_rsp_isPaging = 1'b0;
+      IBusCachedPlugin_mmuBus_rsp_isPaging = 1'b0; // @[MmuPlugin.scala 173:33]
     end
   end
 
-  assign IBusCachedPlugin_mmuBus_rsp_isIoAccess = ((((((((IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0100) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0101)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1010)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1011)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1100)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1101)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1110)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1111));
-  assign IBusCachedPlugin_mmuBus_rsp_bypassTranslation = (! MmuPlugin_ports_0_requireMmuLockupCalc);
-  assign IBusCachedPlugin_mmuBus_rsp_ways_0_sel = MmuPlugin_ports_0_cacheHitsCalc[0];
-  assign IBusCachedPlugin_mmuBus_rsp_ways_0_physical = {{MmuPlugin_ports_0_cache_0_physicalAddress_1,(MmuPlugin_ports_0_cache_0_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_0_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign IBusCachedPlugin_mmuBus_rsp_ways_1_sel = MmuPlugin_ports_0_cacheHitsCalc[1];
-  assign IBusCachedPlugin_mmuBus_rsp_ways_1_physical = {{MmuPlugin_ports_0_cache_1_physicalAddress_1,(MmuPlugin_ports_0_cache_1_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_1_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign IBusCachedPlugin_mmuBus_rsp_ways_2_sel = MmuPlugin_ports_0_cacheHitsCalc[2];
-  assign IBusCachedPlugin_mmuBus_rsp_ways_2_physical = {{MmuPlugin_ports_0_cache_2_physicalAddress_1,(MmuPlugin_ports_0_cache_2_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_2_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign IBusCachedPlugin_mmuBus_rsp_ways_3_sel = MmuPlugin_ports_0_cacheHitsCalc[3];
-  assign IBusCachedPlugin_mmuBus_rsp_ways_3_physical = {{MmuPlugin_ports_0_cache_3_physicalAddress_1,(MmuPlugin_ports_0_cache_3_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_3_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign IBusCachedPlugin_mmuBus_rsp_ways_4_sel = MmuPlugin_ports_0_cacheHitsCalc[4];
-  assign IBusCachedPlugin_mmuBus_rsp_ways_4_physical = {{MmuPlugin_ports_0_cache_4_physicalAddress_1,(MmuPlugin_ports_0_cache_4_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_4_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign IBusCachedPlugin_mmuBus_rsp_ways_5_sel = MmuPlugin_ports_0_cacheHitsCalc[5];
-  assign IBusCachedPlugin_mmuBus_rsp_ways_5_physical = {{MmuPlugin_ports_0_cache_5_physicalAddress_1,(MmuPlugin_ports_0_cache_5_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_5_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign IBusCachedPlugin_mmuBus_rsp_ways_6_sel = MmuPlugin_ports_0_cacheHitsCalc[6];
-  assign IBusCachedPlugin_mmuBus_rsp_ways_6_physical = {{MmuPlugin_ports_0_cache_6_physicalAddress_1,(MmuPlugin_ports_0_cache_6_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_6_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign IBusCachedPlugin_mmuBus_rsp_ways_7_sel = MmuPlugin_ports_0_cacheHitsCalc[7];
-  assign IBusCachedPlugin_mmuBus_rsp_ways_7_physical = {{MmuPlugin_ports_0_cache_7_physicalAddress_1,(MmuPlugin_ports_0_cache_7_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_7_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
+  assign IBusCachedPlugin_mmuBus_rsp_isIoAccess = ((((((((IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0100) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0101)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1010)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1011)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1100)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1101)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1110)) || (IBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1111)); // @[MmuPlugin.scala 175:33]
+  assign IBusCachedPlugin_mmuBus_rsp_bypassTranslation = (! MmuPlugin_ports_0_requireMmuLockupCalc); // @[MmuPlugin.scala 177:40]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_0_sel = MmuPlugin_ports_0_cacheHitsCalc[0]; // @[MmuPlugin.scala 179:40]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_0_physical = {{MmuPlugin_ports_0_cache_0_physicalAddress_1,(MmuPlugin_ports_0_cache_0_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_0_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_1_sel = MmuPlugin_ports_0_cacheHitsCalc[1]; // @[MmuPlugin.scala 179:40]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_1_physical = {{MmuPlugin_ports_0_cache_1_physicalAddress_1,(MmuPlugin_ports_0_cache_1_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_1_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_2_sel = MmuPlugin_ports_0_cacheHitsCalc[2]; // @[MmuPlugin.scala 179:40]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_2_physical = {{MmuPlugin_ports_0_cache_2_physicalAddress_1,(MmuPlugin_ports_0_cache_2_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_2_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_3_sel = MmuPlugin_ports_0_cacheHitsCalc[3]; // @[MmuPlugin.scala 179:40]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_3_physical = {{MmuPlugin_ports_0_cache_3_physicalAddress_1,(MmuPlugin_ports_0_cache_3_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_3_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_4_sel = MmuPlugin_ports_0_cacheHitsCalc[4]; // @[MmuPlugin.scala 179:40]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_4_physical = {{MmuPlugin_ports_0_cache_4_physicalAddress_1,(MmuPlugin_ports_0_cache_4_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_4_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_5_sel = MmuPlugin_ports_0_cacheHitsCalc[5]; // @[MmuPlugin.scala 179:40]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_5_physical = {{MmuPlugin_ports_0_cache_5_physicalAddress_1,(MmuPlugin_ports_0_cache_5_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_5_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_6_sel = MmuPlugin_ports_0_cacheHitsCalc[6]; // @[MmuPlugin.scala 179:40]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_6_physical = {{MmuPlugin_ports_0_cache_6_physicalAddress_1,(MmuPlugin_ports_0_cache_6_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_6_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_7_sel = MmuPlugin_ports_0_cacheHitsCalc[7]; // @[MmuPlugin.scala 179:40]
+  assign IBusCachedPlugin_mmuBus_rsp_ways_7_physical = {{MmuPlugin_ports_0_cache_7_physicalAddress_1,(MmuPlugin_ports_0_cache_7_superPage ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_0_cache_7_physicalAddress_0)},IBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
   assign MmuPlugin_ports_1_dirty = 1'b0;
   always @(*) begin
-    MmuPlugin_ports_1_requireMmuLockupCalc = ((1'b1 && (! DBusCachedPlugin_mmuBus_cmd_0_bypassTranslation)) && MmuPlugin_satp_mode);
-    if(when_MmuPlugin_l125_1) begin
-      MmuPlugin_ports_1_requireMmuLockupCalc = 1'b0;
+    MmuPlugin_ports_1_requireMmuLockupCalc = ((1'b1 && (! DBusCachedPlugin_mmuBus_cmd_0_bypassTranslation)) && MmuPlugin_satp_mode); // @[BaseType.scala 305:24]
+    if(when_MmuPlugin_l136_1) begin
+      MmuPlugin_ports_1_requireMmuLockupCalc = 1'b0; // @[MmuPlugin.scala 136:32]
     end
-    if(when_MmuPlugin_l126_1) begin
-      if(when_MmuPlugin_l128) begin
-        MmuPlugin_ports_1_requireMmuLockupCalc = 1'b0;
+    if(when_MmuPlugin_l137_1) begin
+      if(when_MmuPlugin_l139) begin
+        MmuPlugin_ports_1_requireMmuLockupCalc = 1'b0; // @[MmuPlugin.scala 139:36]
       end
     end
   end
 
-  assign when_MmuPlugin_l125_1 = ((! MmuPlugin_status_mprv) && (CsrPlugin_privilege == 2'b11));
-  assign when_MmuPlugin_l126_1 = (CsrPlugin_privilege == 2'b11);
-  assign when_MmuPlugin_l128 = ((! MmuPlugin_status_mprv) || (CsrPlugin_mstatus_MPP == 2'b11));
-  assign MmuPlugin_ports_1_cacheHitsCalc = {((MmuPlugin_ports_1_cache_7_valid && (MmuPlugin_ports_1_cache_7_virtualAddress_1 == _zz_MmuPlugin_ports_1_cacheHitsCalc)) && (MmuPlugin_ports_1_cache_7_superPage || (MmuPlugin_ports_1_cache_7_virtualAddress_0 == _zz_MmuPlugin_ports_1_cacheHitsCalc_1))),{((MmuPlugin_ports_1_cache_6_valid && _zz_MmuPlugin_ports_1_cacheHitsCalc_2) && (MmuPlugin_ports_1_cache_6_superPage || _zz_MmuPlugin_ports_1_cacheHitsCalc_3)),{(_zz_MmuPlugin_ports_1_cacheHitsCalc_4 && _zz_MmuPlugin_ports_1_cacheHitsCalc_5),{_zz_MmuPlugin_ports_1_cacheHitsCalc_6,{_zz_MmuPlugin_ports_1_cacheHitsCalc_9,_zz_MmuPlugin_ports_1_cacheHitsCalc_12}}}}};
-  assign MmuPlugin_ports_1_cacheHit = (|MmuPlugin_ports_1_cacheHitsCalc);
-  assign _zz_MmuPlugin_ports_1_cacheLine_valid = MmuPlugin_ports_1_cacheHitsCalc[3];
-  assign _zz_MmuPlugin_ports_1_cacheLine_valid_1 = MmuPlugin_ports_1_cacheHitsCalc[5];
-  assign _zz_MmuPlugin_ports_1_cacheLine_valid_2 = MmuPlugin_ports_1_cacheHitsCalc[6];
-  assign _zz_MmuPlugin_ports_1_cacheLine_valid_3 = MmuPlugin_ports_1_cacheHitsCalc[7];
-  assign _zz_MmuPlugin_ports_1_cacheLine_valid_4 = (((MmuPlugin_ports_1_cacheHitsCalc[1] || _zz_MmuPlugin_ports_1_cacheLine_valid) || _zz_MmuPlugin_ports_1_cacheLine_valid_1) || _zz_MmuPlugin_ports_1_cacheLine_valid_3);
-  assign _zz_MmuPlugin_ports_1_cacheLine_valid_5 = (((MmuPlugin_ports_1_cacheHitsCalc[2] || _zz_MmuPlugin_ports_1_cacheLine_valid) || _zz_MmuPlugin_ports_1_cacheLine_valid_2) || _zz_MmuPlugin_ports_1_cacheLine_valid_3);
-  assign _zz_MmuPlugin_ports_1_cacheLine_valid_6 = (((MmuPlugin_ports_1_cacheHitsCalc[4] || _zz_MmuPlugin_ports_1_cacheLine_valid_1) || _zz_MmuPlugin_ports_1_cacheLine_valid_2) || _zz_MmuPlugin_ports_1_cacheLine_valid_3);
-  assign _zz_MmuPlugin_ports_1_cacheLine_valid_7 = {_zz_MmuPlugin_ports_1_cacheLine_valid_6,{_zz_MmuPlugin_ports_1_cacheLine_valid_5,_zz_MmuPlugin_ports_1_cacheLine_valid_4}};
-  assign MmuPlugin_ports_1_cacheLine_valid = _zz_MmuPlugin_ports_1_cacheLine_valid_8;
-  assign MmuPlugin_ports_1_cacheLine_exception = _zz_MmuPlugin_ports_1_cacheLine_exception;
-  assign MmuPlugin_ports_1_cacheLine_superPage = _zz_MmuPlugin_ports_1_cacheLine_superPage;
-  assign MmuPlugin_ports_1_cacheLine_virtualAddress_0 = _zz_MmuPlugin_ports_1_cacheLine_virtualAddress_0;
-  assign MmuPlugin_ports_1_cacheLine_virtualAddress_1 = _zz_MmuPlugin_ports_1_cacheLine_virtualAddress_1;
-  assign MmuPlugin_ports_1_cacheLine_physicalAddress_0 = _zz_MmuPlugin_ports_1_cacheLine_physicalAddress_0;
-  assign MmuPlugin_ports_1_cacheLine_physicalAddress_1 = _zz_MmuPlugin_ports_1_cacheLine_physicalAddress_1;
-  assign MmuPlugin_ports_1_cacheLine_allowRead = _zz_MmuPlugin_ports_1_cacheLine_allowRead;
-  assign MmuPlugin_ports_1_cacheLine_allowWrite = _zz_MmuPlugin_ports_1_cacheLine_allowWrite;
-  assign MmuPlugin_ports_1_cacheLine_allowExecute = _zz_MmuPlugin_ports_1_cacheLine_allowExecute;
-  assign MmuPlugin_ports_1_cacheLine_allowUser = _zz_MmuPlugin_ports_1_cacheLine_allowUser;
+  assign when_MmuPlugin_l136_1 = ((! MmuPlugin_status_mprv) && (CsrPlugin_privilege == 2'b11)); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l137_1 = (CsrPlugin_privilege == 2'b11); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l139 = ((! MmuPlugin_status_mprv) || (CsrPlugin_mstatus_MPP == 2'b11)); // @[BaseType.scala 305:24]
+  assign MmuPlugin_ports_1_cacheHitsCalc = {((MmuPlugin_ports_1_cache_7_valid && (MmuPlugin_ports_1_cache_7_virtualAddress_1 == _zz_MmuPlugin_ports_1_cacheHitsCalc)) && (MmuPlugin_ports_1_cache_7_superPage || (MmuPlugin_ports_1_cache_7_virtualAddress_0 == _zz_MmuPlugin_ports_1_cacheHitsCalc_1))),{((MmuPlugin_ports_1_cache_6_valid && _zz_MmuPlugin_ports_1_cacheHitsCalc_2) && (MmuPlugin_ports_1_cache_6_superPage || _zz_MmuPlugin_ports_1_cacheHitsCalc_3)),{(_zz_MmuPlugin_ports_1_cacheHitsCalc_4 && _zz_MmuPlugin_ports_1_cacheHitsCalc_5),{_zz_MmuPlugin_ports_1_cacheHitsCalc_6,{_zz_MmuPlugin_ports_1_cacheHitsCalc_9,_zz_MmuPlugin_ports_1_cacheHitsCalc_12}}}}}; // @[BaseType.scala 299:24]
+  assign MmuPlugin_ports_1_cacheHit = (|MmuPlugin_ports_1_cacheHitsCalc); // @[BaseType.scala 312:24]
+  assign _zz_MmuPlugin_ports_1_cacheLine_valid = MmuPlugin_ports_1_cacheHitsCalc[3]; // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_1_cacheLine_valid_1 = MmuPlugin_ports_1_cacheHitsCalc[5]; // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_1_cacheLine_valid_2 = MmuPlugin_ports_1_cacheHitsCalc[6]; // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_1_cacheLine_valid_3 = MmuPlugin_ports_1_cacheHitsCalc[7]; // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_1_cacheLine_valid_4 = (((MmuPlugin_ports_1_cacheHitsCalc[1] || _zz_MmuPlugin_ports_1_cacheLine_valid) || _zz_MmuPlugin_ports_1_cacheLine_valid_1) || _zz_MmuPlugin_ports_1_cacheLine_valid_3); // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_1_cacheLine_valid_5 = (((MmuPlugin_ports_1_cacheHitsCalc[2] || _zz_MmuPlugin_ports_1_cacheLine_valid) || _zz_MmuPlugin_ports_1_cacheLine_valid_2) || _zz_MmuPlugin_ports_1_cacheLine_valid_3); // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_1_cacheLine_valid_6 = (((MmuPlugin_ports_1_cacheHitsCalc[4] || _zz_MmuPlugin_ports_1_cacheLine_valid_1) || _zz_MmuPlugin_ports_1_cacheLine_valid_2) || _zz_MmuPlugin_ports_1_cacheLine_valid_3); // @[BaseType.scala 305:24]
+  assign _zz_MmuPlugin_ports_1_cacheLine_valid_7 = {_zz_MmuPlugin_ports_1_cacheLine_valid_6,{_zz_MmuPlugin_ports_1_cacheLine_valid_5,_zz_MmuPlugin_ports_1_cacheLine_valid_4}}; // @[BaseType.scala 318:22]
+  assign MmuPlugin_ports_1_cacheLine_valid = _zz_MmuPlugin_ports_1_cacheLine_valid_8; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_exception = _zz_MmuPlugin_ports_1_cacheLine_exception; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_superPage = _zz_MmuPlugin_ports_1_cacheLine_superPage; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_virtualAddress_0 = _zz_MmuPlugin_ports_1_cacheLine_virtualAddress_0; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_virtualAddress_1 = _zz_MmuPlugin_ports_1_cacheLine_virtualAddress_1; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_physicalAddress_0 = _zz_MmuPlugin_ports_1_cacheLine_physicalAddress_0; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_physicalAddress_1 = _zz_MmuPlugin_ports_1_cacheLine_physicalAddress_1; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_allowRead = _zz_MmuPlugin_ports_1_cacheLine_allowRead; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_allowWrite = _zz_MmuPlugin_ports_1_cacheLine_allowWrite; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_allowExecute = _zz_MmuPlugin_ports_1_cacheLine_allowExecute; // @[Vec.scala 202:25]
+  assign MmuPlugin_ports_1_cacheLine_allowUser = _zz_MmuPlugin_ports_1_cacheLine_allowUser; // @[Vec.scala 202:25]
   always @(*) begin
-    MmuPlugin_ports_1_entryToReplace_willIncrement = 1'b0;
-    if(when_MmuPlugin_l272) begin
-      if(when_MmuPlugin_l274_1) begin
-        MmuPlugin_ports_1_entryToReplace_willIncrement = 1'b1;
+    MmuPlugin_ports_1_entryToReplace_willIncrement = 1'b0; // @[Utils.scala 536:23]
+    if(when_MmuPlugin_l283) begin
+      if(when_MmuPlugin_l285_1) begin
+        MmuPlugin_ports_1_entryToReplace_willIncrement = 1'b1; // @[Utils.scala 540:41]
       end
     end
   end
 
-  assign MmuPlugin_ports_1_entryToReplace_willClear = 1'b0;
-  assign MmuPlugin_ports_1_entryToReplace_willOverflowIfInc = (MmuPlugin_ports_1_entryToReplace_value == 3'b111);
-  assign MmuPlugin_ports_1_entryToReplace_willOverflow = (MmuPlugin_ports_1_entryToReplace_willOverflowIfInc && MmuPlugin_ports_1_entryToReplace_willIncrement);
+  assign MmuPlugin_ports_1_entryToReplace_willClear = 1'b0; // @[Utils.scala 537:19]
+  assign MmuPlugin_ports_1_entryToReplace_willOverflowIfInc = (MmuPlugin_ports_1_entryToReplace_value == 3'b111); // @[BaseType.scala 305:24]
+  assign MmuPlugin_ports_1_entryToReplace_willOverflow = (MmuPlugin_ports_1_entryToReplace_willOverflowIfInc && MmuPlugin_ports_1_entryToReplace_willIncrement); // @[BaseType.scala 305:24]
   always @(*) begin
-    MmuPlugin_ports_1_entryToReplace_valueNext = (MmuPlugin_ports_1_entryToReplace_value + _zz_MmuPlugin_ports_1_entryToReplace_valueNext);
+    MmuPlugin_ports_1_entryToReplace_valueNext = (MmuPlugin_ports_1_entryToReplace_value + _zz_MmuPlugin_ports_1_entryToReplace_valueNext); // @[Utils.scala 548:15]
     if(MmuPlugin_ports_1_entryToReplace_willClear) begin
-      MmuPlugin_ports_1_entryToReplace_valueNext = 3'b000;
+      MmuPlugin_ports_1_entryToReplace_valueNext = 3'b000; // @[Utils.scala 558:15]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_1_requireMmuLockupCalc) begin
-      DBusCachedPlugin_mmuBus_rsp_physicalAddress = {{MmuPlugin_ports_1_cacheLine_physicalAddress_1,(MmuPlugin_ports_1_cacheLine_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cacheLine_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
+      DBusCachedPlugin_mmuBus_rsp_physicalAddress = {{MmuPlugin_ports_1_cacheLine_physicalAddress_1,(MmuPlugin_ports_1_cacheLine_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cacheLine_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 159:40]
     end else begin
-      DBusCachedPlugin_mmuBus_rsp_physicalAddress = DBusCachedPlugin_mmuBus_cmd_0_virtualAddress;
+      DBusCachedPlugin_mmuBus_rsp_physicalAddress = DBusCachedPlugin_mmuBus_cmd_0_virtualAddress; // @[MmuPlugin.scala 167:40]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_1_requireMmuLockupCalc) begin
-      DBusCachedPlugin_mmuBus_rsp_allowRead = (MmuPlugin_ports_1_cacheLine_allowRead || (MmuPlugin_status_mxr && MmuPlugin_ports_1_cacheLine_allowExecute));
+      DBusCachedPlugin_mmuBus_rsp_allowRead = (MmuPlugin_ports_1_cacheLine_allowRead || (MmuPlugin_status_mxr && MmuPlugin_ports_1_cacheLine_allowExecute)); // @[MmuPlugin.scala 160:34]
     end else begin
-      DBusCachedPlugin_mmuBus_rsp_allowRead = 1'b1;
+      DBusCachedPlugin_mmuBus_rsp_allowRead = 1'b1; // @[MmuPlugin.scala 168:34]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_1_requireMmuLockupCalc) begin
-      DBusCachedPlugin_mmuBus_rsp_allowWrite = MmuPlugin_ports_1_cacheLine_allowWrite;
+      DBusCachedPlugin_mmuBus_rsp_allowWrite = MmuPlugin_ports_1_cacheLine_allowWrite; // @[MmuPlugin.scala 161:35]
     end else begin
-      DBusCachedPlugin_mmuBus_rsp_allowWrite = 1'b1;
+      DBusCachedPlugin_mmuBus_rsp_allowWrite = 1'b1; // @[MmuPlugin.scala 169:35]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_1_requireMmuLockupCalc) begin
-      DBusCachedPlugin_mmuBus_rsp_allowExecute = MmuPlugin_ports_1_cacheLine_allowExecute;
+      DBusCachedPlugin_mmuBus_rsp_allowExecute = MmuPlugin_ports_1_cacheLine_allowExecute; // @[MmuPlugin.scala 162:37]
     end else begin
-      DBusCachedPlugin_mmuBus_rsp_allowExecute = 1'b1;
+      DBusCachedPlugin_mmuBus_rsp_allowExecute = 1'b1; // @[MmuPlugin.scala 170:37]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_1_requireMmuLockupCalc) begin
-      DBusCachedPlugin_mmuBus_rsp_exception = (((! MmuPlugin_ports_1_dirty) && MmuPlugin_ports_1_cacheHit) && ((MmuPlugin_ports_1_cacheLine_exception || ((MmuPlugin_ports_1_cacheLine_allowUser && (CsrPlugin_privilege == 2'b01)) && (! MmuPlugin_status_sum))) || ((! MmuPlugin_ports_1_cacheLine_allowUser) && (CsrPlugin_privilege == 2'b00))));
+      DBusCachedPlugin_mmuBus_rsp_exception = (((! MmuPlugin_ports_1_dirty) && MmuPlugin_ports_1_cacheHit) && ((MmuPlugin_ports_1_cacheLine_exception || ((MmuPlugin_ports_1_cacheLine_allowUser && (CsrPlugin_privilege == 2'b01)) && (! MmuPlugin_status_sum))) || ((! MmuPlugin_ports_1_cacheLine_allowUser) && (CsrPlugin_privilege == 2'b00)))); // @[MmuPlugin.scala 163:34]
     end else begin
-      DBusCachedPlugin_mmuBus_rsp_exception = 1'b0;
+      DBusCachedPlugin_mmuBus_rsp_exception = 1'b0; // @[MmuPlugin.scala 171:34]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_1_requireMmuLockupCalc) begin
-      DBusCachedPlugin_mmuBus_rsp_refilling = (MmuPlugin_ports_1_dirty || (! MmuPlugin_ports_1_cacheHit));
+      DBusCachedPlugin_mmuBus_rsp_refilling = (MmuPlugin_ports_1_dirty || (! MmuPlugin_ports_1_cacheHit)); // @[MmuPlugin.scala 164:34]
     end else begin
-      DBusCachedPlugin_mmuBus_rsp_refilling = 1'b0;
+      DBusCachedPlugin_mmuBus_rsp_refilling = 1'b0; // @[MmuPlugin.scala 172:34]
     end
   end
 
   always @(*) begin
     if(MmuPlugin_ports_1_requireMmuLockupCalc) begin
-      DBusCachedPlugin_mmuBus_rsp_isPaging = 1'b1;
+      DBusCachedPlugin_mmuBus_rsp_isPaging = 1'b1; // @[MmuPlugin.scala 165:33]
     end else begin
-      DBusCachedPlugin_mmuBus_rsp_isPaging = 1'b0;
+      DBusCachedPlugin_mmuBus_rsp_isPaging = 1'b0; // @[MmuPlugin.scala 173:33]
     end
   end
 
-  assign DBusCachedPlugin_mmuBus_rsp_isIoAccess = ((((((((DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0100) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0101)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1010)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1011)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1100)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1101)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1110)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1111));
-  assign DBusCachedPlugin_mmuBus_rsp_bypassTranslation = (! MmuPlugin_ports_1_requireMmuLockupCalc);
-  assign DBusCachedPlugin_mmuBus_rsp_ways_0_sel = MmuPlugin_ports_1_cacheHitsCalc[0];
-  assign DBusCachedPlugin_mmuBus_rsp_ways_0_physical = {{MmuPlugin_ports_1_cache_0_physicalAddress_1,(MmuPlugin_ports_1_cache_0_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_0_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign DBusCachedPlugin_mmuBus_rsp_ways_1_sel = MmuPlugin_ports_1_cacheHitsCalc[1];
-  assign DBusCachedPlugin_mmuBus_rsp_ways_1_physical = {{MmuPlugin_ports_1_cache_1_physicalAddress_1,(MmuPlugin_ports_1_cache_1_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_1_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign DBusCachedPlugin_mmuBus_rsp_ways_2_sel = MmuPlugin_ports_1_cacheHitsCalc[2];
-  assign DBusCachedPlugin_mmuBus_rsp_ways_2_physical = {{MmuPlugin_ports_1_cache_2_physicalAddress_1,(MmuPlugin_ports_1_cache_2_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_2_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign DBusCachedPlugin_mmuBus_rsp_ways_3_sel = MmuPlugin_ports_1_cacheHitsCalc[3];
-  assign DBusCachedPlugin_mmuBus_rsp_ways_3_physical = {{MmuPlugin_ports_1_cache_3_physicalAddress_1,(MmuPlugin_ports_1_cache_3_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_3_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign DBusCachedPlugin_mmuBus_rsp_ways_4_sel = MmuPlugin_ports_1_cacheHitsCalc[4];
-  assign DBusCachedPlugin_mmuBus_rsp_ways_4_physical = {{MmuPlugin_ports_1_cache_4_physicalAddress_1,(MmuPlugin_ports_1_cache_4_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_4_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign DBusCachedPlugin_mmuBus_rsp_ways_5_sel = MmuPlugin_ports_1_cacheHitsCalc[5];
-  assign DBusCachedPlugin_mmuBus_rsp_ways_5_physical = {{MmuPlugin_ports_1_cache_5_physicalAddress_1,(MmuPlugin_ports_1_cache_5_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_5_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign DBusCachedPlugin_mmuBus_rsp_ways_6_sel = MmuPlugin_ports_1_cacheHitsCalc[6];
-  assign DBusCachedPlugin_mmuBus_rsp_ways_6_physical = {{MmuPlugin_ports_1_cache_6_physicalAddress_1,(MmuPlugin_ports_1_cache_6_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_6_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign DBusCachedPlugin_mmuBus_rsp_ways_7_sel = MmuPlugin_ports_1_cacheHitsCalc[7];
-  assign DBusCachedPlugin_mmuBus_rsp_ways_7_physical = {{MmuPlugin_ports_1_cache_7_physicalAddress_1,(MmuPlugin_ports_1_cache_7_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_7_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]};
-  assign MmuPlugin_shared_dBusRsp_pte_V = MmuPlugin_shared_dBusRspStaged_payload_data[0];
-  assign MmuPlugin_shared_dBusRsp_pte_R = MmuPlugin_shared_dBusRspStaged_payload_data[1];
-  assign MmuPlugin_shared_dBusRsp_pte_W = MmuPlugin_shared_dBusRspStaged_payload_data[2];
-  assign MmuPlugin_shared_dBusRsp_pte_X = MmuPlugin_shared_dBusRspStaged_payload_data[3];
-  assign MmuPlugin_shared_dBusRsp_pte_U = MmuPlugin_shared_dBusRspStaged_payload_data[4];
-  assign MmuPlugin_shared_dBusRsp_pte_G = MmuPlugin_shared_dBusRspStaged_payload_data[5];
-  assign MmuPlugin_shared_dBusRsp_pte_A = MmuPlugin_shared_dBusRspStaged_payload_data[6];
-  assign MmuPlugin_shared_dBusRsp_pte_D = MmuPlugin_shared_dBusRspStaged_payload_data[7];
-  assign MmuPlugin_shared_dBusRsp_pte_RSW = MmuPlugin_shared_dBusRspStaged_payload_data[9 : 8];
-  assign MmuPlugin_shared_dBusRsp_pte_PPN0 = MmuPlugin_shared_dBusRspStaged_payload_data[19 : 10];
-  assign MmuPlugin_shared_dBusRsp_pte_PPN1 = MmuPlugin_shared_dBusRspStaged_payload_data[31 : 20];
-  assign MmuPlugin_shared_dBusRsp_exception = (((! MmuPlugin_shared_dBusRsp_pte_V) || ((! MmuPlugin_shared_dBusRsp_pte_R) && MmuPlugin_shared_dBusRsp_pte_W)) || MmuPlugin_shared_dBusRspStaged_payload_error);
-  assign MmuPlugin_shared_dBusRsp_leaf = (MmuPlugin_shared_dBusRsp_pte_R || MmuPlugin_shared_dBusRsp_pte_X);
-  assign when_MmuPlugin_l205 = (MmuPlugin_shared_dBusRspStaged_valid && (! MmuPlugin_shared_dBusRspStaged_payload_redo));
+  assign DBusCachedPlugin_mmuBus_rsp_isIoAccess = ((((((((DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0100) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b0101)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1010)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1011)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1100)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1101)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1110)) || (DBusCachedPlugin_mmuBus_rsp_physicalAddress[31 : 28] == 4'b1111)); // @[MmuPlugin.scala 175:33]
+  assign DBusCachedPlugin_mmuBus_rsp_bypassTranslation = (! MmuPlugin_ports_1_requireMmuLockupCalc); // @[MmuPlugin.scala 177:40]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_0_sel = MmuPlugin_ports_1_cacheHitsCalc[0]; // @[MmuPlugin.scala 179:40]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_0_physical = {{MmuPlugin_ports_1_cache_0_physicalAddress_1,(MmuPlugin_ports_1_cache_0_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_0_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_1_sel = MmuPlugin_ports_1_cacheHitsCalc[1]; // @[MmuPlugin.scala 179:40]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_1_physical = {{MmuPlugin_ports_1_cache_1_physicalAddress_1,(MmuPlugin_ports_1_cache_1_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_1_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_2_sel = MmuPlugin_ports_1_cacheHitsCalc[2]; // @[MmuPlugin.scala 179:40]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_2_physical = {{MmuPlugin_ports_1_cache_2_physicalAddress_1,(MmuPlugin_ports_1_cache_2_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_2_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_3_sel = MmuPlugin_ports_1_cacheHitsCalc[3]; // @[MmuPlugin.scala 179:40]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_3_physical = {{MmuPlugin_ports_1_cache_3_physicalAddress_1,(MmuPlugin_ports_1_cache_3_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_3_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_4_sel = MmuPlugin_ports_1_cacheHitsCalc[4]; // @[MmuPlugin.scala 179:40]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_4_physical = {{MmuPlugin_ports_1_cache_4_physicalAddress_1,(MmuPlugin_ports_1_cache_4_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_4_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_5_sel = MmuPlugin_ports_1_cacheHitsCalc[5]; // @[MmuPlugin.scala 179:40]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_5_physical = {{MmuPlugin_ports_1_cache_5_physicalAddress_1,(MmuPlugin_ports_1_cache_5_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_5_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_6_sel = MmuPlugin_ports_1_cacheHitsCalc[6]; // @[MmuPlugin.scala 179:40]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_6_physical = {{MmuPlugin_ports_1_cache_6_physicalAddress_1,(MmuPlugin_ports_1_cache_6_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_6_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_7_sel = MmuPlugin_ports_1_cacheHitsCalc[7]; // @[MmuPlugin.scala 179:40]
+  assign DBusCachedPlugin_mmuBus_rsp_ways_7_physical = {{MmuPlugin_ports_1_cache_7_physicalAddress_1,(MmuPlugin_ports_1_cache_7_superPage ? DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[21 : 12] : MmuPlugin_ports_1_cache_7_physicalAddress_0)},DBusCachedPlugin_mmuBus_cmd_0_virtualAddress[11 : 0]}; // @[MmuPlugin.scala 180:45]
+  assign MmuPlugin_shared_dBusRsp_pte_V = MmuPlugin_shared_dBusRspStaged_payload_data[0]; // @[Bool.scala 189:10]
+  assign MmuPlugin_shared_dBusRsp_pte_R = MmuPlugin_shared_dBusRspStaged_payload_data[1]; // @[Bool.scala 189:10]
+  assign MmuPlugin_shared_dBusRsp_pte_W = MmuPlugin_shared_dBusRspStaged_payload_data[2]; // @[Bool.scala 189:10]
+  assign MmuPlugin_shared_dBusRsp_pte_X = MmuPlugin_shared_dBusRspStaged_payload_data[3]; // @[Bool.scala 189:10]
+  assign MmuPlugin_shared_dBusRsp_pte_U = MmuPlugin_shared_dBusRspStaged_payload_data[4]; // @[Bool.scala 189:10]
+  assign MmuPlugin_shared_dBusRsp_pte_G = MmuPlugin_shared_dBusRspStaged_payload_data[5]; // @[Bool.scala 189:10]
+  assign MmuPlugin_shared_dBusRsp_pte_A = MmuPlugin_shared_dBusRspStaged_payload_data[6]; // @[Bool.scala 189:10]
+  assign MmuPlugin_shared_dBusRsp_pte_D = MmuPlugin_shared_dBusRspStaged_payload_data[7]; // @[Bool.scala 189:10]
+  assign MmuPlugin_shared_dBusRsp_pte_RSW = MmuPlugin_shared_dBusRspStaged_payload_data[9 : 8]; // @[Bits.scala 133:56]
+  assign MmuPlugin_shared_dBusRsp_pte_PPN0 = MmuPlugin_shared_dBusRspStaged_payload_data[19 : 10]; // @[UInt.scala 381:56]
+  assign MmuPlugin_shared_dBusRsp_pte_PPN1 = MmuPlugin_shared_dBusRspStaged_payload_data[31 : 20]; // @[UInt.scala 381:56]
+  assign MmuPlugin_shared_dBusRsp_exception = (((! MmuPlugin_shared_dBusRsp_pte_V) || ((! MmuPlugin_shared_dBusRsp_pte_R) && MmuPlugin_shared_dBusRsp_pte_W)) || MmuPlugin_shared_dBusRspStaged_payload_error); // @[BaseType.scala 305:24]
+  assign MmuPlugin_shared_dBusRsp_leaf = (MmuPlugin_shared_dBusRsp_pte_R || MmuPlugin_shared_dBusRsp_pte_X); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l216 = (MmuPlugin_shared_dBusRspStaged_valid && (! MmuPlugin_shared_dBusRspStaged_payload_redo)); // @[BaseType.scala 305:24]
   always @(*) begin
-    MmuPlugin_dBusAccess_cmd_valid = 1'b0;
+    MmuPlugin_dBusAccess_cmd_valid = 1'b0; // @[MmuPlugin.scala 218:30]
     case(MmuPlugin_shared_state_1)
       MmuPlugin_shared_State_IDLE : begin
       end
       MmuPlugin_shared_State_L1_CMD : begin
-        MmuPlugin_dBusAccess_cmd_valid = 1'b1;
+        MmuPlugin_dBusAccess_cmd_valid = 1'b1; // @[MmuPlugin.scala 245:34]
       end
       MmuPlugin_shared_State_L1_RSP : begin
       end
       MmuPlugin_shared_State_L0_CMD : begin
-        MmuPlugin_dBusAccess_cmd_valid = 1'b1;
+        MmuPlugin_dBusAccess_cmd_valid = 1'b1; // @[MmuPlugin.scala 263:34]
       end
       default : begin
       end
     endcase
   end
 
-  assign MmuPlugin_dBusAccess_cmd_payload_write = 1'b0;
-  assign MmuPlugin_dBusAccess_cmd_payload_size = 2'b10;
+  assign MmuPlugin_dBusAccess_cmd_payload_write = 1'b0; // @[MmuPlugin.scala 219:30]
+  assign MmuPlugin_dBusAccess_cmd_payload_size = 2'b10; // @[MmuPlugin.scala 220:29]
   always @(*) begin
-    MmuPlugin_dBusAccess_cmd_payload_address = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
+    MmuPlugin_dBusAccess_cmd_payload_address = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; // @[UInt.scala 467:20]
     case(MmuPlugin_shared_state_1)
       MmuPlugin_shared_State_IDLE : begin
       end
       MmuPlugin_shared_State_L1_CMD : begin
-        MmuPlugin_dBusAccess_cmd_payload_address = {{MmuPlugin_satp_ppn,MmuPlugin_shared_vpn_1},2'b00};
+        MmuPlugin_dBusAccess_cmd_payload_address = {{MmuPlugin_satp_ppn,MmuPlugin_shared_vpn_1},2'b00}; // @[MmuPlugin.scala 246:36]
       end
       MmuPlugin_shared_State_L1_RSP : begin
       end
       MmuPlugin_shared_State_L0_CMD : begin
-        MmuPlugin_dBusAccess_cmd_payload_address = {{{MmuPlugin_shared_pteBuffer_PPN1[9 : 0],MmuPlugin_shared_pteBuffer_PPN0},MmuPlugin_shared_vpn_0},2'b00};
+        MmuPlugin_dBusAccess_cmd_payload_address = {{{MmuPlugin_shared_pteBuffer_PPN1[9 : 0],MmuPlugin_shared_pteBuffer_PPN0},MmuPlugin_shared_vpn_0},2'b00}; // @[MmuPlugin.scala 264:36]
       end
       default : begin
       end
     endcase
   end
 
-  assign MmuPlugin_dBusAccess_cmd_payload_data = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
-  assign MmuPlugin_dBusAccess_cmd_payload_writeMask = 4'bxxxx;
-  assign _zz_MmuPlugin_shared_refills = {(((DBusCachedPlugin_mmuBus_cmd_0_isValid && MmuPlugin_ports_1_requireMmuLockupCalc) && (! MmuPlugin_ports_1_dirty)) && (! MmuPlugin_ports_1_cacheHit)),(((IBusCachedPlugin_mmuBus_cmd_0_isValid && MmuPlugin_ports_0_requireMmuLockupCalc) && (! MmuPlugin_ports_0_dirty)) && (! MmuPlugin_ports_0_cacheHit))};
+  assign MmuPlugin_dBusAccess_cmd_payload_data = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; // @[Bits.scala 231:20]
+  assign MmuPlugin_dBusAccess_cmd_payload_writeMask = 4'bxxxx; // @[Bits.scala 231:20]
+  assign _zz_MmuPlugin_shared_refills = {(((DBusCachedPlugin_mmuBus_cmd_0_isValid && MmuPlugin_ports_1_requireMmuLockupCalc) && (! MmuPlugin_ports_1_dirty)) && (! MmuPlugin_ports_1_cacheHit)),(((IBusCachedPlugin_mmuBus_cmd_0_isValid && MmuPlugin_ports_0_requireMmuLockupCalc) && (! MmuPlugin_ports_0_dirty)) && (! MmuPlugin_ports_0_cacheHit))}; // @[BaseType.scala 318:22]
   always @(*) begin
-    _zz_MmuPlugin_shared_refills_1[0] = _zz_MmuPlugin_shared_refills[1];
-    _zz_MmuPlugin_shared_refills_1[1] = _zz_MmuPlugin_shared_refills[0];
+    _zz_MmuPlugin_shared_refills_1[0] = _zz_MmuPlugin_shared_refills[1]; // @[Utils.scala 432:14]
+    _zz_MmuPlugin_shared_refills_1[1] = _zz_MmuPlugin_shared_refills[0]; // @[Utils.scala 432:14]
   end
 
-  assign _zz_MmuPlugin_shared_refills_2 = (_zz_MmuPlugin_shared_refills_1 & (~ _zz__zz_MmuPlugin_shared_refills_2));
+  assign _zz_MmuPlugin_shared_refills_2 = (_zz_MmuPlugin_shared_refills_1 & (~ _zz__zz_MmuPlugin_shared_refills_2)); // @[BaseType.scala 318:22]
   always @(*) begin
-    _zz_MmuPlugin_shared_refills_3[0] = _zz_MmuPlugin_shared_refills_2[1];
-    _zz_MmuPlugin_shared_refills_3[1] = _zz_MmuPlugin_shared_refills_2[0];
+    _zz_MmuPlugin_shared_refills_3[0] = _zz_MmuPlugin_shared_refills_2[1]; // @[Utils.scala 432:14]
+    _zz_MmuPlugin_shared_refills_3[1] = _zz_MmuPlugin_shared_refills_2[0]; // @[Utils.scala 432:14]
   end
 
-  assign MmuPlugin_shared_refills = _zz_MmuPlugin_shared_refills_3;
-  assign when_MmuPlugin_l217 = (|MmuPlugin_shared_refills);
-  assign _zz_MmuPlugin_shared_vpn_0 = (MmuPlugin_shared_refills[0] ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress : DBusCachedPlugin_mmuBus_cmd_0_virtualAddress);
-  assign when_MmuPlugin_l243 = (MmuPlugin_shared_dBusRsp_leaf || MmuPlugin_shared_dBusRsp_exception);
-  assign IBusCachedPlugin_mmuBus_busy = ((MmuPlugin_shared_state_1 != MmuPlugin_shared_State_IDLE) && MmuPlugin_shared_portSortedOh[0]);
-  assign DBusCachedPlugin_mmuBus_busy = ((MmuPlugin_shared_state_1 != MmuPlugin_shared_State_IDLE) && MmuPlugin_shared_portSortedOh[1]);
-  assign when_MmuPlugin_l272 = ((MmuPlugin_shared_dBusRspStaged_valid && (! MmuPlugin_shared_dBusRspStaged_payload_redo)) && (MmuPlugin_shared_dBusRsp_leaf || MmuPlugin_shared_dBusRsp_exception));
-  assign when_MmuPlugin_l274 = MmuPlugin_shared_portSortedOh[0];
-  assign when_MmuPlugin_l280 = (MmuPlugin_ports_0_entryToReplace_value == 3'b000);
-  assign when_MmuPlugin_l280_1 = (MmuPlugin_ports_0_entryToReplace_value == 3'b001);
-  assign when_MmuPlugin_l280_2 = (MmuPlugin_ports_0_entryToReplace_value == 3'b010);
-  assign when_MmuPlugin_l280_3 = (MmuPlugin_ports_0_entryToReplace_value == 3'b011);
-  assign when_MmuPlugin_l280_4 = (MmuPlugin_ports_0_entryToReplace_value == 3'b100);
-  assign when_MmuPlugin_l280_5 = (MmuPlugin_ports_0_entryToReplace_value == 3'b101);
-  assign when_MmuPlugin_l280_6 = (MmuPlugin_ports_0_entryToReplace_value == 3'b110);
-  assign when_MmuPlugin_l280_7 = (MmuPlugin_ports_0_entryToReplace_value == 3'b111);
-  assign when_MmuPlugin_l274_1 = MmuPlugin_shared_portSortedOh[1];
-  assign when_MmuPlugin_l280_8 = (MmuPlugin_ports_1_entryToReplace_value == 3'b000);
-  assign when_MmuPlugin_l280_9 = (MmuPlugin_ports_1_entryToReplace_value == 3'b001);
-  assign when_MmuPlugin_l280_10 = (MmuPlugin_ports_1_entryToReplace_value == 3'b010);
-  assign when_MmuPlugin_l280_11 = (MmuPlugin_ports_1_entryToReplace_value == 3'b011);
-  assign when_MmuPlugin_l280_12 = (MmuPlugin_ports_1_entryToReplace_value == 3'b100);
-  assign when_MmuPlugin_l280_13 = (MmuPlugin_ports_1_entryToReplace_value == 3'b101);
-  assign when_MmuPlugin_l280_14 = (MmuPlugin_ports_1_entryToReplace_value == 3'b110);
-  assign when_MmuPlugin_l280_15 = (MmuPlugin_ports_1_entryToReplace_value == 3'b111);
-  assign when_MmuPlugin_l304 = ((execute_arbitration_isValid && execute_arbitration_isFiring) && execute_IS_SFENCE_VMA2);
-  assign _zz_CsrPlugin_csrMapping_readDataInit_1 = (_zz_CsrPlugin_csrMapping_readDataInit & externalInterruptArray_regNext);
-  assign externalInterrupt = (|_zz_CsrPlugin_csrMapping_readDataInit_1);
-  assign _zz_CsrPlugin_csrMapping_readDataInit_3 = (_zz_CsrPlugin_csrMapping_readDataInit_2 & externalInterruptArray_regNext);
-  assign externalInterruptS = (|_zz_CsrPlugin_csrMapping_readDataInit_3);
-  assign when_DebugPlugin_l225 = (DebugPlugin_haltIt && (! DebugPlugin_isPipBusy));
-  assign DebugPlugin_allowEBreak = (DebugPlugin_debugUsed && (! DebugPlugin_disableEbreak));
+  assign MmuPlugin_shared_refills = _zz_MmuPlugin_shared_refills_3; // @[Bits.scala 133:56]
+  assign when_MmuPlugin_l228 = (|MmuPlugin_shared_refills); // @[BaseType.scala 312:24]
+  assign _zz_MmuPlugin_shared_vpn_0 = (MmuPlugin_shared_refills[0] ? IBusCachedPlugin_mmuBus_cmd_0_virtualAddress : DBusCachedPlugin_mmuBus_cmd_0_virtualAddress); // @[Expression.scala 1420:25]
+  assign when_MmuPlugin_l254 = (MmuPlugin_shared_dBusRsp_leaf || MmuPlugin_shared_dBusRsp_exception); // @[BaseType.scala 305:24]
+  assign IBusCachedPlugin_mmuBus_busy = ((MmuPlugin_shared_state_1 != MmuPlugin_shared_State_IDLE) && MmuPlugin_shared_portSortedOh[0]); // @[MmuPlugin.scala 280:25]
+  assign DBusCachedPlugin_mmuBus_busy = ((MmuPlugin_shared_state_1 != MmuPlugin_shared_State_IDLE) && MmuPlugin_shared_portSortedOh[1]); // @[MmuPlugin.scala 280:25]
+  assign when_MmuPlugin_l283 = ((MmuPlugin_shared_dBusRspStaged_valid && (! MmuPlugin_shared_dBusRspStaged_payload_redo)) && (MmuPlugin_shared_dBusRsp_leaf || MmuPlugin_shared_dBusRsp_exception)); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l285 = MmuPlugin_shared_portSortedOh[0]; // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291 = (MmuPlugin_ports_0_entryToReplace_value == 3'b000); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_1 = (MmuPlugin_ports_0_entryToReplace_value == 3'b001); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_2 = (MmuPlugin_ports_0_entryToReplace_value == 3'b010); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_3 = (MmuPlugin_ports_0_entryToReplace_value == 3'b011); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_4 = (MmuPlugin_ports_0_entryToReplace_value == 3'b100); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_5 = (MmuPlugin_ports_0_entryToReplace_value == 3'b101); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_6 = (MmuPlugin_ports_0_entryToReplace_value == 3'b110); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_7 = (MmuPlugin_ports_0_entryToReplace_value == 3'b111); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l285_1 = MmuPlugin_shared_portSortedOh[1]; // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_8 = (MmuPlugin_ports_1_entryToReplace_value == 3'b000); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_9 = (MmuPlugin_ports_1_entryToReplace_value == 3'b001); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_10 = (MmuPlugin_ports_1_entryToReplace_value == 3'b010); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_11 = (MmuPlugin_ports_1_entryToReplace_value == 3'b011); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_12 = (MmuPlugin_ports_1_entryToReplace_value == 3'b100); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_13 = (MmuPlugin_ports_1_entryToReplace_value == 3'b101); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_14 = (MmuPlugin_ports_1_entryToReplace_value == 3'b110); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l291_15 = (MmuPlugin_ports_1_entryToReplace_value == 3'b111); // @[BaseType.scala 305:24]
+  assign when_MmuPlugin_l315 = ((execute_arbitration_isValid && execute_arbitration_isFiring) && execute_IS_SFENCE_VMA2); // @[BaseType.scala 305:24]
+  assign _zz_externalInterrupt = (_zz_CsrPlugin_csrMapping_readDataInit & externalInterruptArray_regNext); // @[BaseType.scala 299:24]
+  assign externalInterrupt = (|_zz_externalInterrupt); // @[ExternalInterruptArrayPlugin.scala 23:41]
+  assign _zz_externalInterruptS = (_zz_CsrPlugin_csrMapping_readDataInit_1 & externalInterruptArray_regNext); // @[BaseType.scala 299:24]
+  assign externalInterruptS = (|_zz_externalInterruptS); // @[ExternalInterruptArrayPlugin.scala 23:41]
+  assign when_DebugPlugin_l238 = (DebugPlugin_haltIt && (! DebugPlugin_isPipBusy)); // @[BaseType.scala 305:24]
+  assign DebugPlugin_allowEBreak = (DebugPlugin_debugUsed && (! DebugPlugin_disableEbreak)); // @[BaseType.scala 305:24]
   always @(*) begin
-    debug_bus_cmd_ready = 1'b1;
+    debug_bus_cmd_ready = 1'b1; // @[DebugPlugin.scala 255:24]
     if(debug_bus_cmd_valid) begin
-      case(switch_DebugPlugin_l267)
+      case(switch_DebugPlugin_l280)
         6'h01 : begin
           if(debug_bus_cmd_payload_wr) begin
-            debug_bus_cmd_ready = IBusCachedPlugin_injectionPort_ready;
+            debug_bus_cmd_ready = IBusCachedPlugin_injectionPort_ready; // @[DebugPlugin.scala 294:32]
           end
         end
         default : begin
@@ -6839,24 +6868,24 @@ module VexRiscvAxi4 (
   end
 
   always @(*) begin
-    debug_bus_rsp_data = DebugPlugin_busReadDataReg;
-    if(when_DebugPlugin_l244) begin
-      debug_bus_rsp_data[0] = DebugPlugin_resetIt;
-      debug_bus_rsp_data[1] = DebugPlugin_haltIt;
-      debug_bus_rsp_data[2] = DebugPlugin_isPipBusy;
-      debug_bus_rsp_data[3] = DebugPlugin_haltedByBreak;
-      debug_bus_rsp_data[4] = DebugPlugin_stepIt;
+    debug_bus_rsp_data = DebugPlugin_busReadDataReg; // @[DebugPlugin.scala 256:23]
+    if(when_DebugPlugin_l257) begin
+      debug_bus_rsp_data[0] = DebugPlugin_resetIt; // @[DebugPlugin.scala 258:28]
+      debug_bus_rsp_data[1] = DebugPlugin_haltIt; // @[DebugPlugin.scala 259:28]
+      debug_bus_rsp_data[2] = DebugPlugin_isPipBusy; // @[DebugPlugin.scala 260:28]
+      debug_bus_rsp_data[3] = DebugPlugin_haltedByBreak; // @[DebugPlugin.scala 261:28]
+      debug_bus_rsp_data[4] = DebugPlugin_stepIt; // @[DebugPlugin.scala 262:28]
     end
   end
 
-  assign when_DebugPlugin_l244 = (! _zz_when_DebugPlugin_l244);
+  assign when_DebugPlugin_l257 = (! _zz_when_DebugPlugin_l257); // @[BaseType.scala 299:24]
   always @(*) begin
-    IBusCachedPlugin_injectionPort_valid = 1'b0;
+    IBusCachedPlugin_injectionPort_valid = 1'b0; // @[DebugPlugin.scala 276:27]
     if(debug_bus_cmd_valid) begin
-      case(switch_DebugPlugin_l267)
+      case(switch_DebugPlugin_l280)
         6'h01 : begin
           if(debug_bus_cmd_payload_wr) begin
-            IBusCachedPlugin_injectionPort_valid = 1'b1;
+            IBusCachedPlugin_injectionPort_valid = 1'b1; // @[DebugPlugin.scala 293:35]
           end
         end
         default : begin
@@ -6865,1387 +6894,1401 @@ module VexRiscvAxi4 (
     end
   end
 
-  assign IBusCachedPlugin_injectionPort_payload = debug_bus_cmd_payload_data;
-  assign switch_DebugPlugin_l267 = debug_bus_cmd_payload_address[7 : 2];
-  assign when_DebugPlugin_l271 = debug_bus_cmd_payload_data[16];
-  assign when_DebugPlugin_l271_1 = debug_bus_cmd_payload_data[24];
-  assign when_DebugPlugin_l272 = debug_bus_cmd_payload_data[17];
-  assign when_DebugPlugin_l272_1 = debug_bus_cmd_payload_data[25];
-  assign when_DebugPlugin_l273 = debug_bus_cmd_payload_data[25];
-  assign when_DebugPlugin_l274 = debug_bus_cmd_payload_data[25];
-  assign when_DebugPlugin_l275 = debug_bus_cmd_payload_data[18];
-  assign when_DebugPlugin_l275_1 = debug_bus_cmd_payload_data[26];
-  assign when_DebugPlugin_l295 = (execute_arbitration_isValid && execute_DO_EBREAK);
-  assign when_DebugPlugin_l298 = (({writeBack_arbitration_isValid,memory_arbitration_isValid} != 2'b00) == 1'b0);
-  assign when_DebugPlugin_l311 = (DebugPlugin_stepIt && IBusCachedPlugin_incomingInstruction);
-  assign debug_resetOut = DebugPlugin_resetIt_regNext;
-  assign when_DebugPlugin_l331 = (DebugPlugin_haltIt || DebugPlugin_stepIt);
-  assign when_Pipeline_l124 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_1 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_2 = ((! writeBack_arbitration_isStuck) && (! CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack));
-  assign when_Pipeline_l124_3 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_4 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_5 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_6 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_7 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_8 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_9 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_10 = (! execute_arbitration_isStuck);
-  assign _zz_decode_to_execute_SRC1_CTRL_1 = decode_SRC1_CTRL;
-  assign _zz_decode_SRC1_CTRL = _zz_decode_SRC1_CTRL_1;
-  assign when_Pipeline_l124_11 = (! execute_arbitration_isStuck);
-  assign _zz_execute_SRC1_CTRL = decode_to_execute_SRC1_CTRL;
-  assign when_Pipeline_l124_12 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_13 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_14 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_15 = (! writeBack_arbitration_isStuck);
-  assign _zz_decode_to_execute_ALU_CTRL_1 = decode_ALU_CTRL;
-  assign _zz_decode_ALU_CTRL = _zz_decode_ALU_CTRL_1;
-  assign when_Pipeline_l124_16 = (! execute_arbitration_isStuck);
-  assign _zz_execute_ALU_CTRL = decode_to_execute_ALU_CTRL;
-  assign _zz_decode_to_execute_SRC2_CTRL_1 = decode_SRC2_CTRL;
-  assign _zz_decode_SRC2_CTRL = _zz_decode_SRC2_CTRL_1;
-  assign when_Pipeline_l124_17 = (! execute_arbitration_isStuck);
-  assign _zz_execute_SRC2_CTRL = decode_to_execute_SRC2_CTRL;
-  assign when_Pipeline_l124_18 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_19 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_20 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_21 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_22 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_23 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_24 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_25 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_26 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_27 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_28 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_29 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_30 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_31 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_32 = (! execute_arbitration_isStuck);
-  assign _zz_decode_to_execute_ALU_BITWISE_CTRL_1 = decode_ALU_BITWISE_CTRL;
-  assign _zz_decode_ALU_BITWISE_CTRL = _zz_decode_ALU_BITWISE_CTRL_1;
-  assign when_Pipeline_l124_33 = (! execute_arbitration_isStuck);
-  assign _zz_execute_ALU_BITWISE_CTRL = decode_to_execute_ALU_BITWISE_CTRL;
-  assign _zz_decode_to_execute_SHIFT_CTRL_1 = decode_SHIFT_CTRL;
-  assign _zz_execute_to_memory_SHIFT_CTRL_1 = execute_SHIFT_CTRL;
-  assign _zz_decode_SHIFT_CTRL = _zz_decode_SHIFT_CTRL_1;
-  assign when_Pipeline_l124_34 = (! execute_arbitration_isStuck);
-  assign _zz_execute_SHIFT_CTRL = decode_to_execute_SHIFT_CTRL;
-  assign when_Pipeline_l124_35 = (! memory_arbitration_isStuck);
-  assign _zz_memory_SHIFT_CTRL = execute_to_memory_SHIFT_CTRL;
-  assign when_Pipeline_l124_36 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_37 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_38 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_39 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_40 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_41 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_42 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_43 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_44 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_45 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_46 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_47 = (! memory_arbitration_isStuck);
-  assign _zz_decode_to_execute_ENV_CTRL_1 = decode_ENV_CTRL;
-  assign _zz_execute_to_memory_ENV_CTRL_1 = execute_ENV_CTRL;
-  assign _zz_memory_to_writeBack_ENV_CTRL_1 = memory_ENV_CTRL;
-  assign _zz_decode_ENV_CTRL = _zz_decode_ENV_CTRL_1;
-  assign when_Pipeline_l124_48 = (! execute_arbitration_isStuck);
-  assign _zz_execute_ENV_CTRL = decode_to_execute_ENV_CTRL;
-  assign when_Pipeline_l124_49 = (! memory_arbitration_isStuck);
-  assign _zz_memory_ENV_CTRL = execute_to_memory_ENV_CTRL;
-  assign when_Pipeline_l124_50 = (! writeBack_arbitration_isStuck);
-  assign _zz_writeBack_ENV_CTRL = memory_to_writeBack_ENV_CTRL;
-  assign when_Pipeline_l124_51 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_52 = (! execute_arbitration_isStuck);
-  assign _zz_decode_to_execute_BRANCH_CTRL_1 = decode_BRANCH_CTRL;
-  assign _zz_decode_BRANCH_CTRL_1 = _zz_decode_BRANCH_CTRL;
-  assign when_Pipeline_l124_53 = (! execute_arbitration_isStuck);
-  assign _zz_execute_BRANCH_CTRL = decode_to_execute_BRANCH_CTRL;
-  assign when_Pipeline_l124_54 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_55 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_56 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_57 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_58 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_59 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_60 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_61 = (! execute_arbitration_isStuck);
-  assign when_Pipeline_l124_62 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_63 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_64 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_65 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_66 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_67 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_68 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_69 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_70 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_71 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_72 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_73 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_74 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_75 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_76 = (! memory_arbitration_isStuck);
-  assign when_Pipeline_l124_77 = (! writeBack_arbitration_isStuck);
-  assign when_Pipeline_l124_78 = (! writeBack_arbitration_isStuck);
-  assign decode_arbitration_isFlushed = (({writeBack_arbitration_flushNext,{memory_arbitration_flushNext,execute_arbitration_flushNext}} != 3'b000) || ({writeBack_arbitration_flushIt,{memory_arbitration_flushIt,{execute_arbitration_flushIt,decode_arbitration_flushIt}}} != 4'b0000));
-  assign execute_arbitration_isFlushed = (({writeBack_arbitration_flushNext,memory_arbitration_flushNext} != 2'b00) || ({writeBack_arbitration_flushIt,{memory_arbitration_flushIt,execute_arbitration_flushIt}} != 3'b000));
-  assign memory_arbitration_isFlushed = ((writeBack_arbitration_flushNext != 1'b0) || ({writeBack_arbitration_flushIt,memory_arbitration_flushIt} != 2'b00));
-  assign writeBack_arbitration_isFlushed = (1'b0 || (writeBack_arbitration_flushIt != 1'b0));
-  assign decode_arbitration_isStuckByOthers = (decode_arbitration_haltByOther || (((1'b0 || execute_arbitration_isStuck) || memory_arbitration_isStuck) || writeBack_arbitration_isStuck));
-  assign decode_arbitration_isStuck = (decode_arbitration_haltItself || decode_arbitration_isStuckByOthers);
-  assign decode_arbitration_isMoving = ((! decode_arbitration_isStuck) && (! decode_arbitration_removeIt));
-  assign decode_arbitration_isFiring = ((decode_arbitration_isValid && (! decode_arbitration_isStuck)) && (! decode_arbitration_removeIt));
-  assign execute_arbitration_isStuckByOthers = (execute_arbitration_haltByOther || ((1'b0 || memory_arbitration_isStuck) || writeBack_arbitration_isStuck));
-  assign execute_arbitration_isStuck = (execute_arbitration_haltItself || execute_arbitration_isStuckByOthers);
-  assign execute_arbitration_isMoving = ((! execute_arbitration_isStuck) && (! execute_arbitration_removeIt));
-  assign execute_arbitration_isFiring = ((execute_arbitration_isValid && (! execute_arbitration_isStuck)) && (! execute_arbitration_removeIt));
-  assign memory_arbitration_isStuckByOthers = (memory_arbitration_haltByOther || (1'b0 || writeBack_arbitration_isStuck));
-  assign memory_arbitration_isStuck = (memory_arbitration_haltItself || memory_arbitration_isStuckByOthers);
-  assign memory_arbitration_isMoving = ((! memory_arbitration_isStuck) && (! memory_arbitration_removeIt));
-  assign memory_arbitration_isFiring = ((memory_arbitration_isValid && (! memory_arbitration_isStuck)) && (! memory_arbitration_removeIt));
-  assign writeBack_arbitration_isStuckByOthers = (writeBack_arbitration_haltByOther || 1'b0);
-  assign writeBack_arbitration_isStuck = (writeBack_arbitration_haltItself || writeBack_arbitration_isStuckByOthers);
-  assign writeBack_arbitration_isMoving = ((! writeBack_arbitration_isStuck) && (! writeBack_arbitration_removeIt));
-  assign writeBack_arbitration_isFiring = ((writeBack_arbitration_isValid && (! writeBack_arbitration_isStuck)) && (! writeBack_arbitration_removeIt));
-  assign when_Pipeline_l151 = ((! execute_arbitration_isStuck) || execute_arbitration_removeIt);
-  assign when_Pipeline_l154 = ((! decode_arbitration_isStuck) && (! decode_arbitration_removeIt));
-  assign when_Pipeline_l151_1 = ((! memory_arbitration_isStuck) || memory_arbitration_removeIt);
-  assign when_Pipeline_l154_1 = ((! execute_arbitration_isStuck) && (! execute_arbitration_removeIt));
-  assign when_Pipeline_l151_2 = ((! writeBack_arbitration_isStuck) || writeBack_arbitration_removeIt);
-  assign when_Pipeline_l154_2 = ((! memory_arbitration_isStuck) && (! memory_arbitration_removeIt));
+  assign IBusCachedPlugin_injectionPort_payload = debug_bus_cmd_payload_data; // @[DebugPlugin.scala 277:29]
+  assign switch_DebugPlugin_l280 = debug_bus_cmd_payload_address[7 : 2]; // @[BaseType.scala 299:24]
+  assign when_DebugPlugin_l284 = debug_bus_cmd_payload_data[16]; // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l284_1 = debug_bus_cmd_payload_data[24]; // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l285 = debug_bus_cmd_payload_data[17]; // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l285_1 = debug_bus_cmd_payload_data[25]; // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l286 = debug_bus_cmd_payload_data[25]; // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l287 = debug_bus_cmd_payload_data[25]; // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l288 = debug_bus_cmd_payload_data[18]; // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l288_1 = debug_bus_cmd_payload_data[26]; // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l308 = (execute_arbitration_isValid && execute_DO_EBREAK); // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l311 = (({writeBack_arbitration_isValid,memory_arbitration_isValid} != 2'b00) == 1'b0); // @[BaseType.scala 305:24]
+  assign when_DebugPlugin_l324 = (DebugPlugin_stepIt && IBusCachedPlugin_incomingInstruction); // @[BaseType.scala 305:24]
+  assign debug_resetOut = DebugPlugin_resetIt_regNext; // @[DebugPlugin.scala 341:19]
+  assign when_DebugPlugin_l344 = (DebugPlugin_haltIt || DebugPlugin_stepIt); // @[BaseType.scala 305:24]
+  assign when_Pipeline_l124 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_1 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_2 = ((! writeBack_arbitration_isStuck) && (! CsrPlugin_exceptionPortCtrl_exceptionValids_writeBack)); // @[BaseType.scala 305:24]
+  assign when_Pipeline_l124_3 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_4 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_5 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_6 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_7 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_8 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_9 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_10 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_decode_to_execute_SRC1_CTRL_1 = decode_SRC1_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_decode_SRC1_CTRL = _zz_decode_SRC1_CTRL_1; // @[Pipeline.scala 121:26]
+  assign when_Pipeline_l124_11 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_execute_SRC1_CTRL = decode_to_execute_SRC1_CTRL; // @[Pipeline.scala 124:26]
+  assign when_Pipeline_l124_12 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_13 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_14 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_15 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_decode_to_execute_ALU_CTRL_1 = decode_ALU_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_decode_ALU_CTRL = _zz_decode_ALU_CTRL_1; // @[Pipeline.scala 121:26]
+  assign when_Pipeline_l124_16 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_execute_ALU_CTRL = decode_to_execute_ALU_CTRL; // @[Pipeline.scala 124:26]
+  assign _zz_decode_to_execute_SRC2_CTRL_1 = decode_SRC2_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_decode_SRC2_CTRL = _zz_decode_SRC2_CTRL_1; // @[Pipeline.scala 121:26]
+  assign when_Pipeline_l124_17 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_execute_SRC2_CTRL = decode_to_execute_SRC2_CTRL; // @[Pipeline.scala 124:26]
+  assign when_Pipeline_l124_18 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_19 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_20 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_21 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_22 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_23 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_24 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_25 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_26 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_27 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_28 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_29 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_30 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_31 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_32 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_decode_to_execute_ALU_BITWISE_CTRL_1 = decode_ALU_BITWISE_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_decode_ALU_BITWISE_CTRL = _zz_decode_ALU_BITWISE_CTRL_1; // @[Pipeline.scala 121:26]
+  assign when_Pipeline_l124_33 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_execute_ALU_BITWISE_CTRL = decode_to_execute_ALU_BITWISE_CTRL; // @[Pipeline.scala 124:26]
+  assign _zz_decode_to_execute_SHIFT_CTRL_1 = decode_SHIFT_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_execute_to_memory_SHIFT_CTRL_1 = execute_SHIFT_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_decode_SHIFT_CTRL = _zz_decode_SHIFT_CTRL_1; // @[Pipeline.scala 121:26]
+  assign when_Pipeline_l124_34 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_execute_SHIFT_CTRL = decode_to_execute_SHIFT_CTRL; // @[Pipeline.scala 124:26]
+  assign when_Pipeline_l124_35 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_memory_SHIFT_CTRL = execute_to_memory_SHIFT_CTRL; // @[Pipeline.scala 124:26]
+  assign when_Pipeline_l124_36 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_37 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_38 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_39 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_40 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_41 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_42 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_43 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_44 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_45 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_46 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_47 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_decode_to_execute_ENV_CTRL_1 = decode_ENV_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_execute_to_memory_ENV_CTRL_1 = execute_ENV_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_memory_to_writeBack_ENV_CTRL_1 = memory_ENV_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_decode_ENV_CTRL = _zz_decode_ENV_CTRL_1; // @[Pipeline.scala 121:26]
+  assign when_Pipeline_l124_48 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_execute_ENV_CTRL = decode_to_execute_ENV_CTRL; // @[Pipeline.scala 124:26]
+  assign when_Pipeline_l124_49 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_memory_ENV_CTRL = execute_to_memory_ENV_CTRL; // @[Pipeline.scala 124:26]
+  assign when_Pipeline_l124_50 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_writeBack_ENV_CTRL = memory_to_writeBack_ENV_CTRL; // @[Pipeline.scala 124:26]
+  assign when_Pipeline_l124_51 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_52 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_decode_to_execute_BRANCH_CTRL_1 = decode_BRANCH_CTRL; // @[Pipeline.scala 110:25]
+  assign _zz_decode_BRANCH_CTRL_1 = _zz_decode_BRANCH_CTRL; // @[Pipeline.scala 121:26]
+  assign when_Pipeline_l124_53 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_execute_BRANCH_CTRL = decode_to_execute_BRANCH_CTRL; // @[Pipeline.scala 124:26]
+  assign when_Pipeline_l124_54 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_55 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_56 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_57 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_58 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_59 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_60 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_61 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_62 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_63 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_64 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_65 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_66 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_67 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_68 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_69 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_70 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_71 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_72 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_73 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_74 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_75 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_76 = (! memory_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_77 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Pipeline_l124_78 = (! writeBack_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign decode_arbitration_isFlushed = (({writeBack_arbitration_flushNext,{memory_arbitration_flushNext,execute_arbitration_flushNext}} != 3'b000) || ({writeBack_arbitration_flushIt,{memory_arbitration_flushIt,{execute_arbitration_flushIt,decode_arbitration_flushIt}}} != 4'b0000)); // @[Pipeline.scala 132:35]
+  assign execute_arbitration_isFlushed = (({writeBack_arbitration_flushNext,memory_arbitration_flushNext} != 2'b00) || ({writeBack_arbitration_flushIt,{memory_arbitration_flushIt,execute_arbitration_flushIt}} != 3'b000)); // @[Pipeline.scala 132:35]
+  assign memory_arbitration_isFlushed = ((writeBack_arbitration_flushNext != 1'b0) || ({writeBack_arbitration_flushIt,memory_arbitration_flushIt} != 2'b00)); // @[Pipeline.scala 132:35]
+  assign writeBack_arbitration_isFlushed = (1'b0 || (writeBack_arbitration_flushIt != 1'b0)); // @[Pipeline.scala 132:35]
+  assign decode_arbitration_isStuckByOthers = (decode_arbitration_haltByOther || (((1'b0 || execute_arbitration_isStuck) || memory_arbitration_isStuck) || writeBack_arbitration_isStuck)); // @[Pipeline.scala 141:41]
+  assign decode_arbitration_isStuck = (decode_arbitration_haltItself || decode_arbitration_isStuckByOthers); // @[Pipeline.scala 142:33]
+  assign decode_arbitration_isMoving = ((! decode_arbitration_isStuck) && (! decode_arbitration_removeIt)); // @[Pipeline.scala 143:34]
+  assign decode_arbitration_isFiring = ((decode_arbitration_isValid && (! decode_arbitration_isStuck)) && (! decode_arbitration_removeIt)); // @[Pipeline.scala 144:34]
+  assign execute_arbitration_isStuckByOthers = (execute_arbitration_haltByOther || ((1'b0 || memory_arbitration_isStuck) || writeBack_arbitration_isStuck)); // @[Pipeline.scala 141:41]
+  assign execute_arbitration_isStuck = (execute_arbitration_haltItself || execute_arbitration_isStuckByOthers); // @[Pipeline.scala 142:33]
+  assign execute_arbitration_isMoving = ((! execute_arbitration_isStuck) && (! execute_arbitration_removeIt)); // @[Pipeline.scala 143:34]
+  assign execute_arbitration_isFiring = ((execute_arbitration_isValid && (! execute_arbitration_isStuck)) && (! execute_arbitration_removeIt)); // @[Pipeline.scala 144:34]
+  assign memory_arbitration_isStuckByOthers = (memory_arbitration_haltByOther || (1'b0 || writeBack_arbitration_isStuck)); // @[Pipeline.scala 141:41]
+  assign memory_arbitration_isStuck = (memory_arbitration_haltItself || memory_arbitration_isStuckByOthers); // @[Pipeline.scala 142:33]
+  assign memory_arbitration_isMoving = ((! memory_arbitration_isStuck) && (! memory_arbitration_removeIt)); // @[Pipeline.scala 143:34]
+  assign memory_arbitration_isFiring = ((memory_arbitration_isValid && (! memory_arbitration_isStuck)) && (! memory_arbitration_removeIt)); // @[Pipeline.scala 144:34]
+  assign writeBack_arbitration_isStuckByOthers = (writeBack_arbitration_haltByOther || 1'b0); // @[Pipeline.scala 141:41]
+  assign writeBack_arbitration_isStuck = (writeBack_arbitration_haltItself || writeBack_arbitration_isStuckByOthers); // @[Pipeline.scala 142:33]
+  assign writeBack_arbitration_isMoving = ((! writeBack_arbitration_isStuck) && (! writeBack_arbitration_removeIt)); // @[Pipeline.scala 143:34]
+  assign writeBack_arbitration_isFiring = ((writeBack_arbitration_isValid && (! writeBack_arbitration_isStuck)) && (! writeBack_arbitration_removeIt)); // @[Pipeline.scala 144:34]
+  assign when_Pipeline_l151 = ((! execute_arbitration_isStuck) || execute_arbitration_removeIt); // @[BaseType.scala 305:24]
+  assign when_Pipeline_l154 = ((! decode_arbitration_isStuck) && (! decode_arbitration_removeIt)); // @[BaseType.scala 305:24]
+  assign when_Pipeline_l151_1 = ((! memory_arbitration_isStuck) || memory_arbitration_removeIt); // @[BaseType.scala 305:24]
+  assign when_Pipeline_l154_1 = ((! execute_arbitration_isStuck) && (! execute_arbitration_removeIt)); // @[BaseType.scala 305:24]
+  assign when_Pipeline_l151_2 = ((! writeBack_arbitration_isStuck) || writeBack_arbitration_removeIt); // @[BaseType.scala 305:24]
+  assign when_Pipeline_l154_2 = ((! memory_arbitration_isStuck) && (! memory_arbitration_removeIt)); // @[BaseType.scala 305:24]
   always @(*) begin
-    IBusCachedPlugin_injectionPort_ready = 1'b0;
+    IBusCachedPlugin_injectionPort_ready = 1'b0; // @[Fetcher.scala 361:31]
     case(switch_Fetcher_l365)
       3'b100 : begin
-        IBusCachedPlugin_injectionPort_ready = 1'b1;
+        IBusCachedPlugin_injectionPort_ready = 1'b1; // @[Fetcher.scala 386:35]
       end
       default : begin
       end
     endcase
   end
 
-  assign when_Fetcher_l363 = (switch_Fetcher_l365 != 3'b000);
-  assign when_Fetcher_l381 = (! decode_arbitration_isStuck);
-  assign when_Fetcher_l407 = (switch_Fetcher_l365 != 3'b000);
-  assign when_CsrPlugin_l1277 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_1 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_2 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_3 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_4 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_5 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_6 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_7 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_8 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_9 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_10 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_11 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_12 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_13 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_14 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_15 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_16 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_17 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_18 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_19 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_20 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_21 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_22 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_23 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_24 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_25 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_26 = (! execute_arbitration_isStuck);
-  assign when_CsrPlugin_l1277_27 = (! execute_arbitration_isStuck);
+  assign when_Fetcher_l363 = (switch_Fetcher_l365 != 3'b000); // @[BaseType.scala 305:24]
+  assign when_Fetcher_l381 = (! decode_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_Fetcher_l407 = (switch_Fetcher_l365 != 3'b000); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1589 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_1 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_2 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_3 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_4 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_5 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_6 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_7 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_8 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_9 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_10 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_11 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_12 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_13 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_14 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_15 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_16 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_17 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_18 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_19 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_20 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_21 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_22 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_23 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_24 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_25 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_26 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
+  assign when_CsrPlugin_l1589_27 = (! execute_arbitration_isStuck); // @[BaseType.scala 299:24]
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_4 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_2 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_3264) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_4[12 : 0] = 13'h1000;
-      _zz_CsrPlugin_csrMapping_readDataInit_4[25 : 20] = 6'h20;
+      _zz_CsrPlugin_csrMapping_readDataInit_2[12 : 0] = 13'h1000; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_2[25 : 20] = 6'h20; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_5 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_3 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_3857) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_5[0 : 0] = 1'b1;
+      _zz_CsrPlugin_csrMapping_readDataInit_3[0 : 0] = 1'b1; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_6 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_4 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_3858) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_6[1 : 0] = 2'b10;
+      _zz_CsrPlugin_csrMapping_readDataInit_4[1 : 0] = 2'b10; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_7 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_5 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_3859) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_7[1 : 0] = 2'b11;
+      _zz_CsrPlugin_csrMapping_readDataInit_5[1 : 0] = 2'b11; // @[CsrPlugin.scala 1598:138]
     end
   end
 
-  assign switch_CsrPlugin_l723 = CsrPlugin_csrMapping_writeDataSignal[12 : 11];
+  assign switch_CsrPlugin_l980 = CsrPlugin_csrMapping_writeDataSignal[12 : 11]; // @[BaseType.scala 299:24]
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_8 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_6 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_768) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_8[7 : 7] = CsrPlugin_mstatus_MPIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_8[3 : 3] = CsrPlugin_mstatus_MIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_8[12 : 11] = CsrPlugin_mstatus_MPP;
-      _zz_CsrPlugin_csrMapping_readDataInit_8[8 : 8] = CsrPlugin_sstatus_SPP;
-      _zz_CsrPlugin_csrMapping_readDataInit_8[5 : 5] = CsrPlugin_sstatus_SPIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_8[1 : 1] = CsrPlugin_sstatus_SIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_8[19 : 19] = MmuPlugin_status_mxr;
-      _zz_CsrPlugin_csrMapping_readDataInit_8[18 : 18] = MmuPlugin_status_sum;
-      _zz_CsrPlugin_csrMapping_readDataInit_8[17 : 17] = MmuPlugin_status_mprv;
+      _zz_CsrPlugin_csrMapping_readDataInit_6[7 : 7] = CsrPlugin_mstatus_MPIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_6[3 : 3] = CsrPlugin_mstatus_MIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_6[12 : 11] = CsrPlugin_mstatus_MPP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_6[8 : 8] = CsrPlugin_sstatus_SPP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_6[5 : 5] = CsrPlugin_sstatus_SPIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_6[1 : 1] = CsrPlugin_sstatus_SIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_6[19 : 19] = MmuPlugin_status_mxr; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_6[18 : 18] = MmuPlugin_status_sum; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_6[17 : 17] = MmuPlugin_status_mprv; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_9 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_7 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_836) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_9[11 : 11] = CsrPlugin_mip_MEIP;
-      _zz_CsrPlugin_csrMapping_readDataInit_9[7 : 7] = CsrPlugin_mip_MTIP;
-      _zz_CsrPlugin_csrMapping_readDataInit_9[3 : 3] = CsrPlugin_mip_MSIP;
-      _zz_CsrPlugin_csrMapping_readDataInit_9[5 : 5] = CsrPlugin_sip_STIP;
-      _zz_CsrPlugin_csrMapping_readDataInit_9[1 : 1] = CsrPlugin_sip_SSIP;
-      _zz_CsrPlugin_csrMapping_readDataInit_9[9 : 9] = CsrPlugin_sip_SEIP_OR;
+      _zz_CsrPlugin_csrMapping_readDataInit_7[11 : 11] = CsrPlugin_mip_MEIP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_7[7 : 7] = CsrPlugin_mip_MTIP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_7[3 : 3] = CsrPlugin_mip_MSIP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_7[5 : 5] = CsrPlugin_sip_STIP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_7[1 : 1] = CsrPlugin_sip_SSIP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_7[9 : 9] = CsrPlugin_sip_SEIP_OR; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_10 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_8 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_772) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_10[11 : 11] = CsrPlugin_mie_MEIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_10[7 : 7] = CsrPlugin_mie_MTIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_10[3 : 3] = CsrPlugin_mie_MSIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_10[9 : 9] = CsrPlugin_sie_SEIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_10[5 : 5] = CsrPlugin_sie_STIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_10[1 : 1] = CsrPlugin_sie_SSIE;
+      _zz_CsrPlugin_csrMapping_readDataInit_8[11 : 11] = CsrPlugin_mie_MEIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_8[7 : 7] = CsrPlugin_mie_MTIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_8[3 : 3] = CsrPlugin_mie_MSIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_8[9 : 9] = CsrPlugin_sie_SEIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_8[5 : 5] = CsrPlugin_sie_STIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_8[1 : 1] = CsrPlugin_sie_SSIE; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_11 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_9 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_833) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_11[31 : 0] = CsrPlugin_mepc;
+      _zz_CsrPlugin_csrMapping_readDataInit_9[31 : 0] = CsrPlugin_mepc; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_12 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_10 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_832) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_12[31 : 0] = CsrPlugin_mscratch;
+      _zz_CsrPlugin_csrMapping_readDataInit_10[31 : 0] = CsrPlugin_mscratch; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_13 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_11 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_834) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_13[31 : 31] = CsrPlugin_mcause_interrupt;
-      _zz_CsrPlugin_csrMapping_readDataInit_13[3 : 0] = CsrPlugin_mcause_exceptionCode;
+      _zz_CsrPlugin_csrMapping_readDataInit_11[31 : 31] = CsrPlugin_mcause_interrupt; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_11[3 : 0] = CsrPlugin_mcause_exceptionCode; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_14 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_12 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_835) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_14[31 : 0] = CsrPlugin_mtval;
+      _zz_CsrPlugin_csrMapping_readDataInit_12[31 : 0] = CsrPlugin_mtval; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_15 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_13 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_256) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_15[8 : 8] = CsrPlugin_sstatus_SPP;
-      _zz_CsrPlugin_csrMapping_readDataInit_15[5 : 5] = CsrPlugin_sstatus_SPIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_15[1 : 1] = CsrPlugin_sstatus_SIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_15[19 : 19] = MmuPlugin_status_mxr;
-      _zz_CsrPlugin_csrMapping_readDataInit_15[18 : 18] = MmuPlugin_status_sum;
-      _zz_CsrPlugin_csrMapping_readDataInit_15[17 : 17] = MmuPlugin_status_mprv;
+      _zz_CsrPlugin_csrMapping_readDataInit_13[8 : 8] = CsrPlugin_sstatus_SPP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_13[5 : 5] = CsrPlugin_sstatus_SPIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_13[1 : 1] = CsrPlugin_sstatus_SIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_13[19 : 19] = MmuPlugin_status_mxr; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_13[18 : 18] = MmuPlugin_status_sum; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_13[17 : 17] = MmuPlugin_status_mprv; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_16 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_14 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_324) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_16[5 : 5] = CsrPlugin_sip_STIP;
-      _zz_CsrPlugin_csrMapping_readDataInit_16[1 : 1] = CsrPlugin_sip_SSIP;
-      _zz_CsrPlugin_csrMapping_readDataInit_16[9 : 9] = CsrPlugin_sip_SEIP_OR;
+      _zz_CsrPlugin_csrMapping_readDataInit_14[5 : 5] = CsrPlugin_sip_STIP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_14[1 : 1] = CsrPlugin_sip_SSIP; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_14[9 : 9] = CsrPlugin_sip_SEIP_OR; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_17 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_15 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_260) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_17[9 : 9] = CsrPlugin_sie_SEIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_17[5 : 5] = CsrPlugin_sie_STIE;
-      _zz_CsrPlugin_csrMapping_readDataInit_17[1 : 1] = CsrPlugin_sie_SSIE;
+      _zz_CsrPlugin_csrMapping_readDataInit_15[9 : 9] = CsrPlugin_sie_SEIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_15[5 : 5] = CsrPlugin_sie_STIE; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_15[1 : 1] = CsrPlugin_sie_SSIE; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_18 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_16 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_261) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_18[31 : 2] = CsrPlugin_stvec_base;
-      _zz_CsrPlugin_csrMapping_readDataInit_18[1 : 0] = CsrPlugin_stvec_mode;
+      _zz_CsrPlugin_csrMapping_readDataInit_16[31 : 2] = CsrPlugin_stvec_base; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_16[1 : 0] = CsrPlugin_stvec_mode; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_19 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_17 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_321) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_19[31 : 0] = CsrPlugin_sepc;
+      _zz_CsrPlugin_csrMapping_readDataInit_17[31 : 0] = CsrPlugin_sepc; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_20 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_18 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_320) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_20[31 : 0] = CsrPlugin_sscratch;
+      _zz_CsrPlugin_csrMapping_readDataInit_18[31 : 0] = CsrPlugin_sscratch; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_21 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_19 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_322) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_21[31 : 31] = CsrPlugin_scause_interrupt;
-      _zz_CsrPlugin_csrMapping_readDataInit_21[3 : 0] = CsrPlugin_scause_exceptionCode;
+      _zz_CsrPlugin_csrMapping_readDataInit_19[31 : 31] = CsrPlugin_scause_interrupt; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_19[3 : 0] = CsrPlugin_scause_exceptionCode; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_22 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_20 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_323) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_22[31 : 0] = CsrPlugin_stval;
+      _zz_CsrPlugin_csrMapping_readDataInit_20[31 : 0] = CsrPlugin_stval; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_23 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_21 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_384) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_23[31 : 31] = MmuPlugin_satp_mode;
-      _zz_CsrPlugin_csrMapping_readDataInit_23[30 : 22] = MmuPlugin_satp_asid;
-      _zz_CsrPlugin_csrMapping_readDataInit_23[19 : 0] = MmuPlugin_satp_ppn;
+      _zz_CsrPlugin_csrMapping_readDataInit_21[31 : 31] = MmuPlugin_satp_mode; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_21[30 : 22] = MmuPlugin_satp_asid; // @[CsrPlugin.scala 1598:138]
+      _zz_CsrPlugin_csrMapping_readDataInit_21[19 : 0] = MmuPlugin_satp_ppn; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_24 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_22 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_3008) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_24[31 : 0] = _zz_CsrPlugin_csrMapping_readDataInit;
+      _zz_CsrPlugin_csrMapping_readDataInit_22[31 : 0] = _zz_CsrPlugin_csrMapping_readDataInit; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_25 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_23 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_4032) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_25[31 : 0] = _zz_CsrPlugin_csrMapping_readDataInit_1;
+      _zz_CsrPlugin_csrMapping_readDataInit_23[31 : 0] = _zz_externalInterrupt; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_26 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_24 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_2496) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_26[31 : 0] = _zz_CsrPlugin_csrMapping_readDataInit_2;
+      _zz_CsrPlugin_csrMapping_readDataInit_24[31 : 0] = _zz_CsrPlugin_csrMapping_readDataInit_1; // @[CsrPlugin.scala 1598:138]
     end
   end
 
   always @(*) begin
-    _zz_CsrPlugin_csrMapping_readDataInit_27 = 32'h0;
+    _zz_CsrPlugin_csrMapping_readDataInit_25 = 32'h0; // @[Expression.scala 2301:18]
     if(execute_CsrPlugin_csr_3520) begin
-      _zz_CsrPlugin_csrMapping_readDataInit_27[31 : 0] = _zz_CsrPlugin_csrMapping_readDataInit_3;
+      _zz_CsrPlugin_csrMapping_readDataInit_25[31 : 0] = _zz_externalInterruptS; // @[CsrPlugin.scala 1598:138]
     end
   end
 
-  assign CsrPlugin_csrMapping_readDataInit = (((((_zz_CsrPlugin_csrMapping_readDataInit_4 | _zz_CsrPlugin_csrMapping_readDataInit_5) | (_zz_CsrPlugin_csrMapping_readDataInit_6 | _zz_CsrPlugin_csrMapping_readDataInit_7)) | ((_zz_CsrPlugin_csrMapping_readDataInit_28 | _zz_CsrPlugin_csrMapping_readDataInit_8) | (_zz_CsrPlugin_csrMapping_readDataInit_9 | _zz_CsrPlugin_csrMapping_readDataInit_10))) | (((_zz_CsrPlugin_csrMapping_readDataInit_11 | _zz_CsrPlugin_csrMapping_readDataInit_12) | (_zz_CsrPlugin_csrMapping_readDataInit_13 | _zz_CsrPlugin_csrMapping_readDataInit_14)) | ((_zz_CsrPlugin_csrMapping_readDataInit_15 | _zz_CsrPlugin_csrMapping_readDataInit_16) | (_zz_CsrPlugin_csrMapping_readDataInit_17 | _zz_CsrPlugin_csrMapping_readDataInit_18)))) | ((((_zz_CsrPlugin_csrMapping_readDataInit_19 | _zz_CsrPlugin_csrMapping_readDataInit_20) | (_zz_CsrPlugin_csrMapping_readDataInit_21 | _zz_CsrPlugin_csrMapping_readDataInit_22)) | ((_zz_CsrPlugin_csrMapping_readDataInit_23 | _zz_CsrPlugin_csrMapping_readDataInit_24) | (_zz_CsrPlugin_csrMapping_readDataInit_25 | _zz_CsrPlugin_csrMapping_readDataInit_26))) | _zz_CsrPlugin_csrMapping_readDataInit_27));
-  assign when_CsrPlugin_l1310 = (CsrPlugin_privilege < execute_CsrPlugin_csrAddress[9 : 8]);
-  assign when_CsrPlugin_l1315 = ((! execute_arbitration_isValid) || (! execute_IS_CSR));
-  assign iBus_cmd_ready = iBusAxi_ar_ready;
-  assign iBus_rsp_valid = iBusAxi_r_valid;
-  assign iBus_rsp_payload_data = iBusAxi_r_payload_data;
-  assign iBus_rsp_payload_error = (! (iBusAxi_r_payload_resp == 2'b00));
-  assign iBusAxi_ar_valid = iBus_cmd_valid;
-  assign iBusAxi_ar_payload_addr = iBus_cmd_payload_address;
-  assign _zz_iBusAxi_ar_payload_id[0 : 0] = 1'b0;
-  assign iBusAxi_ar_payload_id = _zz_iBusAxi_ar_payload_id;
-  assign _zz_iBusAxi_ar_payload_region[3 : 0] = 4'b0000;
-  assign iBusAxi_ar_payload_region = _zz_iBusAxi_ar_payload_region;
-  assign iBusAxi_ar_payload_len = 8'h03;
-  assign iBusAxi_ar_payload_size = 3'b011;
-  assign iBusAxi_ar_payload_burst = 2'b01;
-  assign iBusAxi_ar_payload_lock = 1'b0;
-  assign iBusAxi_ar_payload_cache = 4'b1111;
-  assign iBusAxi_ar_payload_qos = 4'b0000;
-  assign iBusAxi_ar_payload_prot = 3'b110;
-  assign iBusAxi_r_ready = 1'b1;
-  assign dBus_cmd_fire = (dBus_cmd_valid && dBus_cmd_ready);
-  assign when_Utils_l630 = (dBus_cmd_fire && dBus_cmd_payload_wr);
-  assign dbus_axi_b_fire = (dbus_axi_b_valid && dbus_axi_b_ready);
+  assign CsrPlugin_csrMapping_readDataInit = (((((_zz_CsrPlugin_csrMapping_readDataInit_2 | _zz_CsrPlugin_csrMapping_readDataInit_3) | (_zz_CsrPlugin_csrMapping_readDataInit_4 | _zz_CsrPlugin_csrMapping_readDataInit_5)) | ((_zz_CsrPlugin_csrMapping_readDataInit_26 | _zz_CsrPlugin_csrMapping_readDataInit_6) | (_zz_CsrPlugin_csrMapping_readDataInit_7 | _zz_CsrPlugin_csrMapping_readDataInit_8))) | (((_zz_CsrPlugin_csrMapping_readDataInit_9 | _zz_CsrPlugin_csrMapping_readDataInit_10) | (_zz_CsrPlugin_csrMapping_readDataInit_11 | _zz_CsrPlugin_csrMapping_readDataInit_12)) | ((_zz_CsrPlugin_csrMapping_readDataInit_13 | _zz_CsrPlugin_csrMapping_readDataInit_14) | (_zz_CsrPlugin_csrMapping_readDataInit_15 | _zz_CsrPlugin_csrMapping_readDataInit_16)))) | ((((_zz_CsrPlugin_csrMapping_readDataInit_17 | _zz_CsrPlugin_csrMapping_readDataInit_18) | (_zz_CsrPlugin_csrMapping_readDataInit_19 | _zz_CsrPlugin_csrMapping_readDataInit_20)) | ((_zz_CsrPlugin_csrMapping_readDataInit_21 | _zz_CsrPlugin_csrMapping_readDataInit_22) | (_zz_CsrPlugin_csrMapping_readDataInit_23 | _zz_CsrPlugin_csrMapping_readDataInit_24))) | _zz_CsrPlugin_csrMapping_readDataInit_25)); // @[CsrPlugin.scala 1604:39]
   always @(*) begin
-    _zz_when_Utils_l658 = 1'b0;
-    if(when_Utils_l630) begin
-      _zz_when_Utils_l658 = 1'b1;
+    when_CsrPlugin_l1625 = 1'b0; // @[CsrPlugin.scala 1622:27]
+    if(when_CsrPlugin_l1623) begin
+      when_CsrPlugin_l1625 = 1'b1; // @[CsrPlugin.scala 1623:21]
+    end
+  end
+
+  assign when_CsrPlugin_l1623 = (CsrPlugin_privilege < execute_CsrPlugin_csrAddress[9 : 8]); // @[BaseType.scala 305:24]
+  assign when_CsrPlugin_l1631 = ((! execute_arbitration_isValid) || (! execute_IS_CSR)); // @[BaseType.scala 305:24]
+  assign iBus_cmd_ready = iBusAxi_ar_ready; // @[InstructionCache.scala 185:15]
+  assign iBus_rsp_valid = iBusAxi_r_valid; // @[InstructionCache.scala 186:15]
+  assign iBus_rsp_payload_data = iBusAxi_r_payload_data; // @[InstructionCache.scala 187:15]
+  assign iBus_rsp_payload_error = (! (iBusAxi_r_payload_resp == 2'b00)); // @[InstructionCache.scala 188:15]
+  assign iBusAxi_ar_valid = iBus_cmd_valid; // @[Stream.scala 303:16]
+  assign iBusAxi_ar_payload_addr = iBus_cmd_payload_address; // @[Axi4Channel.scala 358:15]
+  assign _zz_iBusAxi_ar_payload_id[0 : 0] = 1'b0; // @[Literal.scala 88:56]
+  assign iBusAxi_ar_payload_id = _zz_iBusAxi_ar_payload_id; // @[Axi4Channel.scala 347:56]
+  assign _zz_iBusAxi_ar_payload_region[3 : 0] = 4'b0000; // @[Literal.scala 88:56]
+  assign iBusAxi_ar_payload_region = _zz_iBusAxi_ar_payload_region; // @[Axi4Channel.scala 347:56]
+  assign iBusAxi_ar_payload_len = 8'h03; // @[Axi4Channel.scala 349:30]
+  assign iBusAxi_ar_payload_size = 3'b011; // @[Axi4Channel.scala 347:56]
+  assign iBusAxi_ar_payload_burst = 2'b01; // @[Axi4Channel.scala 349:30]
+  assign iBusAxi_ar_payload_lock = 1'b0; // @[Axi4Channel.scala 347:56]
+  assign iBusAxi_ar_payload_cache = 4'b1111; // @[Axi4Channel.scala 349:30]
+  assign iBusAxi_ar_payload_qos = 4'b0000; // @[Axi4Channel.scala 347:56]
+  assign iBusAxi_ar_payload_prot = 3'b110; // @[Axi4Channel.scala 349:30]
+  assign iBusAxi_r_ready = 1'b1; // @[Stream.scala 304:16]
+  assign dBus_cmd_fire = (dBus_cmd_valid && dBus_cmd_ready); // @[BaseType.scala 305:24]
+  assign when_Utils_l641 = (dBus_cmd_fire && dBus_cmd_payload_wr); // @[BaseType.scala 305:24]
+  assign dbus_axi_b_fire = (dbus_axi_b_valid && dbus_axi_b_ready); // @[BaseType.scala 305:24]
+  always @(*) begin
+    _zz_when_Utils_l669 = 1'b0; // @[Utils.scala 653:21]
+    if(when_Utils_l641) begin
+      _zz_when_Utils_l669 = 1'b1; // @[Utils.scala 656:39]
     end
   end
 
   always @(*) begin
-    _zz_when_Utils_l658_1 = 1'b0;
+    _zz_when_Utils_l669_1 = 1'b0; // @[Utils.scala 654:21]
     if(dbus_axi_b_fire) begin
-      _zz_when_Utils_l658_1 = 1'b1;
+      _zz_when_Utils_l669_1 = 1'b1; // @[Utils.scala 657:39]
     end
   end
 
-  assign when_Utils_l658 = (_zz_when_Utils_l658 && (! _zz_when_Utils_l658_1));
+  assign when_Utils_l669 = (_zz_when_Utils_l669 && (! _zz_when_Utils_l669_1)); // @[BaseType.scala 305:24]
   always @(*) begin
-    if(when_Utils_l658) begin
-      _zz_dBus_cmd_ready_1 = 3'b001;
+    if(when_Utils_l669) begin
+      _zz_dBus_cmd_ready_1 = 3'b001; // @[Utils.scala 670:20]
     end else begin
-      if(when_Utils_l660) begin
-        _zz_dBus_cmd_ready_1 = 3'b111;
+      if(when_Utils_l671) begin
+        _zz_dBus_cmd_ready_1 = 3'b111; // @[Utils.scala 672:20]
       end else begin
-        _zz_dBus_cmd_ready_1 = 3'b000;
+        _zz_dBus_cmd_ready_1 = 3'b000; // @[Utils.scala 674:20]
       end
     end
   end
 
-  assign when_Utils_l660 = ((! _zz_when_Utils_l658) && _zz_when_Utils_l658_1);
-  assign _zz_dBus_cmd_ready_2 = (! (((_zz_dBus_cmd_ready != 3'b000) && (! dBus_cmd_payload_wr)) || (_zz_dBus_cmd_ready == 3'b111)));
-  assign _zz_dbus_axi_arw_valid = (dBus_cmd_valid && _zz_dBus_cmd_ready_2);
-  assign dBus_cmd_ready = (_zz_dBus_cmd_ready_3 && _zz_dBus_cmd_ready_2);
-  assign _zz_dbus_axi_arw_payload_write = dBus_cmd_payload_wr;
-  assign _zz_dbus_axi_w_payload_last = dBus_cmd_payload_last;
+  assign when_Utils_l671 = ((! _zz_when_Utils_l669) && _zz_when_Utils_l669_1); // @[BaseType.scala 305:24]
+  assign _zz_dBus_cmd_ready_2 = (! (((_zz_dBus_cmd_ready != 3'b000) && (! dBus_cmd_payload_wr)) || (_zz_dBus_cmd_ready == 3'b111))); // @[BaseType.scala 299:24]
+  assign _zz_dbus_axi_arw_valid = (dBus_cmd_valid && _zz_dBus_cmd_ready_2); // @[Stream.scala 426:16]
+  assign dBus_cmd_ready = (_zz_dBus_cmd_ready_3 && _zz_dBus_cmd_ready_2); // @[Stream.scala 427:16]
+  assign _zz_dbus_axi_arw_payload_write = dBus_cmd_payload_wr; // @[Stream.scala 428:18]
+  assign _zz_dbus_axi_w_payload_last = dBus_cmd_payload_last; // @[Stream.scala 428:18]
   always @(*) begin
-    _zz_dBus_cmd_ready_3 = 1'b1;
-    if(when_Stream_l945) begin
-      _zz_dBus_cmd_ready_3 = 1'b0;
+    _zz_dBus_cmd_ready_3 = 1'b1; // @[Stream.scala 969:17]
+    if(when_Stream_l971) begin
+      _zz_dBus_cmd_ready_3 = 1'b0; // @[Stream.scala 972:21]
     end
-    if(when_Stream_l945_1) begin
-      _zz_dBus_cmd_ready_3 = 1'b0;
+    if(when_Stream_l971_1) begin
+      _zz_dBus_cmd_ready_3 = 1'b0; // @[Stream.scala 972:21]
     end
   end
 
-  assign when_Stream_l945 = ((! _zz_when_Stream_l945) && _zz_dbus_axi_arw_valid_2);
-  assign when_Stream_l945_1 = ((! _zz_when_Stream_l945_1) && _zz_dbus_axi_w_valid_1);
-  assign _zz_dbus_axi_arw_valid_1 = (_zz_dbus_axi_arw_valid && _zz_dbus_axi_arw_valid_2);
-  assign _zz_dbus_axi_w_valid = (_zz_dbus_axi_arw_valid && _zz_dbus_axi_w_valid_1);
+  assign when_Stream_l971 = ((! _zz_when_Stream_l971) && _zz_when_Stream_l971_2); // @[BaseType.scala 305:24]
+  assign when_Stream_l971_1 = ((! _zz_when_Stream_l971_1) && _zz_when_Stream_l971_3); // @[BaseType.scala 305:24]
+  assign _zz_dbus_axi_arw_valid_1 = (_zz_dbus_axi_arw_valid && _zz_when_Stream_l971_2); // @[Stream.scala 979:24]
+  assign _zz_dbus_axi_w_valid = (_zz_dbus_axi_arw_valid && _zz_when_Stream_l971_3); // @[Stream.scala 979:24]
   always @(*) begin
-    _zz_dbus_axi_arw_valid_3 = _zz_dbus_axi_arw_valid_1;
+    _zz_dbus_axi_arw_valid_2 = _zz_dbus_axi_arw_valid_1; // @[Stream.scala 294:16]
     if(_zz_4) begin
-      _zz_dbus_axi_arw_valid_3 = 1'b0;
+      _zz_dbus_axi_arw_valid_2 = 1'b0; // @[Stream.scala 439:18]
     end
   end
 
   always @(*) begin
-    _zz_when_Stream_l945 = dbus_axi_arw_ready;
+    _zz_when_Stream_l971 = dbus_axi_arw_ready; // @[Stream.scala 295:16]
     if(_zz_4) begin
-      _zz_when_Stream_l945 = 1'b1;
+      _zz_when_Stream_l971 = 1'b1; // @[Stream.scala 440:18]
     end
   end
 
-  assign when_Stream_l438 = (! _zz_dbus_axi_arw_payload_write);
+  assign when_Stream_l438 = (! _zz_dbus_axi_arw_payload_write); // @[BaseType.scala 299:24]
   always @(*) begin
-    _zz_dbus_axi_w_valid_2 = _zz_dbus_axi_w_valid;
+    _zz_dbus_axi_w_valid_1 = _zz_dbus_axi_w_valid; // @[Stream.scala 294:16]
     if(when_Stream_l438) begin
-      _zz_dbus_axi_w_valid_2 = 1'b0;
+      _zz_dbus_axi_w_valid_1 = 1'b0; // @[Stream.scala 439:18]
     end
   end
 
   always @(*) begin
-    _zz_when_Stream_l945_1 = dbus_axi_w_ready;
+    _zz_when_Stream_l971_1 = dbus_axi_w_ready; // @[Stream.scala 295:16]
     if(when_Stream_l438) begin
-      _zz_when_Stream_l945_1 = 1'b1;
+      _zz_when_Stream_l971_1 = 1'b1; // @[Stream.scala 440:18]
     end
   end
 
-  assign dbus_axi_arw_valid = _zz_dbus_axi_arw_valid_3;
-  assign dbus_axi_arw_payload_write = _zz_dbus_axi_arw_payload_write;
-  assign dbus_axi_arw_payload_prot = 3'b010;
-  assign dbus_axi_arw_payload_cache = 4'b1111;
-  assign dbus_axi_arw_payload_size = 3'b010;
-  assign dbus_axi_arw_payload_addr = dBus_cmd_payload_address;
-  assign dbus_axi_arw_payload_len = {5'd0, _zz_dbus_axi_arw_payload_len};
-  assign dbus_axi_w_valid = _zz_dbus_axi_w_valid_2;
-  assign dbus_axi_w_payload_data = dBus_cmd_payload_data;
-  assign dbus_axi_w_payload_strb = dBus_cmd_payload_mask;
-  assign dbus_axi_w_payload_last = _zz_dbus_axi_w_payload_last;
-  assign dBus_rsp_valid = dbus_axi_r_valid;
-  assign dBus_rsp_payload_error = (! (dbus_axi_r_payload_resp == 2'b00));
-  assign dBus_rsp_payload_data = dbus_axi_r_payload_data;
-  assign dbus_axi_r_ready = 1'b1;
-  assign dbus_axi_b_ready = 1'b1;
-  assign dbus_axi_arw_ready = (dbus_axi_arw_payload_write ? dBusAxi_aw_ready : dBusAxi_ar_ready);
-  assign dbus_axi_w_ready = dBusAxi_w_ready;
-  assign dbus_axi_r_valid = dBusAxi_r_valid;
-  assign dbus_axi_r_payload_data = dBusAxi_r_payload_data;
-  assign dbus_axi_r_payload_resp = dBusAxi_r_payload_resp;
-  assign dbus_axi_r_payload_last = dBusAxi_r_payload_last;
-  assign dbus_axi_b_valid = dBusAxi_b_valid;
-  assign dbus_axi_b_payload_resp = dBusAxi_b_payload_resp;
-  assign dBusAxi_ar_valid = (dbus_axi_arw_valid && (! dbus_axi_arw_payload_write));
-  assign dBusAxi_ar_payload_addr = dbus_axi_arw_payload_addr;
-  assign _zz_dBusAxi_ar_payload_id[0 : 0] = 1'b0;
-  assign dBusAxi_ar_payload_id = _zz_dBusAxi_ar_payload_id;
-  assign _zz_dBusAxi_ar_payload_region[3 : 0] = 4'b0000;
-  assign dBusAxi_ar_payload_region = _zz_dBusAxi_ar_payload_region;
-  assign dBusAxi_ar_payload_len = dbus_axi_arw_payload_len;
-  assign dBusAxi_ar_payload_size = dbus_axi_arw_payload_size;
-  assign dBusAxi_ar_payload_burst = 2'b01;
-  assign dBusAxi_ar_payload_lock = 1'b0;
-  assign dBusAxi_ar_payload_cache = dbus_axi_arw_payload_cache;
-  assign dBusAxi_ar_payload_qos = 4'b0000;
-  assign dBusAxi_ar_payload_prot = dbus_axi_arw_payload_prot;
-  assign dBusAxi_aw_valid = (dbus_axi_arw_valid && dbus_axi_arw_payload_write);
-  assign dBusAxi_aw_payload_addr = dbus_axi_arw_payload_addr;
-  assign _zz_dBusAxi_aw_payload_id[0 : 0] = 1'b0;
-  assign dBusAxi_aw_payload_id = _zz_dBusAxi_aw_payload_id;
-  assign _zz_dBusAxi_aw_payload_region[3 : 0] = 4'b0000;
-  assign dBusAxi_aw_payload_region = _zz_dBusAxi_aw_payload_region;
-  assign dBusAxi_aw_payload_len = dbus_axi_arw_payload_len;
-  assign dBusAxi_aw_payload_size = dbus_axi_arw_payload_size;
-  assign dBusAxi_aw_payload_burst = 2'b01;
-  assign dBusAxi_aw_payload_lock = 1'b0;
-  assign dBusAxi_aw_payload_cache = dbus_axi_arw_payload_cache;
-  assign dBusAxi_aw_payload_qos = 4'b0000;
-  assign dBusAxi_aw_payload_prot = dbus_axi_arw_payload_prot;
-  assign dBusAxi_w_valid = dbus_axi_w_valid;
-  assign dBusAxi_w_payload_data = dbus_axi_w_payload_data;
-  assign dBusAxi_w_payload_strb = dbus_axi_w_payload_strb;
-  assign dBusAxi_w_payload_last = dbus_axi_w_payload_last;
-  assign dBusAxi_r_ready = dbus_axi_r_ready;
-  assign dBusAxi_b_ready = dbus_axi_b_ready;
-  assign debug_bus_cmd_valid = systemDebugger_1_io_mem_cmd_valid;
-  assign debug_bus_cmd_payload_wr = systemDebugger_1_io_mem_cmd_payload_wr;
-  assign debug_bus_cmd_payload_data = systemDebugger_1_io_mem_cmd_payload_data;
-  assign debug_bus_cmd_payload_address = systemDebugger_1_io_mem_cmd_payload_address[7:0];
-  assign debug_bus_cmd_fire = (debug_bus_cmd_valid && debug_bus_cmd_ready);
-  assign jtag_tdo = jtagBridge_1_io_jtag_tdo;
+  assign dbus_axi_arw_valid = _zz_dbus_axi_arw_valid_2; // @[Stream.scala 303:16]
+  assign dbus_axi_arw_payload_write = _zz_dbus_axi_arw_payload_write; // @[DataCache.scala 294:25]
+  assign dbus_axi_arw_payload_prot = 3'b010; // @[Bits.scala 131:40]
+  assign dbus_axi_arw_payload_cache = 4'b1111; // @[Bits.scala 131:40]
+  assign dbus_axi_arw_payload_size = 3'b010; // @[DataCache.scala 297:24]
+  assign dbus_axi_arw_payload_addr = dBus_cmd_payload_address; // @[DataCache.scala 298:24]
+  assign dbus_axi_arw_payload_len = {5'd0, _zz_dbus_axi_arw_payload_len}; // @[DataCache.scala 299:24]
+  assign dbus_axi_w_valid = _zz_dbus_axi_w_valid_1; // @[Stream.scala 303:16]
+  assign dbus_axi_w_payload_data = dBus_cmd_payload_data; // @[DataCache.scala 302:24]
+  assign dbus_axi_w_payload_strb = dBus_cmd_payload_mask; // @[DataCache.scala 303:24]
+  assign dbus_axi_w_payload_last = _zz_dbus_axi_w_payload_last; // @[DataCache.scala 304:24]
+  assign dBus_rsp_valid = dbus_axi_r_valid; // @[DataCache.scala 306:15]
+  assign dBus_rsp_payload_error = (! (dbus_axi_r_payload_resp == 2'b00)); // @[DataCache.scala 307:15]
+  assign dBus_rsp_payload_data = dbus_axi_r_payload_data; // @[DataCache.scala 308:14]
+  assign dbus_axi_r_ready = 1'b1; // @[DataCache.scala 310:17]
+  assign dbus_axi_b_ready = 1'b1; // @[DataCache.scala 311:17]
+  assign dbus_axi_arw_ready = (dbus_axi_arw_payload_write ? dBusAxi_aw_ready : dBusAxi_ar_ready); // @[Axi4Shared.scala 42:20]
+  assign dbus_axi_w_ready = dBusAxi_w_ready; // @[Stream.scala 295:16]
+  assign dbus_axi_r_valid = dBusAxi_r_valid; // @[Stream.scala 294:16]
+  assign dbus_axi_r_payload_data = dBusAxi_r_payload_data; // @[Stream.scala 296:18]
+  assign dbus_axi_r_payload_resp = dBusAxi_r_payload_resp; // @[Stream.scala 296:18]
+  assign dbus_axi_r_payload_last = dBusAxi_r_payload_last; // @[Stream.scala 296:18]
+  assign dbus_axi_b_valid = dBusAxi_b_valid; // @[Stream.scala 294:16]
+  assign dbus_axi_b_payload_resp = dBusAxi_b_payload_resp; // @[Stream.scala 296:18]
+  assign dBusAxi_ar_valid = (dbus_axi_arw_valid && (! dbus_axi_arw_payload_write)); // @[Stream.scala 303:16]
+  assign dBusAxi_ar_payload_addr = dbus_axi_arw_payload_addr; // @[Axi4Channel.scala 358:15]
+  assign _zz_dBusAxi_ar_payload_id[0 : 0] = 1'b0; // @[Literal.scala 88:56]
+  assign dBusAxi_ar_payload_id = _zz_dBusAxi_ar_payload_id; // @[Axi4Channel.scala 347:56]
+  assign _zz_dBusAxi_ar_payload_region[3 : 0] = 4'b0000; // @[Literal.scala 88:56]
+  assign dBusAxi_ar_payload_region = _zz_dBusAxi_ar_payload_region; // @[Axi4Channel.scala 347:56]
+  assign dBusAxi_ar_payload_len = dbus_axi_arw_payload_len; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_ar_payload_size = dbus_axi_arw_payload_size; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_ar_payload_burst = 2'b01; // @[Axi4Channel.scala 347:56]
+  assign dBusAxi_ar_payload_lock = 1'b0; // @[Axi4Channel.scala 347:56]
+  assign dBusAxi_ar_payload_cache = dbus_axi_arw_payload_cache; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_ar_payload_qos = 4'b0000; // @[Axi4Channel.scala 347:56]
+  assign dBusAxi_ar_payload_prot = dbus_axi_arw_payload_prot; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_aw_valid = (dbus_axi_arw_valid && dbus_axi_arw_payload_write); // @[Stream.scala 303:16]
+  assign dBusAxi_aw_payload_addr = dbus_axi_arw_payload_addr; // @[Axi4Channel.scala 358:15]
+  assign _zz_dBusAxi_aw_payload_id[0 : 0] = 1'b0; // @[Literal.scala 88:56]
+  assign dBusAxi_aw_payload_id = _zz_dBusAxi_aw_payload_id; // @[Axi4Channel.scala 347:56]
+  assign _zz_dBusAxi_aw_payload_region[3 : 0] = 4'b0000; // @[Literal.scala 88:56]
+  assign dBusAxi_aw_payload_region = _zz_dBusAxi_aw_payload_region; // @[Axi4Channel.scala 347:56]
+  assign dBusAxi_aw_payload_len = dbus_axi_arw_payload_len; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_aw_payload_size = dbus_axi_arw_payload_size; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_aw_payload_burst = 2'b01; // @[Axi4Channel.scala 347:56]
+  assign dBusAxi_aw_payload_lock = 1'b0; // @[Axi4Channel.scala 347:56]
+  assign dBusAxi_aw_payload_cache = dbus_axi_arw_payload_cache; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_aw_payload_qos = 4'b0000; // @[Axi4Channel.scala 347:56]
+  assign dBusAxi_aw_payload_prot = dbus_axi_arw_payload_prot; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_w_valid = dbus_axi_w_valid; // @[Stream.scala 303:16]
+  assign dBusAxi_w_payload_data = dbus_axi_w_payload_data; // @[Axi4Channel.scala 420:17]
+  assign dBusAxi_w_payload_strb = dbus_axi_w_payload_strb; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_w_payload_last = dbus_axi_w_payload_last; // @[Axi4Channel.scala 349:30]
+  assign dBusAxi_r_ready = dbus_axi_r_ready; // @[Stream.scala 304:16]
+  assign dBusAxi_b_ready = dbus_axi_b_ready; // @[Stream.scala 304:16]
+  assign debug_bus_cmd_valid = systemDebugger_1_io_mem_cmd_valid; // @[DebugPlugin.scala 116:24]
+  assign debug_bus_cmd_payload_wr = systemDebugger_1_io_mem_cmd_payload_wr; // @[DebugPlugin.scala 117:24]
+  assign debug_bus_cmd_payload_data = systemDebugger_1_io_mem_cmd_payload_data; // @[DebugPlugin.scala 118:24]
+  assign debug_bus_cmd_payload_address = systemDebugger_1_io_mem_cmd_payload_address[7:0]; // @[DebugPlugin.scala 119:24]
+  assign debug_bus_cmd_fire = (debug_bus_cmd_valid && debug_bus_cmd_ready); // @[BaseType.scala 305:24]
+  assign jtag_tdo = jtagBridge_1_io_jtag_tdo; // @[GenCramSoC.scala 220:18]
   always @(posedge clk) begin
     if(reset) begin
-      IBusCachedPlugin_fetchPc_pcReg <= externalResetVector;
-      IBusCachedPlugin_fetchPc_correctionReg <= 1'b0;
-      IBusCachedPlugin_fetchPc_booted <= 1'b0;
-      IBusCachedPlugin_fetchPc_inc <= 1'b0;
-      IBusCachedPlugin_decodePc_pcReg <= externalResetVector;
-      _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready_2 <= 1'b0;
-      _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid <= 1'b0;
-      IBusCachedPlugin_decompressor_bufferValid <= 1'b0;
-      IBusCachedPlugin_decompressor_throw2BytesReg <= 1'b0;
-      IBusCachedPlugin_injector_nextPcCalc_valids_0 <= 1'b0;
-      IBusCachedPlugin_injector_nextPcCalc_valids_1 <= 1'b0;
-      IBusCachedPlugin_injector_nextPcCalc_valids_2 <= 1'b0;
-      IBusCachedPlugin_injector_nextPcCalc_valids_3 <= 1'b0;
-      IBusCachedPlugin_rspCounter <= 32'h0;
-      dataCache_1_io_mem_cmd_rValid <= 1'b0;
-      dataCache_1_io_mem_cmd_s2mPipe_rValid <= 1'b0;
-      dBus_rsp_regNext_valid <= 1'b0;
-      DBusCachedPlugin_rspCounter <= 32'h0;
-      _zz_2 <= 1'b1;
-      HazardSimplePlugin_writeBackBuffer_valid <= 1'b0;
-      memory_DivPlugin_div_counter_value <= 6'h0;
-      _zz_CsrPlugin_privilege <= 2'b11;
-      CsrPlugin_mstatus_MIE <= 1'b0;
-      CsrPlugin_mstatus_MPIE <= 1'b0;
-      CsrPlugin_mstatus_MPP <= 2'b11;
-      CsrPlugin_mie_MEIE <= 1'b0;
-      CsrPlugin_mie_MTIE <= 1'b0;
-      CsrPlugin_mie_MSIE <= 1'b0;
-      CsrPlugin_mcycle <= 64'h0;
-      CsrPlugin_minstret <= 64'h0;
-      CsrPlugin_medeleg_IAM <= 1'b0;
-      CsrPlugin_medeleg_IAF <= 1'b0;
-      CsrPlugin_medeleg_II <= 1'b0;
-      CsrPlugin_medeleg_LAM <= 1'b0;
-      CsrPlugin_medeleg_LAF <= 1'b0;
-      CsrPlugin_medeleg_SAM <= 1'b0;
-      CsrPlugin_medeleg_SAF <= 1'b0;
-      CsrPlugin_medeleg_EU <= 1'b0;
-      CsrPlugin_medeleg_ES <= 1'b0;
-      CsrPlugin_medeleg_IPF <= 1'b0;
-      CsrPlugin_medeleg_LPF <= 1'b0;
-      CsrPlugin_medeleg_SPF <= 1'b0;
-      CsrPlugin_mideleg_ST <= 1'b0;
-      CsrPlugin_mideleg_SE <= 1'b0;
-      CsrPlugin_mideleg_SS <= 1'b0;
-      CsrPlugin_sstatus_SIE <= 1'b0;
-      CsrPlugin_sstatus_SPIE <= 1'b0;
-      CsrPlugin_sstatus_SPP <= 1'b1;
-      CsrPlugin_sip_SEIP_SOFT <= 1'b0;
-      CsrPlugin_sip_STIP <= 1'b0;
-      CsrPlugin_sip_SSIP <= 1'b0;
-      CsrPlugin_sie_SEIE <= 1'b0;
-      CsrPlugin_sie_STIE <= 1'b0;
-      CsrPlugin_sie_SSIE <= 1'b0;
-      CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode <= 1'b0;
-      CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute <= 1'b0;
-      CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory <= 1'b0;
-      CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack <= 1'b0;
-      CsrPlugin_interrupt_valid <= 1'b0;
-      CsrPlugin_lastStageWasWfi <= 1'b0;
-      CsrPlugin_pipelineLiberator_pcValids_0 <= 1'b0;
-      CsrPlugin_pipelineLiberator_pcValids_1 <= 1'b0;
-      CsrPlugin_pipelineLiberator_pcValids_2 <= 1'b0;
-      CsrPlugin_hadException <= 1'b0;
-      execute_CsrPlugin_wfiWake <= 1'b0;
-      MmuPlugin_status_sum <= 1'b0;
-      MmuPlugin_status_mxr <= 1'b0;
-      MmuPlugin_status_mprv <= 1'b0;
-      MmuPlugin_satp_mode <= 1'b0;
-      MmuPlugin_ports_0_cache_0_valid <= 1'b0;
-      MmuPlugin_ports_0_cache_1_valid <= 1'b0;
-      MmuPlugin_ports_0_cache_2_valid <= 1'b0;
-      MmuPlugin_ports_0_cache_3_valid <= 1'b0;
-      MmuPlugin_ports_0_cache_4_valid <= 1'b0;
-      MmuPlugin_ports_0_cache_5_valid <= 1'b0;
-      MmuPlugin_ports_0_cache_6_valid <= 1'b0;
-      MmuPlugin_ports_0_cache_7_valid <= 1'b0;
-      MmuPlugin_ports_0_entryToReplace_value <= 3'b000;
-      MmuPlugin_ports_1_cache_0_valid <= 1'b0;
-      MmuPlugin_ports_1_cache_1_valid <= 1'b0;
-      MmuPlugin_ports_1_cache_2_valid <= 1'b0;
-      MmuPlugin_ports_1_cache_3_valid <= 1'b0;
-      MmuPlugin_ports_1_cache_4_valid <= 1'b0;
-      MmuPlugin_ports_1_cache_5_valid <= 1'b0;
-      MmuPlugin_ports_1_cache_6_valid <= 1'b0;
-      MmuPlugin_ports_1_cache_7_valid <= 1'b0;
-      MmuPlugin_ports_1_entryToReplace_value <= 3'b000;
-      MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_IDLE;
-      MmuPlugin_shared_dBusRspStaged_valid <= 1'b0;
-      _zz_CsrPlugin_csrMapping_readDataInit <= 32'h0;
-      _zz_CsrPlugin_csrMapping_readDataInit_2 <= 32'h0;
-      execute_arbitration_isValid <= 1'b0;
-      memory_arbitration_isValid <= 1'b0;
-      writeBack_arbitration_isValid <= 1'b0;
-      switch_Fetcher_l365 <= 3'b000;
-      execute_to_memory_IS_DBUS_SHARING <= 1'b0;
-      memory_to_writeBack_IS_DBUS_SHARING <= 1'b0;
-      _zz_dBus_cmd_ready <= 3'b000;
-      _zz_dbus_axi_arw_valid_2 <= 1'b1;
-      _zz_dbus_axi_w_valid_1 <= 1'b1;
-      _zz_4 <= 1'b0;
+      IBusCachedPlugin_fetchPc_pcReg <= externalResetVector; // @[Data.scala 400:33]
+      IBusCachedPlugin_fetchPc_correctionReg <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_fetchPc_booted <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_fetchPc_inc <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_decodePc_pcReg <= externalResetVector; // @[Data.scala 400:33]
+      _zz_IBusCachedPlugin_iBusRsp_stages_1_input_valid_1 <= 1'b0; // @[Data.scala 400:33]
+      _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_decompressor_bufferValid <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_decompressor_throw2BytesReg <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_injector_nextPcCalc_valids_0 <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_injector_nextPcCalc_valids_1 <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_injector_nextPcCalc_valids_2 <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_injector_nextPcCalc_valids_3 <= 1'b0; // @[Data.scala 400:33]
+      IBusCachedPlugin_rspCounter <= 32'h0; // @[Data.scala 400:33]
+      toplevel_dataCache_1_io_mem_cmd_rValid <= 1'b0; // @[Data.scala 400:33]
+      toplevel_dataCache_1_io_mem_cmd_s2mPipe_rValid <= 1'b0; // @[Data.scala 400:33]
+      dBus_rsp_regNext_valid <= 1'b0; // @[Data.scala 400:33]
+      DBusCachedPlugin_rspCounter <= 32'h0; // @[Data.scala 400:33]
+      _zz_2 <= 1'b1; // @[Data.scala 400:33]
+      HazardSimplePlugin_writeBackBuffer_valid <= 1'b0; // @[Data.scala 400:33]
+      memory_DivPlugin_div_counter_value <= 6'h0; // @[Data.scala 400:33]
+      _zz_CsrPlugin_privilege <= 2'b11; // @[Data.scala 400:33]
+      CsrPlugin_mstatus_MIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_mstatus_MPIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_mstatus_MPP <= 2'b11; // @[Data.scala 400:33]
+      CsrPlugin_mie_MEIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_mie_MTIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_mie_MSIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_mcycle <= 64'h0; // @[Data.scala 400:33]
+      CsrPlugin_minstret <= 64'h0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_IAM <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_IAF <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_II <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_LAM <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_LAF <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_SAM <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_SAF <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_EU <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_ES <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_IPF <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_LPF <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_medeleg_SPF <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_mideleg_ST <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_mideleg_SE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_mideleg_SS <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_sstatus_SIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_sstatus_SPIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_sstatus_SPP <= 1'b1; // @[Data.scala 400:33]
+      CsrPlugin_sip_SEIP_SOFT <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_sip_STIP <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_sip_SSIP <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_sie_SEIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_sie_STIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_sie_SSIE <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_interrupt_valid <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_lastStageWasWfi <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_pipelineLiberator_pcValids_0 <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_pipelineLiberator_pcValids_1 <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_pipelineLiberator_pcValids_2 <= 1'b0; // @[Data.scala 400:33]
+      CsrPlugin_hadException <= 1'b0; // @[Data.scala 400:33]
+      execute_CsrPlugin_wfiWake <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_status_sum <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_status_mxr <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_status_mprv <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_satp_mode <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_0_cache_0_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_0_cache_1_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_0_cache_2_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_0_cache_3_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_0_cache_4_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_0_cache_5_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_0_cache_6_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_0_cache_7_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_0_entryToReplace_value <= 3'b000; // @[Data.scala 400:33]
+      MmuPlugin_ports_1_cache_0_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_1_cache_1_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_1_cache_2_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_1_cache_3_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_1_cache_4_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_1_cache_5_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_1_cache_6_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_1_cache_7_valid <= 1'b0; // @[Data.scala 400:33]
+      MmuPlugin_ports_1_entryToReplace_value <= 3'b000; // @[Data.scala 400:33]
+      MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_IDLE; // @[Data.scala 400:33]
+      MmuPlugin_shared_dBusRspStaged_valid <= 1'b0; // @[Data.scala 400:33]
+      _zz_CsrPlugin_csrMapping_readDataInit <= 32'h0; // @[Data.scala 400:33]
+      _zz_CsrPlugin_csrMapping_readDataInit_1 <= 32'h0; // @[Data.scala 400:33]
+      execute_arbitration_isValid <= 1'b0; // @[Data.scala 400:33]
+      memory_arbitration_isValid <= 1'b0; // @[Data.scala 400:33]
+      writeBack_arbitration_isValid <= 1'b0; // @[Data.scala 400:33]
+      switch_Fetcher_l365 <= 3'b000; // @[Data.scala 400:33]
+      execute_to_memory_IS_DBUS_SHARING <= 1'b0; // @[Data.scala 400:33]
+      memory_to_writeBack_IS_DBUS_SHARING <= 1'b0; // @[Data.scala 400:33]
+      _zz_dBus_cmd_ready <= 3'b000; // @[Data.scala 400:33]
+      _zz_when_Stream_l971_2 <= 1'b1; // @[Data.scala 400:33]
+      _zz_when_Stream_l971_3 <= 1'b1; // @[Data.scala 400:33]
+      _zz_4 <= 1'b0; // @[Data.scala 400:33]
     end else begin
       if(IBusCachedPlugin_fetchPc_correction) begin
-        IBusCachedPlugin_fetchPc_correctionReg <= 1'b1;
+        IBusCachedPlugin_fetchPc_correctionReg <= 1'b1; // @[Fetcher.scala 130:42]
       end
       if(IBusCachedPlugin_fetchPc_output_fire) begin
-        IBusCachedPlugin_fetchPc_correctionReg <= 1'b0;
+        IBusCachedPlugin_fetchPc_correctionReg <= 1'b0; // @[Fetcher.scala 130:62]
       end
-      IBusCachedPlugin_fetchPc_booted <= 1'b1;
+      IBusCachedPlugin_fetchPc_booted <= 1'b1; // @[Reg.scala 39:30]
       if(when_Fetcher_l134) begin
-        IBusCachedPlugin_fetchPc_inc <= 1'b0;
+        IBusCachedPlugin_fetchPc_inc <= 1'b0; // @[Fetcher.scala 134:32]
       end
       if(IBusCachedPlugin_fetchPc_output_fire_1) begin
-        IBusCachedPlugin_fetchPc_inc <= 1'b1;
+        IBusCachedPlugin_fetchPc_inc <= 1'b1; // @[Fetcher.scala 134:72]
       end
       if(when_Fetcher_l134_1) begin
-        IBusCachedPlugin_fetchPc_inc <= 1'b0;
+        IBusCachedPlugin_fetchPc_inc <= 1'b0; // @[Fetcher.scala 134:93]
       end
       if(when_Fetcher_l161) begin
-        IBusCachedPlugin_fetchPc_pcReg <= IBusCachedPlugin_fetchPc_pc;
+        IBusCachedPlugin_fetchPc_pcReg <= IBusCachedPlugin_fetchPc_pc; // @[Fetcher.scala 162:15]
       end
       if(when_Fetcher_l183) begin
-        IBusCachedPlugin_decodePc_pcReg <= IBusCachedPlugin_decodePc_pcPlus;
+        IBusCachedPlugin_decodePc_pcReg <= IBusCachedPlugin_decodePc_pcPlus; // @[Fetcher.scala 184:15]
       end
       if(when_Fetcher_l195) begin
-        IBusCachedPlugin_decodePc_pcReg <= IBusCachedPlugin_jump_pcLoad_payload;
+        IBusCachedPlugin_decodePc_pcReg <= IBusCachedPlugin_jump_pcLoad_payload; // @[Fetcher.scala 196:15]
       end
       if(IBusCachedPlugin_iBusRsp_flush) begin
-        _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready_2 <= 1'b0;
+        _zz_IBusCachedPlugin_iBusRsp_stages_1_input_valid_1 <= 1'b0; // @[Misc.scala 146:41]
       end
       if(_zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready) begin
-        _zz_IBusCachedPlugin_iBusRsp_stages_0_output_ready_2 <= (IBusCachedPlugin_iBusRsp_stages_0_output_valid && (! 1'b0));
+        _zz_IBusCachedPlugin_iBusRsp_stages_1_input_valid_1 <= (IBusCachedPlugin_iBusRsp_stages_0_output_valid && (! 1'b0)); // @[Misc.scala 154:18]
       end
       if(IBusCachedPlugin_iBusRsp_flush) begin
-        _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid <= 1'b0;
+        _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid <= 1'b0; // @[Misc.scala 146:41]
       end
       if(IBusCachedPlugin_iBusRsp_stages_1_output_ready) begin
-        _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid <= (IBusCachedPlugin_iBusRsp_stages_1_output_valid && (! IBusCachedPlugin_iBusRsp_flush));
+        _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_valid <= (IBusCachedPlugin_iBusRsp_stages_1_output_valid && (! IBusCachedPlugin_iBusRsp_flush)); // @[Misc.scala 154:18]
       end
       if(IBusCachedPlugin_decompressor_output_fire) begin
-        IBusCachedPlugin_decompressor_throw2BytesReg <= ((((! IBusCachedPlugin_decompressor_unaligned) && IBusCachedPlugin_decompressor_isInputLowRvc) && IBusCachedPlugin_decompressor_isInputHighRvc) || (IBusCachedPlugin_decompressor_bufferValid && IBusCachedPlugin_decompressor_isInputHighRvc));
+        IBusCachedPlugin_decompressor_throw2BytesReg <= ((((! IBusCachedPlugin_decompressor_unaligned) && IBusCachedPlugin_decompressor_isInputLowRvc) && IBusCachedPlugin_decompressor_isInputHighRvc) || (IBusCachedPlugin_decompressor_bufferValid && IBusCachedPlugin_decompressor_isInputHighRvc)); // @[Fetcher.scala 283:24]
       end
       if(when_Fetcher_l286) begin
-        IBusCachedPlugin_decompressor_bufferValid <= 1'b0;
+        IBusCachedPlugin_decompressor_bufferValid <= 1'b0; // @[Fetcher.scala 287:21]
       end
       if(when_Fetcher_l289) begin
         if(IBusCachedPlugin_decompressor_bufferFill) begin
-          IBusCachedPlugin_decompressor_bufferValid <= 1'b1;
+          IBusCachedPlugin_decompressor_bufferValid <= 1'b1; // @[Fetcher.scala 291:21]
         end
       end
       if(when_Fetcher_l294) begin
-        IBusCachedPlugin_decompressor_throw2BytesReg <= 1'b0;
-        IBusCachedPlugin_decompressor_bufferValid <= 1'b0;
+        IBusCachedPlugin_decompressor_throw2BytesReg <= 1'b0; // @[Fetcher.scala 295:24]
+        IBusCachedPlugin_decompressor_bufferValid <= 1'b0; // @[Fetcher.scala 296:21]
       end
       if(when_Fetcher_l332) begin
-        IBusCachedPlugin_injector_nextPcCalc_valids_0 <= 1'b1;
+        IBusCachedPlugin_injector_nextPcCalc_valids_0 <= 1'b1; // @[Fetcher.scala 333:17]
       end
       if(IBusCachedPlugin_decodePc_flushed) begin
-        IBusCachedPlugin_injector_nextPcCalc_valids_0 <= 1'b0;
+        IBusCachedPlugin_injector_nextPcCalc_valids_0 <= 1'b0; // @[Fetcher.scala 336:17]
       end
       if(when_Fetcher_l332_1) begin
-        IBusCachedPlugin_injector_nextPcCalc_valids_1 <= IBusCachedPlugin_injector_nextPcCalc_valids_0;
+        IBusCachedPlugin_injector_nextPcCalc_valids_1 <= IBusCachedPlugin_injector_nextPcCalc_valids_0; // @[Fetcher.scala 333:17]
       end
       if(IBusCachedPlugin_decodePc_flushed) begin
-        IBusCachedPlugin_injector_nextPcCalc_valids_1 <= 1'b0;
+        IBusCachedPlugin_injector_nextPcCalc_valids_1 <= 1'b0; // @[Fetcher.scala 336:17]
       end
       if(when_Fetcher_l332_2) begin
-        IBusCachedPlugin_injector_nextPcCalc_valids_2 <= IBusCachedPlugin_injector_nextPcCalc_valids_1;
+        IBusCachedPlugin_injector_nextPcCalc_valids_2 <= IBusCachedPlugin_injector_nextPcCalc_valids_1; // @[Fetcher.scala 333:17]
       end
       if(IBusCachedPlugin_decodePc_flushed) begin
-        IBusCachedPlugin_injector_nextPcCalc_valids_2 <= 1'b0;
+        IBusCachedPlugin_injector_nextPcCalc_valids_2 <= 1'b0; // @[Fetcher.scala 336:17]
       end
       if(when_Fetcher_l332_3) begin
-        IBusCachedPlugin_injector_nextPcCalc_valids_3 <= IBusCachedPlugin_injector_nextPcCalc_valids_2;
+        IBusCachedPlugin_injector_nextPcCalc_valids_3 <= IBusCachedPlugin_injector_nextPcCalc_valids_2; // @[Fetcher.scala 333:17]
       end
       if(IBusCachedPlugin_decodePc_flushed) begin
-        IBusCachedPlugin_injector_nextPcCalc_valids_3 <= 1'b0;
+        IBusCachedPlugin_injector_nextPcCalc_valids_3 <= 1'b0; // @[Fetcher.scala 336:17]
       end
       if(iBus_rsp_valid) begin
-        IBusCachedPlugin_rspCounter <= (IBusCachedPlugin_rspCounter + 32'h00000001);
+        IBusCachedPlugin_rspCounter <= (IBusCachedPlugin_rspCounter + 32'h00000001); // @[IBusCachedPlugin.scala 146:20]
       end
       if(dataCache_1_io_mem_cmd_valid) begin
-        dataCache_1_io_mem_cmd_rValid <= 1'b1;
+        toplevel_dataCache_1_io_mem_cmd_rValid <= 1'b1; // @[Stream.scala 377:33]
       end
-      if(dataCache_1_io_mem_cmd_s2mPipe_ready) begin
-        dataCache_1_io_mem_cmd_rValid <= 1'b0;
+      if(toplevel_dataCache_1_io_mem_cmd_s2mPipe_ready) begin
+        toplevel_dataCache_1_io_mem_cmd_rValid <= 1'b0; // @[Stream.scala 377:53]
       end
-      if(dataCache_1_io_mem_cmd_s2mPipe_ready) begin
-        dataCache_1_io_mem_cmd_s2mPipe_rValid <= dataCache_1_io_mem_cmd_s2mPipe_valid;
+      if(toplevel_dataCache_1_io_mem_cmd_s2mPipe_ready) begin
+        toplevel_dataCache_1_io_mem_cmd_s2mPipe_rValid <= toplevel_dataCache_1_io_mem_cmd_s2mPipe_valid; // @[Stream.scala 361:29]
       end
-      dBus_rsp_regNext_valid <= dBus_rsp_valid;
+      dBus_rsp_regNext_valid <= dBus_rsp_valid; // @[Reg.scala 39:30]
       if(dBus_rsp_valid) begin
-        DBusCachedPlugin_rspCounter <= (DBusCachedPlugin_rspCounter + 32'h00000001);
+        DBusCachedPlugin_rspCounter <= (DBusCachedPlugin_rspCounter + 32'h00000001); // @[DBusCachedPlugin.scala 301:20]
       end
-      _zz_2 <= 1'b0;
-      HazardSimplePlugin_writeBackBuffer_valid <= HazardSimplePlugin_writeBackWrites_valid;
-      memory_DivPlugin_div_counter_value <= memory_DivPlugin_div_counter_valueNext;
-      CsrPlugin_mcycle <= (CsrPlugin_mcycle + 64'h0000000000000001);
+      _zz_2 <= 1'b0; // @[Reg.scala 39:30]
+      HazardSimplePlugin_writeBackBuffer_valid <= HazardSimplePlugin_writeBackWrites_valid; // @[Reg.scala 39:30]
+      memory_DivPlugin_div_counter_value <= memory_DivPlugin_div_counter_valueNext; // @[Reg.scala 39:30]
+      CsrPlugin_mcycle <= (CsrPlugin_mcycle + 64'h0000000000000001); // @[CsrPlugin.scala 1096:14]
       if(writeBack_arbitration_isFiring) begin
-        CsrPlugin_minstret <= (CsrPlugin_minstret + 64'h0000000000000001);
+        CsrPlugin_minstret <= (CsrPlugin_minstret + 64'h0000000000000001); // @[CsrPlugin.scala 1098:18]
       end
-      if(when_CsrPlugin_l922) begin
-        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode <= 1'b0;
+      if(when_CsrPlugin_l1179) begin
+        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode <= 1'b0; // @[CsrPlugin.scala 1180:42]
       end else begin
-        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode <= CsrPlugin_exceptionPortCtrl_exceptionValids_decode;
+        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_decode <= CsrPlugin_exceptionPortCtrl_exceptionValids_decode; // @[CsrPlugin.scala 1183:44]
       end
-      if(when_CsrPlugin_l922_1) begin
-        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute <= (CsrPlugin_exceptionPortCtrl_exceptionValids_decode && (! decode_arbitration_isStuck));
+      if(when_CsrPlugin_l1179_1) begin
+        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute <= (CsrPlugin_exceptionPortCtrl_exceptionValids_decode && (! decode_arbitration_isStuck)); // @[CsrPlugin.scala 1180:42]
       end else begin
-        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute <= CsrPlugin_exceptionPortCtrl_exceptionValids_execute;
+        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_execute <= CsrPlugin_exceptionPortCtrl_exceptionValids_execute; // @[CsrPlugin.scala 1183:44]
       end
-      if(when_CsrPlugin_l922_2) begin
-        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory <= (CsrPlugin_exceptionPortCtrl_exceptionValids_execute && (! execute_arbitration_isStuck));
+      if(when_CsrPlugin_l1179_2) begin
+        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory <= (CsrPlugin_exceptionPortCtrl_exceptionValids_execute && (! execute_arbitration_isStuck)); // @[CsrPlugin.scala 1180:42]
       end else begin
-        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory <= CsrPlugin_exceptionPortCtrl_exceptionValids_memory;
+        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_memory <= CsrPlugin_exceptionPortCtrl_exceptionValids_memory; // @[CsrPlugin.scala 1183:44]
       end
-      if(when_CsrPlugin_l922_3) begin
-        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack <= (CsrPlugin_exceptionPortCtrl_exceptionValids_memory && (! memory_arbitration_isStuck));
+      if(when_CsrPlugin_l1179_3) begin
+        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack <= (CsrPlugin_exceptionPortCtrl_exceptionValids_memory && (! memory_arbitration_isStuck)); // @[CsrPlugin.scala 1180:42]
       end else begin
-        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack <= 1'b0;
+        CsrPlugin_exceptionPortCtrl_exceptionValidsRegs_writeBack <= 1'b0; // @[CsrPlugin.scala 1185:44]
       end
-      CsrPlugin_interrupt_valid <= 1'b0;
-      if(when_CsrPlugin_l959) begin
-        if(when_CsrPlugin_l965) begin
-          CsrPlugin_interrupt_valid <= 1'b1;
+      CsrPlugin_interrupt_valid <= 1'b0; // @[Reg.scala 39:30]
+      if(when_CsrPlugin_l1216) begin
+        if(when_CsrPlugin_l1222) begin
+          CsrPlugin_interrupt_valid <= 1'b1; // @[CsrPlugin.scala 1223:23]
         end
-        if(when_CsrPlugin_l965_1) begin
-          CsrPlugin_interrupt_valid <= 1'b1;
+        if(when_CsrPlugin_l1222_1) begin
+          CsrPlugin_interrupt_valid <= 1'b1; // @[CsrPlugin.scala 1223:23]
         end
-        if(when_CsrPlugin_l965_2) begin
-          CsrPlugin_interrupt_valid <= 1'b1;
-        end
-      end
-      if(when_CsrPlugin_l959_1) begin
-        if(when_CsrPlugin_l965_3) begin
-          CsrPlugin_interrupt_valid <= 1'b1;
-        end
-        if(when_CsrPlugin_l965_4) begin
-          CsrPlugin_interrupt_valid <= 1'b1;
-        end
-        if(when_CsrPlugin_l965_5) begin
-          CsrPlugin_interrupt_valid <= 1'b1;
-        end
-        if(when_CsrPlugin_l965_6) begin
-          CsrPlugin_interrupt_valid <= 1'b1;
-        end
-        if(when_CsrPlugin_l965_7) begin
-          CsrPlugin_interrupt_valid <= 1'b1;
-        end
-        if(when_CsrPlugin_l965_8) begin
-          CsrPlugin_interrupt_valid <= 1'b1;
+        if(when_CsrPlugin_l1222_2) begin
+          CsrPlugin_interrupt_valid <= 1'b1; // @[CsrPlugin.scala 1223:23]
         end
       end
-      CsrPlugin_lastStageWasWfi <= (writeBack_arbitration_isFiring && (writeBack_ENV_CTRL == EnvCtrlEnum_WFI));
+      if(when_CsrPlugin_l1216_1) begin
+        if(when_CsrPlugin_l1222_3) begin
+          CsrPlugin_interrupt_valid <= 1'b1; // @[CsrPlugin.scala 1223:23]
+        end
+        if(when_CsrPlugin_l1222_4) begin
+          CsrPlugin_interrupt_valid <= 1'b1; // @[CsrPlugin.scala 1223:23]
+        end
+        if(when_CsrPlugin_l1222_5) begin
+          CsrPlugin_interrupt_valid <= 1'b1; // @[CsrPlugin.scala 1223:23]
+        end
+        if(when_CsrPlugin_l1222_6) begin
+          CsrPlugin_interrupt_valid <= 1'b1; // @[CsrPlugin.scala 1223:23]
+        end
+        if(when_CsrPlugin_l1222_7) begin
+          CsrPlugin_interrupt_valid <= 1'b1; // @[CsrPlugin.scala 1223:23]
+        end
+        if(when_CsrPlugin_l1222_8) begin
+          CsrPlugin_interrupt_valid <= 1'b1; // @[CsrPlugin.scala 1223:23]
+        end
+      end
+      CsrPlugin_lastStageWasWfi <= (writeBack_arbitration_isFiring && (writeBack_ENV_CTRL == EnvCtrlEnum_WFI)); // @[Reg.scala 39:30]
       if(CsrPlugin_pipelineLiberator_active) begin
-        if(when_CsrPlugin_l993) begin
-          CsrPlugin_pipelineLiberator_pcValids_0 <= 1'b1;
+        if(when_CsrPlugin_l1255) begin
+          CsrPlugin_pipelineLiberator_pcValids_0 <= 1'b1; // @[CsrPlugin.scala 1256:19]
         end
-        if(when_CsrPlugin_l993_1) begin
-          CsrPlugin_pipelineLiberator_pcValids_1 <= CsrPlugin_pipelineLiberator_pcValids_0;
+        if(when_CsrPlugin_l1255_1) begin
+          CsrPlugin_pipelineLiberator_pcValids_1 <= CsrPlugin_pipelineLiberator_pcValids_0; // @[CsrPlugin.scala 1256:19]
         end
-        if(when_CsrPlugin_l993_2) begin
-          CsrPlugin_pipelineLiberator_pcValids_2 <= CsrPlugin_pipelineLiberator_pcValids_1;
+        if(when_CsrPlugin_l1255_2) begin
+          CsrPlugin_pipelineLiberator_pcValids_2 <= CsrPlugin_pipelineLiberator_pcValids_1; // @[CsrPlugin.scala 1256:19]
         end
       end
-      if(when_CsrPlugin_l998) begin
-        CsrPlugin_pipelineLiberator_pcValids_0 <= 1'b0;
-        CsrPlugin_pipelineLiberator_pcValids_1 <= 1'b0;
-        CsrPlugin_pipelineLiberator_pcValids_2 <= 1'b0;
+      if(when_CsrPlugin_l1260) begin
+        CsrPlugin_pipelineLiberator_pcValids_0 <= 1'b0; // @[CsrPlugin.scala 1261:30]
+        CsrPlugin_pipelineLiberator_pcValids_1 <= 1'b0; // @[CsrPlugin.scala 1261:30]
+        CsrPlugin_pipelineLiberator_pcValids_2 <= 1'b0; // @[CsrPlugin.scala 1261:30]
       end
       if(CsrPlugin_interruptJump) begin
-        CsrPlugin_interrupt_valid <= 1'b0;
+        CsrPlugin_interrupt_valid <= 1'b0; // @[CsrPlugin.scala 1272:46]
       end
-      CsrPlugin_hadException <= CsrPlugin_exception;
-      if(when_CsrPlugin_l1032) begin
-        _zz_CsrPlugin_privilege <= CsrPlugin_targetPrivilege;
-        case(CsrPlugin_targetPrivilege)
-          2'b01 : begin
-            CsrPlugin_sstatus_SIE <= 1'b0;
-            CsrPlugin_sstatus_SPIE <= CsrPlugin_sstatus_SIE;
-            CsrPlugin_sstatus_SPP <= CsrPlugin_privilege[0 : 0];
-          end
+      CsrPlugin_hadException <= CsrPlugin_exception; // @[Reg.scala 39:30]
+      if(when_CsrPlugin_l1310) begin
+        if(when_CsrPlugin_l1318) begin
+          _zz_CsrPlugin_privilege <= CsrPlugin_targetPrivilege; // @[CsrPlugin.scala 1319:41]
+          case(CsrPlugin_targetPrivilege)
+            2'b01 : begin
+              CsrPlugin_sstatus_SIE <= 1'b0; // @[CsrPlugin.scala 1322:27]
+              CsrPlugin_sstatus_SPIE <= CsrPlugin_sstatus_SIE; // @[CsrPlugin.scala 1323:28]
+              CsrPlugin_sstatus_SPP <= CsrPlugin_privilege[0 : 0]; // @[CsrPlugin.scala 1324:27]
+            end
+            2'b11 : begin
+              CsrPlugin_mstatus_MIE <= 1'b0; // @[CsrPlugin.scala 1334:28]
+              CsrPlugin_mstatus_MPIE <= CsrPlugin_mstatus_MIE; // @[CsrPlugin.scala 1335:28]
+              CsrPlugin_mstatus_MPP <= CsrPlugin_privilege; // @[CsrPlugin.scala 1336:28]
+            end
+            default : begin
+            end
+          endcase
+        end
+      end
+      if(when_CsrPlugin_l1376) begin
+        case(switch_CsrPlugin_l1380)
           2'b11 : begin
-            CsrPlugin_mstatus_MIE <= 1'b0;
-            CsrPlugin_mstatus_MPIE <= CsrPlugin_mstatus_MIE;
-            CsrPlugin_mstatus_MPP <= CsrPlugin_privilege;
+            CsrPlugin_mstatus_MPP <= 2'b00; // @[CsrPlugin.scala 1382:27]
+            CsrPlugin_mstatus_MIE <= CsrPlugin_mstatus_MPIE; // @[CsrPlugin.scala 1383:27]
+            CsrPlugin_mstatus_MPIE <= 1'b1; // @[CsrPlugin.scala 1384:28]
+            _zz_CsrPlugin_privilege <= CsrPlugin_mstatus_MPP; // @[CsrPlugin.scala 1387:30]
+          end
+          2'b01 : begin
+            CsrPlugin_sstatus_SPP <= 1'b0; // @[CsrPlugin.scala 1392:27]
+            CsrPlugin_sstatus_SIE <= CsrPlugin_sstatus_SPIE; // @[CsrPlugin.scala 1393:27]
+            CsrPlugin_sstatus_SPIE <= 1'b1; // @[CsrPlugin.scala 1394:28]
+            _zz_CsrPlugin_privilege <= {1'b0,CsrPlugin_sstatus_SPP}; // @[CsrPlugin.scala 1397:30]
           end
           default : begin
           end
         endcase
       end
-      if(when_CsrPlugin_l1077) begin
-        case(switch_CsrPlugin_l1081)
-          2'b11 : begin
-            CsrPlugin_mstatus_MPP <= 2'b00;
-            CsrPlugin_mstatus_MIE <= CsrPlugin_mstatus_MPIE;
-            CsrPlugin_mstatus_MPIE <= 1'b1;
-            _zz_CsrPlugin_privilege <= CsrPlugin_mstatus_MPP;
-          end
-          2'b01 : begin
-            CsrPlugin_sstatus_SPP <= 1'b0;
-            CsrPlugin_sstatus_SIE <= CsrPlugin_sstatus_SPIE;
-            CsrPlugin_sstatus_SPIE <= 1'b1;
-            _zz_CsrPlugin_privilege <= {1'b0,CsrPlugin_sstatus_SPP};
-          end
-          default : begin
-          end
-        endcase
+      execute_CsrPlugin_wfiWake <= (({_zz_when_CsrPlugin_l1222_5,{_zz_when_CsrPlugin_l1222_4,{_zz_when_CsrPlugin_l1222_3,{_zz_when_CsrPlugin_l1222_2,{_zz_when_CsrPlugin_l1222_1,_zz_when_CsrPlugin_l1222}}}}} != 6'h0) || CsrPlugin_thirdPartyWake); // @[Reg.scala 39:30]
+      if(CsrPlugin_xretAwayFromMachine) begin
+        MmuPlugin_status_mprv <= 1'b0; // @[MmuPlugin.scala 94:14]
       end
-      execute_CsrPlugin_wfiWake <= (({_zz_when_CsrPlugin_l965_5,{_zz_when_CsrPlugin_l965_4,{_zz_when_CsrPlugin_l965_3,{_zz_when_CsrPlugin_l965_2,{_zz_when_CsrPlugin_l965_1,_zz_when_CsrPlugin_l965}}}}} != 6'h0) || CsrPlugin_thirdPartyWake);
-      MmuPlugin_ports_0_entryToReplace_value <= MmuPlugin_ports_0_entryToReplace_valueNext;
+      MmuPlugin_ports_0_entryToReplace_value <= MmuPlugin_ports_0_entryToReplace_valueNext; // @[Reg.scala 39:30]
       if(contextSwitching) begin
         if(MmuPlugin_ports_0_cache_0_exception) begin
-          MmuPlugin_ports_0_cache_0_valid <= 1'b0;
+          MmuPlugin_ports_0_cache_0_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_0_cache_1_exception) begin
-          MmuPlugin_ports_0_cache_1_valid <= 1'b0;
+          MmuPlugin_ports_0_cache_1_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_0_cache_2_exception) begin
-          MmuPlugin_ports_0_cache_2_valid <= 1'b0;
+          MmuPlugin_ports_0_cache_2_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_0_cache_3_exception) begin
-          MmuPlugin_ports_0_cache_3_valid <= 1'b0;
+          MmuPlugin_ports_0_cache_3_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_0_cache_4_exception) begin
-          MmuPlugin_ports_0_cache_4_valid <= 1'b0;
+          MmuPlugin_ports_0_cache_4_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_0_cache_5_exception) begin
-          MmuPlugin_ports_0_cache_5_valid <= 1'b0;
+          MmuPlugin_ports_0_cache_5_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_0_cache_6_exception) begin
-          MmuPlugin_ports_0_cache_6_valid <= 1'b0;
+          MmuPlugin_ports_0_cache_6_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_0_cache_7_exception) begin
-          MmuPlugin_ports_0_cache_7_valid <= 1'b0;
+          MmuPlugin_ports_0_cache_7_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
       end
-      MmuPlugin_ports_1_entryToReplace_value <= MmuPlugin_ports_1_entryToReplace_valueNext;
+      MmuPlugin_ports_1_entryToReplace_value <= MmuPlugin_ports_1_entryToReplace_valueNext; // @[Reg.scala 39:30]
       if(contextSwitching) begin
         if(MmuPlugin_ports_1_cache_0_exception) begin
-          MmuPlugin_ports_1_cache_0_valid <= 1'b0;
+          MmuPlugin_ports_1_cache_0_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_1_cache_1_exception) begin
-          MmuPlugin_ports_1_cache_1_valid <= 1'b0;
+          MmuPlugin_ports_1_cache_1_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_1_cache_2_exception) begin
-          MmuPlugin_ports_1_cache_2_valid <= 1'b0;
+          MmuPlugin_ports_1_cache_2_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_1_cache_3_exception) begin
-          MmuPlugin_ports_1_cache_3_valid <= 1'b0;
+          MmuPlugin_ports_1_cache_3_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_1_cache_4_exception) begin
-          MmuPlugin_ports_1_cache_4_valid <= 1'b0;
+          MmuPlugin_ports_1_cache_4_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_1_cache_5_exception) begin
-          MmuPlugin_ports_1_cache_5_valid <= 1'b0;
+          MmuPlugin_ports_1_cache_5_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_1_cache_6_exception) begin
-          MmuPlugin_ports_1_cache_6_valid <= 1'b0;
+          MmuPlugin_ports_1_cache_6_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
         if(MmuPlugin_ports_1_cache_7_exception) begin
-          MmuPlugin_ports_1_cache_7_valid <= 1'b0;
+          MmuPlugin_ports_1_cache_7_valid <= 1'b0; // @[MmuPlugin.scala 188:26]
         end
       end
-      MmuPlugin_shared_dBusRspStaged_valid <= MmuPlugin_dBusAccess_rsp_valid;
+      MmuPlugin_shared_dBusRspStaged_valid <= MmuPlugin_dBusAccess_rsp_valid; // @[Reg.scala 39:30]
       case(MmuPlugin_shared_state_1)
         MmuPlugin_shared_State_IDLE : begin
-          if(when_MmuPlugin_l217) begin
-            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L1_CMD;
+          if(when_MmuPlugin_l228) begin
+            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L1_CMD; // @[Enum.scala 148:67]
           end
         end
         MmuPlugin_shared_State_L1_CMD : begin
           if(MmuPlugin_dBusAccess_cmd_ready) begin
-            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L1_RSP;
+            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L1_RSP; // @[Enum.scala 148:67]
           end
         end
         MmuPlugin_shared_State_L1_RSP : begin
           if(MmuPlugin_shared_dBusRspStaged_valid) begin
-            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L0_CMD;
-            if(when_MmuPlugin_l243) begin
-              MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_IDLE;
+            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L0_CMD; // @[Enum.scala 148:67]
+            if(when_MmuPlugin_l254) begin
+              MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_IDLE; // @[Enum.scala 148:67]
             end
             if(MmuPlugin_shared_dBusRspStaged_payload_redo) begin
-              MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L1_CMD;
+              MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L1_CMD; // @[Enum.scala 148:67]
             end
           end
         end
         MmuPlugin_shared_State_L0_CMD : begin
           if(MmuPlugin_dBusAccess_cmd_ready) begin
-            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L0_RSP;
+            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L0_RSP; // @[Enum.scala 148:67]
           end
         end
         default : begin
           if(MmuPlugin_shared_dBusRspStaged_valid) begin
-            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_IDLE;
+            MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_IDLE; // @[Enum.scala 148:67]
             if(MmuPlugin_shared_dBusRspStaged_payload_redo) begin
-              MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L0_CMD;
+              MmuPlugin_shared_state_1 <= MmuPlugin_shared_State_L0_CMD; // @[Enum.scala 148:67]
             end
           end
         end
       endcase
-      if(when_MmuPlugin_l272) begin
-        if(when_MmuPlugin_l274) begin
-          if(when_MmuPlugin_l280) begin
-            MmuPlugin_ports_0_cache_0_valid <= 1'b1;
+      if(when_MmuPlugin_l283) begin
+        if(when_MmuPlugin_l285) begin
+          if(when_MmuPlugin_l291) begin
+            MmuPlugin_ports_0_cache_0_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_1) begin
-            MmuPlugin_ports_0_cache_1_valid <= 1'b1;
+          if(when_MmuPlugin_l291_1) begin
+            MmuPlugin_ports_0_cache_1_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_2) begin
-            MmuPlugin_ports_0_cache_2_valid <= 1'b1;
+          if(when_MmuPlugin_l291_2) begin
+            MmuPlugin_ports_0_cache_2_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_3) begin
-            MmuPlugin_ports_0_cache_3_valid <= 1'b1;
+          if(when_MmuPlugin_l291_3) begin
+            MmuPlugin_ports_0_cache_3_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_4) begin
-            MmuPlugin_ports_0_cache_4_valid <= 1'b1;
+          if(when_MmuPlugin_l291_4) begin
+            MmuPlugin_ports_0_cache_4_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_5) begin
-            MmuPlugin_ports_0_cache_5_valid <= 1'b1;
+          if(when_MmuPlugin_l291_5) begin
+            MmuPlugin_ports_0_cache_5_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_6) begin
-            MmuPlugin_ports_0_cache_6_valid <= 1'b1;
+          if(when_MmuPlugin_l291_6) begin
+            MmuPlugin_ports_0_cache_6_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_7) begin
-            MmuPlugin_ports_0_cache_7_valid <= 1'b1;
+          if(when_MmuPlugin_l291_7) begin
+            MmuPlugin_ports_0_cache_7_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
         end
-        if(when_MmuPlugin_l274_1) begin
-          if(when_MmuPlugin_l280_8) begin
-            MmuPlugin_ports_1_cache_0_valid <= 1'b1;
+        if(when_MmuPlugin_l285_1) begin
+          if(when_MmuPlugin_l291_8) begin
+            MmuPlugin_ports_1_cache_0_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_9) begin
-            MmuPlugin_ports_1_cache_1_valid <= 1'b1;
+          if(when_MmuPlugin_l291_9) begin
+            MmuPlugin_ports_1_cache_1_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_10) begin
-            MmuPlugin_ports_1_cache_2_valid <= 1'b1;
+          if(when_MmuPlugin_l291_10) begin
+            MmuPlugin_ports_1_cache_2_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_11) begin
-            MmuPlugin_ports_1_cache_3_valid <= 1'b1;
+          if(when_MmuPlugin_l291_11) begin
+            MmuPlugin_ports_1_cache_3_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_12) begin
-            MmuPlugin_ports_1_cache_4_valid <= 1'b1;
+          if(when_MmuPlugin_l291_12) begin
+            MmuPlugin_ports_1_cache_4_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_13) begin
-            MmuPlugin_ports_1_cache_5_valid <= 1'b1;
+          if(when_MmuPlugin_l291_13) begin
+            MmuPlugin_ports_1_cache_5_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_14) begin
-            MmuPlugin_ports_1_cache_6_valid <= 1'b1;
+          if(when_MmuPlugin_l291_14) begin
+            MmuPlugin_ports_1_cache_6_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
-          if(when_MmuPlugin_l280_15) begin
-            MmuPlugin_ports_1_cache_7_valid <= 1'b1;
+          if(when_MmuPlugin_l291_15) begin
+            MmuPlugin_ports_1_cache_7_valid <= 1'b1; // @[MmuPlugin.scala 293:30]
           end
         end
       end
-      if(when_MmuPlugin_l304) begin
-        MmuPlugin_ports_0_cache_0_valid <= 1'b0;
-        MmuPlugin_ports_0_cache_1_valid <= 1'b0;
-        MmuPlugin_ports_0_cache_2_valid <= 1'b0;
-        MmuPlugin_ports_0_cache_3_valid <= 1'b0;
-        MmuPlugin_ports_0_cache_4_valid <= 1'b0;
-        MmuPlugin_ports_0_cache_5_valid <= 1'b0;
-        MmuPlugin_ports_0_cache_6_valid <= 1'b0;
-        MmuPlugin_ports_0_cache_7_valid <= 1'b0;
-        MmuPlugin_ports_1_cache_0_valid <= 1'b0;
-        MmuPlugin_ports_1_cache_1_valid <= 1'b0;
-        MmuPlugin_ports_1_cache_2_valid <= 1'b0;
-        MmuPlugin_ports_1_cache_3_valid <= 1'b0;
-        MmuPlugin_ports_1_cache_4_valid <= 1'b0;
-        MmuPlugin_ports_1_cache_5_valid <= 1'b0;
-        MmuPlugin_ports_1_cache_6_valid <= 1'b0;
-        MmuPlugin_ports_1_cache_7_valid <= 1'b0;
+      if(when_MmuPlugin_l315) begin
+        MmuPlugin_ports_0_cache_0_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_0_cache_1_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_0_cache_2_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_0_cache_3_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_0_cache_4_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_0_cache_5_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_0_cache_6_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_0_cache_7_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_1_cache_0_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_1_cache_1_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_1_cache_2_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_1_cache_3_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_1_cache_4_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_1_cache_5_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_1_cache_6_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
+        MmuPlugin_ports_1_cache_7_valid <= 1'b0; // @[MmuPlugin.scala 316:64]
       end
       if(when_Pipeline_l124_64) begin
-        execute_to_memory_IS_DBUS_SHARING <= execute_IS_DBUS_SHARING;
+        execute_to_memory_IS_DBUS_SHARING <= execute_IS_DBUS_SHARING; // @[Pipeline.scala 124:40]
       end
       if(when_Pipeline_l124_65) begin
-        memory_to_writeBack_IS_DBUS_SHARING <= memory_IS_DBUS_SHARING;
+        memory_to_writeBack_IS_DBUS_SHARING <= memory_IS_DBUS_SHARING; // @[Pipeline.scala 124:40]
       end
       if(when_Pipeline_l151) begin
-        execute_arbitration_isValid <= 1'b0;
+        execute_arbitration_isValid <= 1'b0; // @[Pipeline.scala 152:35]
       end
       if(when_Pipeline_l154) begin
-        execute_arbitration_isValid <= decode_arbitration_isValid;
+        execute_arbitration_isValid <= decode_arbitration_isValid; // @[Pipeline.scala 155:35]
       end
       if(when_Pipeline_l151_1) begin
-        memory_arbitration_isValid <= 1'b0;
+        memory_arbitration_isValid <= 1'b0; // @[Pipeline.scala 152:35]
       end
       if(when_Pipeline_l154_1) begin
-        memory_arbitration_isValid <= execute_arbitration_isValid;
+        memory_arbitration_isValid <= execute_arbitration_isValid; // @[Pipeline.scala 155:35]
       end
       if(when_Pipeline_l151_2) begin
-        writeBack_arbitration_isValid <= 1'b0;
+        writeBack_arbitration_isValid <= 1'b0; // @[Pipeline.scala 152:35]
       end
       if(when_Pipeline_l154_2) begin
-        writeBack_arbitration_isValid <= memory_arbitration_isValid;
+        writeBack_arbitration_isValid <= memory_arbitration_isValid; // @[Pipeline.scala 155:35]
       end
       case(switch_Fetcher_l365)
         3'b000 : begin
           if(IBusCachedPlugin_injectionPort_valid) begin
-            switch_Fetcher_l365 <= 3'b001;
+            switch_Fetcher_l365 <= 3'b001; // @[Fetcher.scala 368:23]
           end
         end
         3'b001 : begin
-          switch_Fetcher_l365 <= 3'b010;
+          switch_Fetcher_l365 <= 3'b010; // @[Fetcher.scala 372:21]
         end
         3'b010 : begin
-          switch_Fetcher_l365 <= 3'b011;
+          switch_Fetcher_l365 <= 3'b011; // @[Fetcher.scala 377:21]
         end
         3'b011 : begin
           if(when_Fetcher_l381) begin
-            switch_Fetcher_l365 <= 3'b100;
+            switch_Fetcher_l365 <= 3'b100; // @[Fetcher.scala 382:23]
           end
         end
         3'b100 : begin
-          switch_Fetcher_l365 <= 3'b000;
+          switch_Fetcher_l365 <= 3'b000; // @[Fetcher.scala 387:21]
         end
         default : begin
         end
       endcase
       if(MmuPlugin_dBusAccess_rsp_valid) begin
-        memory_to_writeBack_IS_DBUS_SHARING <= 1'b0;
+        memory_to_writeBack_IS_DBUS_SHARING <= 1'b0; // @[DBusCachedPlugin.scala 531:64]
       end
       if(MmuPlugin_dBusAccess_rsp_valid) begin
-        memory_to_writeBack_IS_DBUS_SHARING <= 1'b0;
+        memory_to_writeBack_IS_DBUS_SHARING <= 1'b0; // @[DBusCachedPlugin.scala 538:66]
       end
       if(execute_CsrPlugin_csr_768) begin
         if(execute_CsrPlugin_writeEnable) begin
-          CsrPlugin_mstatus_MPIE <= CsrPlugin_csrMapping_writeDataSignal[7];
-          CsrPlugin_mstatus_MIE <= CsrPlugin_csrMapping_writeDataSignal[3];
-          case(switch_CsrPlugin_l723)
+          CsrPlugin_mstatus_MPIE <= CsrPlugin_csrMapping_writeDataSignal[7]; // @[Bool.scala 189:10]
+          CsrPlugin_mstatus_MIE <= CsrPlugin_csrMapping_writeDataSignal[3]; // @[Bool.scala 189:10]
+          case(switch_CsrPlugin_l980)
             2'b11 : begin
-              CsrPlugin_mstatus_MPP <= 2'b11;
+              CsrPlugin_mstatus_MPP <= 2'b11; // @[CsrPlugin.scala 981:30]
             end
             2'b01 : begin
-              CsrPlugin_mstatus_MPP <= 2'b01;
+              CsrPlugin_mstatus_MPP <= 2'b01; // @[CsrPlugin.scala 982:48]
             end
             2'b00 : begin
-              CsrPlugin_mstatus_MPP <= 2'b00;
+              CsrPlugin_mstatus_MPP <= 2'b00; // @[CsrPlugin.scala 983:42]
             end
             default : begin
             end
           endcase
-          CsrPlugin_sstatus_SPP <= CsrPlugin_csrMapping_writeDataSignal[8 : 8];
-          CsrPlugin_sstatus_SPIE <= CsrPlugin_csrMapping_writeDataSignal[5];
-          CsrPlugin_sstatus_SIE <= CsrPlugin_csrMapping_writeDataSignal[1];
-          MmuPlugin_status_mxr <= CsrPlugin_csrMapping_writeDataSignal[19];
-          MmuPlugin_status_sum <= CsrPlugin_csrMapping_writeDataSignal[18];
-          MmuPlugin_status_mprv <= CsrPlugin_csrMapping_writeDataSignal[17];
+          CsrPlugin_sstatus_SPP <= CsrPlugin_csrMapping_writeDataSignal[8 : 8]; // @[UInt.scala 381:56]
+          CsrPlugin_sstatus_SPIE <= CsrPlugin_csrMapping_writeDataSignal[5]; // @[Bool.scala 189:10]
+          CsrPlugin_sstatus_SIE <= CsrPlugin_csrMapping_writeDataSignal[1]; // @[Bool.scala 189:10]
+          MmuPlugin_status_mxr <= CsrPlugin_csrMapping_writeDataSignal[19]; // @[Bool.scala 189:10]
+          MmuPlugin_status_sum <= CsrPlugin_csrMapping_writeDataSignal[18]; // @[Bool.scala 189:10]
+          MmuPlugin_status_mprv <= CsrPlugin_csrMapping_writeDataSignal[17]; // @[Bool.scala 189:10]
         end
       end
       if(execute_CsrPlugin_csr_836) begin
         if(execute_CsrPlugin_writeEnable) begin
-          CsrPlugin_sip_STIP <= CsrPlugin_csrMapping_writeDataSignal[5];
-          CsrPlugin_sip_SSIP <= CsrPlugin_csrMapping_writeDataSignal[1];
-          CsrPlugin_sip_SEIP_SOFT <= CsrPlugin_csrMapping_writeDataSignal[9];
+          CsrPlugin_sip_STIP <= CsrPlugin_csrMapping_writeDataSignal[5]; // @[Bool.scala 189:10]
+          CsrPlugin_sip_SSIP <= CsrPlugin_csrMapping_writeDataSignal[1]; // @[Bool.scala 189:10]
+          CsrPlugin_sip_SEIP_SOFT <= CsrPlugin_csrMapping_writeDataSignal[9]; // @[Bool.scala 189:10]
         end
       end
       if(execute_CsrPlugin_csr_772) begin
         if(execute_CsrPlugin_writeEnable) begin
-          CsrPlugin_mie_MEIE <= CsrPlugin_csrMapping_writeDataSignal[11];
-          CsrPlugin_mie_MTIE <= CsrPlugin_csrMapping_writeDataSignal[7];
-          CsrPlugin_mie_MSIE <= CsrPlugin_csrMapping_writeDataSignal[3];
-          CsrPlugin_sie_SEIE <= CsrPlugin_csrMapping_writeDataSignal[9];
-          CsrPlugin_sie_STIE <= CsrPlugin_csrMapping_writeDataSignal[5];
-          CsrPlugin_sie_SSIE <= CsrPlugin_csrMapping_writeDataSignal[1];
+          CsrPlugin_mie_MEIE <= CsrPlugin_csrMapping_writeDataSignal[11]; // @[Bool.scala 189:10]
+          CsrPlugin_mie_MTIE <= CsrPlugin_csrMapping_writeDataSignal[7]; // @[Bool.scala 189:10]
+          CsrPlugin_mie_MSIE <= CsrPlugin_csrMapping_writeDataSignal[3]; // @[Bool.scala 189:10]
+          CsrPlugin_sie_SEIE <= CsrPlugin_csrMapping_writeDataSignal[9]; // @[Bool.scala 189:10]
+          CsrPlugin_sie_STIE <= CsrPlugin_csrMapping_writeDataSignal[5]; // @[Bool.scala 189:10]
+          CsrPlugin_sie_SSIE <= CsrPlugin_csrMapping_writeDataSignal[1]; // @[Bool.scala 189:10]
         end
       end
       if(execute_CsrPlugin_csr_770) begin
         if(execute_CsrPlugin_writeEnable) begin
-          CsrPlugin_medeleg_IAM <= CsrPlugin_csrMapping_writeDataSignal[0];
-          CsrPlugin_medeleg_IAF <= CsrPlugin_csrMapping_writeDataSignal[1];
-          CsrPlugin_medeleg_II <= CsrPlugin_csrMapping_writeDataSignal[2];
-          CsrPlugin_medeleg_LAM <= CsrPlugin_csrMapping_writeDataSignal[4];
-          CsrPlugin_medeleg_LAF <= CsrPlugin_csrMapping_writeDataSignal[5];
-          CsrPlugin_medeleg_SAM <= CsrPlugin_csrMapping_writeDataSignal[6];
-          CsrPlugin_medeleg_SAF <= CsrPlugin_csrMapping_writeDataSignal[7];
-          CsrPlugin_medeleg_EU <= CsrPlugin_csrMapping_writeDataSignal[8];
-          CsrPlugin_medeleg_ES <= CsrPlugin_csrMapping_writeDataSignal[9];
-          CsrPlugin_medeleg_IPF <= CsrPlugin_csrMapping_writeDataSignal[12];
-          CsrPlugin_medeleg_LPF <= CsrPlugin_csrMapping_writeDataSignal[13];
-          CsrPlugin_medeleg_SPF <= CsrPlugin_csrMapping_writeDataSignal[15];
+          CsrPlugin_medeleg_IAM <= CsrPlugin_csrMapping_writeDataSignal[0]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_IAF <= CsrPlugin_csrMapping_writeDataSignal[1]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_II <= CsrPlugin_csrMapping_writeDataSignal[2]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_LAM <= CsrPlugin_csrMapping_writeDataSignal[4]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_LAF <= CsrPlugin_csrMapping_writeDataSignal[5]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_SAM <= CsrPlugin_csrMapping_writeDataSignal[6]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_SAF <= CsrPlugin_csrMapping_writeDataSignal[7]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_EU <= CsrPlugin_csrMapping_writeDataSignal[8]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_ES <= CsrPlugin_csrMapping_writeDataSignal[9]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_IPF <= CsrPlugin_csrMapping_writeDataSignal[12]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_LPF <= CsrPlugin_csrMapping_writeDataSignal[13]; // @[Bool.scala 189:10]
+          CsrPlugin_medeleg_SPF <= CsrPlugin_csrMapping_writeDataSignal[15]; // @[Bool.scala 189:10]
         end
       end
       if(execute_CsrPlugin_csr_771) begin
         if(execute_CsrPlugin_writeEnable) begin
-          CsrPlugin_mideleg_SE <= CsrPlugin_csrMapping_writeDataSignal[9];
-          CsrPlugin_mideleg_ST <= CsrPlugin_csrMapping_writeDataSignal[5];
-          CsrPlugin_mideleg_SS <= CsrPlugin_csrMapping_writeDataSignal[1];
+          CsrPlugin_mideleg_SE <= CsrPlugin_csrMapping_writeDataSignal[9]; // @[Bool.scala 189:10]
+          CsrPlugin_mideleg_ST <= CsrPlugin_csrMapping_writeDataSignal[5]; // @[Bool.scala 189:10]
+          CsrPlugin_mideleg_SS <= CsrPlugin_csrMapping_writeDataSignal[1]; // @[Bool.scala 189:10]
         end
       end
       if(execute_CsrPlugin_csr_256) begin
         if(execute_CsrPlugin_writeEnable) begin
-          CsrPlugin_sstatus_SPP <= CsrPlugin_csrMapping_writeDataSignal[8 : 8];
-          CsrPlugin_sstatus_SPIE <= CsrPlugin_csrMapping_writeDataSignal[5];
-          CsrPlugin_sstatus_SIE <= CsrPlugin_csrMapping_writeDataSignal[1];
-          MmuPlugin_status_mxr <= CsrPlugin_csrMapping_writeDataSignal[19];
-          MmuPlugin_status_sum <= CsrPlugin_csrMapping_writeDataSignal[18];
-          MmuPlugin_status_mprv <= CsrPlugin_csrMapping_writeDataSignal[17];
+          CsrPlugin_sstatus_SPP <= CsrPlugin_csrMapping_writeDataSignal[8 : 8]; // @[UInt.scala 381:56]
+          CsrPlugin_sstatus_SPIE <= CsrPlugin_csrMapping_writeDataSignal[5]; // @[Bool.scala 189:10]
+          CsrPlugin_sstatus_SIE <= CsrPlugin_csrMapping_writeDataSignal[1]; // @[Bool.scala 189:10]
+          MmuPlugin_status_mxr <= CsrPlugin_csrMapping_writeDataSignal[19]; // @[Bool.scala 189:10]
+          MmuPlugin_status_sum <= CsrPlugin_csrMapping_writeDataSignal[18]; // @[Bool.scala 189:10]
+          MmuPlugin_status_mprv <= CsrPlugin_csrMapping_writeDataSignal[17]; // @[Bool.scala 189:10]
         end
       end
       if(execute_CsrPlugin_csr_324) begin
         if(execute_CsrPlugin_writeEnable) begin
-          CsrPlugin_sip_STIP <= CsrPlugin_csrMapping_writeDataSignal[5];
-          CsrPlugin_sip_SSIP <= CsrPlugin_csrMapping_writeDataSignal[1];
-          CsrPlugin_sip_SEIP_SOFT <= CsrPlugin_csrMapping_writeDataSignal[9];
+          CsrPlugin_sip_STIP <= CsrPlugin_csrMapping_writeDataSignal[5]; // @[Bool.scala 189:10]
+          CsrPlugin_sip_SSIP <= CsrPlugin_csrMapping_writeDataSignal[1]; // @[Bool.scala 189:10]
+          CsrPlugin_sip_SEIP_SOFT <= CsrPlugin_csrMapping_writeDataSignal[9]; // @[Bool.scala 189:10]
         end
       end
       if(execute_CsrPlugin_csr_260) begin
         if(execute_CsrPlugin_writeEnable) begin
-          CsrPlugin_sie_SEIE <= CsrPlugin_csrMapping_writeDataSignal[9];
-          CsrPlugin_sie_STIE <= CsrPlugin_csrMapping_writeDataSignal[5];
-          CsrPlugin_sie_SSIE <= CsrPlugin_csrMapping_writeDataSignal[1];
+          CsrPlugin_sie_SEIE <= CsrPlugin_csrMapping_writeDataSignal[9]; // @[Bool.scala 189:10]
+          CsrPlugin_sie_STIE <= CsrPlugin_csrMapping_writeDataSignal[5]; // @[Bool.scala 189:10]
+          CsrPlugin_sie_SSIE <= CsrPlugin_csrMapping_writeDataSignal[1]; // @[Bool.scala 189:10]
         end
       end
       if(execute_CsrPlugin_csr_384) begin
         if(execute_CsrPlugin_writeEnable) begin
-          MmuPlugin_satp_mode <= CsrPlugin_csrMapping_writeDataSignal[31];
-          MmuPlugin_ports_0_cache_0_valid <= 1'b0;
-          MmuPlugin_ports_0_cache_1_valid <= 1'b0;
-          MmuPlugin_ports_0_cache_2_valid <= 1'b0;
-          MmuPlugin_ports_0_cache_3_valid <= 1'b0;
-          MmuPlugin_ports_0_cache_4_valid <= 1'b0;
-          MmuPlugin_ports_0_cache_5_valid <= 1'b0;
-          MmuPlugin_ports_0_cache_6_valid <= 1'b0;
-          MmuPlugin_ports_0_cache_7_valid <= 1'b0;
-          MmuPlugin_ports_1_cache_0_valid <= 1'b0;
-          MmuPlugin_ports_1_cache_1_valid <= 1'b0;
-          MmuPlugin_ports_1_cache_2_valid <= 1'b0;
-          MmuPlugin_ports_1_cache_3_valid <= 1'b0;
-          MmuPlugin_ports_1_cache_4_valid <= 1'b0;
-          MmuPlugin_ports_1_cache_5_valid <= 1'b0;
-          MmuPlugin_ports_1_cache_6_valid <= 1'b0;
-          MmuPlugin_ports_1_cache_7_valid <= 1'b0;
+          MmuPlugin_satp_mode <= CsrPlugin_csrMapping_writeDataSignal[31]; // @[Bool.scala 189:10]
+          MmuPlugin_ports_0_cache_0_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_0_cache_1_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_0_cache_2_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_0_cache_3_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_0_cache_4_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_0_cache_5_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_0_cache_6_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_0_cache_7_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_1_cache_0_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_1_cache_1_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_1_cache_2_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_1_cache_3_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_1_cache_4_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_1_cache_5_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_1_cache_6_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
+          MmuPlugin_ports_1_cache_7_valid <= 1'b0; // @[MmuPlugin.scala 320:64]
         end
       end
       if(execute_CsrPlugin_csr_3008) begin
         if(execute_CsrPlugin_writeEnable) begin
-          _zz_CsrPlugin_csrMapping_readDataInit <= CsrPlugin_csrMapping_writeDataSignal[31 : 0];
+          _zz_CsrPlugin_csrMapping_readDataInit <= CsrPlugin_csrMapping_writeDataSignal[31 : 0]; // @[Bits.scala 133:56]
         end
       end
       if(execute_CsrPlugin_csr_2496) begin
         if(execute_CsrPlugin_writeEnable) begin
-          _zz_CsrPlugin_csrMapping_readDataInit_2 <= CsrPlugin_csrMapping_writeDataSignal[31 : 0];
+          _zz_CsrPlugin_csrMapping_readDataInit_1 <= CsrPlugin_csrMapping_writeDataSignal[31 : 0]; // @[Bits.scala 133:56]
         end
       end
-      _zz_dBus_cmd_ready <= (_zz_dBus_cmd_ready + _zz_dBus_cmd_ready_1);
-      if((_zz_dbus_axi_arw_valid_1 && _zz_when_Stream_l945)) begin
-        _zz_dbus_axi_arw_valid_2 <= 1'b0;
+      _zz_dBus_cmd_ready <= (_zz_dBus_cmd_ready + _zz_dBus_cmd_ready_1); // @[Reg.scala 39:30]
+      if((_zz_dbus_axi_arw_valid_1 && _zz_when_Stream_l971)) begin
+        _zz_when_Stream_l971_2 <= 1'b0; // @[Stream.scala 982:23]
       end
-      if((_zz_dbus_axi_w_valid && _zz_when_Stream_l945_1)) begin
-        _zz_dbus_axi_w_valid_1 <= 1'b0;
+      if((_zz_dbus_axi_w_valid && _zz_when_Stream_l971_1)) begin
+        _zz_when_Stream_l971_3 <= 1'b0; // @[Stream.scala 982:23]
       end
       if(_zz_dBus_cmd_ready_3) begin
-        _zz_dbus_axi_arw_valid_2 <= 1'b1;
-        _zz_dbus_axi_w_valid_1 <= 1'b1;
+        _zz_when_Stream_l971_2 <= 1'b1; // @[Stream.scala 988:28]
+        _zz_when_Stream_l971_3 <= 1'b1; // @[Stream.scala 988:28]
       end
-      if((_zz_dbus_axi_arw_valid_1 && _zz_when_Stream_l945)) begin
-        _zz_4 <= (! _zz_dbus_axi_w_payload_last);
+      if((_zz_dbus_axi_arw_valid_1 && _zz_when_Stream_l971)) begin
+        _zz_4 <= (! _zz_dbus_axi_w_payload_last); // @[DataCache.scala 290:50]
       end
     end
   end
 
   always @(posedge clk) begin
     if(IBusCachedPlugin_iBusRsp_stages_1_output_ready) begin
-      _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_payload <= IBusCachedPlugin_iBusRsp_stages_1_output_payload;
+      _zz_IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_payload <= IBusCachedPlugin_iBusRsp_stages_1_output_payload; // @[Misc.scala 155:15]
     end
     if(IBusCachedPlugin_decompressor_input_valid) begin
-      IBusCachedPlugin_decompressor_bufferValidLatch <= IBusCachedPlugin_decompressor_bufferValid;
+      IBusCachedPlugin_decompressor_bufferValidLatch <= IBusCachedPlugin_decompressor_bufferValid; // @[Fetcher.scala 264:41]
     end
     if(IBusCachedPlugin_decompressor_input_valid) begin
-      IBusCachedPlugin_decompressor_throw2BytesLatch <= IBusCachedPlugin_decompressor_throw2Bytes;
+      IBusCachedPlugin_decompressor_throw2BytesLatch <= IBusCachedPlugin_decompressor_throw2Bytes; // @[Fetcher.scala 265:41]
     end
     if(when_Fetcher_l289) begin
-      IBusCachedPlugin_decompressor_bufferData <= IBusCachedPlugin_decompressor_input_payload_rsp_inst[31 : 16];
+      IBusCachedPlugin_decompressor_bufferData <= IBusCachedPlugin_decompressor_input_payload_rsp_inst[31 : 16]; // @[Fetcher.scala 290:20]
     end
     if(IBusCachedPlugin_iBusRsp_stages_1_input_ready) begin
-      IBusCachedPlugin_s1_tightlyCoupledHit <= IBusCachedPlugin_s0_tightlyCoupledHit;
+      IBusCachedPlugin_s1_tightlyCoupledHit <= IBusCachedPlugin_s0_tightlyCoupledHit; // @[IBusCachedPlugin.scala 181:44]
     end
     if(IBusCachedPlugin_iBusRsp_stages_2_input_ready) begin
-      IBusCachedPlugin_s2_tightlyCoupledHit <= IBusCachedPlugin_s1_tightlyCoupledHit;
+      IBusCachedPlugin_s2_tightlyCoupledHit <= IBusCachedPlugin_s1_tightlyCoupledHit; // @[IBusCachedPlugin.scala 207:44]
     end
     if(dataCache_1_io_mem_cmd_ready) begin
-      dataCache_1_io_mem_cmd_rData_wr <= dataCache_1_io_mem_cmd_payload_wr;
-      dataCache_1_io_mem_cmd_rData_uncached <= dataCache_1_io_mem_cmd_payload_uncached;
-      dataCache_1_io_mem_cmd_rData_address <= dataCache_1_io_mem_cmd_payload_address;
-      dataCache_1_io_mem_cmd_rData_data <= dataCache_1_io_mem_cmd_payload_data;
-      dataCache_1_io_mem_cmd_rData_mask <= dataCache_1_io_mem_cmd_payload_mask;
-      dataCache_1_io_mem_cmd_rData_size <= dataCache_1_io_mem_cmd_payload_size;
-      dataCache_1_io_mem_cmd_rData_last <= dataCache_1_io_mem_cmd_payload_last;
+      toplevel_dataCache_1_io_mem_cmd_rData_wr <= dataCache_1_io_mem_cmd_payload_wr; // @[Stream.scala 378:28]
+      toplevel_dataCache_1_io_mem_cmd_rData_uncached <= dataCache_1_io_mem_cmd_payload_uncached; // @[Stream.scala 378:28]
+      toplevel_dataCache_1_io_mem_cmd_rData_address <= dataCache_1_io_mem_cmd_payload_address; // @[Stream.scala 378:28]
+      toplevel_dataCache_1_io_mem_cmd_rData_data <= dataCache_1_io_mem_cmd_payload_data; // @[Stream.scala 378:28]
+      toplevel_dataCache_1_io_mem_cmd_rData_mask <= dataCache_1_io_mem_cmd_payload_mask; // @[Stream.scala 378:28]
+      toplevel_dataCache_1_io_mem_cmd_rData_size <= dataCache_1_io_mem_cmd_payload_size; // @[Stream.scala 378:28]
+      toplevel_dataCache_1_io_mem_cmd_rData_last <= dataCache_1_io_mem_cmd_payload_last; // @[Stream.scala 378:28]
     end
-    if(dataCache_1_io_mem_cmd_s2mPipe_ready) begin
-      dataCache_1_io_mem_cmd_s2mPipe_rData_wr <= dataCache_1_io_mem_cmd_s2mPipe_payload_wr;
-      dataCache_1_io_mem_cmd_s2mPipe_rData_uncached <= dataCache_1_io_mem_cmd_s2mPipe_payload_uncached;
-      dataCache_1_io_mem_cmd_s2mPipe_rData_address <= dataCache_1_io_mem_cmd_s2mPipe_payload_address;
-      dataCache_1_io_mem_cmd_s2mPipe_rData_data <= dataCache_1_io_mem_cmd_s2mPipe_payload_data;
-      dataCache_1_io_mem_cmd_s2mPipe_rData_mask <= dataCache_1_io_mem_cmd_s2mPipe_payload_mask;
-      dataCache_1_io_mem_cmd_s2mPipe_rData_size <= dataCache_1_io_mem_cmd_s2mPipe_payload_size;
-      dataCache_1_io_mem_cmd_s2mPipe_rData_last <= dataCache_1_io_mem_cmd_s2mPipe_payload_last;
+    if(toplevel_dataCache_1_io_mem_cmd_s2mPipe_ready) begin
+      toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_wr <= toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_wr; // @[Stream.scala 362:28]
+      toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_uncached <= toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_uncached; // @[Stream.scala 362:28]
+      toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_address <= toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_address; // @[Stream.scala 362:28]
+      toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_data <= toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_data; // @[Stream.scala 362:28]
+      toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_mask <= toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_mask; // @[Stream.scala 362:28]
+      toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_size <= toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_size; // @[Stream.scala 362:28]
+      toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_last <= toplevel_dataCache_1_io_mem_cmd_s2mPipe_payload_last; // @[Stream.scala 362:28]
     end
-    dBus_rsp_regNext_payload_last <= dBus_rsp_payload_last;
-    dBus_rsp_regNext_payload_data <= dBus_rsp_payload_data;
-    dBus_rsp_regNext_payload_error <= dBus_rsp_payload_error;
-    HazardSimplePlugin_writeBackBuffer_payload_address <= HazardSimplePlugin_writeBackWrites_payload_address;
-    HazardSimplePlugin_writeBackBuffer_payload_data <= HazardSimplePlugin_writeBackWrites_payload_data;
+    dBus_rsp_regNext_payload_last <= dBus_rsp_payload_last; // @[Reg.scala 39:30]
+    dBus_rsp_regNext_payload_data <= dBus_rsp_payload_data; // @[Reg.scala 39:30]
+    dBus_rsp_regNext_payload_error <= dBus_rsp_payload_error; // @[Reg.scala 39:30]
+    HazardSimplePlugin_writeBackBuffer_payload_address <= HazardSimplePlugin_writeBackWrites_payload_address; // @[Reg.scala 39:30]
+    HazardSimplePlugin_writeBackBuffer_payload_data <= HazardSimplePlugin_writeBackWrites_payload_data; // @[Reg.scala 39:30]
     if(when_MulDivIterativePlugin_l126) begin
-      memory_DivPlugin_div_done <= 1'b1;
+      memory_DivPlugin_div_done <= 1'b1; // @[MulDivIterativePlugin.scala 126:30]
     end
     if(when_MulDivIterativePlugin_l126_1) begin
-      memory_DivPlugin_div_done <= 1'b0;
+      memory_DivPlugin_div_done <= 1'b0; // @[MulDivIterativePlugin.scala 126:65]
     end
     if(when_MulDivIterativePlugin_l128) begin
       if(when_MulDivIterativePlugin_l132) begin
-        memory_DivPlugin_rs1[31 : 0] <= memory_DivPlugin_div_stage_0_outNumerator;
-        memory_DivPlugin_accumulator[31 : 0] <= memory_DivPlugin_div_stage_0_outRemainder;
+        memory_DivPlugin_rs1[31 : 0] <= memory_DivPlugin_div_stage_0_outNumerator; // @[MulDivIterativePlugin.scala 137:27]
+        memory_DivPlugin_accumulator[31 : 0] <= memory_DivPlugin_div_stage_0_outRemainder; // @[MulDivIterativePlugin.scala 138:27]
         if(when_MulDivIterativePlugin_l151) begin
-          memory_DivPlugin_div_result <= _zz_memory_DivPlugin_div_result_1[31:0];
+          memory_DivPlugin_div_result <= _zz_memory_DivPlugin_div_result_1[31:0]; // @[MulDivIterativePlugin.scala 153:22]
         end
       end
     end
     if(when_MulDivIterativePlugin_l162) begin
-      memory_DivPlugin_accumulator <= 65'h0;
-      memory_DivPlugin_rs1 <= ((_zz_memory_DivPlugin_rs1 ? (~ _zz_memory_DivPlugin_rs1_1) : _zz_memory_DivPlugin_rs1_1) + _zz_memory_DivPlugin_rs1_2);
-      memory_DivPlugin_rs2 <= ((_zz_memory_DivPlugin_rs2 ? (~ execute_RS2) : execute_RS2) + _zz_memory_DivPlugin_rs2_1);
-      memory_DivPlugin_div_needRevert <= ((_zz_memory_DivPlugin_rs1 ^ (_zz_memory_DivPlugin_rs2 && (! execute_INSTRUCTION[13]))) && (! (((execute_RS2 == 32'h0) && execute_IS_RS2_SIGNED) && (! execute_INSTRUCTION[13]))));
+      memory_DivPlugin_accumulator <= 65'h0; // @[MulDivIterativePlugin.scala 163:21]
+      memory_DivPlugin_rs1 <= ((_zz_memory_DivPlugin_rs1 ? (~ _zz_memory_DivPlugin_rs1_1) : _zz_memory_DivPlugin_rs1_1) + _zz_memory_DivPlugin_rs1_2); // @[MulDivIterativePlugin.scala 170:13]
+      memory_DivPlugin_rs2 <= ((_zz_memory_DivPlugin_rs2 ? (~ execute_RS2) : execute_RS2) + _zz_memory_DivPlugin_rs2_1); // @[MulDivIterativePlugin.scala 171:13]
+      memory_DivPlugin_div_needRevert <= ((_zz_memory_DivPlugin_rs1 ^ (_zz_memory_DivPlugin_rs2 && (! execute_INSTRUCTION[13]))) && (! (((execute_RS2 == 32'h0) && execute_IS_RS2_SIGNED) && (! execute_INSTRUCTION[13])))); // @[MulDivIterativePlugin.scala 172:35]
     end
-    CsrPlugin_mip_MEIP <= externalInterrupt;
-    CsrPlugin_mip_MTIP <= timerInterrupt;
-    CsrPlugin_mip_MSIP <= softwareInterrupt;
-    CsrPlugin_sip_SEIP_INPUT <= externalInterruptS;
+    CsrPlugin_mip_MEIP <= externalInterrupt; // @[Reg.scala 39:30]
+    CsrPlugin_mip_MTIP <= timerInterrupt; // @[Reg.scala 39:30]
+    CsrPlugin_mip_MSIP <= softwareInterrupt; // @[Reg.scala 39:30]
+    CsrPlugin_sip_SEIP_INPUT <= externalInterruptS; // @[Reg.scala 39:30]
     if(_zz_when) begin
-      CsrPlugin_exceptionPortCtrl_exceptionContext_code <= (_zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code_1 ? IBusCachedPlugin_decodeExceptionPort_payload_code : decodeExceptionPort_payload_code);
-      CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr <= (_zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code_1 ? IBusCachedPlugin_decodeExceptionPort_payload_badAddr : decodeExceptionPort_payload_badAddr);
+      CsrPlugin_exceptionPortCtrl_exceptionContext_code <= (_zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code_1 ? IBusCachedPlugin_decodeExceptionPort_payload_code : decodeExceptionPort_payload_code); // @[CsrPlugin.scala 1173:30]
+      CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr <= (_zz_CsrPlugin_exceptionPortCtrl_exceptionContext_code_1 ? IBusCachedPlugin_decodeExceptionPort_payload_badAddr : decodeExceptionPort_payload_badAddr); // @[CsrPlugin.scala 1173:30]
     end
     if(CsrPlugin_selfException_valid) begin
-      CsrPlugin_exceptionPortCtrl_exceptionContext_code <= CsrPlugin_selfException_payload_code;
-      CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr <= CsrPlugin_selfException_payload_badAddr;
+      CsrPlugin_exceptionPortCtrl_exceptionContext_code <= CsrPlugin_selfException_payload_code; // @[CsrPlugin.scala 1173:30]
+      CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr <= CsrPlugin_selfException_payload_badAddr; // @[CsrPlugin.scala 1173:30]
     end
     if(DBusCachedPlugin_exceptionBus_valid) begin
-      CsrPlugin_exceptionPortCtrl_exceptionContext_code <= DBusCachedPlugin_exceptionBus_payload_code;
-      CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr <= DBusCachedPlugin_exceptionBus_payload_badAddr;
+      CsrPlugin_exceptionPortCtrl_exceptionContext_code <= DBusCachedPlugin_exceptionBus_payload_code; // @[CsrPlugin.scala 1173:30]
+      CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr <= DBusCachedPlugin_exceptionBus_payload_badAddr; // @[CsrPlugin.scala 1173:30]
     end
-    if(when_CsrPlugin_l959) begin
-      if(when_CsrPlugin_l965) begin
-        CsrPlugin_interrupt_code <= 4'b0101;
-        CsrPlugin_interrupt_targetPrivilege <= 2'b01;
+    if(when_CsrPlugin_l1216) begin
+      if(when_CsrPlugin_l1222) begin
+        CsrPlugin_interrupt_code <= 4'b0101; // @[CsrPlugin.scala 1224:22]
+        CsrPlugin_interrupt_targetPrivilege <= 2'b01; // @[CsrPlugin.scala 1225:33]
       end
-      if(when_CsrPlugin_l965_1) begin
-        CsrPlugin_interrupt_code <= 4'b0001;
-        CsrPlugin_interrupt_targetPrivilege <= 2'b01;
+      if(when_CsrPlugin_l1222_1) begin
+        CsrPlugin_interrupt_code <= 4'b0001; // @[CsrPlugin.scala 1224:22]
+        CsrPlugin_interrupt_targetPrivilege <= 2'b01; // @[CsrPlugin.scala 1225:33]
       end
-      if(when_CsrPlugin_l965_2) begin
-        CsrPlugin_interrupt_code <= 4'b1001;
-        CsrPlugin_interrupt_targetPrivilege <= 2'b01;
-      end
-    end
-    if(when_CsrPlugin_l959_1) begin
-      if(when_CsrPlugin_l965_3) begin
-        CsrPlugin_interrupt_code <= 4'b0101;
-        CsrPlugin_interrupt_targetPrivilege <= 2'b11;
-      end
-      if(when_CsrPlugin_l965_4) begin
-        CsrPlugin_interrupt_code <= 4'b0001;
-        CsrPlugin_interrupt_targetPrivilege <= 2'b11;
-      end
-      if(when_CsrPlugin_l965_5) begin
-        CsrPlugin_interrupt_code <= 4'b1001;
-        CsrPlugin_interrupt_targetPrivilege <= 2'b11;
-      end
-      if(when_CsrPlugin_l965_6) begin
-        CsrPlugin_interrupt_code <= 4'b0111;
-        CsrPlugin_interrupt_targetPrivilege <= 2'b11;
-      end
-      if(when_CsrPlugin_l965_7) begin
-        CsrPlugin_interrupt_code <= 4'b0011;
-        CsrPlugin_interrupt_targetPrivilege <= 2'b11;
-      end
-      if(when_CsrPlugin_l965_8) begin
-        CsrPlugin_interrupt_code <= 4'b1011;
-        CsrPlugin_interrupt_targetPrivilege <= 2'b11;
+      if(when_CsrPlugin_l1222_2) begin
+        CsrPlugin_interrupt_code <= 4'b1001; // @[CsrPlugin.scala 1224:22]
+        CsrPlugin_interrupt_targetPrivilege <= 2'b01; // @[CsrPlugin.scala 1225:33]
       end
     end
-    if(when_CsrPlugin_l1032) begin
-      case(CsrPlugin_targetPrivilege)
-        2'b01 : begin
-          CsrPlugin_scause_interrupt <= (! CsrPlugin_hadException);
-          CsrPlugin_scause_exceptionCode <= CsrPlugin_trapCause;
-          CsrPlugin_sepc <= writeBack_PC;
-          if(CsrPlugin_hadException) begin
-            CsrPlugin_stval <= CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr;
+    if(when_CsrPlugin_l1216_1) begin
+      if(when_CsrPlugin_l1222_3) begin
+        CsrPlugin_interrupt_code <= 4'b0101; // @[CsrPlugin.scala 1224:22]
+        CsrPlugin_interrupt_targetPrivilege <= 2'b11; // @[CsrPlugin.scala 1225:33]
+      end
+      if(when_CsrPlugin_l1222_4) begin
+        CsrPlugin_interrupt_code <= 4'b0001; // @[CsrPlugin.scala 1224:22]
+        CsrPlugin_interrupt_targetPrivilege <= 2'b11; // @[CsrPlugin.scala 1225:33]
+      end
+      if(when_CsrPlugin_l1222_5) begin
+        CsrPlugin_interrupt_code <= 4'b1001; // @[CsrPlugin.scala 1224:22]
+        CsrPlugin_interrupt_targetPrivilege <= 2'b11; // @[CsrPlugin.scala 1225:33]
+      end
+      if(when_CsrPlugin_l1222_6) begin
+        CsrPlugin_interrupt_code <= 4'b0111; // @[CsrPlugin.scala 1224:22]
+        CsrPlugin_interrupt_targetPrivilege <= 2'b11; // @[CsrPlugin.scala 1225:33]
+      end
+      if(when_CsrPlugin_l1222_7) begin
+        CsrPlugin_interrupt_code <= 4'b0011; // @[CsrPlugin.scala 1224:22]
+        CsrPlugin_interrupt_targetPrivilege <= 2'b11; // @[CsrPlugin.scala 1225:33]
+      end
+      if(when_CsrPlugin_l1222_8) begin
+        CsrPlugin_interrupt_code <= 4'b1011; // @[CsrPlugin.scala 1224:22]
+        CsrPlugin_interrupt_targetPrivilege <= 2'b11; // @[CsrPlugin.scala 1225:33]
+      end
+    end
+    if(when_CsrPlugin_l1310) begin
+      if(when_CsrPlugin_l1318) begin
+        case(CsrPlugin_targetPrivilege)
+          2'b01 : begin
+            CsrPlugin_scause_interrupt <= (! CsrPlugin_hadException); // @[CsrPlugin.scala 1325:32]
+            CsrPlugin_scause_exceptionCode <= CsrPlugin_trapCause; // @[CsrPlugin.scala 1326:36]
+            CsrPlugin_sepc <= writeBack_PC; // @[CsrPlugin.scala 1327:20]
+            if(CsrPlugin_hadException) begin
+              CsrPlugin_stval <= CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr; // @[CsrPlugin.scala 1329:23]
+            end
           end
-        end
-        2'b11 : begin
-          CsrPlugin_mcause_interrupt <= (! CsrPlugin_hadException);
-          CsrPlugin_mcause_exceptionCode <= CsrPlugin_trapCause;
-          CsrPlugin_mepc <= writeBack_PC;
-          if(CsrPlugin_hadException) begin
-            CsrPlugin_mtval <= CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr;
+          2'b11 : begin
+            CsrPlugin_mcause_interrupt <= (! CsrPlugin_hadException); // @[CsrPlugin.scala 1337:32]
+            CsrPlugin_mcause_exceptionCode <= CsrPlugin_trapCause; // @[CsrPlugin.scala 1338:36]
+            CsrPlugin_mepc <= writeBack_PC; // @[CsrPlugin.scala 1339:20]
+            if(CsrPlugin_hadException) begin
+              CsrPlugin_mtval <= CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr; // @[CsrPlugin.scala 1341:23]
+            end
           end
-        end
-        default : begin
-        end
-      endcase
+          default : begin
+          end
+        endcase
+      end
     end
-    MmuPlugin_shared_dBusRspStaged_payload_data <= MmuPlugin_dBusAccess_rsp_payload_data;
-    MmuPlugin_shared_dBusRspStaged_payload_error <= MmuPlugin_dBusAccess_rsp_payload_error;
-    MmuPlugin_shared_dBusRspStaged_payload_redo <= MmuPlugin_dBusAccess_rsp_payload_redo;
-    if(when_MmuPlugin_l205) begin
-      MmuPlugin_shared_pteBuffer_V <= MmuPlugin_shared_dBusRsp_pte_V;
-      MmuPlugin_shared_pteBuffer_R <= MmuPlugin_shared_dBusRsp_pte_R;
-      MmuPlugin_shared_pteBuffer_W <= MmuPlugin_shared_dBusRsp_pte_W;
-      MmuPlugin_shared_pteBuffer_X <= MmuPlugin_shared_dBusRsp_pte_X;
-      MmuPlugin_shared_pteBuffer_U <= MmuPlugin_shared_dBusRsp_pte_U;
-      MmuPlugin_shared_pteBuffer_G <= MmuPlugin_shared_dBusRsp_pte_G;
-      MmuPlugin_shared_pteBuffer_A <= MmuPlugin_shared_dBusRsp_pte_A;
-      MmuPlugin_shared_pteBuffer_D <= MmuPlugin_shared_dBusRsp_pte_D;
-      MmuPlugin_shared_pteBuffer_RSW <= MmuPlugin_shared_dBusRsp_pte_RSW;
-      MmuPlugin_shared_pteBuffer_PPN0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-      MmuPlugin_shared_pteBuffer_PPN1 <= MmuPlugin_shared_dBusRsp_pte_PPN1;
+    MmuPlugin_shared_dBusRspStaged_payload_data <= MmuPlugin_dBusAccess_rsp_payload_data; // @[Reg.scala 39:30]
+    MmuPlugin_shared_dBusRspStaged_payload_error <= MmuPlugin_dBusAccess_rsp_payload_error; // @[Reg.scala 39:30]
+    MmuPlugin_shared_dBusRspStaged_payload_redo <= MmuPlugin_dBusAccess_rsp_payload_redo; // @[Reg.scala 39:30]
+    if(when_MmuPlugin_l216) begin
+      MmuPlugin_shared_pteBuffer_V <= MmuPlugin_shared_dBusRsp_pte_V; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_R <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_W <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_X <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_U <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_G <= MmuPlugin_shared_dBusRsp_pte_G; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_A <= MmuPlugin_shared_dBusRsp_pte_A; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_D <= MmuPlugin_shared_dBusRsp_pte_D; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_RSW <= MmuPlugin_shared_dBusRsp_pte_RSW; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_PPN0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 216:36]
+      MmuPlugin_shared_pteBuffer_PPN1 <= MmuPlugin_shared_dBusRsp_pte_PPN1; // @[MmuPlugin.scala 216:36]
     end
     case(MmuPlugin_shared_state_1)
       MmuPlugin_shared_State_IDLE : begin
-        if(when_MmuPlugin_l217) begin
-          MmuPlugin_shared_portSortedOh <= MmuPlugin_shared_refills;
-          MmuPlugin_shared_vpn_1 <= _zz_MmuPlugin_shared_vpn_0[31 : 22];
-          MmuPlugin_shared_vpn_0 <= _zz_MmuPlugin_shared_vpn_0[21 : 12];
+        if(when_MmuPlugin_l228) begin
+          MmuPlugin_shared_portSortedOh <= MmuPlugin_shared_refills; // @[MmuPlugin.scala 229:28]
+          MmuPlugin_shared_vpn_1 <= _zz_MmuPlugin_shared_vpn_0[31 : 22]; // @[MmuPlugin.scala 232:22]
+          MmuPlugin_shared_vpn_0 <= _zz_MmuPlugin_shared_vpn_0[21 : 12]; // @[MmuPlugin.scala 233:22]
         end
       end
       MmuPlugin_shared_State_L1_CMD : begin
@@ -8257,714 +8300,714 @@ module VexRiscvAxi4 (
       default : begin
       end
     endcase
-    if(when_MmuPlugin_l272) begin
-      if(when_MmuPlugin_l274) begin
-        if(when_MmuPlugin_l280) begin
-          MmuPlugin_ports_0_cache_0_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_0_cache_0_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_0_cache_0_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_0_cache_0_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_0_cache_0_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_0_cache_0_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_0_cache_0_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_0_cache_0_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_0_cache_0_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_0_cache_0_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+    if(when_MmuPlugin_l283) begin
+      if(when_MmuPlugin_l285) begin
+        if(when_MmuPlugin_l291) begin
+          MmuPlugin_ports_0_cache_0_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_0_cache_0_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_0_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_0_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_0_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_0_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_0_cache_0_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_0_cache_0_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_0_cache_0_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_0_cache_0_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_1) begin
-          MmuPlugin_ports_0_cache_1_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_0_cache_1_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_0_cache_1_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_0_cache_1_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_0_cache_1_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_0_cache_1_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_0_cache_1_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_0_cache_1_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_0_cache_1_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_0_cache_1_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_1) begin
+          MmuPlugin_ports_0_cache_1_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_0_cache_1_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_1_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_1_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_1_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_1_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_0_cache_1_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_0_cache_1_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_0_cache_1_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_0_cache_1_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_2) begin
-          MmuPlugin_ports_0_cache_2_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_0_cache_2_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_0_cache_2_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_0_cache_2_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_0_cache_2_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_0_cache_2_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_0_cache_2_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_0_cache_2_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_0_cache_2_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_0_cache_2_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_2) begin
+          MmuPlugin_ports_0_cache_2_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_0_cache_2_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_2_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_2_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_2_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_2_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_0_cache_2_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_0_cache_2_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_0_cache_2_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_0_cache_2_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_3) begin
-          MmuPlugin_ports_0_cache_3_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_0_cache_3_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_0_cache_3_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_0_cache_3_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_0_cache_3_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_0_cache_3_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_0_cache_3_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_0_cache_3_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_0_cache_3_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_0_cache_3_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_3) begin
+          MmuPlugin_ports_0_cache_3_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_0_cache_3_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_3_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_3_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_3_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_3_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_0_cache_3_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_0_cache_3_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_0_cache_3_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_0_cache_3_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_4) begin
-          MmuPlugin_ports_0_cache_4_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_0_cache_4_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_0_cache_4_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_0_cache_4_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_0_cache_4_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_0_cache_4_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_0_cache_4_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_0_cache_4_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_0_cache_4_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_0_cache_4_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_4) begin
+          MmuPlugin_ports_0_cache_4_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_0_cache_4_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_4_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_4_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_4_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_4_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_0_cache_4_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_0_cache_4_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_0_cache_4_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_0_cache_4_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_5) begin
-          MmuPlugin_ports_0_cache_5_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_0_cache_5_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_0_cache_5_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_0_cache_5_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_0_cache_5_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_0_cache_5_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_0_cache_5_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_0_cache_5_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_0_cache_5_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_0_cache_5_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_5) begin
+          MmuPlugin_ports_0_cache_5_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_0_cache_5_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_5_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_5_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_5_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_5_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_0_cache_5_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_0_cache_5_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_0_cache_5_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_0_cache_5_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_6) begin
-          MmuPlugin_ports_0_cache_6_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_0_cache_6_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_0_cache_6_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_0_cache_6_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_0_cache_6_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_0_cache_6_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_0_cache_6_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_0_cache_6_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_0_cache_6_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_0_cache_6_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_6) begin
+          MmuPlugin_ports_0_cache_6_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_0_cache_6_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_6_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_6_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_6_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_6_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_0_cache_6_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_0_cache_6_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_0_cache_6_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_0_cache_6_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_7) begin
-          MmuPlugin_ports_0_cache_7_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_0_cache_7_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_0_cache_7_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_0_cache_7_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_0_cache_7_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_0_cache_7_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_0_cache_7_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_0_cache_7_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_0_cache_7_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_0_cache_7_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_7) begin
+          MmuPlugin_ports_0_cache_7_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_0_cache_7_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_7_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_0_cache_7_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_7_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_0_cache_7_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_0_cache_7_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_0_cache_7_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_0_cache_7_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_0_cache_7_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
       end
-      if(when_MmuPlugin_l274_1) begin
-        if(when_MmuPlugin_l280_8) begin
-          MmuPlugin_ports_1_cache_0_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_1_cache_0_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_1_cache_0_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_1_cache_0_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_1_cache_0_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_1_cache_0_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_1_cache_0_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_1_cache_0_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_1_cache_0_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_1_cache_0_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+      if(when_MmuPlugin_l285_1) begin
+        if(when_MmuPlugin_l291_8) begin
+          MmuPlugin_ports_1_cache_0_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_1_cache_0_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_0_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_0_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_0_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_0_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_1_cache_0_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_1_cache_0_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_1_cache_0_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_1_cache_0_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_9) begin
-          MmuPlugin_ports_1_cache_1_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_1_cache_1_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_1_cache_1_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_1_cache_1_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_1_cache_1_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_1_cache_1_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_1_cache_1_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_1_cache_1_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_1_cache_1_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_1_cache_1_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_9) begin
+          MmuPlugin_ports_1_cache_1_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_1_cache_1_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_1_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_1_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_1_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_1_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_1_cache_1_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_1_cache_1_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_1_cache_1_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_1_cache_1_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_10) begin
-          MmuPlugin_ports_1_cache_2_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_1_cache_2_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_1_cache_2_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_1_cache_2_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_1_cache_2_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_1_cache_2_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_1_cache_2_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_1_cache_2_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_1_cache_2_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_1_cache_2_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_10) begin
+          MmuPlugin_ports_1_cache_2_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_1_cache_2_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_2_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_2_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_2_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_2_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_1_cache_2_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_1_cache_2_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_1_cache_2_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_1_cache_2_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_11) begin
-          MmuPlugin_ports_1_cache_3_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_1_cache_3_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_1_cache_3_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_1_cache_3_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_1_cache_3_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_1_cache_3_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_1_cache_3_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_1_cache_3_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_1_cache_3_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_1_cache_3_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_11) begin
+          MmuPlugin_ports_1_cache_3_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_1_cache_3_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_3_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_3_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_3_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_3_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_1_cache_3_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_1_cache_3_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_1_cache_3_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_1_cache_3_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_12) begin
-          MmuPlugin_ports_1_cache_4_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_1_cache_4_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_1_cache_4_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_1_cache_4_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_1_cache_4_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_1_cache_4_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_1_cache_4_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_1_cache_4_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_1_cache_4_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_1_cache_4_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_12) begin
+          MmuPlugin_ports_1_cache_4_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_1_cache_4_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_4_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_4_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_4_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_4_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_1_cache_4_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_1_cache_4_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_1_cache_4_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_1_cache_4_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_13) begin
-          MmuPlugin_ports_1_cache_5_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_1_cache_5_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_1_cache_5_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_1_cache_5_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_1_cache_5_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_1_cache_5_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_1_cache_5_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_1_cache_5_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_1_cache_5_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_1_cache_5_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_13) begin
+          MmuPlugin_ports_1_cache_5_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_1_cache_5_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_5_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_5_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_5_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_5_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_1_cache_5_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_1_cache_5_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_1_cache_5_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_1_cache_5_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_14) begin
-          MmuPlugin_ports_1_cache_6_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_1_cache_6_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_1_cache_6_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_1_cache_6_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_1_cache_6_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_1_cache_6_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_1_cache_6_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_1_cache_6_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_1_cache_6_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_1_cache_6_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_14) begin
+          MmuPlugin_ports_1_cache_6_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_1_cache_6_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_6_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_6_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_6_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_6_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_1_cache_6_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_1_cache_6_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_1_cache_6_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_1_cache_6_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
-        if(when_MmuPlugin_l280_15) begin
-          MmuPlugin_ports_1_cache_7_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0)));
-          MmuPlugin_ports_1_cache_7_virtualAddress_0 <= MmuPlugin_shared_vpn_0;
-          MmuPlugin_ports_1_cache_7_virtualAddress_1 <= MmuPlugin_shared_vpn_1;
-          MmuPlugin_ports_1_cache_7_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0;
-          MmuPlugin_ports_1_cache_7_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0];
-          MmuPlugin_ports_1_cache_7_allowRead <= MmuPlugin_shared_dBusRsp_pte_R;
-          MmuPlugin_ports_1_cache_7_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W;
-          MmuPlugin_ports_1_cache_7_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X;
-          MmuPlugin_ports_1_cache_7_allowUser <= MmuPlugin_shared_dBusRsp_pte_U;
-          MmuPlugin_ports_1_cache_7_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP);
+        if(when_MmuPlugin_l291_15) begin
+          MmuPlugin_ports_1_cache_7_exception <= (MmuPlugin_shared_dBusRsp_exception || ((MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP) && (MmuPlugin_shared_dBusRsp_pte_PPN0 != 10'h0))); // @[MmuPlugin.scala 294:34]
+          MmuPlugin_ports_1_cache_7_virtualAddress_0 <= MmuPlugin_shared_vpn_0; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_7_virtualAddress_1 <= MmuPlugin_shared_vpn_1; // @[MmuPlugin.scala 295:39]
+          MmuPlugin_ports_1_cache_7_physicalAddress_0 <= MmuPlugin_shared_dBusRsp_pte_PPN0; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_7_physicalAddress_1 <= MmuPlugin_shared_dBusRsp_pte_PPN1[9 : 0]; // @[MmuPlugin.scala 296:40]
+          MmuPlugin_ports_1_cache_7_allowRead <= MmuPlugin_shared_dBusRsp_pte_R; // @[MmuPlugin.scala 297:34]
+          MmuPlugin_ports_1_cache_7_allowWrite <= MmuPlugin_shared_dBusRsp_pte_W; // @[MmuPlugin.scala 298:35]
+          MmuPlugin_ports_1_cache_7_allowExecute <= MmuPlugin_shared_dBusRsp_pte_X; // @[MmuPlugin.scala 299:37]
+          MmuPlugin_ports_1_cache_7_allowUser <= MmuPlugin_shared_dBusRsp_pte_U; // @[MmuPlugin.scala 300:34]
+          MmuPlugin_ports_1_cache_7_superPage <= (MmuPlugin_shared_state_1 == MmuPlugin_shared_State_L1_RSP); // @[MmuPlugin.scala 301:34]
         end
       end
     end
-    externalInterruptArray_regNext <= externalInterruptArray;
+    externalInterruptArray_regNext <= externalInterruptArray; // @[Reg.scala 39:30]
     if(when_Pipeline_l124) begin
-      decode_to_execute_PC <= decode_PC;
+      decode_to_execute_PC <= decode_PC; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_1) begin
-      execute_to_memory_PC <= _zz_execute_SRC2;
+      execute_to_memory_PC <= _zz_execute_to_memory_PC; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_2) begin
-      memory_to_writeBack_PC <= memory_PC;
+      memory_to_writeBack_PC <= memory_PC; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_3) begin
-      decode_to_execute_INSTRUCTION <= decode_INSTRUCTION;
+      decode_to_execute_INSTRUCTION <= decode_INSTRUCTION; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_4) begin
-      execute_to_memory_INSTRUCTION <= execute_INSTRUCTION;
+      execute_to_memory_INSTRUCTION <= execute_INSTRUCTION; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_5) begin
-      memory_to_writeBack_INSTRUCTION <= memory_INSTRUCTION;
+      memory_to_writeBack_INSTRUCTION <= memory_INSTRUCTION; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_6) begin
-      decode_to_execute_IS_RVC <= decode_IS_RVC;
+      decode_to_execute_IS_RVC <= decode_IS_RVC; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_7) begin
-      decode_to_execute_FORMAL_PC_NEXT <= _zz_decode_to_execute_FORMAL_PC_NEXT;
+      decode_to_execute_FORMAL_PC_NEXT <= _zz_decode_to_execute_FORMAL_PC_NEXT; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_8) begin
-      execute_to_memory_FORMAL_PC_NEXT <= _zz_execute_to_memory_FORMAL_PC_NEXT;
+      execute_to_memory_FORMAL_PC_NEXT <= _zz_execute_to_memory_FORMAL_PC_NEXT; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_9) begin
-      memory_to_writeBack_FORMAL_PC_NEXT <= _zz_memory_to_writeBack_FORMAL_PC_NEXT;
+      memory_to_writeBack_FORMAL_PC_NEXT <= _zz_memory_to_writeBack_FORMAL_PC_NEXT; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_10) begin
-      decode_to_execute_MEMORY_FORCE_CONSTISTENCY <= decode_MEMORY_FORCE_CONSTISTENCY;
+      decode_to_execute_MEMORY_FORCE_CONSTISTENCY <= decode_MEMORY_FORCE_CONSTISTENCY; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_11) begin
-      decode_to_execute_SRC1_CTRL <= _zz_decode_to_execute_SRC1_CTRL;
+      decode_to_execute_SRC1_CTRL <= _zz_decode_to_execute_SRC1_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_12) begin
-      decode_to_execute_SRC_USE_SUB_LESS <= decode_SRC_USE_SUB_LESS;
+      decode_to_execute_SRC_USE_SUB_LESS <= decode_SRC_USE_SUB_LESS; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_13) begin
-      decode_to_execute_MEMORY_ENABLE <= decode_MEMORY_ENABLE;
+      decode_to_execute_MEMORY_ENABLE <= decode_MEMORY_ENABLE; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_14) begin
-      execute_to_memory_MEMORY_ENABLE <= execute_MEMORY_ENABLE;
+      execute_to_memory_MEMORY_ENABLE <= execute_MEMORY_ENABLE; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_15) begin
-      memory_to_writeBack_MEMORY_ENABLE <= memory_MEMORY_ENABLE;
+      memory_to_writeBack_MEMORY_ENABLE <= memory_MEMORY_ENABLE; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_16) begin
-      decode_to_execute_ALU_CTRL <= _zz_decode_to_execute_ALU_CTRL;
+      decode_to_execute_ALU_CTRL <= _zz_decode_to_execute_ALU_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_17) begin
-      decode_to_execute_SRC2_CTRL <= _zz_decode_to_execute_SRC2_CTRL;
+      decode_to_execute_SRC2_CTRL <= _zz_decode_to_execute_SRC2_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_18) begin
-      decode_to_execute_REGFILE_WRITE_VALID <= decode_REGFILE_WRITE_VALID;
+      decode_to_execute_REGFILE_WRITE_VALID <= decode_REGFILE_WRITE_VALID; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_19) begin
-      execute_to_memory_REGFILE_WRITE_VALID <= execute_REGFILE_WRITE_VALID;
+      execute_to_memory_REGFILE_WRITE_VALID <= execute_REGFILE_WRITE_VALID; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_20) begin
-      memory_to_writeBack_REGFILE_WRITE_VALID <= memory_REGFILE_WRITE_VALID;
+      memory_to_writeBack_REGFILE_WRITE_VALID <= memory_REGFILE_WRITE_VALID; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_21) begin
-      decode_to_execute_BYPASSABLE_EXECUTE_STAGE <= decode_BYPASSABLE_EXECUTE_STAGE;
+      decode_to_execute_BYPASSABLE_EXECUTE_STAGE <= decode_BYPASSABLE_EXECUTE_STAGE; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_22) begin
-      decode_to_execute_BYPASSABLE_MEMORY_STAGE <= decode_BYPASSABLE_MEMORY_STAGE;
+      decode_to_execute_BYPASSABLE_MEMORY_STAGE <= decode_BYPASSABLE_MEMORY_STAGE; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_23) begin
-      execute_to_memory_BYPASSABLE_MEMORY_STAGE <= execute_BYPASSABLE_MEMORY_STAGE;
+      execute_to_memory_BYPASSABLE_MEMORY_STAGE <= execute_BYPASSABLE_MEMORY_STAGE; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_24) begin
-      decode_to_execute_MEMORY_WR <= decode_MEMORY_WR;
+      decode_to_execute_MEMORY_WR <= decode_MEMORY_WR; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_25) begin
-      execute_to_memory_MEMORY_WR <= execute_MEMORY_WR;
+      execute_to_memory_MEMORY_WR <= execute_MEMORY_WR; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_26) begin
-      memory_to_writeBack_MEMORY_WR <= memory_MEMORY_WR;
+      memory_to_writeBack_MEMORY_WR <= memory_MEMORY_WR; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_27) begin
-      decode_to_execute_MEMORY_LRSC <= decode_MEMORY_LRSC;
+      decode_to_execute_MEMORY_LRSC <= decode_MEMORY_LRSC; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_28) begin
-      execute_to_memory_MEMORY_LRSC <= execute_MEMORY_LRSC;
+      execute_to_memory_MEMORY_LRSC <= execute_MEMORY_LRSC; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_29) begin
-      memory_to_writeBack_MEMORY_LRSC <= memory_MEMORY_LRSC;
+      memory_to_writeBack_MEMORY_LRSC <= memory_MEMORY_LRSC; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_30) begin
-      decode_to_execute_MEMORY_AMO <= decode_MEMORY_AMO;
+      decode_to_execute_MEMORY_AMO <= decode_MEMORY_AMO; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_31) begin
-      decode_to_execute_MEMORY_MANAGMENT <= decode_MEMORY_MANAGMENT;
+      decode_to_execute_MEMORY_MANAGMENT <= decode_MEMORY_MANAGMENT; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_32) begin
-      decode_to_execute_SRC_LESS_UNSIGNED <= decode_SRC_LESS_UNSIGNED;
+      decode_to_execute_SRC_LESS_UNSIGNED <= decode_SRC_LESS_UNSIGNED; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_33) begin
-      decode_to_execute_ALU_BITWISE_CTRL <= _zz_decode_to_execute_ALU_BITWISE_CTRL;
+      decode_to_execute_ALU_BITWISE_CTRL <= _zz_decode_to_execute_ALU_BITWISE_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_34) begin
-      decode_to_execute_SHIFT_CTRL <= _zz_decode_to_execute_SHIFT_CTRL;
+      decode_to_execute_SHIFT_CTRL <= _zz_decode_to_execute_SHIFT_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_35) begin
-      execute_to_memory_SHIFT_CTRL <= _zz_execute_to_memory_SHIFT_CTRL;
+      execute_to_memory_SHIFT_CTRL <= _zz_execute_to_memory_SHIFT_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_36) begin
-      decode_to_execute_IS_MUL <= decode_IS_MUL;
+      decode_to_execute_IS_MUL <= decode_IS_MUL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_37) begin
-      execute_to_memory_IS_MUL <= execute_IS_MUL;
+      execute_to_memory_IS_MUL <= execute_IS_MUL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_38) begin
-      memory_to_writeBack_IS_MUL <= memory_IS_MUL;
+      memory_to_writeBack_IS_MUL <= memory_IS_MUL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_39) begin
-      decode_to_execute_IS_DIV <= decode_IS_DIV;
+      decode_to_execute_IS_DIV <= decode_IS_DIV; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_40) begin
-      execute_to_memory_IS_DIV <= execute_IS_DIV;
+      execute_to_memory_IS_DIV <= execute_IS_DIV; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_41) begin
-      decode_to_execute_IS_RS1_SIGNED <= decode_IS_RS1_SIGNED;
+      decode_to_execute_IS_RS1_SIGNED <= decode_IS_RS1_SIGNED; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_42) begin
-      decode_to_execute_IS_RS2_SIGNED <= decode_IS_RS2_SIGNED;
+      decode_to_execute_IS_RS2_SIGNED <= decode_IS_RS2_SIGNED; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_43) begin
-      decode_to_execute_IS_AES <= decode_IS_AES;
+      decode_to_execute_IS_AES <= decode_IS_AES; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_44) begin
-      execute_to_memory_IS_AES <= execute_IS_AES;
+      execute_to_memory_IS_AES <= execute_IS_AES; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_45) begin
-      memory_to_writeBack_IS_AES <= memory_IS_AES;
+      memory_to_writeBack_IS_AES <= memory_IS_AES; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_46) begin
-      decode_to_execute_IS_CSR <= decode_IS_CSR;
+      decode_to_execute_IS_CSR <= decode_IS_CSR; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_47) begin
-      execute_to_memory_IS_CSR <= execute_IS_CSR;
+      execute_to_memory_IS_CSR <= execute_IS_CSR; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_48) begin
-      decode_to_execute_ENV_CTRL <= _zz_decode_to_execute_ENV_CTRL;
+      decode_to_execute_ENV_CTRL <= _zz_decode_to_execute_ENV_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_49) begin
-      execute_to_memory_ENV_CTRL <= _zz_execute_to_memory_ENV_CTRL;
+      execute_to_memory_ENV_CTRL <= _zz_execute_to_memory_ENV_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_50) begin
-      memory_to_writeBack_ENV_CTRL <= _zz_memory_to_writeBack_ENV_CTRL;
+      memory_to_writeBack_ENV_CTRL <= _zz_memory_to_writeBack_ENV_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_51) begin
-      decode_to_execute_IS_SFENCE_VMA <= decode_IS_SFENCE_VMA;
+      decode_to_execute_IS_SFENCE_VMA <= decode_IS_SFENCE_VMA; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_52) begin
-      decode_to_execute_IS_SFENCE_VMA2 <= decode_IS_SFENCE_VMA2;
+      decode_to_execute_IS_SFENCE_VMA2 <= decode_IS_SFENCE_VMA2; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_53) begin
-      decode_to_execute_BRANCH_CTRL <= _zz_decode_to_execute_BRANCH_CTRL;
+      decode_to_execute_BRANCH_CTRL <= _zz_decode_to_execute_BRANCH_CTRL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_54) begin
-      decode_to_execute_RS1 <= decode_RS1;
+      decode_to_execute_RS1 <= decode_RS1; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_55) begin
-      execute_to_memory_RS1 <= _zz_execute_SRC1;
+      execute_to_memory_RS1 <= _zz_execute_to_memory_RS1; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_56) begin
-      decode_to_execute_RS2 <= decode_RS2;
+      decode_to_execute_RS2 <= decode_RS2; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_57) begin
-      decode_to_execute_SRC2_FORCE_ZERO <= decode_SRC2_FORCE_ZERO;
+      decode_to_execute_SRC2_FORCE_ZERO <= decode_SRC2_FORCE_ZERO; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_58) begin
-      decode_to_execute_CSR_WRITE_OPCODE <= decode_CSR_WRITE_OPCODE;
+      decode_to_execute_CSR_WRITE_OPCODE <= decode_CSR_WRITE_OPCODE; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_59) begin
-      decode_to_execute_CSR_READ_OPCODE <= decode_CSR_READ_OPCODE;
+      decode_to_execute_CSR_READ_OPCODE <= decode_CSR_READ_OPCODE; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_60) begin
-      decode_to_execute_PREDICTION_HAD_BRANCHED2 <= decode_PREDICTION_HAD_BRANCHED2;
+      decode_to_execute_PREDICTION_HAD_BRANCHED2 <= decode_PREDICTION_HAD_BRANCHED2; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_61) begin
-      decode_to_execute_DO_EBREAK <= decode_DO_EBREAK;
+      decode_to_execute_DO_EBREAK <= decode_DO_EBREAK; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_62) begin
-      execute_to_memory_MEMORY_STORE_DATA_RF <= execute_MEMORY_STORE_DATA_RF;
+      execute_to_memory_MEMORY_STORE_DATA_RF <= execute_MEMORY_STORE_DATA_RF; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_63) begin
-      memory_to_writeBack_MEMORY_STORE_DATA_RF <= memory_MEMORY_STORE_DATA_RF;
+      memory_to_writeBack_MEMORY_STORE_DATA_RF <= memory_MEMORY_STORE_DATA_RF; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_66) begin
-      execute_to_memory_REGFILE_WRITE_DATA <= _zz_decode_RS2;
+      execute_to_memory_REGFILE_WRITE_DATA <= _zz_decode_RS2; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_67) begin
-      memory_to_writeBack_REGFILE_WRITE_DATA <= _zz_decode_RS2_1;
+      memory_to_writeBack_REGFILE_WRITE_DATA <= _zz_decode_RS2_1; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_68) begin
-      execute_to_memory_SHIFT_RIGHT <= execute_SHIFT_RIGHT;
+      execute_to_memory_SHIFT_RIGHT <= execute_SHIFT_RIGHT; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_69) begin
-      execute_to_memory_MUL_LL <= execute_MUL_LL;
+      execute_to_memory_MUL_LL <= execute_MUL_LL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_70) begin
-      execute_to_memory_MUL_LH <= execute_MUL_LH;
+      execute_to_memory_MUL_LH <= execute_MUL_LH; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_71) begin
-      execute_to_memory_MUL_HL <= execute_MUL_HL;
+      execute_to_memory_MUL_HL <= execute_MUL_HL; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_72) begin
-      execute_to_memory_MUL_HH <= execute_MUL_HH;
+      execute_to_memory_MUL_HH <= execute_MUL_HH; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_73) begin
-      memory_to_writeBack_MUL_HH <= memory_MUL_HH;
+      memory_to_writeBack_MUL_HH <= memory_MUL_HH; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_74) begin
-      execute_to_memory_PIPELINED_CSR_READ <= execute_PIPELINED_CSR_READ;
+      execute_to_memory_PIPELINED_CSR_READ <= execute_PIPELINED_CSR_READ; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_75) begin
-      execute_to_memory_BRANCH_DO <= execute_BRANCH_DO;
+      execute_to_memory_BRANCH_DO <= execute_BRANCH_DO; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_76) begin
-      execute_to_memory_BRANCH_CALC <= execute_BRANCH_CALC;
+      execute_to_memory_BRANCH_CALC <= execute_BRANCH_CALC; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_77) begin
-      memory_to_writeBack_MUL_LOW <= memory_MUL_LOW;
+      memory_to_writeBack_MUL_LOW <= memory_MUL_LOW; // @[Pipeline.scala 124:40]
     end
     if(when_Pipeline_l124_78) begin
-      memory_to_writeBack_CALC <= memory_CALC;
+      memory_to_writeBack_CALC <= memory_CALC; // @[Pipeline.scala 124:40]
     end
-    if(when_CsrPlugin_l1277) begin
-      execute_CsrPlugin_csr_3264 <= (decode_INSTRUCTION[31 : 20] == 12'hcc0);
+    if(when_CsrPlugin_l1589) begin
+      execute_CsrPlugin_csr_3264 <= (decode_INSTRUCTION[31 : 20] == 12'hcc0); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_1) begin
-      execute_CsrPlugin_csr_3857 <= (decode_INSTRUCTION[31 : 20] == 12'hf11);
+    if(when_CsrPlugin_l1589_1) begin
+      execute_CsrPlugin_csr_3857 <= (decode_INSTRUCTION[31 : 20] == 12'hf11); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_2) begin
-      execute_CsrPlugin_csr_3858 <= (decode_INSTRUCTION[31 : 20] == 12'hf12);
+    if(when_CsrPlugin_l1589_2) begin
+      execute_CsrPlugin_csr_3858 <= (decode_INSTRUCTION[31 : 20] == 12'hf12); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_3) begin
-      execute_CsrPlugin_csr_3859 <= (decode_INSTRUCTION[31 : 20] == 12'hf13);
+    if(when_CsrPlugin_l1589_3) begin
+      execute_CsrPlugin_csr_3859 <= (decode_INSTRUCTION[31 : 20] == 12'hf13); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_4) begin
-      execute_CsrPlugin_csr_3860 <= (decode_INSTRUCTION[31 : 20] == 12'hf14);
+    if(when_CsrPlugin_l1589_4) begin
+      execute_CsrPlugin_csr_3860 <= (decode_INSTRUCTION[31 : 20] == 12'hf14); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_5) begin
-      execute_CsrPlugin_csr_768 <= (decode_INSTRUCTION[31 : 20] == 12'h300);
+    if(when_CsrPlugin_l1589_5) begin
+      execute_CsrPlugin_csr_768 <= (decode_INSTRUCTION[31 : 20] == 12'h300); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_6) begin
-      execute_CsrPlugin_csr_836 <= (decode_INSTRUCTION[31 : 20] == 12'h344);
+    if(when_CsrPlugin_l1589_6) begin
+      execute_CsrPlugin_csr_836 <= (decode_INSTRUCTION[31 : 20] == 12'h344); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_7) begin
-      execute_CsrPlugin_csr_772 <= (decode_INSTRUCTION[31 : 20] == 12'h304);
+    if(when_CsrPlugin_l1589_7) begin
+      execute_CsrPlugin_csr_772 <= (decode_INSTRUCTION[31 : 20] == 12'h304); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_8) begin
-      execute_CsrPlugin_csr_773 <= (decode_INSTRUCTION[31 : 20] == 12'h305);
+    if(when_CsrPlugin_l1589_8) begin
+      execute_CsrPlugin_csr_773 <= (decode_INSTRUCTION[31 : 20] == 12'h305); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_9) begin
-      execute_CsrPlugin_csr_833 <= (decode_INSTRUCTION[31 : 20] == 12'h341);
+    if(when_CsrPlugin_l1589_9) begin
+      execute_CsrPlugin_csr_833 <= (decode_INSTRUCTION[31 : 20] == 12'h341); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_10) begin
-      execute_CsrPlugin_csr_832 <= (decode_INSTRUCTION[31 : 20] == 12'h340);
+    if(when_CsrPlugin_l1589_10) begin
+      execute_CsrPlugin_csr_832 <= (decode_INSTRUCTION[31 : 20] == 12'h340); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_11) begin
-      execute_CsrPlugin_csr_834 <= (decode_INSTRUCTION[31 : 20] == 12'h342);
+    if(when_CsrPlugin_l1589_11) begin
+      execute_CsrPlugin_csr_834 <= (decode_INSTRUCTION[31 : 20] == 12'h342); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_12) begin
-      execute_CsrPlugin_csr_835 <= (decode_INSTRUCTION[31 : 20] == 12'h343);
+    if(when_CsrPlugin_l1589_12) begin
+      execute_CsrPlugin_csr_835 <= (decode_INSTRUCTION[31 : 20] == 12'h343); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_13) begin
-      execute_CsrPlugin_csr_770 <= (decode_INSTRUCTION[31 : 20] == 12'h302);
+    if(when_CsrPlugin_l1589_13) begin
+      execute_CsrPlugin_csr_770 <= (decode_INSTRUCTION[31 : 20] == 12'h302); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_14) begin
-      execute_CsrPlugin_csr_771 <= (decode_INSTRUCTION[31 : 20] == 12'h303);
+    if(when_CsrPlugin_l1589_14) begin
+      execute_CsrPlugin_csr_771 <= (decode_INSTRUCTION[31 : 20] == 12'h303); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_15) begin
-      execute_CsrPlugin_csr_256 <= (decode_INSTRUCTION[31 : 20] == 12'h100);
+    if(when_CsrPlugin_l1589_15) begin
+      execute_CsrPlugin_csr_256 <= (decode_INSTRUCTION[31 : 20] == 12'h100); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_16) begin
-      execute_CsrPlugin_csr_324 <= (decode_INSTRUCTION[31 : 20] == 12'h144);
+    if(when_CsrPlugin_l1589_16) begin
+      execute_CsrPlugin_csr_324 <= (decode_INSTRUCTION[31 : 20] == 12'h144); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_17) begin
-      execute_CsrPlugin_csr_260 <= (decode_INSTRUCTION[31 : 20] == 12'h104);
+    if(when_CsrPlugin_l1589_17) begin
+      execute_CsrPlugin_csr_260 <= (decode_INSTRUCTION[31 : 20] == 12'h104); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_18) begin
-      execute_CsrPlugin_csr_261 <= (decode_INSTRUCTION[31 : 20] == 12'h105);
+    if(when_CsrPlugin_l1589_18) begin
+      execute_CsrPlugin_csr_261 <= (decode_INSTRUCTION[31 : 20] == 12'h105); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_19) begin
-      execute_CsrPlugin_csr_321 <= (decode_INSTRUCTION[31 : 20] == 12'h141);
+    if(when_CsrPlugin_l1589_19) begin
+      execute_CsrPlugin_csr_321 <= (decode_INSTRUCTION[31 : 20] == 12'h141); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_20) begin
-      execute_CsrPlugin_csr_320 <= (decode_INSTRUCTION[31 : 20] == 12'h140);
+    if(when_CsrPlugin_l1589_20) begin
+      execute_CsrPlugin_csr_320 <= (decode_INSTRUCTION[31 : 20] == 12'h140); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_21) begin
-      execute_CsrPlugin_csr_322 <= (decode_INSTRUCTION[31 : 20] == 12'h142);
+    if(when_CsrPlugin_l1589_21) begin
+      execute_CsrPlugin_csr_322 <= (decode_INSTRUCTION[31 : 20] == 12'h142); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_22) begin
-      execute_CsrPlugin_csr_323 <= (decode_INSTRUCTION[31 : 20] == 12'h143);
+    if(when_CsrPlugin_l1589_22) begin
+      execute_CsrPlugin_csr_323 <= (decode_INSTRUCTION[31 : 20] == 12'h143); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_23) begin
-      execute_CsrPlugin_csr_384 <= (decode_INSTRUCTION[31 : 20] == 12'h180);
+    if(when_CsrPlugin_l1589_23) begin
+      execute_CsrPlugin_csr_384 <= (decode_INSTRUCTION[31 : 20] == 12'h180); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_24) begin
-      execute_CsrPlugin_csr_3008 <= (decode_INSTRUCTION[31 : 20] == 12'hbc0);
+    if(when_CsrPlugin_l1589_24) begin
+      execute_CsrPlugin_csr_3008 <= (decode_INSTRUCTION[31 : 20] == 12'hbc0); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_25) begin
-      execute_CsrPlugin_csr_4032 <= (decode_INSTRUCTION[31 : 20] == 12'hfc0);
+    if(when_CsrPlugin_l1589_25) begin
+      execute_CsrPlugin_csr_4032 <= (decode_INSTRUCTION[31 : 20] == 12'hfc0); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_26) begin
-      execute_CsrPlugin_csr_2496 <= (decode_INSTRUCTION[31 : 20] == 12'h9c0);
+    if(when_CsrPlugin_l1589_26) begin
+      execute_CsrPlugin_csr_2496 <= (decode_INSTRUCTION[31 : 20] == 12'h9c0); // @[CsrPlugin.scala 1589:101]
     end
-    if(when_CsrPlugin_l1277_27) begin
-      execute_CsrPlugin_csr_3520 <= (decode_INSTRUCTION[31 : 20] == 12'hdc0);
+    if(when_CsrPlugin_l1589_27) begin
+      execute_CsrPlugin_csr_3520 <= (decode_INSTRUCTION[31 : 20] == 12'hdc0); // @[CsrPlugin.scala 1589:101]
     end
     if(execute_CsrPlugin_csr_836) begin
       if(execute_CsrPlugin_writeEnable) begin
-        CsrPlugin_mip_MSIP <= CsrPlugin_csrMapping_writeDataSignal[3];
+        CsrPlugin_mip_MSIP <= CsrPlugin_csrMapping_writeDataSignal[3]; // @[Bool.scala 189:10]
       end
     end
     if(execute_CsrPlugin_csr_773) begin
       if(execute_CsrPlugin_writeEnable) begin
-        CsrPlugin_mtvec_base <= CsrPlugin_csrMapping_writeDataSignal[31 : 2];
-        CsrPlugin_mtvec_mode <= CsrPlugin_csrMapping_writeDataSignal[1 : 0];
+        CsrPlugin_mtvec_base <= CsrPlugin_csrMapping_writeDataSignal[31 : 2]; // @[UInt.scala 381:56]
+        CsrPlugin_mtvec_mode <= CsrPlugin_csrMapping_writeDataSignal[1 : 0]; // @[Bits.scala 133:56]
       end
     end
     if(execute_CsrPlugin_csr_833) begin
       if(execute_CsrPlugin_writeEnable) begin
-        CsrPlugin_mepc <= CsrPlugin_csrMapping_writeDataSignal[31 : 0];
+        CsrPlugin_mepc <= CsrPlugin_csrMapping_writeDataSignal[31 : 0]; // @[UInt.scala 381:56]
       end
     end
     if(execute_CsrPlugin_csr_832) begin
       if(execute_CsrPlugin_writeEnable) begin
-        CsrPlugin_mscratch <= CsrPlugin_csrMapping_writeDataSignal[31 : 0];
+        CsrPlugin_mscratch <= CsrPlugin_csrMapping_writeDataSignal[31 : 0]; // @[Bits.scala 133:56]
       end
     end
     if(execute_CsrPlugin_csr_261) begin
       if(execute_CsrPlugin_writeEnable) begin
-        CsrPlugin_stvec_base <= CsrPlugin_csrMapping_writeDataSignal[31 : 2];
-        CsrPlugin_stvec_mode <= CsrPlugin_csrMapping_writeDataSignal[1 : 0];
+        CsrPlugin_stvec_base <= CsrPlugin_csrMapping_writeDataSignal[31 : 2]; // @[UInt.scala 381:56]
+        CsrPlugin_stvec_mode <= CsrPlugin_csrMapping_writeDataSignal[1 : 0]; // @[Bits.scala 133:56]
       end
     end
     if(execute_CsrPlugin_csr_321) begin
       if(execute_CsrPlugin_writeEnable) begin
-        CsrPlugin_sepc <= CsrPlugin_csrMapping_writeDataSignal[31 : 0];
+        CsrPlugin_sepc <= CsrPlugin_csrMapping_writeDataSignal[31 : 0]; // @[UInt.scala 381:56]
       end
     end
     if(execute_CsrPlugin_csr_320) begin
       if(execute_CsrPlugin_writeEnable) begin
-        CsrPlugin_sscratch <= CsrPlugin_csrMapping_writeDataSignal[31 : 0];
+        CsrPlugin_sscratch <= CsrPlugin_csrMapping_writeDataSignal[31 : 0]; // @[Bits.scala 133:56]
       end
     end
     if(execute_CsrPlugin_csr_322) begin
       if(execute_CsrPlugin_writeEnable) begin
-        CsrPlugin_scause_interrupt <= CsrPlugin_csrMapping_writeDataSignal[31];
-        CsrPlugin_scause_exceptionCode <= CsrPlugin_csrMapping_writeDataSignal[3 : 0];
+        CsrPlugin_scause_interrupt <= CsrPlugin_csrMapping_writeDataSignal[31]; // @[Bool.scala 189:10]
+        CsrPlugin_scause_exceptionCode <= CsrPlugin_csrMapping_writeDataSignal[3 : 0]; // @[UInt.scala 381:56]
       end
     end
     if(execute_CsrPlugin_csr_323) begin
       if(execute_CsrPlugin_writeEnable) begin
-        CsrPlugin_stval <= CsrPlugin_csrMapping_writeDataSignal[31 : 0];
+        CsrPlugin_stval <= CsrPlugin_csrMapping_writeDataSignal[31 : 0]; // @[UInt.scala 381:56]
       end
     end
     if(execute_CsrPlugin_csr_384) begin
       if(execute_CsrPlugin_writeEnable) begin
-        MmuPlugin_satp_asid <= CsrPlugin_csrMapping_writeDataSignal[30 : 22];
-        MmuPlugin_satp_ppn <= CsrPlugin_csrMapping_writeDataSignal[19 : 0];
+        MmuPlugin_satp_asid <= CsrPlugin_csrMapping_writeDataSignal[30 : 22]; // @[Bits.scala 133:56]
+        MmuPlugin_satp_ppn <= CsrPlugin_csrMapping_writeDataSignal[19 : 0]; // @[UInt.scala 381:56]
       end
     end
   end
 
   always @(posedge clk) begin
-    DebugPlugin_firstCycle <= 1'b0;
+    DebugPlugin_firstCycle <= 1'b0; // @[Reg.scala 39:30]
     if(debug_bus_cmd_ready) begin
-      DebugPlugin_firstCycle <= 1'b1;
+      DebugPlugin_firstCycle <= 1'b1; // @[DebugPlugin.scala 231:39]
     end
-    DebugPlugin_secondCycle <= DebugPlugin_firstCycle;
-    DebugPlugin_isPipBusy <= (({writeBack_arbitration_isValid,{memory_arbitration_isValid,{execute_arbitration_isValid,decode_arbitration_isValid}}} != 4'b0000) || IBusCachedPlugin_incomingInstruction);
+    DebugPlugin_secondCycle <= DebugPlugin_firstCycle; // @[Reg.scala 39:30]
+    DebugPlugin_isPipBusy <= (({writeBack_arbitration_isValid,{memory_arbitration_isValid,{execute_arbitration_isValid,decode_arbitration_isValid}}} != 4'b0000) || IBusCachedPlugin_incomingInstruction); // @[Reg.scala 39:30]
     if(writeBack_arbitration_isValid) begin
-      DebugPlugin_busReadDataReg <= _zz_decode_RS2_2;
+      DebugPlugin_busReadDataReg <= _zz_decode_RS2_2; // @[DebugPlugin.scala 253:24]
     end
-    _zz_when_DebugPlugin_l244 <= debug_bus_cmd_payload_address[2];
+    _zz_when_DebugPlugin_l257 <= debug_bus_cmd_payload_address[2]; // @[Reg.scala 39:30]
     if(debug_bus_cmd_valid) begin
-      case(switch_DebugPlugin_l267)
+      case(switch_DebugPlugin_l280)
         6'h10 : begin
           if(debug_bus_cmd_payload_wr) begin
-            DebugPlugin_hardwareBreakpoints_0_pc <= debug_bus_cmd_payload_data[31 : 1];
+            DebugPlugin_hardwareBreakpoints_0_pc <= debug_bus_cmd_payload_data[31 : 1]; // @[UInt.scala 381:56]
           end
         end
         6'h11 : begin
           if(debug_bus_cmd_payload_wr) begin
-            DebugPlugin_hardwareBreakpoints_1_pc <= debug_bus_cmd_payload_data[31 : 1];
+            DebugPlugin_hardwareBreakpoints_1_pc <= debug_bus_cmd_payload_data[31 : 1]; // @[UInt.scala 381:56]
           end
         end
         6'h12 : begin
           if(debug_bus_cmd_payload_wr) begin
-            DebugPlugin_hardwareBreakpoints_2_pc <= debug_bus_cmd_payload_data[31 : 1];
+            DebugPlugin_hardwareBreakpoints_2_pc <= debug_bus_cmd_payload_data[31 : 1]; // @[UInt.scala 381:56]
           end
         end
         6'h13 : begin
           if(debug_bus_cmd_payload_wr) begin
-            DebugPlugin_hardwareBreakpoints_3_pc <= debug_bus_cmd_payload_data[31 : 1];
+            DebugPlugin_hardwareBreakpoints_3_pc <= debug_bus_cmd_payload_data[31 : 1]; // @[UInt.scala 381:56]
           end
         end
         default : begin
         end
       endcase
     end
-    if(when_DebugPlugin_l295) begin
-      DebugPlugin_busReadDataReg <= execute_PC;
+    if(when_DebugPlugin_l308) begin
+      DebugPlugin_busReadDataReg <= execute_PC; // @[DebugPlugin.scala 310:24]
     end
-    DebugPlugin_resetIt_regNext <= DebugPlugin_resetIt;
+    DebugPlugin_resetIt_regNext <= DebugPlugin_resetIt; // @[Reg.scala 39:30]
   end
 
   always @(posedge clk) begin
     if(debugReset) begin
-      DebugPlugin_resetIt <= 1'b0;
-      DebugPlugin_haltIt <= 1'b0;
-      DebugPlugin_stepIt <= 1'b0;
-      DebugPlugin_godmode <= 1'b0;
-      DebugPlugin_haltedByBreak <= 1'b0;
-      DebugPlugin_debugUsed <= 1'b0;
-      DebugPlugin_disableEbreak <= 1'b0;
-      DebugPlugin_hardwareBreakpoints_0_valid <= 1'b0;
-      DebugPlugin_hardwareBreakpoints_1_valid <= 1'b0;
-      DebugPlugin_hardwareBreakpoints_2_valid <= 1'b0;
-      DebugPlugin_hardwareBreakpoints_3_valid <= 1'b0;
-      _zz_3 <= 1'b0;
-      debug_bus_cmd_fire_regNext <= 1'b0;
+      DebugPlugin_resetIt <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_haltIt <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_stepIt <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_godmode <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_haltedByBreak <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_debugUsed <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_disableEbreak <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_hardwareBreakpoints_0_valid <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_hardwareBreakpoints_1_valid <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_hardwareBreakpoints_2_valid <= 1'b0; // @[Data.scala 400:33]
+      DebugPlugin_hardwareBreakpoints_3_valid <= 1'b0; // @[Data.scala 400:33]
+      _zz_3 <= 1'b0; // @[Data.scala 400:33]
+      debug_bus_cmd_fire_regNext <= 1'b0; // @[Data.scala 400:33]
     end else begin
-      if(when_DebugPlugin_l225) begin
-        DebugPlugin_godmode <= 1'b1;
+      if(when_DebugPlugin_l238) begin
+        DebugPlugin_godmode <= 1'b1; // @[DebugPlugin.scala 238:36]
       end
       if(debug_bus_cmd_valid) begin
-        DebugPlugin_debugUsed <= 1'b1;
+        DebugPlugin_debugUsed <= 1'b1; // @[DebugPlugin.scala 240:38]
       end
       if(debug_bus_cmd_valid) begin
-        case(switch_DebugPlugin_l267)
+        case(switch_DebugPlugin_l280)
           6'h0 : begin
             if(debug_bus_cmd_payload_wr) begin
-              DebugPlugin_stepIt <= debug_bus_cmd_payload_data[4];
-              if(when_DebugPlugin_l271) begin
-                DebugPlugin_resetIt <= 1'b1;
+              DebugPlugin_stepIt <= debug_bus_cmd_payload_data[4]; // @[DebugPlugin.scala 283:22]
+              if(when_DebugPlugin_l284) begin
+                DebugPlugin_resetIt <= 1'b1; // @[DebugPlugin.scala 284:23]
               end
-              if(when_DebugPlugin_l271_1) begin
-                DebugPlugin_resetIt <= 1'b0;
+              if(when_DebugPlugin_l284_1) begin
+                DebugPlugin_resetIt <= 1'b0; // @[DebugPlugin.scala 284:53]
               end
-              if(when_DebugPlugin_l272) begin
-                DebugPlugin_haltIt <= 1'b1;
+              if(when_DebugPlugin_l285) begin
+                DebugPlugin_haltIt <= 1'b1; // @[DebugPlugin.scala 285:22]
               end
-              if(when_DebugPlugin_l272_1) begin
-                DebugPlugin_haltIt <= 1'b0;
+              if(when_DebugPlugin_l285_1) begin
+                DebugPlugin_haltIt <= 1'b0; // @[DebugPlugin.scala 285:52]
               end
-              if(when_DebugPlugin_l273) begin
-                DebugPlugin_haltedByBreak <= 1'b0;
+              if(when_DebugPlugin_l286) begin
+                DebugPlugin_haltedByBreak <= 1'b0; // @[DebugPlugin.scala 286:29]
               end
-              if(when_DebugPlugin_l274) begin
-                DebugPlugin_godmode <= 1'b0;
+              if(when_DebugPlugin_l287) begin
+                DebugPlugin_godmode <= 1'b0; // @[DebugPlugin.scala 287:23]
               end
-              if(when_DebugPlugin_l275) begin
-                DebugPlugin_disableEbreak <= 1'b1;
+              if(when_DebugPlugin_l288) begin
+                DebugPlugin_disableEbreak <= 1'b1; // @[DebugPlugin.scala 288:29]
               end
-              if(when_DebugPlugin_l275_1) begin
-                DebugPlugin_disableEbreak <= 1'b0;
+              if(when_DebugPlugin_l288_1) begin
+                DebugPlugin_disableEbreak <= 1'b0; // @[DebugPlugin.scala 288:59]
               end
             end
           end
           6'h10 : begin
             if(debug_bus_cmd_payload_wr) begin
-              DebugPlugin_hardwareBreakpoints_0_valid <= debug_bus_cmd_payload_data[0];
+              DebugPlugin_hardwareBreakpoints_0_valid <= debug_bus_cmd_payload_data[0]; // @[Bool.scala 189:10]
             end
           end
           6'h11 : begin
             if(debug_bus_cmd_payload_wr) begin
-              DebugPlugin_hardwareBreakpoints_1_valid <= debug_bus_cmd_payload_data[0];
+              DebugPlugin_hardwareBreakpoints_1_valid <= debug_bus_cmd_payload_data[0]; // @[Bool.scala 189:10]
             end
           end
           6'h12 : begin
             if(debug_bus_cmd_payload_wr) begin
-              DebugPlugin_hardwareBreakpoints_2_valid <= debug_bus_cmd_payload_data[0];
+              DebugPlugin_hardwareBreakpoints_2_valid <= debug_bus_cmd_payload_data[0]; // @[Bool.scala 189:10]
             end
           end
           6'h13 : begin
             if(debug_bus_cmd_payload_wr) begin
-              DebugPlugin_hardwareBreakpoints_3_valid <= debug_bus_cmd_payload_data[0];
+              DebugPlugin_hardwareBreakpoints_3_valid <= debug_bus_cmd_payload_data[0]; // @[Bool.scala 189:10]
             end
           end
           default : begin
           end
         endcase
       end
-      if(when_DebugPlugin_l295) begin
-        if(when_DebugPlugin_l298) begin
-          DebugPlugin_haltIt <= 1'b1;
-          DebugPlugin_haltedByBreak <= 1'b1;
+      if(when_DebugPlugin_l308) begin
+        if(when_DebugPlugin_l311) begin
+          DebugPlugin_haltIt <= 1'b1; // @[DebugPlugin.scala 315:18]
+          DebugPlugin_haltedByBreak <= 1'b1; // @[DebugPlugin.scala 316:25]
         end
       end
-      if(when_DebugPlugin_l311) begin
+      if(when_DebugPlugin_l324) begin
         if(decode_arbitration_isValid) begin
-          DebugPlugin_haltIt <= 1'b1;
+          DebugPlugin_haltIt <= 1'b1; // @[DebugPlugin.scala 327:18]
         end
       end
-      _zz_3 <= (DebugPlugin_stepIt && decode_arbitration_isFiring);
-      debug_bus_cmd_fire_regNext <= debug_bus_cmd_fire;
+      _zz_3 <= (DebugPlugin_stepIt && decode_arbitration_isFiring); // @[Reg.scala 39:30]
+      debug_bus_cmd_fire_regNext <= debug_bus_cmd_fire; // @[Reg.scala 39:30]
     end
   end
 
   always @(posedge clk) begin
-    IBusCachedPlugin_injectionPort_payload_regNext <= IBusCachedPlugin_injectionPort_payload;
+    IBusCachedPlugin_injectionPort_payload_regNext <= IBusCachedPlugin_injectionPort_payload; // @[Reg.scala 39:30]
   end
 
 
@@ -9003,43 +9046,43 @@ module SystemDebugger (
   wire                io_mem_cmd_isStall;
   wire                when_Fragment_l372;
 
-  assign dispatcher_header = dispatcher_headerShifter[7 : 0];
-  assign when_Fragment_l346 = (dispatcher_headerLoaded == 1'b0);
-  assign when_Fragment_l349 = (dispatcher_counter == 3'b111);
-  assign io_remote_cmd_ready = (! dispatcher_dataLoaded);
-  assign _zz_io_mem_cmd_payload_address = dispatcher_dataShifter[66 : 0];
-  assign io_mem_cmd_payload_address = _zz_io_mem_cmd_payload_address[31 : 0];
-  assign io_mem_cmd_payload_data = _zz_io_mem_cmd_payload_address[63 : 32];
-  assign io_mem_cmd_payload_wr = _zz_io_mem_cmd_payload_address[64];
-  assign io_mem_cmd_payload_size = _zz_io_mem_cmd_payload_address[66 : 65];
-  assign io_mem_cmd_valid = (dispatcher_dataLoaded && (dispatcher_header == 8'h0));
-  assign io_mem_cmd_isStall = (io_mem_cmd_valid && (! io_mem_cmd_ready));
-  assign when_Fragment_l372 = ((dispatcher_headerLoaded && dispatcher_dataLoaded) && (! io_mem_cmd_isStall));
-  assign io_remote_rsp_valid = io_mem_rsp_valid;
-  assign io_remote_rsp_payload_error = 1'b0;
-  assign io_remote_rsp_payload_data = io_mem_rsp_payload;
+  assign dispatcher_header = dispatcher_headerShifter[7 : 0]; // @[BaseType.scala 299:24]
+  assign when_Fragment_l346 = (dispatcher_headerLoaded == 1'b0); // @[BaseType.scala 305:24]
+  assign when_Fragment_l349 = (dispatcher_counter == 3'b111); // @[BaseType.scala 305:24]
+  assign io_remote_cmd_ready = (! dispatcher_dataLoaded); // @[Fragment.scala 363:15]
+  assign _zz_io_mem_cmd_payload_address = dispatcher_dataShifter[66 : 0]; // @[BaseType.scala 299:24]
+  assign io_mem_cmd_payload_address = _zz_io_mem_cmd_payload_address[31 : 0]; // @[UInt.scala 381:56]
+  assign io_mem_cmd_payload_data = _zz_io_mem_cmd_payload_address[63 : 32]; // @[Bits.scala 133:56]
+  assign io_mem_cmd_payload_wr = _zz_io_mem_cmd_payload_address[64]; // @[Bool.scala 189:10]
+  assign io_mem_cmd_payload_size = _zz_io_mem_cmd_payload_address[66 : 65]; // @[UInt.scala 381:56]
+  assign io_mem_cmd_valid = (dispatcher_dataLoaded && (dispatcher_header == 8'h0)); // @[Fragment.scala 369:16]
+  assign io_mem_cmd_isStall = (io_mem_cmd_valid && (! io_mem_cmd_ready)); // @[BaseType.scala 305:24]
+  assign when_Fragment_l372 = ((dispatcher_headerLoaded && dispatcher_dataLoaded) && (! io_mem_cmd_isStall)); // @[BaseType.scala 305:24]
+  assign io_remote_rsp_valid = io_mem_rsp_valid; // @[SystemDebugger.scala 186:23]
+  assign io_remote_rsp_payload_error = 1'b0; // @[SystemDebugger.scala 187:23]
+  assign io_remote_rsp_payload_data = io_mem_rsp_payload; // @[SystemDebugger.scala 188:22]
   always @(posedge clk) begin
     if(debugReset) begin
-      dispatcher_dataLoaded <= 1'b0;
-      dispatcher_headerLoaded <= 1'b0;
-      dispatcher_counter <= 3'b000;
+      dispatcher_dataLoaded <= 1'b0; // @[Data.scala 400:33]
+      dispatcher_headerLoaded <= 1'b0; // @[Data.scala 400:33]
+      dispatcher_counter <= 3'b000; // @[Data.scala 400:33]
     end else begin
       if(io_remote_cmd_valid) begin
         if(when_Fragment_l346) begin
-          dispatcher_counter <= (dispatcher_counter + 3'b001);
+          dispatcher_counter <= (dispatcher_counter + 3'b001); // @[Fragment.scala 348:15]
           if(when_Fragment_l349) begin
-            dispatcher_headerLoaded <= 1'b1;
+            dispatcher_headerLoaded <= 1'b1; // @[Fragment.scala 350:22]
           end
         end
         if(io_remote_cmd_payload_last) begin
-          dispatcher_headerLoaded <= 1'b1;
-          dispatcher_dataLoaded <= 1'b1;
-          dispatcher_counter <= 3'b000;
+          dispatcher_headerLoaded <= 1'b1; // @[Fragment.scala 357:20]
+          dispatcher_dataLoaded <= 1'b1; // @[Fragment.scala 358:18]
+          dispatcher_counter <= 3'b000; // @[Fragment.scala 359:15]
         end
       end
       if(when_Fragment_l372) begin
-        dispatcher_headerLoaded <= 1'b0;
-        dispatcher_dataLoaded <= 1'b0;
+        dispatcher_headerLoaded <= 1'b0; // @[Fragment.scala 373:18]
+        dispatcher_dataLoaded <= 1'b0; // @[Fragment.scala 374:16]
       end
     end
   end
@@ -9047,9 +9090,9 @@ module SystemDebugger (
   always @(posedge clk) begin
     if(io_remote_cmd_valid) begin
       if(when_Fragment_l346) begin
-        dispatcher_headerShifter <= ({io_remote_cmd_payload_fragment,dispatcher_headerShifter} >>> 1);
+        dispatcher_headerShifter <= ({io_remote_cmd_payload_fragment,dispatcher_headerShifter} >>> 1); // @[Fragment.scala 347:21]
       end else begin
-        dispatcher_dataShifter <= ({io_remote_cmd_payload_fragment,dispatcher_dataShifter} >>> 1);
+        dispatcher_dataShifter <= ({io_remote_cmd_payload_fragment,dispatcher_dataShifter} >>> 1); // @[Fragment.scala 353:19]
       end
     end
   end
@@ -9608,96 +9651,96 @@ module JtagBridge (
   end
   `endif
 
-  assign system_cmd_toStream_valid = system_cmd_valid;
-  assign system_cmd_toStream_payload_last = system_cmd_payload_last;
-  assign system_cmd_toStream_payload_fragment = system_cmd_payload_fragment;
-  assign io_remote_cmd_valid = system_cmd_toStream_valid;
-  assign system_cmd_toStream_ready = io_remote_cmd_ready;
-  assign io_remote_cmd_payload_last = system_cmd_toStream_payload_last;
-  assign io_remote_cmd_payload_fragment = system_cmd_toStream_payload_fragment;
-  assign io_remote_rsp_fire = (io_remote_rsp_valid && io_remote_rsp_ready);
-  assign io_remote_rsp_ready = 1'b1;
-  assign _zz_jtag_tap_fsm_stateNext = (io_jtag_tms ? JtagState_RESET : JtagState_IDLE);
-  assign _zz_jtag_tap_fsm_stateNext_1 = (io_jtag_tms ? JtagState_DR_SELECT : JtagState_IDLE);
-  assign _zz_jtag_tap_fsm_stateNext_2 = (io_jtag_tms ? JtagState_RESET : JtagState_IR_CAPTURE);
-  assign _zz_jtag_tap_fsm_stateNext_3 = (io_jtag_tms ? JtagState_IR_EXIT1 : JtagState_IR_SHIFT);
-  assign _zz_jtag_tap_fsm_stateNext_4 = (io_jtag_tms ? JtagState_IR_EXIT1 : JtagState_IR_SHIFT);
-  assign _zz_jtag_tap_fsm_stateNext_5 = (io_jtag_tms ? JtagState_IR_UPDATE : JtagState_IR_PAUSE);
-  assign _zz_jtag_tap_fsm_stateNext_6 = (io_jtag_tms ? JtagState_IR_EXIT2 : JtagState_IR_PAUSE);
-  assign _zz_jtag_tap_fsm_stateNext_7 = (io_jtag_tms ? JtagState_IR_UPDATE : JtagState_IR_SHIFT);
-  assign _zz_jtag_tap_fsm_stateNext_8 = (io_jtag_tms ? JtagState_DR_SELECT : JtagState_IDLE);
-  assign _zz_jtag_tap_fsm_stateNext_9 = (io_jtag_tms ? JtagState_IR_SELECT : JtagState_DR_CAPTURE);
-  assign _zz_jtag_tap_fsm_stateNext_10 = (io_jtag_tms ? JtagState_DR_EXIT1 : JtagState_DR_SHIFT);
-  assign _zz_jtag_tap_fsm_stateNext_11 = (io_jtag_tms ? JtagState_DR_EXIT1 : JtagState_DR_SHIFT);
-  assign _zz_jtag_tap_fsm_stateNext_12 = (io_jtag_tms ? JtagState_DR_UPDATE : JtagState_DR_PAUSE);
-  assign _zz_jtag_tap_fsm_stateNext_13 = (io_jtag_tms ? JtagState_DR_EXIT2 : JtagState_DR_PAUSE);
-  assign _zz_jtag_tap_fsm_stateNext_14 = (io_jtag_tms ? JtagState_DR_UPDATE : JtagState_DR_SHIFT);
-  assign _zz_jtag_tap_fsm_stateNext_15 = (io_jtag_tms ? JtagState_DR_SELECT : JtagState_IDLE);
+  assign system_cmd_toStream_valid = system_cmd_valid; // @[Flow.scala 72:15]
+  assign system_cmd_toStream_payload_last = system_cmd_payload_last; // @[Flow.scala 73:17]
+  assign system_cmd_toStream_payload_fragment = system_cmd_payload_fragment; // @[Flow.scala 73:17]
+  assign io_remote_cmd_valid = system_cmd_toStream_valid; // @[Stream.scala 294:16]
+  assign system_cmd_toStream_ready = io_remote_cmd_ready; // @[Stream.scala 295:16]
+  assign io_remote_cmd_payload_last = system_cmd_toStream_payload_last; // @[Stream.scala 296:18]
+  assign io_remote_cmd_payload_fragment = system_cmd_toStream_payload_fragment; // @[Stream.scala 296:18]
+  assign io_remote_rsp_fire = (io_remote_rsp_valid && io_remote_rsp_ready); // @[BaseType.scala 305:24]
+  assign io_remote_rsp_ready = 1'b1; // @[SystemDebugger.scala 77:25]
+  assign _zz_jtag_tap_fsm_stateNext = (io_jtag_tms ? JtagState_RESET : JtagState_IDLE); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_1 = (io_jtag_tms ? JtagState_DR_SELECT : JtagState_IDLE); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_2 = (io_jtag_tms ? JtagState_RESET : JtagState_IR_CAPTURE); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_3 = (io_jtag_tms ? JtagState_IR_EXIT1 : JtagState_IR_SHIFT); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_4 = (io_jtag_tms ? JtagState_IR_EXIT1 : JtagState_IR_SHIFT); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_5 = (io_jtag_tms ? JtagState_IR_UPDATE : JtagState_IR_PAUSE); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_6 = (io_jtag_tms ? JtagState_IR_EXIT2 : JtagState_IR_PAUSE); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_7 = (io_jtag_tms ? JtagState_IR_UPDATE : JtagState_IR_SHIFT); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_8 = (io_jtag_tms ? JtagState_DR_SELECT : JtagState_IDLE); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_9 = (io_jtag_tms ? JtagState_IR_SELECT : JtagState_DR_CAPTURE); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_10 = (io_jtag_tms ? JtagState_DR_EXIT1 : JtagState_DR_SHIFT); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_11 = (io_jtag_tms ? JtagState_DR_EXIT1 : JtagState_DR_SHIFT); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_12 = (io_jtag_tms ? JtagState_DR_UPDATE : JtagState_DR_PAUSE); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_13 = (io_jtag_tms ? JtagState_DR_EXIT2 : JtagState_DR_PAUSE); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_14 = (io_jtag_tms ? JtagState_DR_UPDATE : JtagState_DR_SHIFT); // @[Expression.scala 1420:25]
+  assign _zz_jtag_tap_fsm_stateNext_15 = (io_jtag_tms ? JtagState_DR_SELECT : JtagState_IDLE); // @[Expression.scala 1420:25]
   always @(*) begin
     case(jtag_tap_fsm_state)
       JtagState_IDLE : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_1;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_1; // @[Misc.scala 239:22]
       end
       JtagState_IR_SELECT : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_2;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_2; // @[Misc.scala 239:22]
       end
       JtagState_IR_CAPTURE : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_3;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_3; // @[Misc.scala 239:22]
       end
       JtagState_IR_SHIFT : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_4;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_4; // @[Misc.scala 239:22]
       end
       JtagState_IR_EXIT1 : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_5;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_5; // @[Misc.scala 239:22]
       end
       JtagState_IR_PAUSE : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_6;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_6; // @[Misc.scala 239:22]
       end
       JtagState_IR_EXIT2 : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_7;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_7; // @[Misc.scala 239:22]
       end
       JtagState_IR_UPDATE : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_8;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_8; // @[Misc.scala 239:22]
       end
       JtagState_DR_SELECT : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_9;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_9; // @[Misc.scala 239:22]
       end
       JtagState_DR_CAPTURE : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_10;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_10; // @[Misc.scala 239:22]
       end
       JtagState_DR_SHIFT : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_11;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_11; // @[Misc.scala 239:22]
       end
       JtagState_DR_EXIT1 : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_12;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_12; // @[Misc.scala 239:22]
       end
       JtagState_DR_PAUSE : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_13;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_13; // @[Misc.scala 239:22]
       end
       JtagState_DR_EXIT2 : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_14;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_14; // @[Misc.scala 239:22]
       end
       JtagState_DR_UPDATE : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_15;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext_15; // @[Misc.scala 239:22]
       end
       default : begin
-        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext;
+        _zz_jtag_tap_fsm_stateNext_16 = _zz_jtag_tap_fsm_stateNext; // @[Misc.scala 235:22]
       end
     endcase
   end
 
-  assign jtag_tap_fsm_stateNext = _zz_jtag_tap_fsm_stateNext_16;
+  assign jtag_tap_fsm_stateNext = _zz_jtag_tap_fsm_stateNext_16; // @[JtagTap.scala 50:13]
   always @(*) begin
-    jtag_tap_tdoUnbufferd = jtag_tap_bypass;
+    jtag_tap_tdoUnbufferd = jtag_tap_bypass; // @[Misc.scala 552:9]
     case(jtag_tap_fsm_state)
       JtagState_IR_SHIFT : begin
-        jtag_tap_tdoUnbufferd = jtag_tap_tdoIr;
+        jtag_tap_tdoUnbufferd = jtag_tap_tdoIr; // @[JtagTap.scala 91:20]
       end
       JtagState_DR_SHIFT : begin
         if(jtag_tap_isBypass) begin
-          jtag_tap_tdoUnbufferd = jtag_tap_bypass;
+          jtag_tap_tdoUnbufferd = jtag_tap_bypass; // @[JtagTap.scala 99:22]
         end else begin
-          jtag_tap_tdoUnbufferd = jtag_tap_tdoDr;
+          jtag_tap_tdoUnbufferd = jtag_tap_tdoDr; // @[JtagTap.scala 101:22]
         end
       end
       default : begin
@@ -9706,104 +9749,104 @@ module JtagBridge (
   end
 
   always @(*) begin
-    jtag_tap_tdoDr = 1'b0;
+    jtag_tap_tdoDr = 1'b0; // @[JtagTap.scala 79:15]
     if(jtag_idcodeArea_ctrl_enable) begin
-      jtag_tap_tdoDr = jtag_idcodeArea_ctrl_tdo;
+      jtag_tap_tdoDr = jtag_idcodeArea_ctrl_tdo; // @[JtagTap.scala 113:31]
     end
     if(jtag_writeArea_ctrl_enable) begin
-      jtag_tap_tdoDr = jtag_writeArea_ctrl_tdo;
+      jtag_tap_tdoDr = jtag_writeArea_ctrl_tdo; // @[JtagTap.scala 113:31]
     end
     if(jtag_readArea_ctrl_enable) begin
-      jtag_tap_tdoDr = jtag_readArea_ctrl_tdo;
+      jtag_tap_tdoDr = jtag_readArea_ctrl_tdo; // @[JtagTap.scala 113:31]
     end
   end
 
-  assign jtag_tap_tdoIr = jtag_tap_instructionShift[0];
-  assign jtag_tap_isBypass = ($signed(_zz_jtag_tap_isBypass) == $signed(_zz_jtag_tap_isBypass_1));
-  assign io_jtag_tdo = jtag_tap_tdoUnbufferd_regNext;
-  assign jtag_idcodeArea_ctrl_tdo = jtag_idcodeArea_shifter[0];
-  assign jtag_idcodeArea_ctrl_tdi = io_jtag_tdi;
-  assign jtag_idcodeArea_ctrl_enable = (jtag_tap_instruction == 4'b0001);
-  assign jtag_idcodeArea_ctrl_capture = (jtag_tap_fsm_state == JtagState_DR_CAPTURE);
-  assign jtag_idcodeArea_ctrl_shift = (jtag_tap_fsm_state == JtagState_DR_SHIFT);
-  assign jtag_idcodeArea_ctrl_update = (jtag_tap_fsm_state == JtagState_DR_UPDATE);
-  assign jtag_idcodeArea_ctrl_reset = (jtag_tap_fsm_state == JtagState_RESET);
-  assign when_JtagTap_l120 = (jtag_tap_fsm_state == JtagState_RESET);
-  assign jtag_writeArea_source_valid = jtag_writeArea_valid;
-  assign jtag_writeArea_source_payload_last = (! (jtag_writeArea_ctrl_enable && jtag_writeArea_ctrl_shift));
-  assign jtag_writeArea_source_payload_fragment[0] = jtag_writeArea_data;
-  assign system_cmd_valid = flowCCByToggle_1_io_output_valid;
-  assign system_cmd_payload_last = flowCCByToggle_1_io_output_payload_last;
-  assign system_cmd_payload_fragment = flowCCByToggle_1_io_output_payload_fragment;
-  assign jtag_writeArea_ctrl_tdo = 1'b0;
-  assign jtag_writeArea_ctrl_tdi = io_jtag_tdi;
-  assign jtag_writeArea_ctrl_enable = (jtag_tap_instruction == 4'b0010);
-  assign jtag_writeArea_ctrl_capture = (jtag_tap_fsm_state == JtagState_DR_CAPTURE);
-  assign jtag_writeArea_ctrl_shift = (jtag_tap_fsm_state == JtagState_DR_SHIFT);
-  assign jtag_writeArea_ctrl_update = (jtag_tap_fsm_state == JtagState_DR_UPDATE);
-  assign jtag_writeArea_ctrl_reset = (jtag_tap_fsm_state == JtagState_RESET);
-  assign jtag_readArea_ctrl_tdo = jtag_readArea_full_shifter[0];
-  assign jtag_readArea_ctrl_tdi = io_jtag_tdi;
-  assign jtag_readArea_ctrl_enable = (jtag_tap_instruction == 4'b0011);
-  assign jtag_readArea_ctrl_capture = (jtag_tap_fsm_state == JtagState_DR_CAPTURE);
-  assign jtag_readArea_ctrl_shift = (jtag_tap_fsm_state == JtagState_DR_SHIFT);
-  assign jtag_readArea_ctrl_update = (jtag_tap_fsm_state == JtagState_DR_UPDATE);
-  assign jtag_readArea_ctrl_reset = (jtag_tap_fsm_state == JtagState_RESET);
+  assign jtag_tap_tdoIr = jtag_tap_instructionShift[0]; // @[BaseType.scala 305:24]
+  assign jtag_tap_isBypass = ($signed(_zz_jtag_tap_isBypass) == $signed(_zz_jtag_tap_isBypass_1)); // @[BaseType.scala 305:24]
+  assign io_jtag_tdo = jtag_tap_tdoUnbufferd_regNext; // @[JtagTap.scala 83:12]
+  assign jtag_idcodeArea_ctrl_tdo = jtag_idcodeArea_shifter[0]; // @[JtagTapInstructions.scala 143:12]
+  assign jtag_idcodeArea_ctrl_tdi = io_jtag_tdi; // @[JtagTap.scala 107:18]
+  assign jtag_idcodeArea_ctrl_enable = (jtag_tap_instruction == 4'b0001); // @[JtagTap.scala 108:18]
+  assign jtag_idcodeArea_ctrl_capture = (jtag_tap_fsm_state == JtagState_DR_CAPTURE); // @[JtagTap.scala 109:18]
+  assign jtag_idcodeArea_ctrl_shift = (jtag_tap_fsm_state == JtagState_DR_SHIFT); // @[JtagTap.scala 110:18]
+  assign jtag_idcodeArea_ctrl_update = (jtag_tap_fsm_state == JtagState_DR_UPDATE); // @[JtagTap.scala 111:18]
+  assign jtag_idcodeArea_ctrl_reset = (jtag_tap_fsm_state == JtagState_RESET); // @[JtagTap.scala 112:18]
+  assign when_JtagTap_l120 = (jtag_tap_fsm_state == JtagState_RESET); // @[BaseType.scala 305:24]
+  assign jtag_writeArea_source_valid = jtag_writeArea_valid; // @[JtagTapInstructions.scala 154:16]
+  assign jtag_writeArea_source_payload_last = (! (jtag_writeArea_ctrl_enable && jtag_writeArea_ctrl_shift)); // @[JtagTapInstructions.scala 155:15]
+  assign jtag_writeArea_source_payload_fragment[0] = jtag_writeArea_data; // @[JtagTapInstructions.scala 156:23]
+  assign system_cmd_valid = flowCCByToggle_1_io_output_valid; // @[Flow.scala 94:11]
+  assign system_cmd_payload_last = flowCCByToggle_1_io_output_payload_last; // @[Flow.scala 95:13]
+  assign system_cmd_payload_fragment = flowCCByToggle_1_io_output_payload_fragment; // @[Flow.scala 95:13]
+  assign jtag_writeArea_ctrl_tdo = 1'b0; // @[JtagTapInstructions.scala 160:12]
+  assign jtag_writeArea_ctrl_tdi = io_jtag_tdi; // @[JtagTap.scala 107:18]
+  assign jtag_writeArea_ctrl_enable = (jtag_tap_instruction == 4'b0010); // @[JtagTap.scala 108:18]
+  assign jtag_writeArea_ctrl_capture = (jtag_tap_fsm_state == JtagState_DR_CAPTURE); // @[JtagTap.scala 109:18]
+  assign jtag_writeArea_ctrl_shift = (jtag_tap_fsm_state == JtagState_DR_SHIFT); // @[JtagTap.scala 110:18]
+  assign jtag_writeArea_ctrl_update = (jtag_tap_fsm_state == JtagState_DR_UPDATE); // @[JtagTap.scala 111:18]
+  assign jtag_writeArea_ctrl_reset = (jtag_tap_fsm_state == JtagState_RESET); // @[JtagTap.scala 112:18]
+  assign jtag_readArea_ctrl_tdo = jtag_readArea_full_shifter[0]; // @[JtagTapInstructions.scala 88:14]
+  assign jtag_readArea_ctrl_tdi = io_jtag_tdi; // @[JtagTap.scala 107:18]
+  assign jtag_readArea_ctrl_enable = (jtag_tap_instruction == 4'b0011); // @[JtagTap.scala 108:18]
+  assign jtag_readArea_ctrl_capture = (jtag_tap_fsm_state == JtagState_DR_CAPTURE); // @[JtagTap.scala 109:18]
+  assign jtag_readArea_ctrl_shift = (jtag_tap_fsm_state == JtagState_DR_SHIFT); // @[JtagTap.scala 110:18]
+  assign jtag_readArea_ctrl_update = (jtag_tap_fsm_state == JtagState_DR_UPDATE); // @[JtagTap.scala 111:18]
+  assign jtag_readArea_ctrl_reset = (jtag_tap_fsm_state == JtagState_RESET); // @[JtagTap.scala 112:18]
   always @(posedge clk) begin
     if(io_remote_cmd_valid) begin
-      system_rsp_valid <= 1'b0;
+      system_rsp_valid <= 1'b0; // @[SystemDebugger.scala 71:17]
     end
     if(io_remote_rsp_fire) begin
-      system_rsp_valid <= 1'b1;
-      system_rsp_payload_error <= io_remote_rsp_payload_error;
-      system_rsp_payload_data <= io_remote_rsp_payload_data;
+      system_rsp_valid <= 1'b1; // @[SystemDebugger.scala 74:17]
+      system_rsp_payload_error <= io_remote_rsp_payload_error; // @[SystemDebugger.scala 75:19]
+      system_rsp_payload_data <= io_remote_rsp_payload_data; // @[SystemDebugger.scala 75:19]
     end
   end
 
   always @(posedge io_jtag_tck) begin
-    jtag_tap_fsm_state <= jtag_tap_fsm_stateNext;
-    jtag_tap_bypass <= io_jtag_tdi;
+    jtag_tap_fsm_state <= jtag_tap_fsm_stateNext; // @[Reg.scala 39:30]
+    jtag_tap_bypass <= io_jtag_tdi; // @[Reg.scala 39:30]
     case(jtag_tap_fsm_state)
       JtagState_IR_CAPTURE : begin
-        jtag_tap_instructionShift <= {2'd0, _zz_jtag_tap_instructionShift};
+        jtag_tap_instructionShift <= {2'd0, _zz_jtag_tap_instructionShift}; // @[JtagTap.scala 87:24]
       end
       JtagState_IR_SHIFT : begin
-        jtag_tap_instructionShift <= ({io_jtag_tdi,jtag_tap_instructionShift} >>> 1);
+        jtag_tap_instructionShift <= ({io_jtag_tdi,jtag_tap_instructionShift} >>> 1); // @[JtagTap.scala 90:24]
       end
       JtagState_IR_UPDATE : begin
-        jtag_tap_instruction <= jtag_tap_instructionShift;
+        jtag_tap_instruction <= jtag_tap_instructionShift; // @[JtagTap.scala 94:19]
       end
       JtagState_DR_SHIFT : begin
-        jtag_tap_instructionShift <= ({io_jtag_tdi,jtag_tap_instructionShift} >>> 1);
+        jtag_tap_instructionShift <= ({io_jtag_tdi,jtag_tap_instructionShift} >>> 1); // @[JtagTap.scala 97:24]
       end
       default : begin
       end
     endcase
     if(jtag_idcodeArea_ctrl_enable) begin
       if(jtag_idcodeArea_ctrl_shift) begin
-        jtag_idcodeArea_shifter <= ({jtag_idcodeArea_ctrl_tdi,jtag_idcodeArea_shifter} >>> 1);
+        jtag_idcodeArea_shifter <= ({jtag_idcodeArea_ctrl_tdi,jtag_idcodeArea_shifter} >>> 1); // @[JtagTapInstructions.scala 135:15]
       end
     end
     if(jtag_idcodeArea_ctrl_capture) begin
-      jtag_idcodeArea_shifter <= 32'h10001fff;
+      jtag_idcodeArea_shifter <= 32'h10001fff; // @[JtagTapInstructions.scala 140:13]
     end
     if(when_JtagTap_l120) begin
-      jtag_tap_instruction <= 4'b0001;
+      jtag_tap_instruction <= 4'b0001; // @[JtagTap.scala 120:54]
     end
-    jtag_writeArea_valid <= (jtag_writeArea_ctrl_enable && jtag_writeArea_ctrl_shift);
-    jtag_writeArea_data <= jtag_writeArea_ctrl_tdi;
+    jtag_writeArea_valid <= (jtag_writeArea_ctrl_enable && jtag_writeArea_ctrl_shift); // @[Reg.scala 39:30]
+    jtag_writeArea_data <= jtag_writeArea_ctrl_tdi; // @[Reg.scala 39:30]
     if(jtag_readArea_ctrl_enable) begin
       if(jtag_readArea_ctrl_capture) begin
-        jtag_readArea_full_shifter <= {{system_rsp_payload_data,system_rsp_payload_error},system_rsp_valid};
+        jtag_readArea_full_shifter <= {{system_rsp_payload_data,system_rsp_payload_error},system_rsp_valid}; // @[JtagTapInstructions.scala 81:17]
       end
       if(jtag_readArea_ctrl_shift) begin
-        jtag_readArea_full_shifter <= ({jtag_readArea_ctrl_tdi,jtag_readArea_full_shifter} >>> 1);
+        jtag_readArea_full_shifter <= ({jtag_readArea_ctrl_tdi,jtag_readArea_full_shifter} >>> 1); // @[JtagTapInstructions.scala 85:17]
       end
     end
   end
 
   always @(negedge io_jtag_tck) begin
-    jtag_tap_tdoUnbufferd_regNext <= jtag_tap_tdoUnbufferd;
+    jtag_tap_tdoUnbufferd_regNext <= jtag_tap_tdoUnbufferd; // @[Reg.scala 39:30]
   end
 
 
@@ -10124,7 +10167,7 @@ module DataCache (
   wire       [31:0]   stageB_amo_addSub;
   wire                stageB_amo_less;
   wire                stageB_amo_selectRf;
-  wire       [2:0]    switch_Misc_l210;
+  wire       [2:0]    switch_Misc_l226;
   reg        [31:0]   stageB_amo_result;
   reg        [31:0]   stageB_amo_resultReg;
   reg                 stageB_amo_internal_resultRegValid;
@@ -10369,184 +10412,184 @@ module DataCache (
   end
 
   always @(*) begin
-    _zz_wr_en = 1'b0;
+    _zz_wr_en = 1'b0; // @[when.scala 47:16]
     if(when_DataCache_l645_3) begin
-      _zz_wr_en = 1'b1;
+      _zz_wr_en = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_1 = 1'b0;
+    _zz_wr_en_1 = 1'b0; // @[when.scala 47:16]
     if(when_DataCache_l642_3) begin
-      _zz_wr_en_1 = 1'b1;
+      _zz_wr_en_1 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_2 = 1'b0;
+    _zz_wr_en_2 = 1'b0; // @[when.scala 47:16]
     if(when_DataCache_l645_2) begin
-      _zz_wr_en_2 = 1'b1;
+      _zz_wr_en_2 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_3 = 1'b0;
+    _zz_wr_en_3 = 1'b0; // @[when.scala 47:16]
     if(when_DataCache_l642_2) begin
-      _zz_wr_en_3 = 1'b1;
+      _zz_wr_en_3 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_4 = 1'b0;
+    _zz_wr_en_4 = 1'b0; // @[when.scala 47:16]
     if(when_DataCache_l645_1) begin
-      _zz_wr_en_4 = 1'b1;
+      _zz_wr_en_4 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_5 = 1'b0;
+    _zz_wr_en_5 = 1'b0; // @[when.scala 47:16]
     if(when_DataCache_l642_1) begin
-      _zz_wr_en_5 = 1'b1;
+      _zz_wr_en_5 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_6 = 1'b0;
+    _zz_wr_en_6 = 1'b0; // @[when.scala 47:16]
     if(when_DataCache_l645) begin
-      _zz_wr_en_6 = 1'b1;
+      _zz_wr_en_6 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_7 = 1'b0;
+    _zz_wr_en_7 = 1'b0; // @[when.scala 47:16]
     if(when_DataCache_l642) begin
-      _zz_wr_en_7 = 1'b1;
+      _zz_wr_en_7 = 1'b1; // @[when.scala 52:10]
     end
   end
 
-  assign haltCpu = 1'b0;
-  assign _zz_ways_0_tagsReadRsp_valid = ways_0_tags_rd_data;
-  assign ways_0_tagsReadRsp_valid = _zz_ways_0_tagsReadRsp_valid[0];
-  assign ways_0_tagsReadRsp_error = _zz_ways_0_tagsReadRsp_valid[1];
-  assign ways_0_tagsReadRsp_address = _zz_ways_0_tagsReadRsp_valid[21 : 2];
-  assign ways_0_dataReadRspMem = ways_0_data_rd_data;
-  assign ways_0_dataReadRsp = ways_0_dataReadRspMem[31 : 0];
-  assign when_DataCache_l642 = (tagsWriteCmd_valid && tagsWriteCmd_payload_way[0]);
-  assign when_DataCache_l645 = (dataWriteCmd_valid && dataWriteCmd_payload_way[0]);
-  assign _zz_ways_1_tagsReadRsp_valid = ways_1_tags_rd_data;
-  assign ways_1_tagsReadRsp_valid = _zz_ways_1_tagsReadRsp_valid[0];
-  assign ways_1_tagsReadRsp_error = _zz_ways_1_tagsReadRsp_valid[1];
-  assign ways_1_tagsReadRsp_address = _zz_ways_1_tagsReadRsp_valid[21 : 2];
-  assign ways_1_dataReadRspMem = ways_1_data_rd_data;
-  assign ways_1_dataReadRsp = ways_1_dataReadRspMem[31 : 0];
-  assign when_DataCache_l642_1 = (tagsWriteCmd_valid && tagsWriteCmd_payload_way[1]);
-  assign when_DataCache_l645_1 = (dataWriteCmd_valid && dataWriteCmd_payload_way[1]);
-  assign _zz_ways_2_tagsReadRsp_valid = ways_2_tags_rd_data;
-  assign ways_2_tagsReadRsp_valid = _zz_ways_2_tagsReadRsp_valid[0];
-  assign ways_2_tagsReadRsp_error = _zz_ways_2_tagsReadRsp_valid[1];
-  assign ways_2_tagsReadRsp_address = _zz_ways_2_tagsReadRsp_valid[21 : 2];
-  assign ways_2_dataReadRspMem = ways_2_data_rd_data;
-  assign ways_2_dataReadRsp = ways_2_dataReadRspMem[31 : 0];
-  assign when_DataCache_l642_2 = (tagsWriteCmd_valid && tagsWriteCmd_payload_way[2]);
-  assign when_DataCache_l645_2 = (dataWriteCmd_valid && dataWriteCmd_payload_way[2]);
-  assign _zz_ways_3_tagsReadRsp_valid = ways_3_tags_rd_data;
-  assign ways_3_tagsReadRsp_valid = _zz_ways_3_tagsReadRsp_valid[0];
-  assign ways_3_tagsReadRsp_error = _zz_ways_3_tagsReadRsp_valid[1];
-  assign ways_3_tagsReadRsp_address = _zz_ways_3_tagsReadRsp_valid[21 : 2];
-  assign ways_3_dataReadRspMem = ways_3_data_rd_data;
-  assign ways_3_dataReadRsp = ways_3_dataReadRspMem[31 : 0];
-  assign when_DataCache_l642_3 = (tagsWriteCmd_valid && tagsWriteCmd_payload_way[3]);
-  assign when_DataCache_l645_3 = (dataWriteCmd_valid && dataWriteCmd_payload_way[3]);
+  assign haltCpu = 1'b0; // @[DataCache.scala 575:17]
+  assign _zz_ways_0_tagsReadRsp_valid = ways_0_tags_rd_data; // @[Mem.scala 310:24]
+  assign ways_0_tagsReadRsp_valid = _zz_ways_0_tagsReadRsp_valid[0]; // @[Bool.scala 189:10]
+  assign ways_0_tagsReadRsp_error = _zz_ways_0_tagsReadRsp_valid[1]; // @[Bool.scala 189:10]
+  assign ways_0_tagsReadRsp_address = _zz_ways_0_tagsReadRsp_valid[21 : 2]; // @[UInt.scala 381:56]
+  assign ways_0_dataReadRspMem = ways_0_data_rd_data; // @[Bits.scala 133:56]
+  assign ways_0_dataReadRsp = ways_0_dataReadRspMem[31 : 0]; // @[Vec.scala 169:11]
+  assign when_DataCache_l642 = (tagsWriteCmd_valid && tagsWriteCmd_payload_way[0]); // @[BaseType.scala 305:24]
+  assign when_DataCache_l645 = (dataWriteCmd_valid && dataWriteCmd_payload_way[0]); // @[BaseType.scala 305:24]
+  assign _zz_ways_1_tagsReadRsp_valid = ways_1_tags_rd_data; // @[Mem.scala 310:24]
+  assign ways_1_tagsReadRsp_valid = _zz_ways_1_tagsReadRsp_valid[0]; // @[Bool.scala 189:10]
+  assign ways_1_tagsReadRsp_error = _zz_ways_1_tagsReadRsp_valid[1]; // @[Bool.scala 189:10]
+  assign ways_1_tagsReadRsp_address = _zz_ways_1_tagsReadRsp_valid[21 : 2]; // @[UInt.scala 381:56]
+  assign ways_1_dataReadRspMem = ways_1_data_rd_data; // @[Bits.scala 133:56]
+  assign ways_1_dataReadRsp = ways_1_dataReadRspMem[31 : 0]; // @[Vec.scala 169:11]
+  assign when_DataCache_l642_1 = (tagsWriteCmd_valid && tagsWriteCmd_payload_way[1]); // @[BaseType.scala 305:24]
+  assign when_DataCache_l645_1 = (dataWriteCmd_valid && dataWriteCmd_payload_way[1]); // @[BaseType.scala 305:24]
+  assign _zz_ways_2_tagsReadRsp_valid = ways_2_tags_rd_data; // @[Mem.scala 310:24]
+  assign ways_2_tagsReadRsp_valid = _zz_ways_2_tagsReadRsp_valid[0]; // @[Bool.scala 189:10]
+  assign ways_2_tagsReadRsp_error = _zz_ways_2_tagsReadRsp_valid[1]; // @[Bool.scala 189:10]
+  assign ways_2_tagsReadRsp_address = _zz_ways_2_tagsReadRsp_valid[21 : 2]; // @[UInt.scala 381:56]
+  assign ways_2_dataReadRspMem = ways_2_data_rd_data; // @[Bits.scala 133:56]
+  assign ways_2_dataReadRsp = ways_2_dataReadRspMem[31 : 0]; // @[Vec.scala 169:11]
+  assign when_DataCache_l642_2 = (tagsWriteCmd_valid && tagsWriteCmd_payload_way[2]); // @[BaseType.scala 305:24]
+  assign when_DataCache_l645_2 = (dataWriteCmd_valid && dataWriteCmd_payload_way[2]); // @[BaseType.scala 305:24]
+  assign _zz_ways_3_tagsReadRsp_valid = ways_3_tags_rd_data; // @[Mem.scala 310:24]
+  assign ways_3_tagsReadRsp_valid = _zz_ways_3_tagsReadRsp_valid[0]; // @[Bool.scala 189:10]
+  assign ways_3_tagsReadRsp_error = _zz_ways_3_tagsReadRsp_valid[1]; // @[Bool.scala 189:10]
+  assign ways_3_tagsReadRsp_address = _zz_ways_3_tagsReadRsp_valid[21 : 2]; // @[UInt.scala 381:56]
+  assign ways_3_dataReadRspMem = ways_3_data_rd_data; // @[Bits.scala 133:56]
+  assign ways_3_dataReadRsp = ways_3_dataReadRspMem[31 : 0]; // @[Vec.scala 169:11]
+  assign when_DataCache_l642_3 = (tagsWriteCmd_valid && tagsWriteCmd_payload_way[3]); // @[BaseType.scala 305:24]
+  assign when_DataCache_l645_3 = (dataWriteCmd_valid && dataWriteCmd_payload_way[3]); // @[BaseType.scala 305:24]
   always @(*) begin
-    tagsReadCmd_valid = 1'b0;
+    tagsReadCmd_valid = 1'b0; // @[DataCache.scala 655:21]
     if(when_DataCache_l664) begin
-      tagsReadCmd_valid = 1'b1;
+      tagsReadCmd_valid = 1'b1; // @[DataCache.scala 665:25]
     end
   end
 
   always @(*) begin
-    tagsReadCmd_payload = 7'bxxxxxxx;
+    tagsReadCmd_payload = 7'bxxxxxxx; // @[UInt.scala 467:20]
     if(when_DataCache_l664) begin
-      tagsReadCmd_payload = io_cpu_execute_address[11 : 5];
+      tagsReadCmd_payload = io_cpu_execute_address[11 : 5]; // @[DataCache.scala 667:25]
     end
   end
 
   always @(*) begin
-    dataReadCmd_valid = 1'b0;
+    dataReadCmd_valid = 1'b0; // @[DataCache.scala 657:21]
     if(when_DataCache_l664) begin
-      dataReadCmd_valid = 1'b1;
+      dataReadCmd_valid = 1'b1; // @[DataCache.scala 666:25]
     end
   end
 
   always @(*) begin
-    dataReadCmd_payload = 10'bxxxxxxxxxx;
+    dataReadCmd_payload = 10'bxxxxxxxxxx; // @[UInt.scala 467:20]
     if(when_DataCache_l664) begin
-      dataReadCmd_payload = io_cpu_execute_address[11 : 2];
+      dataReadCmd_payload = io_cpu_execute_address[11 : 2]; // @[DataCache.scala 668:25]
     end
   end
 
   always @(*) begin
-    tagsWriteCmd_valid = 1'b0;
+    tagsWriteCmd_valid = 1'b0; // @[DataCache.scala 659:22]
     if(when_DataCache_l850) begin
-      tagsWriteCmd_valid = 1'b1;
+      tagsWriteCmd_valid = 1'b1; // @[DataCache.scala 851:28]
     end
     if(when_DataCache_l1066) begin
-      tagsWriteCmd_valid = 1'b0;
+      tagsWriteCmd_valid = 1'b0; // @[DataCache.scala 1068:26]
     end
     if(loader_done) begin
-      tagsWriteCmd_valid = 1'b1;
+      tagsWriteCmd_valid = 1'b1; // @[DataCache.scala 1107:26]
     end
   end
 
   always @(*) begin
-    tagsWriteCmd_payload_way = 4'bxxxx;
+    tagsWriteCmd_payload_way = 4'bxxxx; // @[Bits.scala 231:20]
     if(when_DataCache_l850) begin
-      tagsWriteCmd_payload_way = 4'b1111;
+      tagsWriteCmd_payload_way = 4'b1111; // @[Bits.scala 226:10]
     end
     if(loader_done) begin
-      tagsWriteCmd_payload_way = loader_waysAllocator;
+      tagsWriteCmd_payload_way = loader_waysAllocator; // @[DataCache.scala 1112:24]
     end
   end
 
   always @(*) begin
-    tagsWriteCmd_payload_address = 7'bxxxxxxx;
+    tagsWriteCmd_payload_address = 7'bxxxxxxx; // @[UInt.scala 467:20]
     if(when_DataCache_l850) begin
-      tagsWriteCmd_payload_address = stageB_flusher_counter[6:0];
+      tagsWriteCmd_payload_address = stageB_flusher_counter[6:0]; // @[DataCache.scala 852:30]
     end
     if(loader_done) begin
-      tagsWriteCmd_payload_address = stageB_mmuRsp_physicalAddress[11 : 5];
+      tagsWriteCmd_payload_address = stageB_mmuRsp_physicalAddress[11 : 5]; // @[DataCache.scala 1108:28]
     end
   end
 
   always @(*) begin
-    tagsWriteCmd_payload_data_valid = 1'bx;
+    tagsWriteCmd_payload_data_valid = 1'bx; // @[Bool.scala 276:20]
     if(when_DataCache_l850) begin
-      tagsWriteCmd_payload_data_valid = 1'b0;
+      tagsWriteCmd_payload_data_valid = 1'b0; // @[DataCache.scala 854:33]
     end
     if(loader_done) begin
-      tagsWriteCmd_payload_data_valid = (! (loader_kill || loader_killReg));
+      tagsWriteCmd_payload_data_valid = (! (loader_kill || loader_killReg)); // @[DataCache.scala 1109:31]
     end
   end
 
   always @(*) begin
-    tagsWriteCmd_payload_data_error = 1'bx;
+    tagsWriteCmd_payload_data_error = 1'bx; // @[Bool.scala 276:20]
     if(loader_done) begin
-      tagsWriteCmd_payload_data_error = (loader_error || (io_mem_rsp_valid && io_mem_rsp_payload_error));
+      tagsWriteCmd_payload_data_error = (loader_error || (io_mem_rsp_valid && io_mem_rsp_payload_error)); // @[DataCache.scala 1111:31]
     end
   end
 
   always @(*) begin
-    tagsWriteCmd_payload_data_address = 20'bxxxxxxxxxxxxxxxxxxxx;
+    tagsWriteCmd_payload_data_address = 20'bxxxxxxxxxxxxxxxxxxxx; // @[UInt.scala 467:20]
     if(loader_done) begin
-      tagsWriteCmd_payload_data_address = stageB_mmuRsp_physicalAddress[31 : 12];
+      tagsWriteCmd_payload_data_address = stageB_mmuRsp_physicalAddress[31 : 12]; // @[DataCache.scala 1110:33]
     end
   end
 
   always @(*) begin
-    dataWriteCmd_valid = 1'b0;
+    dataWriteCmd_valid = 1'b0; // @[DataCache.scala 661:22]
     if(stageB_cpuWriteToCache) begin
       if(when_DataCache_l926) begin
-        dataWriteCmd_valid = 1'b1;
+        dataWriteCmd_valid = 1'b1; // @[DataCache.scala 926:26]
       end
     end
     if(io_cpu_writeBack_isValid) begin
@@ -10555,601 +10598,601 @@ module DataCache (
           if(when_DataCache_l1004) begin
             if(stageB_request_isAmo) begin
               if(when_DataCache_l1012) begin
-                dataWriteCmd_valid = 1'b0;
+                dataWriteCmd_valid = 1'b0; // @[DataCache.scala 1014:34]
               end
             end
             if(when_DataCache_l1025) begin
-              dataWriteCmd_valid = 1'b0;
+              dataWriteCmd_valid = 1'b0; // @[DataCache.scala 1027:32]
             end
           end
         end
       end
     end
     if(when_DataCache_l1066) begin
-      dataWriteCmd_valid = 1'b0;
+      dataWriteCmd_valid = 1'b0; // @[DataCache.scala 1069:26]
     end
     if(when_DataCache_l1090) begin
-      dataWriteCmd_valid = 1'b1;
+      dataWriteCmd_valid = 1'b1; // @[DataCache.scala 1091:26]
     end
   end
 
   always @(*) begin
-    dataWriteCmd_payload_way = 4'bxxxx;
+    dataWriteCmd_payload_way = 4'bxxxx; // @[Bits.scala 231:20]
     if(stageB_cpuWriteToCache) begin
-      dataWriteCmd_payload_way = stageB_waysHits;
+      dataWriteCmd_payload_way = stageB_waysHits; // @[DataCache.scala 931:24]
     end
     if(when_DataCache_l1090) begin
-      dataWriteCmd_payload_way = loader_waysAllocator;
+      dataWriteCmd_payload_way = loader_waysAllocator; // @[DataCache.scala 1095:24]
     end
   end
 
   always @(*) begin
-    dataWriteCmd_payload_address = 10'bxxxxxxxxxx;
+    dataWriteCmd_payload_address = 10'bxxxxxxxxxx; // @[UInt.scala 467:20]
     if(stageB_cpuWriteToCache) begin
-      dataWriteCmd_payload_address = stageB_mmuRsp_physicalAddress[11 : 2];
+      dataWriteCmd_payload_address = stageB_mmuRsp_physicalAddress[11 : 2]; // @[DataCache.scala 927:28]
     end
     if(when_DataCache_l1090) begin
-      dataWriteCmd_payload_address = {stageB_mmuRsp_physicalAddress[11 : 5],loader_counter_value};
+      dataWriteCmd_payload_address = {stageB_mmuRsp_physicalAddress[11 : 5],loader_counter_value}; // @[DataCache.scala 1092:28]
     end
   end
 
   always @(*) begin
-    dataWriteCmd_payload_data = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
+    dataWriteCmd_payload_data = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; // @[Bits.scala 231:20]
     if(stageB_cpuWriteToCache) begin
-      dataWriteCmd_payload_data[31 : 0] = stageB_requestDataBypass;
+      dataWriteCmd_payload_data[31 : 0] = stageB_requestDataBypass; // @[DataCache.scala 928:66]
     end
     if(when_DataCache_l1090) begin
-      dataWriteCmd_payload_data = io_mem_rsp_payload_data;
+      dataWriteCmd_payload_data = io_mem_rsp_payload_data; // @[DataCache.scala 1093:25]
     end
   end
 
   always @(*) begin
-    dataWriteCmd_payload_mask = 4'bxxxx;
+    dataWriteCmd_payload_mask = 4'bxxxx; // @[Bits.scala 231:20]
     if(stageB_cpuWriteToCache) begin
-      dataWriteCmd_payload_mask = 4'b0000;
+      dataWriteCmd_payload_mask = 4'b0000; // @[DataCache.scala 929:25]
       if(_zz_when[0]) begin
-        dataWriteCmd_payload_mask[3 : 0] = stageB_mask;
+        dataWriteCmd_payload_mask[3 : 0] = stageB_mask; // @[Utils.scala 1049:24]
       end
     end
     if(when_DataCache_l1090) begin
-      dataWriteCmd_payload_mask = 4'b1111;
+      dataWriteCmd_payload_mask = 4'b1111; // @[Bits.scala 226:10]
     end
   end
 
-  assign when_DataCache_l664 = (io_cpu_execute_isValid && (! io_cpu_memory_isStuck));
+  assign when_DataCache_l664 = (io_cpu_execute_isValid && (! io_cpu_memory_isStuck)); // @[BaseType.scala 305:24]
   always @(*) begin
-    io_cpu_execute_haltIt = 1'b0;
+    io_cpu_execute_haltIt = 1'b0; // @[DataCache.scala 682:25]
     if(when_DataCache_l850) begin
-      io_cpu_execute_haltIt = 1'b1;
+      io_cpu_execute_haltIt = 1'b1; // @[DataCache.scala 855:31]
     end
   end
 
-  assign rspSync = 1'b1;
-  assign rspLast = 1'b1;
-  assign io_mem_cmd_fire = (io_mem_cmd_valid && io_mem_cmd_ready);
-  assign when_DataCache_l686 = (! io_cpu_writeBack_isStuck);
+  assign rspSync = 1'b1; // @[DataCache.scala 684:17]
+  assign rspLast = 1'b1; // @[DataCache.scala 685:17]
+  assign io_mem_cmd_fire = (io_mem_cmd_valid && io_mem_cmd_ready); // @[BaseType.scala 305:24]
+  assign when_DataCache_l686 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
   always @(*) begin
-    _zz_stage0_mask = 4'bxxxx;
+    _zz_stage0_mask = 4'bxxxx; // @[Bits.scala 231:20]
     case(io_cpu_execute_args_size)
       2'b00 : begin
-        _zz_stage0_mask = 4'b0001;
+        _zz_stage0_mask = 4'b0001; // @[Misc.scala 260:22]
       end
       2'b01 : begin
-        _zz_stage0_mask = 4'b0011;
+        _zz_stage0_mask = 4'b0011; // @[Misc.scala 260:22]
       end
       2'b10 : begin
-        _zz_stage0_mask = 4'b1111;
+        _zz_stage0_mask = 4'b1111; // @[Misc.scala 260:22]
       end
       default : begin
       end
     endcase
   end
 
-  assign stage0_mask = (_zz_stage0_mask <<< io_cpu_execute_address[1 : 0]);
-  assign _zz_stage0_dataColisions = (io_cpu_execute_address[11 : 2] >>> 0);
-  assign _zz_stage0_dataColisions_1 = dataWriteCmd_payload_mask[3 : 0];
+  assign stage0_mask = (_zz_stage0_mask <<< io_cpu_execute_address[1 : 0]); // @[BaseType.scala 299:24]
+  assign _zz_stage0_dataColisions = (io_cpu_execute_address[11 : 2] >>> 0); // @[BaseType.scala 299:24]
+  assign _zz_stage0_dataColisions_1 = dataWriteCmd_payload_mask[3 : 0]; // @[Vec.scala 169:11]
   always @(*) begin
-    stage0_dataColisions[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_stage0_dataColisions)) && ((stage0_mask & _zz_stage0_dataColisions_1) != 4'b0000));
-    stage0_dataColisions[1] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[1]) && (dataWriteCmd_payload_address == _zz_stage0_dataColisions)) && ((stage0_mask & _zz_stage0_dataColisions_1) != 4'b0000));
-    stage0_dataColisions[2] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[2]) && (dataWriteCmd_payload_address == _zz_stage0_dataColisions)) && ((stage0_mask & _zz_stage0_dataColisions_1) != 4'b0000));
-    stage0_dataColisions[3] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[3]) && (dataWriteCmd_payload_address == _zz_stage0_dataColisions)) && ((stage0_mask & _zz_stage0_dataColisions_1) != 4'b0000));
+    stage0_dataColisions[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_stage0_dataColisions)) && ((stage0_mask & _zz_stage0_dataColisions_1) != 4'b0000)); // @[DataCache.scala 676:14]
+    stage0_dataColisions[1] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[1]) && (dataWriteCmd_payload_address == _zz_stage0_dataColisions)) && ((stage0_mask & _zz_stage0_dataColisions_1) != 4'b0000)); // @[DataCache.scala 676:14]
+    stage0_dataColisions[2] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[2]) && (dataWriteCmd_payload_address == _zz_stage0_dataColisions)) && ((stage0_mask & _zz_stage0_dataColisions_1) != 4'b0000)); // @[DataCache.scala 676:14]
+    stage0_dataColisions[3] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[3]) && (dataWriteCmd_payload_address == _zz_stage0_dataColisions)) && ((stage0_mask & _zz_stage0_dataColisions_1) != 4'b0000)); // @[DataCache.scala 676:14]
   end
 
-  assign stage0_wayInvalidate = 4'b0000;
-  assign when_DataCache_l771 = (! io_cpu_memory_isStuck);
-  assign when_DataCache_l771_1 = (! io_cpu_memory_isStuck);
-  assign io_cpu_memory_isWrite = stageA_request_wr;
-  assign stageA_wayHits = {((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_3_tagsReadRsp_address) && ways_3_tagsReadRsp_valid),{((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_2_tagsReadRsp_address) && ways_2_tagsReadRsp_valid),{((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_1_tagsReadRsp_address) && ways_1_tagsReadRsp_valid),((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_0_tagsReadRsp_address) && ways_0_tagsReadRsp_valid)}}};
-  assign when_DataCache_l771_2 = (! io_cpu_memory_isStuck);
-  assign when_DataCache_l771_3 = (! io_cpu_memory_isStuck);
-  assign _zz_stageA_dataColisions_1 = (io_cpu_memory_address[11 : 2] >>> 0);
-  assign _zz_stageA_dataColisions_2 = dataWriteCmd_payload_mask[3 : 0];
+  assign stage0_wayInvalidate = 4'b0000; // @[Expression.scala 2301:18]
+  assign when_DataCache_l771 = (! io_cpu_memory_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l771_1 = (! io_cpu_memory_isStuck); // @[BaseType.scala 299:24]
+  assign io_cpu_memory_isWrite = stageA_request_wr; // @[DataCache.scala 774:27]
+  assign stageA_wayHits = {((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_3_tagsReadRsp_address) && ways_3_tagsReadRsp_valid),{((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_2_tagsReadRsp_address) && ways_2_tagsReadRsp_valid),{((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_1_tagsReadRsp_address) && ways_1_tagsReadRsp_valid),((io_cpu_memory_mmuRsp_physicalAddress[31 : 12] == ways_0_tagsReadRsp_address) && ways_0_tagsReadRsp_valid)}}}; // @[DataCache.scala 798:15]
+  assign when_DataCache_l771_2 = (! io_cpu_memory_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l771_3 = (! io_cpu_memory_isStuck); // @[BaseType.scala 299:24]
+  assign _zz_stageA_dataColisions_1 = (io_cpu_memory_address[11 : 2] >>> 0); // @[BaseType.scala 299:24]
+  assign _zz_stageA_dataColisions_2 = dataWriteCmd_payload_mask[3 : 0]; // @[Vec.scala 169:11]
   always @(*) begin
-    _zz_stageA_dataColisions[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_stageA_dataColisions_1)) && ((stageA_mask & _zz_stageA_dataColisions_2) != 4'b0000));
-    _zz_stageA_dataColisions[1] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[1]) && (dataWriteCmd_payload_address == _zz_stageA_dataColisions_1)) && ((stageA_mask & _zz_stageA_dataColisions_2) != 4'b0000));
-    _zz_stageA_dataColisions[2] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[2]) && (dataWriteCmd_payload_address == _zz_stageA_dataColisions_1)) && ((stageA_mask & _zz_stageA_dataColisions_2) != 4'b0000));
-    _zz_stageA_dataColisions[3] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[3]) && (dataWriteCmd_payload_address == _zz_stageA_dataColisions_1)) && ((stageA_mask & _zz_stageA_dataColisions_2) != 4'b0000));
+    _zz_stageA_dataColisions[0] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[0]) && (dataWriteCmd_payload_address == _zz_stageA_dataColisions_1)) && ((stageA_mask & _zz_stageA_dataColisions_2) != 4'b0000)); // @[DataCache.scala 676:14]
+    _zz_stageA_dataColisions[1] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[1]) && (dataWriteCmd_payload_address == _zz_stageA_dataColisions_1)) && ((stageA_mask & _zz_stageA_dataColisions_2) != 4'b0000)); // @[DataCache.scala 676:14]
+    _zz_stageA_dataColisions[2] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[2]) && (dataWriteCmd_payload_address == _zz_stageA_dataColisions_1)) && ((stageA_mask & _zz_stageA_dataColisions_2) != 4'b0000)); // @[DataCache.scala 676:14]
+    _zz_stageA_dataColisions[3] = (((dataWriteCmd_valid && dataWriteCmd_payload_way[3]) && (dataWriteCmd_payload_address == _zz_stageA_dataColisions_1)) && ((stageA_mask & _zz_stageA_dataColisions_2) != 4'b0000)); // @[DataCache.scala 676:14]
   end
 
-  assign stageA_dataColisions = (stage0_dataColisions_regNextWhen | _zz_stageA_dataColisions);
-  assign when_DataCache_l822 = (! io_cpu_writeBack_isStuck);
+  assign stageA_dataColisions = (stage0_dataColisions_regNextWhen | _zz_stageA_dataColisions); // @[BaseType.scala 299:24]
+  assign when_DataCache_l822 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
   always @(*) begin
-    stageB_mmuRspFreeze = 1'b0;
+    stageB_mmuRspFreeze = 1'b0; // @[DataCache.scala 823:24]
     if(when_DataCache_l1125) begin
-      stageB_mmuRspFreeze = 1'b1;
+      stageB_mmuRspFreeze = 1'b1; // @[DataCache.scala 1125:25]
     end
   end
 
-  assign when_DataCache_l824 = ((! io_cpu_writeBack_isStuck) && (! stageB_mmuRspFreeze));
-  assign when_DataCache_l821 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l821_1 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l821_2 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l821_3 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l821_4 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l821_5 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l821_6 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l821_7 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l820 = (! io_cpu_writeBack_isStuck);
-  assign stageB_consistancyHazard = 1'b0;
-  assign when_DataCache_l820_1 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l820_2 = (! io_cpu_writeBack_isStuck);
-  assign when_DataCache_l820_3 = (! io_cpu_writeBack_isStuck);
-  assign stageB_waysHits = (stageB_waysHitsBeforeInvalidate & (~ stageB_wayInvalidate));
-  assign stageB_waysHit = (|stageB_waysHits);
-  assign _zz_stageB_dataMux = stageB_waysHits[3];
-  assign _zz_stageB_dataMux_1 = (stageB_waysHits[1] || _zz_stageB_dataMux);
-  assign _zz_stageB_dataMux_2 = (stageB_waysHits[2] || _zz_stageB_dataMux);
-  assign stageB_dataMux = _zz_stageB_dataMux_3;
-  assign when_DataCache_l820_4 = (! io_cpu_writeBack_isStuck);
+  assign when_DataCache_l824 = ((! io_cpu_writeBack_isStuck) && (! stageB_mmuRspFreeze)); // @[BaseType.scala 305:24]
+  assign when_DataCache_l821 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l821_1 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l821_2 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l821_3 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l821_4 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l821_5 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l821_6 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l821_7 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l820 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign stageB_consistancyHazard = 1'b0; // @[DataCache.scala 828:112]
+  assign when_DataCache_l820_1 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l820_2 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign when_DataCache_l820_3 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
+  assign stageB_waysHits = (stageB_waysHitsBeforeInvalidate & (~ stageB_wayInvalidate)); // @[BaseType.scala 299:24]
+  assign stageB_waysHit = (|stageB_waysHits); // @[BaseType.scala 312:24]
+  assign _zz_stageB_dataMux = stageB_waysHits[3]; // @[BaseType.scala 305:24]
+  assign _zz_stageB_dataMux_1 = (stageB_waysHits[1] || _zz_stageB_dataMux); // @[BaseType.scala 305:24]
+  assign _zz_stageB_dataMux_2 = (stageB_waysHits[2] || _zz_stageB_dataMux); // @[BaseType.scala 305:24]
+  assign stageB_dataMux = _zz_stageB_dataMux_3; // @[Vec.scala 202:25]
+  assign when_DataCache_l820_4 = (! io_cpu_writeBack_isStuck); // @[BaseType.scala 299:24]
   always @(*) begin
-    stageB_loaderValid = 1'b0;
+    stageB_loaderValid = 1'b0; // @[DataCache.scala 839:23]
     if(io_cpu_writeBack_isValid) begin
       if(!stageB_isExternalAmo) begin
         if(!when_DataCache_l991) begin
           if(!when_DataCache_l1004) begin
             if(io_mem_cmd_ready) begin
-              stageB_loaderValid = 1'b1;
+              stageB_loaderValid = 1'b1; // @[DataCache.scala 1037:23]
             end
           end
         end
       end
     end
     if(when_DataCache_l1066) begin
-      stageB_loaderValid = 1'b0;
+      stageB_loaderValid = 1'b0; // @[DataCache.scala 1070:19]
     end
   end
 
-  assign stageB_ioMemRspMuxed = io_mem_rsp_payload_data[31 : 0];
+  assign stageB_ioMemRspMuxed = io_mem_rsp_payload_data[31 : 0]; // @[Vec.scala 169:11]
   always @(*) begin
-    io_cpu_writeBack_haltIt = 1'b1;
+    io_cpu_writeBack_haltIt = 1'b1; // @[DataCache.scala 843:29]
     if(io_cpu_writeBack_isValid) begin
       if(!stageB_isExternalAmo) begin
         if(when_DataCache_l991) begin
           if(when_DataCache_l995) begin
-            io_cpu_writeBack_haltIt = 1'b0;
+            io_cpu_writeBack_haltIt = 1'b0; // @[DataCache.scala 995:42]
           end
           if(when_DataCache_l999) begin
-            io_cpu_writeBack_haltIt = 1'b0;
+            io_cpu_writeBack_haltIt = 1'b0; // @[DataCache.scala 1001:35]
           end
         end else begin
           if(when_DataCache_l1004) begin
             if(when_DataCache_l1009) begin
-              io_cpu_writeBack_haltIt = 1'b0;
+              io_cpu_writeBack_haltIt = 1'b0; // @[DataCache.scala 1009:35]
             end
             if(stageB_request_isAmo) begin
               if(when_DataCache_l1012) begin
-                io_cpu_writeBack_haltIt = 1'b1;
+                io_cpu_writeBack_haltIt = 1'b1; // @[DataCache.scala 1015:39]
               end
             end
             if(when_DataCache_l1025) begin
-              io_cpu_writeBack_haltIt = 1'b0;
+              io_cpu_writeBack_haltIt = 1'b0; // @[DataCache.scala 1028:37]
             end
           end
         end
       end
     end
     if(when_DataCache_l1066) begin
-      io_cpu_writeBack_haltIt = 1'b0;
+      io_cpu_writeBack_haltIt = 1'b0; // @[DataCache.scala 1071:31]
     end
   end
 
-  assign stageB_flusher_hold = 1'b0;
-  assign when_DataCache_l850 = (! stageB_flusher_counter[7]);
-  assign when_DataCache_l856 = (! stageB_flusher_hold);
-  assign io_cpu_flush_ready = (stageB_flusher_waitDone && stageB_flusher_counter[7]);
-  assign when_DataCache_l880 = (io_cpu_writeBack_isValid && io_cpu_writeBack_isFiring);
-  assign stageB_isExternalLsrc = 1'b0;
-  assign stageB_isExternalAmo = 1'b0;
+  assign stageB_flusher_hold = 1'b0; // @[DataCache.scala 848:18]
+  assign when_DataCache_l850 = (! stageB_flusher_counter[7]); // @[BaseType.scala 299:24]
+  assign when_DataCache_l856 = (! stageB_flusher_hold); // @[BaseType.scala 299:24]
+  assign io_cpu_flush_ready = (stageB_flusher_waitDone && stageB_flusher_counter[7]); // @[DataCache.scala 864:26]
+  assign when_DataCache_l880 = (io_cpu_writeBack_isValid && io_cpu_writeBack_isFiring); // @[BaseType.scala 305:24]
+  assign stageB_isExternalLsrc = 1'b0; // @[DataCache.scala 888:67]
+  assign stageB_isExternalAmo = 1'b0; // @[DataCache.scala 889:67]
   always @(*) begin
-    stageB_requestDataBypass = io_cpu_writeBack_storeData;
+    stageB_requestDataBypass = io_cpu_writeBack_storeData; // @[Misc.scala 552:9]
     if(stageB_request_isAmo) begin
-      stageB_requestDataBypass[31 : 0] = stageB_amo_resultReg;
+      stageB_requestDataBypass[31 : 0] = stageB_amo_resultReg; // @[DataCache.scala 1062:67]
     end
   end
 
-  assign stageB_amo_compare = stageB_request_amoCtrl_alu[2];
-  assign stageB_amo_unsigned = (stageB_request_amoCtrl_alu[2 : 1] == 2'b11);
-  assign stageB_amo_addSub = _zz_stageB_amo_addSub;
-  assign stageB_amo_less = ((io_cpu_writeBack_storeData[31] == stageB_dataMux[31]) ? stageB_amo_addSub[31] : (stageB_amo_unsigned ? stageB_dataMux[31] : io_cpu_writeBack_storeData[31]));
-  assign stageB_amo_selectRf = (stageB_request_amoCtrl_swap ? 1'b1 : (stageB_request_amoCtrl_alu[0] ^ stageB_amo_less));
-  assign switch_Misc_l210 = (stageB_request_amoCtrl_alu | {stageB_request_amoCtrl_swap,2'b00});
+  assign stageB_amo_compare = stageB_request_amoCtrl_alu[2]; // @[BaseType.scala 305:24]
+  assign stageB_amo_unsigned = (stageB_request_amoCtrl_alu[2 : 1] == 2'b11); // @[BaseType.scala 305:24]
+  assign stageB_amo_addSub = _zz_stageB_amo_addSub; // @[BaseType.scala 318:22]
+  assign stageB_amo_less = ((io_cpu_writeBack_storeData[31] == stageB_dataMux[31]) ? stageB_amo_addSub[31] : (stageB_amo_unsigned ? stageB_dataMux[31] : io_cpu_writeBack_storeData[31])); // @[Expression.scala 1420:25]
+  assign stageB_amo_selectRf = (stageB_request_amoCtrl_swap ? 1'b1 : (stageB_request_amoCtrl_alu[0] ^ stageB_amo_less)); // @[Expression.scala 1420:25]
+  assign switch_Misc_l226 = (stageB_request_amoCtrl_alu | {stageB_request_amoCtrl_swap,2'b00}); // @[BaseType.scala 299:24]
   always @(*) begin
-    case(switch_Misc_l210)
+    case(switch_Misc_l226)
       3'b000 : begin
-        stageB_amo_result = stageB_amo_addSub;
+        stageB_amo_result = stageB_amo_addSub; // @[Misc.scala 239:22]
       end
       3'b001 : begin
-        stageB_amo_result = (io_cpu_writeBack_storeData[31 : 0] ^ stageB_dataMux[31 : 0]);
+        stageB_amo_result = (io_cpu_writeBack_storeData[31 : 0] ^ stageB_dataMux[31 : 0]); // @[Misc.scala 239:22]
       end
       3'b010 : begin
-        stageB_amo_result = (io_cpu_writeBack_storeData[31 : 0] | stageB_dataMux[31 : 0]);
+        stageB_amo_result = (io_cpu_writeBack_storeData[31 : 0] | stageB_dataMux[31 : 0]); // @[Misc.scala 239:22]
       end
       3'b011 : begin
-        stageB_amo_result = (io_cpu_writeBack_storeData[31 : 0] & stageB_dataMux[31 : 0]);
+        stageB_amo_result = (io_cpu_writeBack_storeData[31 : 0] & stageB_dataMux[31 : 0]); // @[Misc.scala 239:22]
       end
       default : begin
-        stageB_amo_result = (stageB_amo_selectRf ? io_cpu_writeBack_storeData[31 : 0] : stageB_dataMux[31 : 0]);
+        stageB_amo_result = (stageB_amo_selectRf ? io_cpu_writeBack_storeData[31 : 0] : stageB_dataMux[31 : 0]); // @[Misc.scala 235:22]
       end
     endcase
   end
 
   always @(*) begin
-    stageB_cpuWriteToCache = 1'b0;
+    stageB_cpuWriteToCache = 1'b0; // @[DataCache.scala 924:27]
     if(io_cpu_writeBack_isValid) begin
       if(!stageB_isExternalAmo) begin
         if(!when_DataCache_l991) begin
           if(when_DataCache_l1004) begin
-            stageB_cpuWriteToCache = 1'b1;
+            stageB_cpuWriteToCache = 1'b1; // @[DataCache.scala 1005:27]
           end
         end
       end
     end
   end
 
-  assign when_DataCache_l926 = (stageB_request_wr && stageB_waysHit);
-  assign stageB_badPermissions = (((! stageB_mmuRsp_allowWrite) && stageB_request_wr) || ((! stageB_mmuRsp_allowRead) && ((! stageB_request_wr) || stageB_request_isAmo)));
-  assign stageB_loadStoreFault = (io_cpu_writeBack_isValid && (stageB_mmuRsp_exception || stageB_badPermissions));
+  assign when_DataCache_l926 = (stageB_request_wr && stageB_waysHit); // @[BaseType.scala 305:24]
+  assign stageB_badPermissions = (((! stageB_mmuRsp_allowWrite) && stageB_request_wr) || ((! stageB_mmuRsp_allowRead) && ((! stageB_request_wr) || stageB_request_isAmo))); // @[BaseType.scala 305:24]
+  assign stageB_loadStoreFault = (io_cpu_writeBack_isValid && (stageB_mmuRsp_exception || stageB_badPermissions)); // @[BaseType.scala 305:24]
   always @(*) begin
-    io_cpu_redo = 1'b0;
+    io_cpu_redo = 1'b0; // @[DataCache.scala 937:17]
     if(io_cpu_writeBack_isValid) begin
       if(!stageB_isExternalAmo) begin
         if(!when_DataCache_l991) begin
           if(when_DataCache_l1004) begin
             if(when_DataCache_l1020) begin
-              io_cpu_redo = 1'b1;
+              io_cpu_redo = 1'b1; // @[DataCache.scala 1021:25]
             end
           end
         end
       end
     end
     if(when_DataCache_l1075) begin
-      io_cpu_redo = 1'b1;
+      io_cpu_redo = 1'b1; // @[DataCache.scala 1075:17]
     end
     if(when_DataCache_l1122) begin
-      io_cpu_redo = 1'b1;
+      io_cpu_redo = 1'b1; // @[DataCache.scala 1122:17]
     end
   end
 
   always @(*) begin
-    io_cpu_writeBack_accessError = 1'b0;
+    io_cpu_writeBack_accessError = 1'b0; // @[DataCache.scala 938:34]
     if(stageB_bypassCache) begin
-      io_cpu_writeBack_accessError = ((((! stageB_request_wr) && 1'b1) && io_mem_rsp_valid) && io_mem_rsp_payload_error);
+      io_cpu_writeBack_accessError = ((((! stageB_request_wr) && 1'b1) && io_mem_rsp_valid) && io_mem_rsp_payload_error); // @[DataCache.scala 1045:57]
     end else begin
-      io_cpu_writeBack_accessError = (((stageB_waysHits & {stageB_tagsReadRsp_3_error,{stageB_tagsReadRsp_2_error,{stageB_tagsReadRsp_1_error,stageB_tagsReadRsp_0_error}}}) != 4'b0000) || (stageB_loadStoreFault && (! stageB_mmuRsp_isPaging)));
+      io_cpu_writeBack_accessError = (((stageB_waysHits & {stageB_tagsReadRsp_3_error,{stageB_tagsReadRsp_2_error,{stageB_tagsReadRsp_1_error,stageB_tagsReadRsp_0_error}}}) != 4'b0000) || (stageB_loadStoreFault && (! stageB_mmuRsp_isPaging))); // @[DataCache.scala 1048:57]
     end
   end
 
-  assign io_cpu_writeBack_mmuException = (stageB_loadStoreFault && stageB_mmuRsp_isPaging);
-  assign io_cpu_writeBack_unalignedAccess = (io_cpu_writeBack_isValid && stageB_unaligned);
-  assign io_cpu_writeBack_isWrite = stageB_request_wr;
+  assign io_cpu_writeBack_mmuException = (stageB_loadStoreFault && stageB_mmuRsp_isPaging); // @[DataCache.scala 939:35]
+  assign io_cpu_writeBack_unalignedAccess = (io_cpu_writeBack_isValid && stageB_unaligned); // @[DataCache.scala 940:38]
+  assign io_cpu_writeBack_isWrite = stageB_request_wr; // @[DataCache.scala 941:30]
   always @(*) begin
-    io_mem_cmd_valid = 1'b0;
+    io_mem_cmd_valid = 1'b0; // @[DataCache.scala 944:22]
     if(io_cpu_writeBack_isValid) begin
       if(!stageB_isExternalAmo) begin
         if(when_DataCache_l991) begin
-          io_mem_cmd_valid = (! memCmdSent);
+          io_mem_cmd_valid = (! memCmdSent); // @[DataCache.scala 997:26]
           if(when_DataCache_l999) begin
-            io_mem_cmd_valid = 1'b0;
+            io_mem_cmd_valid = 1'b0; // @[DataCache.scala 1000:28]
           end
         end else begin
           if(when_DataCache_l1004) begin
             if(stageB_request_wr) begin
-              io_mem_cmd_valid = 1'b1;
+              io_mem_cmd_valid = 1'b1; // @[DataCache.scala 1008:28]
             end
             if(stageB_request_isAmo) begin
               if(when_DataCache_l1012) begin
-                io_mem_cmd_valid = 1'b0;
+                io_mem_cmd_valid = 1'b0; // @[DataCache.scala 1013:32]
               end
             end
             if(when_DataCache_l1020) begin
-              io_mem_cmd_valid = 1'b0;
+              io_mem_cmd_valid = 1'b0; // @[DataCache.scala 1022:42]
             end
             if(when_DataCache_l1025) begin
-              io_mem_cmd_valid = 1'b0;
+              io_mem_cmd_valid = 1'b0; // @[DataCache.scala 1026:30]
             end
           end else begin
             if(when_DataCache_l1032) begin
-              io_mem_cmd_valid = 1'b1;
+              io_mem_cmd_valid = 1'b1; // @[DataCache.scala 1032:28]
             end
           end
         end
       end
     end
     if(when_DataCache_l1066) begin
-      io_mem_cmd_valid = 1'b0;
+      io_mem_cmd_valid = 1'b0; // @[DataCache.scala 1067:24]
     end
   end
 
   always @(*) begin
-    io_mem_cmd_payload_address = stageB_mmuRsp_physicalAddress;
+    io_mem_cmd_payload_address = stageB_mmuRsp_physicalAddress; // @[DataCache.scala 945:24]
     if(io_cpu_writeBack_isValid) begin
       if(!stageB_isExternalAmo) begin
         if(!when_DataCache_l991) begin
           if(!when_DataCache_l1004) begin
-            io_mem_cmd_payload_address[4 : 0] = 5'h0;
+            io_mem_cmd_payload_address[4 : 0] = 5'h0; // @[DataCache.scala 1034:53]
           end
         end
       end
     end
   end
 
-  assign io_mem_cmd_payload_last = 1'b1;
+  assign io_mem_cmd_payload_last = 1'b1; // @[DataCache.scala 946:21]
   always @(*) begin
-    io_mem_cmd_payload_wr = stageB_request_wr;
+    io_mem_cmd_payload_wr = stageB_request_wr; // @[DataCache.scala 947:19]
     if(io_cpu_writeBack_isValid) begin
       if(!stageB_isExternalAmo) begin
         if(!when_DataCache_l991) begin
           if(!when_DataCache_l1004) begin
-            io_mem_cmd_payload_wr = 1'b0;
+            io_mem_cmd_payload_wr = 1'b0; // @[DataCache.scala 1033:25]
           end
         end
       end
     end
   end
 
-  assign io_mem_cmd_payload_mask = stageB_mask;
-  assign io_mem_cmd_payload_data = stageB_requestDataBypass;
-  assign io_mem_cmd_payload_uncached = stageB_mmuRsp_isIoAccess;
+  assign io_mem_cmd_payload_mask = stageB_mask; // @[DataCache.scala 948:21]
+  assign io_mem_cmd_payload_data = stageB_requestDataBypass; // @[DataCache.scala 949:21]
+  assign io_mem_cmd_payload_uncached = stageB_mmuRsp_isIoAccess; // @[DataCache.scala 950:25]
   always @(*) begin
-    io_mem_cmd_payload_size = {1'd0, stageB_request_size};
+    io_mem_cmd_payload_size = {1'd0, stageB_request_size}; // @[DataCache.scala 951:21]
     if(io_cpu_writeBack_isValid) begin
       if(!stageB_isExternalAmo) begin
         if(!when_DataCache_l991) begin
           if(!when_DataCache_l1004) begin
-            io_mem_cmd_payload_size = 3'b101;
+            io_mem_cmd_payload_size = 3'b101; // @[DataCache.scala 1035:27]
           end
         end
       end
     end
   end
 
-  assign stageB_bypassCache = ((stageB_mmuRsp_isIoAccess || stageB_isExternalLsrc) || stageB_isExternalAmo);
-  assign io_cpu_writeBack_keepMemRspData = 1'b0;
-  assign when_DataCache_l995 = ((! stageB_request_wr) ? (io_mem_rsp_valid && rspSync) : io_mem_cmd_ready);
-  assign when_DataCache_l999 = (stageB_request_isLrsc && (! stageB_lrSc_reserved));
-  assign when_DataCache_l1004 = (stageB_waysHit || (stageB_request_wr && (! stageB_request_isAmo)));
-  assign when_DataCache_l1009 = ((! stageB_request_wr) || io_mem_cmd_ready);
-  assign when_DataCache_l1012 = (! stageB_amo_internal_resultRegValid);
-  assign when_DataCache_l1020 = (((! stageB_request_wr) || stageB_request_isAmo) && ((stageB_dataColisions & stageB_waysHits) != 4'b0000));
-  assign when_DataCache_l1025 = (stageB_request_isLrsc && (! stageB_lrSc_reserved));
-  assign when_DataCache_l1032 = (! memCmdSent);
-  assign when_DataCache_l991 = (stageB_mmuRsp_isIoAccess || stageB_isExternalLsrc);
+  assign stageB_bypassCache = ((stageB_mmuRsp_isIoAccess || stageB_isExternalLsrc) || stageB_isExternalAmo); // @[BaseType.scala 305:24]
+  assign io_cpu_writeBack_keepMemRspData = 1'b0; // @[DataCache.scala 957:37]
+  assign when_DataCache_l995 = ((! stageB_request_wr) ? (io_mem_rsp_valid && rspSync) : io_mem_cmd_ready); // @[Expression.scala 1420:25]
+  assign when_DataCache_l999 = (stageB_request_isLrsc && (! stageB_lrSc_reserved)); // @[BaseType.scala 305:24]
+  assign when_DataCache_l1004 = (stageB_waysHit || (stageB_request_wr && (! stageB_request_isAmo))); // @[BaseType.scala 305:24]
+  assign when_DataCache_l1009 = ((! stageB_request_wr) || io_mem_cmd_ready); // @[BaseType.scala 305:24]
+  assign when_DataCache_l1012 = (! stageB_amo_internal_resultRegValid); // @[BaseType.scala 299:24]
+  assign when_DataCache_l1020 = (((! stageB_request_wr) || stageB_request_isAmo) && ((stageB_dataColisions & stageB_waysHits) != 4'b0000)); // @[BaseType.scala 305:24]
+  assign when_DataCache_l1025 = (stageB_request_isLrsc && (! stageB_lrSc_reserved)); // @[BaseType.scala 305:24]
+  assign when_DataCache_l1032 = (! memCmdSent); // @[BaseType.scala 299:24]
+  assign when_DataCache_l991 = (stageB_mmuRsp_isIoAccess || stageB_isExternalLsrc); // @[BaseType.scala 305:24]
   always @(*) begin
     if(stageB_bypassCache) begin
-      io_cpu_writeBack_data = stageB_ioMemRspMuxed;
+      io_cpu_writeBack_data = stageB_ioMemRspMuxed; // @[DataCache.scala 1043:29]
     end else begin
-      io_cpu_writeBack_data = stageB_dataMux;
+      io_cpu_writeBack_data = stageB_dataMux; // @[DataCache.scala 1047:29]
     end
   end
 
-  assign io_cpu_writeBack_exclusiveOk = stageB_lrSc_reserved;
-  assign when_DataCache_l1066 = ((((stageB_consistancyHazard || stageB_mmuRsp_refilling) || io_cpu_writeBack_accessError) || io_cpu_writeBack_mmuException) || io_cpu_writeBack_unalignedAccess);
-  assign when_DataCache_l1075 = (io_cpu_writeBack_isValid && (stageB_mmuRsp_refilling || stageB_consistancyHazard));
+  assign io_cpu_writeBack_exclusiveOk = stageB_lrSc_reserved; // @[DataCache.scala 1053:36]
+  assign when_DataCache_l1066 = ((((stageB_consistancyHazard || stageB_mmuRsp_refilling) || io_cpu_writeBack_accessError) || io_cpu_writeBack_mmuException) || io_cpu_writeBack_unalignedAccess); // @[BaseType.scala 305:24]
+  assign when_DataCache_l1075 = (io_cpu_writeBack_isValid && (stageB_mmuRsp_refilling || stageB_consistancyHazard)); // @[BaseType.scala 305:24]
   always @(*) begin
-    loader_counter_willIncrement = 1'b0;
+    loader_counter_willIncrement = 1'b0; // @[Utils.scala 536:23]
     if(when_DataCache_l1090) begin
-      loader_counter_willIncrement = 1'b1;
+      loader_counter_willIncrement = 1'b1; // @[Utils.scala 540:41]
     end
   end
 
-  assign loader_counter_willClear = 1'b0;
-  assign loader_counter_willOverflowIfInc = (loader_counter_value == 3'b111);
-  assign loader_counter_willOverflow = (loader_counter_willOverflowIfInc && loader_counter_willIncrement);
+  assign loader_counter_willClear = 1'b0; // @[Utils.scala 537:19]
+  assign loader_counter_willOverflowIfInc = (loader_counter_value == 3'b111); // @[BaseType.scala 305:24]
+  assign loader_counter_willOverflow = (loader_counter_willOverflowIfInc && loader_counter_willIncrement); // @[BaseType.scala 305:24]
   always @(*) begin
-    loader_counter_valueNext = (loader_counter_value + _zz_loader_counter_valueNext);
+    loader_counter_valueNext = (loader_counter_value + _zz_loader_counter_valueNext); // @[Utils.scala 548:15]
     if(loader_counter_willClear) begin
-      loader_counter_valueNext = 3'b000;
+      loader_counter_valueNext = 3'b000; // @[Utils.scala 558:15]
     end
   end
 
-  assign loader_kill = 1'b0;
-  assign when_DataCache_l1090 = ((loader_valid && io_mem_rsp_valid) && rspLast);
-  assign loader_done = loader_counter_willOverflow;
-  assign when_DataCache_l1118 = (! loader_valid);
-  assign when_DataCache_l1122 = (loader_valid && (! loader_valid_regNext));
-  assign io_cpu_execute_refilling = loader_valid;
-  assign when_DataCache_l1125 = (stageB_loaderValid || loader_valid);
-  assign ways_0_tags_wr_en = (_zz_wr_en_7 && 1'b1);
-  assign ways_0_tags_wr_data = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
-  assign ways_0_tags_rd_en = ((tagsReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
-  assign ways_0_data_wr_en = (_zz_wr_en_6 && 1'b1);
-  assign ways_0_data_rd_en = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
-  assign ways_1_tags_wr_en = (_zz_wr_en_5 && 1'b1);
-  assign ways_1_tags_wr_data = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
-  assign ways_1_tags_rd_en = ((tagsReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
-  assign ways_1_data_wr_en = (_zz_wr_en_4 && 1'b1);
-  assign ways_1_data_rd_en = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
-  assign ways_2_tags_wr_en = (_zz_wr_en_3 && 1'b1);
-  assign ways_2_tags_wr_data = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
-  assign ways_2_tags_rd_en = ((tagsReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
-  assign ways_2_data_wr_en = (_zz_wr_en_2 && 1'b1);
-  assign ways_2_data_rd_en = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
-  assign ways_3_tags_wr_en = (_zz_wr_en_1 && 1'b1);
-  assign ways_3_tags_wr_data = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}};
-  assign ways_3_tags_rd_en = ((tagsReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
-  assign ways_3_data_wr_en = (_zz_wr_en && 1'b1);
-  assign ways_3_data_rd_en = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1);
+  assign loader_kill = 1'b0; // @[DataCache.scala 1087:16]
+  assign when_DataCache_l1090 = ((loader_valid && io_mem_rsp_valid) && rspLast); // @[BaseType.scala 305:24]
+  assign loader_done = loader_counter_willOverflow; // @[Misc.scala 552:9]
+  assign when_DataCache_l1118 = (! loader_valid); // @[BaseType.scala 299:24]
+  assign when_DataCache_l1122 = (loader_valid && (! loader_valid_regNext)); // @[BaseType.scala 305:24]
+  assign io_cpu_execute_refilling = loader_valid; // @[DataCache.scala 1123:30]
+  assign when_DataCache_l1125 = (stageB_loaderValid || loader_valid); // @[BaseType.scala 305:24]
+  assign ways_0_tags_wr_en = (_zz_wr_en_7 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_0_tags_wr_data = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}}; // @[Phase.scala 837:36]
+  assign ways_0_tags_rd_en = ((tagsReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_0_data_wr_en = (_zz_wr_en_6 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_0_data_rd_en = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_1_tags_wr_en = (_zz_wr_en_5 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_1_tags_wr_data = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}}; // @[Phase.scala 837:36]
+  assign ways_1_tags_rd_en = ((tagsReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_1_data_wr_en = (_zz_wr_en_4 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_1_data_rd_en = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_2_tags_wr_en = (_zz_wr_en_3 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_2_tags_wr_data = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}}; // @[Phase.scala 837:36]
+  assign ways_2_tags_rd_en = ((tagsReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_2_data_wr_en = (_zz_wr_en_2 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_2_data_rd_en = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_3_tags_wr_en = (_zz_wr_en_1 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_3_tags_wr_data = {tagsWriteCmd_payload_data_address,{tagsWriteCmd_payload_data_error,tagsWriteCmd_payload_data_valid}}; // @[Phase.scala 837:36]
+  assign ways_3_tags_rd_en = ((tagsReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_3_data_wr_en = (_zz_wr_en && 1'b1); // @[Phase.scala 835:24]
+  assign ways_3_data_rd_en = ((dataReadCmd_valid && (! io_cpu_memory_isStuck)) && 1'b1); // @[Phase.scala 844:24]
   always @(posedge clk) begin
-    tagsWriteLastCmd_valid <= tagsWriteCmd_valid;
-    tagsWriteLastCmd_payload_way <= tagsWriteCmd_payload_way;
-    tagsWriteLastCmd_payload_address <= tagsWriteCmd_payload_address;
-    tagsWriteLastCmd_payload_data_valid <= tagsWriteCmd_payload_data_valid;
-    tagsWriteLastCmd_payload_data_error <= tagsWriteCmd_payload_data_error;
-    tagsWriteLastCmd_payload_data_address <= tagsWriteCmd_payload_data_address;
+    tagsWriteLastCmd_valid <= tagsWriteCmd_valid; // @[Reg.scala 39:30]
+    tagsWriteLastCmd_payload_way <= tagsWriteCmd_payload_way; // @[Reg.scala 39:30]
+    tagsWriteLastCmd_payload_address <= tagsWriteCmd_payload_address; // @[Reg.scala 39:30]
+    tagsWriteLastCmd_payload_data_valid <= tagsWriteCmd_payload_data_valid; // @[Reg.scala 39:30]
+    tagsWriteLastCmd_payload_data_error <= tagsWriteCmd_payload_data_error; // @[Reg.scala 39:30]
+    tagsWriteLastCmd_payload_data_address <= tagsWriteCmd_payload_data_address; // @[Reg.scala 39:30]
     if(when_DataCache_l771) begin
-      stageA_request_wr <= io_cpu_execute_args_wr;
-      stageA_request_size <= io_cpu_execute_args_size;
-      stageA_request_isLrsc <= io_cpu_execute_args_isLrsc;
-      stageA_request_isAmo <= io_cpu_execute_args_isAmo;
-      stageA_request_amoCtrl_swap <= io_cpu_execute_args_amoCtrl_swap;
-      stageA_request_amoCtrl_alu <= io_cpu_execute_args_amoCtrl_alu;
-      stageA_request_totalyConsistent <= io_cpu_execute_args_totalyConsistent;
+      stageA_request_wr <= io_cpu_execute_args_wr; // @[DataCache.scala 771:96]
+      stageA_request_size <= io_cpu_execute_args_size; // @[DataCache.scala 771:96]
+      stageA_request_isLrsc <= io_cpu_execute_args_isLrsc; // @[DataCache.scala 771:96]
+      stageA_request_isAmo <= io_cpu_execute_args_isAmo; // @[DataCache.scala 771:96]
+      stageA_request_amoCtrl_swap <= io_cpu_execute_args_amoCtrl_swap; // @[DataCache.scala 771:96]
+      stageA_request_amoCtrl_alu <= io_cpu_execute_args_amoCtrl_alu; // @[DataCache.scala 771:96]
+      stageA_request_totalyConsistent <= io_cpu_execute_args_totalyConsistent; // @[DataCache.scala 771:96]
     end
     if(when_DataCache_l771_1) begin
-      stageA_mask <= stage0_mask;
+      stageA_mask <= stage0_mask; // @[DataCache.scala 771:96]
     end
     if(when_DataCache_l771_2) begin
-      stageA_wayInvalidate <= stage0_wayInvalidate;
+      stageA_wayInvalidate <= stage0_wayInvalidate; // @[DataCache.scala 771:96]
     end
     if(when_DataCache_l771_3) begin
-      stage0_dataColisions_regNextWhen <= stage0_dataColisions;
+      stage0_dataColisions_regNextWhen <= stage0_dataColisions; // @[DataCache.scala 771:96]
     end
     if(when_DataCache_l822) begin
-      stageB_request_wr <= stageA_request_wr;
-      stageB_request_size <= stageA_request_size;
-      stageB_request_isLrsc <= stageA_request_isLrsc;
-      stageB_request_isAmo <= stageA_request_isAmo;
-      stageB_request_amoCtrl_swap <= stageA_request_amoCtrl_swap;
-      stageB_request_amoCtrl_alu <= stageA_request_amoCtrl_alu;
-      stageB_request_totalyConsistent <= stageA_request_totalyConsistent;
+      stageB_request_wr <= stageA_request_wr; // @[DataCache.scala 822:30]
+      stageB_request_size <= stageA_request_size; // @[DataCache.scala 822:30]
+      stageB_request_isLrsc <= stageA_request_isLrsc; // @[DataCache.scala 822:30]
+      stageB_request_isAmo <= stageA_request_isAmo; // @[DataCache.scala 822:30]
+      stageB_request_amoCtrl_swap <= stageA_request_amoCtrl_swap; // @[DataCache.scala 822:30]
+      stageB_request_amoCtrl_alu <= stageA_request_amoCtrl_alu; // @[DataCache.scala 822:30]
+      stageB_request_totalyConsistent <= stageA_request_totalyConsistent; // @[DataCache.scala 822:30]
     end
     if(when_DataCache_l824) begin
-      stageB_mmuRsp_physicalAddress <= io_cpu_memory_mmuRsp_physicalAddress;
-      stageB_mmuRsp_isIoAccess <= io_cpu_memory_mmuRsp_isIoAccess;
-      stageB_mmuRsp_isPaging <= io_cpu_memory_mmuRsp_isPaging;
-      stageB_mmuRsp_allowRead <= io_cpu_memory_mmuRsp_allowRead;
-      stageB_mmuRsp_allowWrite <= io_cpu_memory_mmuRsp_allowWrite;
-      stageB_mmuRsp_allowExecute <= io_cpu_memory_mmuRsp_allowExecute;
-      stageB_mmuRsp_exception <= io_cpu_memory_mmuRsp_exception;
-      stageB_mmuRsp_refilling <= io_cpu_memory_mmuRsp_refilling;
-      stageB_mmuRsp_bypassTranslation <= io_cpu_memory_mmuRsp_bypassTranslation;
-      stageB_mmuRsp_ways_0_sel <= io_cpu_memory_mmuRsp_ways_0_sel;
-      stageB_mmuRsp_ways_0_physical <= io_cpu_memory_mmuRsp_ways_0_physical;
-      stageB_mmuRsp_ways_1_sel <= io_cpu_memory_mmuRsp_ways_1_sel;
-      stageB_mmuRsp_ways_1_physical <= io_cpu_memory_mmuRsp_ways_1_physical;
-      stageB_mmuRsp_ways_2_sel <= io_cpu_memory_mmuRsp_ways_2_sel;
-      stageB_mmuRsp_ways_2_physical <= io_cpu_memory_mmuRsp_ways_2_physical;
-      stageB_mmuRsp_ways_3_sel <= io_cpu_memory_mmuRsp_ways_3_sel;
-      stageB_mmuRsp_ways_3_physical <= io_cpu_memory_mmuRsp_ways_3_physical;
-      stageB_mmuRsp_ways_4_sel <= io_cpu_memory_mmuRsp_ways_4_sel;
-      stageB_mmuRsp_ways_4_physical <= io_cpu_memory_mmuRsp_ways_4_physical;
-      stageB_mmuRsp_ways_5_sel <= io_cpu_memory_mmuRsp_ways_5_sel;
-      stageB_mmuRsp_ways_5_physical <= io_cpu_memory_mmuRsp_ways_5_physical;
-      stageB_mmuRsp_ways_6_sel <= io_cpu_memory_mmuRsp_ways_6_sel;
-      stageB_mmuRsp_ways_6_physical <= io_cpu_memory_mmuRsp_ways_6_physical;
-      stageB_mmuRsp_ways_7_sel <= io_cpu_memory_mmuRsp_ways_7_sel;
-      stageB_mmuRsp_ways_7_physical <= io_cpu_memory_mmuRsp_ways_7_physical;
+      stageB_mmuRsp_physicalAddress <= io_cpu_memory_mmuRsp_physicalAddress; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_isIoAccess <= io_cpu_memory_mmuRsp_isIoAccess; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_isPaging <= io_cpu_memory_mmuRsp_isPaging; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_allowRead <= io_cpu_memory_mmuRsp_allowRead; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_allowWrite <= io_cpu_memory_mmuRsp_allowWrite; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_allowExecute <= io_cpu_memory_mmuRsp_allowExecute; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_exception <= io_cpu_memory_mmuRsp_exception; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_refilling <= io_cpu_memory_mmuRsp_refilling; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_bypassTranslation <= io_cpu_memory_mmuRsp_bypassTranslation; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_0_sel <= io_cpu_memory_mmuRsp_ways_0_sel; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_0_physical <= io_cpu_memory_mmuRsp_ways_0_physical; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_1_sel <= io_cpu_memory_mmuRsp_ways_1_sel; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_1_physical <= io_cpu_memory_mmuRsp_ways_1_physical; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_2_sel <= io_cpu_memory_mmuRsp_ways_2_sel; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_2_physical <= io_cpu_memory_mmuRsp_ways_2_physical; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_3_sel <= io_cpu_memory_mmuRsp_ways_3_sel; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_3_physical <= io_cpu_memory_mmuRsp_ways_3_physical; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_4_sel <= io_cpu_memory_mmuRsp_ways_4_sel; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_4_physical <= io_cpu_memory_mmuRsp_ways_4_physical; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_5_sel <= io_cpu_memory_mmuRsp_ways_5_sel; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_5_physical <= io_cpu_memory_mmuRsp_ways_5_physical; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_6_sel <= io_cpu_memory_mmuRsp_ways_6_sel; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_6_physical <= io_cpu_memory_mmuRsp_ways_6_physical; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_7_sel <= io_cpu_memory_mmuRsp_ways_7_sel; // @[DataCache.scala 824:29]
+      stageB_mmuRsp_ways_7_physical <= io_cpu_memory_mmuRsp_ways_7_physical; // @[DataCache.scala 824:29]
     end
     if(when_DataCache_l821) begin
-      stageB_tagsReadRsp_0_valid <= ways_0_tagsReadRsp_valid;
-      stageB_tagsReadRsp_0_error <= ways_0_tagsReadRsp_error;
-      stageB_tagsReadRsp_0_address <= ways_0_tagsReadRsp_address;
+      stageB_tagsReadRsp_0_valid <= ways_0_tagsReadRsp_valid; // @[DataCache.scala 821:95]
+      stageB_tagsReadRsp_0_error <= ways_0_tagsReadRsp_error; // @[DataCache.scala 821:95]
+      stageB_tagsReadRsp_0_address <= ways_0_tagsReadRsp_address; // @[DataCache.scala 821:95]
     end
     if(when_DataCache_l821_1) begin
-      stageB_tagsReadRsp_1_valid <= ways_1_tagsReadRsp_valid;
-      stageB_tagsReadRsp_1_error <= ways_1_tagsReadRsp_error;
-      stageB_tagsReadRsp_1_address <= ways_1_tagsReadRsp_address;
+      stageB_tagsReadRsp_1_valid <= ways_1_tagsReadRsp_valid; // @[DataCache.scala 821:95]
+      stageB_tagsReadRsp_1_error <= ways_1_tagsReadRsp_error; // @[DataCache.scala 821:95]
+      stageB_tagsReadRsp_1_address <= ways_1_tagsReadRsp_address; // @[DataCache.scala 821:95]
     end
     if(when_DataCache_l821_2) begin
-      stageB_tagsReadRsp_2_valid <= ways_2_tagsReadRsp_valid;
-      stageB_tagsReadRsp_2_error <= ways_2_tagsReadRsp_error;
-      stageB_tagsReadRsp_2_address <= ways_2_tagsReadRsp_address;
+      stageB_tagsReadRsp_2_valid <= ways_2_tagsReadRsp_valid; // @[DataCache.scala 821:95]
+      stageB_tagsReadRsp_2_error <= ways_2_tagsReadRsp_error; // @[DataCache.scala 821:95]
+      stageB_tagsReadRsp_2_address <= ways_2_tagsReadRsp_address; // @[DataCache.scala 821:95]
     end
     if(when_DataCache_l821_3) begin
-      stageB_tagsReadRsp_3_valid <= ways_3_tagsReadRsp_valid;
-      stageB_tagsReadRsp_3_error <= ways_3_tagsReadRsp_error;
-      stageB_tagsReadRsp_3_address <= ways_3_tagsReadRsp_address;
+      stageB_tagsReadRsp_3_valid <= ways_3_tagsReadRsp_valid; // @[DataCache.scala 821:95]
+      stageB_tagsReadRsp_3_error <= ways_3_tagsReadRsp_error; // @[DataCache.scala 821:95]
+      stageB_tagsReadRsp_3_address <= ways_3_tagsReadRsp_address; // @[DataCache.scala 821:95]
     end
     if(when_DataCache_l821_4) begin
-      stageB_dataReadRsp_0 <= ways_0_dataReadRsp;
+      stageB_dataReadRsp_0 <= ways_0_dataReadRsp; // @[DataCache.scala 821:95]
     end
     if(when_DataCache_l821_5) begin
-      stageB_dataReadRsp_1 <= ways_1_dataReadRsp;
+      stageB_dataReadRsp_1 <= ways_1_dataReadRsp; // @[DataCache.scala 821:95]
     end
     if(when_DataCache_l821_6) begin
-      stageB_dataReadRsp_2 <= ways_2_dataReadRsp;
+      stageB_dataReadRsp_2 <= ways_2_dataReadRsp; // @[DataCache.scala 821:95]
     end
     if(when_DataCache_l821_7) begin
-      stageB_dataReadRsp_3 <= ways_3_dataReadRsp;
+      stageB_dataReadRsp_3 <= ways_3_dataReadRsp; // @[DataCache.scala 821:95]
     end
     if(when_DataCache_l820) begin
-      stageB_wayInvalidate <= stageA_wayInvalidate;
+      stageB_wayInvalidate <= stageA_wayInvalidate; // @[DataCache.scala 820:53]
     end
     if(when_DataCache_l820_1) begin
-      stageB_dataColisions <= stageA_dataColisions;
+      stageB_dataColisions <= stageA_dataColisions; // @[DataCache.scala 820:53]
     end
     if(when_DataCache_l820_2) begin
-      stageB_unaligned <= ({((stageA_request_size == 2'b10) && (io_cpu_memory_address[1 : 0] != 2'b00)),((stageA_request_size == 2'b01) && (io_cpu_memory_address[0 : 0] != 1'b0))} != 2'b00);
+      stageB_unaligned <= ({((stageA_request_size == 2'b10) && (io_cpu_memory_address[1 : 0] != 2'b00)),((stageA_request_size == 2'b01) && (io_cpu_memory_address[0 : 0] != 1'b0))} != 2'b00); // @[DataCache.scala 820:53]
     end
     if(when_DataCache_l820_3) begin
-      stageB_waysHitsBeforeInvalidate <= stageA_wayHits;
+      stageB_waysHitsBeforeInvalidate <= stageA_wayHits; // @[DataCache.scala 820:53]
     end
     if(when_DataCache_l820_4) begin
-      stageB_mask <= stageA_mask;
+      stageB_mask <= stageA_mask; // @[DataCache.scala 820:53]
     end
-    stageB_amo_internal_resultRegValid <= io_cpu_writeBack_isStuck;
-    stageB_amo_resultReg <= stageB_amo_result;
-    loader_valid_regNext <= loader_valid;
+    stageB_amo_internal_resultRegValid <= io_cpu_writeBack_isStuck; // @[Reg.scala 39:30]
+    stageB_amo_resultReg <= stageB_amo_result; // @[DataCache.scala 916:19]
+    loader_valid_regNext <= loader_valid; // @[Reg.scala 39:30]
   end
 
   always @(posedge clk) begin
     if(reset) begin
-      memCmdSent <= 1'b0;
-      stageB_flusher_waitDone <= 1'b0;
-      stageB_flusher_counter <= 8'h0;
-      stageB_flusher_start <= 1'b1;
-      stageB_lrSc_reserved <= 1'b0;
-      loader_valid <= 1'b0;
-      loader_counter_value <= 3'b000;
-      loader_waysAllocator <= 4'b0001;
-      loader_error <= 1'b0;
-      loader_killReg <= 1'b0;
+      memCmdSent <= 1'b0; // @[Data.scala 400:33]
+      stageB_flusher_waitDone <= 1'b0; // @[Data.scala 400:33]
+      stageB_flusher_counter <= 8'h0; // @[Data.scala 400:33]
+      stageB_flusher_start <= 1'b1; // @[Data.scala 400:33]
+      stageB_lrSc_reserved <= 1'b0; // @[Data.scala 400:33]
+      loader_valid <= 1'b0; // @[Data.scala 400:33]
+      loader_counter_value <= 3'b000; // @[Data.scala 400:33]
+      loader_waysAllocator <= 4'b0001; // @[Data.scala 400:33]
+      loader_error <= 1'b0; // @[Data.scala 400:33]
+      loader_killReg <= 1'b0; // @[Data.scala 400:33]
     end else begin
       if(io_mem_cmd_fire) begin
-        memCmdSent <= 1'b1;
+        memCmdSent <= 1'b1; // @[DataCache.scala 686:35]
       end
       if(when_DataCache_l686) begin
-        memCmdSent <= 1'b0;
+        memCmdSent <= 1'b0; // @[DataCache.scala 686:61]
       end
       if(io_cpu_flush_ready) begin
-        stageB_flusher_waitDone <= 1'b0;
+        stageB_flusher_waitDone <= 1'b0; // @[DataCache.scala 847:37]
       end
       if(when_DataCache_l850) begin
         if(when_DataCache_l856) begin
-          stageB_flusher_counter <= (stageB_flusher_counter + 8'h01);
+          stageB_flusher_counter <= (stageB_flusher_counter + 8'h01); // @[DataCache.scala 857:19]
           if(io_cpu_flush_payload_singleLine) begin
-            stageB_flusher_counter[7] <= 1'b1;
+            stageB_flusher_counter[7] <= 1'b1; // @[DataCache.scala 859:25]
           end
         end
       end
-      stageB_flusher_start <= (((((((! stageB_flusher_waitDone) && (! stageB_flusher_start)) && io_cpu_flush_valid) && (! io_cpu_execute_isValid)) && (! io_cpu_memory_isValid)) && (! io_cpu_writeBack_isValid)) && (! io_cpu_redo));
+      stageB_flusher_start <= (((((((! stageB_flusher_waitDone) && (! stageB_flusher_start)) && io_cpu_flush_valid) && (! io_cpu_execute_isValid)) && (! io_cpu_memory_isValid)) && (! io_cpu_writeBack_isValid)) && (! io_cpu_redo)); // @[DataCache.scala 867:13]
       if(stageB_flusher_start) begin
-        stageB_flusher_waitDone <= 1'b1;
-        stageB_flusher_counter <= 8'h0;
+        stageB_flusher_waitDone <= 1'b1; // @[DataCache.scala 870:18]
+        stageB_flusher_counter <= 8'h0; // @[DataCache.scala 871:17]
         if(io_cpu_flush_payload_singleLine) begin
-          stageB_flusher_counter <= {1'b0,io_cpu_flush_payload_lineId};
+          stageB_flusher_counter <= {1'b0,io_cpu_flush_payload_lineId}; // @[DataCache.scala 873:19]
         end
       end
       if(when_DataCache_l880) begin
         if(stageB_request_isLrsc) begin
-          stageB_lrSc_reserved <= 1'b1;
+          stageB_lrSc_reserved <= 1'b1; // @[DataCache.scala 881:18]
         end
         if(stageB_request_wr) begin
-          stageB_lrSc_reserved <= 1'b0;
+          stageB_lrSc_reserved <= 1'b0; // @[DataCache.scala 882:18]
         end
       end
       if(when_DataCache_l1066) begin
-        stageB_lrSc_reserved <= stageB_lrSc_reserved;
+        stageB_lrSc_reserved <= stageB_lrSc_reserved; // @[DataCache.scala 1072:42]
       end
       `ifndef SYNTHESIS
         `ifdef FORMAL
@@ -11161,22 +11204,22 @@ module DataCache (
         `endif
       `endif
       if(stageB_loaderValid) begin
-        loader_valid <= 1'b1;
+        loader_valid <= 1'b1; // @[DataCache.scala 1081:32]
       end
-      loader_counter_value <= loader_counter_valueNext;
+      loader_counter_value <= loader_counter_valueNext; // @[Reg.scala 39:30]
       if(loader_kill) begin
-        loader_killReg <= 1'b1;
+        loader_killReg <= 1'b1; // @[DataCache.scala 1088:34]
       end
       if(when_DataCache_l1090) begin
-        loader_error <= (loader_error || io_mem_rsp_payload_error);
+        loader_error <= (loader_error || io_mem_rsp_payload_error); // @[DataCache.scala 1096:13]
       end
       if(loader_done) begin
-        loader_valid <= 1'b0;
-        loader_error <= 1'b0;
-        loader_killReg <= 1'b0;
+        loader_valid <= 1'b0; // @[DataCache.scala 1104:13]
+        loader_error <= 1'b0; // @[DataCache.scala 1114:13]
+        loader_killReg <= 1'b0; // @[DataCache.scala 1115:15]
       end
       if(when_DataCache_l1118) begin
-        loader_waysAllocator <= _zz_loader_waysAllocator[3:0];
+        loader_waysAllocator <= _zz_loader_waysAllocator[3:0]; // @[DataCache.scala 1119:21]
       end
     end
   end
@@ -11311,7 +11354,7 @@ module InstructionCache (
   wire                when_InstructionCache_l351;
   reg                 lineLoader_cmdSent;
   wire                io_mem_cmd_fire;
-  wire                when_Utils_l515;
+  wire                when_Utils_l520;
   reg                 lineLoader_wayToAllocate_willIncrement;
   wire                lineLoader_wayToAllocate_willClear;
   reg        [1:0]    lineLoader_wayToAllocate_valueNext;
@@ -11660,251 +11703,251 @@ module InstructionCache (
   end
 
   always @(*) begin
-    _zz_wr_en = 1'b0;
+    _zz_wr_en = 1'b0; // @[when.scala 47:16]
     if(lineLoader_write_data_3_valid) begin
-      _zz_wr_en = 1'b1;
+      _zz_wr_en = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_1 = 1'b0;
+    _zz_wr_en_1 = 1'b0; // @[when.scala 47:16]
     if(lineLoader_write_data_2_valid) begin
-      _zz_wr_en_1 = 1'b1;
+      _zz_wr_en_1 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_2 = 1'b0;
+    _zz_wr_en_2 = 1'b0; // @[when.scala 47:16]
     if(lineLoader_write_data_1_valid) begin
-      _zz_wr_en_2 = 1'b1;
+      _zz_wr_en_2 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_3 = 1'b0;
+    _zz_wr_en_3 = 1'b0; // @[when.scala 47:16]
     if(lineLoader_write_data_0_valid) begin
-      _zz_wr_en_3 = 1'b1;
+      _zz_wr_en_3 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_4 = 1'b0;
+    _zz_wr_en_4 = 1'b0; // @[when.scala 47:16]
     if(lineLoader_write_tag_3_valid) begin
-      _zz_wr_en_4 = 1'b1;
+      _zz_wr_en_4 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_5 = 1'b0;
+    _zz_wr_en_5 = 1'b0; // @[when.scala 47:16]
     if(lineLoader_write_tag_2_valid) begin
-      _zz_wr_en_5 = 1'b1;
+      _zz_wr_en_5 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_6 = 1'b0;
+    _zz_wr_en_6 = 1'b0; // @[when.scala 47:16]
     if(lineLoader_write_tag_1_valid) begin
-      _zz_wr_en_6 = 1'b1;
+      _zz_wr_en_6 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    _zz_wr_en_7 = 1'b0;
+    _zz_wr_en_7 = 1'b0; // @[when.scala 47:16]
     if(lineLoader_write_tag_0_valid) begin
-      _zz_wr_en_7 = 1'b1;
+      _zz_wr_en_7 = 1'b1; // @[when.scala 52:10]
     end
   end
 
   always @(*) begin
-    lineLoader_fire = 1'b0;
+    lineLoader_fire = 1'b0; // @[InstructionCache.scala 324:16]
     if(io_mem_rsp_valid) begin
       if(when_InstructionCache_l401) begin
-        lineLoader_fire = 1'b1;
+        lineLoader_fire = 1'b1; // @[InstructionCache.scala 402:14]
       end
     end
   end
 
   always @(*) begin
-    io_cpu_prefetch_haltIt = (lineLoader_valid || lineLoader_flushPending);
+    io_cpu_prefetch_haltIt = (lineLoader_valid || lineLoader_flushPending); // @[InstructionCache.scala 335:28]
     if(when_InstructionCache_l338) begin
-      io_cpu_prefetch_haltIt = 1'b1;
+      io_cpu_prefetch_haltIt = 1'b1; // @[InstructionCache.scala 339:30]
     end
     if(when_InstructionCache_l342) begin
-      io_cpu_prefetch_haltIt = 1'b1;
+      io_cpu_prefetch_haltIt = 1'b1; // @[InstructionCache.scala 343:30]
     end
     if(io_flush) begin
-      io_cpu_prefetch_haltIt = 1'b1;
+      io_cpu_prefetch_haltIt = 1'b1; // @[InstructionCache.scala 347:30]
     end
   end
 
-  assign when_InstructionCache_l338 = (! lineLoader_flushCounter[7]);
-  assign when_InstructionCache_l342 = (! _zz_when_InstructionCache_l342);
-  assign when_InstructionCache_l351 = (lineLoader_flushPending && (! (lineLoader_valid || io_cpu_fetch_isValid)));
-  assign io_mem_cmd_fire = (io_mem_cmd_valid && io_mem_cmd_ready);
-  assign io_mem_cmd_valid = (lineLoader_valid && (! lineLoader_cmdSent));
-  assign io_mem_cmd_payload_address = {lineLoader_address[31 : 5],5'h0};
-  assign io_mem_cmd_payload_size = 3'b101;
-  assign when_Utils_l515 = (! lineLoader_valid);
+  assign when_InstructionCache_l338 = (! lineLoader_flushCounter[7]); // @[BaseType.scala 299:24]
+  assign when_InstructionCache_l342 = (! _zz_when_InstructionCache_l342); // @[BaseType.scala 299:24]
+  assign when_InstructionCache_l351 = (lineLoader_flushPending && (! (lineLoader_valid || io_cpu_fetch_isValid))); // @[BaseType.scala 305:24]
+  assign io_mem_cmd_fire = (io_mem_cmd_valid && io_mem_cmd_ready); // @[BaseType.scala 305:24]
+  assign io_mem_cmd_valid = (lineLoader_valid && (! lineLoader_cmdSent)); // @[InstructionCache.scala 359:22]
+  assign io_mem_cmd_payload_address = {lineLoader_address[31 : 5],5'h0}; // @[InstructionCache.scala 360:24]
+  assign io_mem_cmd_payload_size = 3'b101; // @[InstructionCache.scala 361:21]
+  assign when_Utils_l520 = (! lineLoader_valid); // @[BaseType.scala 299:24]
   always @(*) begin
-    lineLoader_wayToAllocate_willIncrement = 1'b0;
-    if(when_Utils_l515) begin
-      lineLoader_wayToAllocate_willIncrement = 1'b1;
+    lineLoader_wayToAllocate_willIncrement = 1'b0; // @[Utils.scala 536:23]
+    if(when_Utils_l520) begin
+      lineLoader_wayToAllocate_willIncrement = 1'b1; // @[Utils.scala 540:41]
     end
   end
 
-  assign lineLoader_wayToAllocate_willClear = 1'b0;
-  assign lineLoader_wayToAllocate_willOverflowIfInc = (lineLoader_wayToAllocate_value == 2'b11);
-  assign lineLoader_wayToAllocate_willOverflow = (lineLoader_wayToAllocate_willOverflowIfInc && lineLoader_wayToAllocate_willIncrement);
+  assign lineLoader_wayToAllocate_willClear = 1'b0; // @[Utils.scala 537:19]
+  assign lineLoader_wayToAllocate_willOverflowIfInc = (lineLoader_wayToAllocate_value == 2'b11); // @[BaseType.scala 305:24]
+  assign lineLoader_wayToAllocate_willOverflow = (lineLoader_wayToAllocate_willOverflowIfInc && lineLoader_wayToAllocate_willIncrement); // @[BaseType.scala 305:24]
   always @(*) begin
-    lineLoader_wayToAllocate_valueNext = (lineLoader_wayToAllocate_value + _zz_lineLoader_wayToAllocate_valueNext);
+    lineLoader_wayToAllocate_valueNext = (lineLoader_wayToAllocate_value + _zz_lineLoader_wayToAllocate_valueNext); // @[Utils.scala 548:15]
     if(lineLoader_wayToAllocate_willClear) begin
-      lineLoader_wayToAllocate_valueNext = 2'b00;
+      lineLoader_wayToAllocate_valueNext = 2'b00; // @[Utils.scala 558:15]
     end
   end
 
-  assign lineLoader_write_tag_0_valid = (((lineLoader_wayToAllocate_value == 2'b00) && lineLoader_fire) || (! lineLoader_flushCounter[7]));
-  assign lineLoader_write_tag_0_payload_address = (lineLoader_flushCounter[7] ? lineLoader_address[11 : 5] : lineLoader_flushCounter[6 : 0]);
-  assign lineLoader_write_tag_0_payload_data_valid = lineLoader_flushCounter[7];
-  assign lineLoader_write_tag_0_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error);
-  assign lineLoader_write_tag_0_payload_data_address = lineLoader_address[31 : 12];
-  assign lineLoader_write_tag_1_valid = (((lineLoader_wayToAllocate_value == 2'b01) && lineLoader_fire) || (! lineLoader_flushCounter[7]));
-  assign lineLoader_write_tag_1_payload_address = (lineLoader_flushCounter[7] ? lineLoader_address[11 : 5] : lineLoader_flushCounter[6 : 0]);
-  assign lineLoader_write_tag_1_payload_data_valid = lineLoader_flushCounter[7];
-  assign lineLoader_write_tag_1_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error);
-  assign lineLoader_write_tag_1_payload_data_address = lineLoader_address[31 : 12];
-  assign lineLoader_write_tag_2_valid = (((lineLoader_wayToAllocate_value == 2'b10) && lineLoader_fire) || (! lineLoader_flushCounter[7]));
-  assign lineLoader_write_tag_2_payload_address = (lineLoader_flushCounter[7] ? lineLoader_address[11 : 5] : lineLoader_flushCounter[6 : 0]);
-  assign lineLoader_write_tag_2_payload_data_valid = lineLoader_flushCounter[7];
-  assign lineLoader_write_tag_2_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error);
-  assign lineLoader_write_tag_2_payload_data_address = lineLoader_address[31 : 12];
-  assign lineLoader_write_tag_3_valid = (((lineLoader_wayToAllocate_value == 2'b11) && lineLoader_fire) || (! lineLoader_flushCounter[7]));
-  assign lineLoader_write_tag_3_payload_address = (lineLoader_flushCounter[7] ? lineLoader_address[11 : 5] : lineLoader_flushCounter[6 : 0]);
-  assign lineLoader_write_tag_3_payload_data_valid = lineLoader_flushCounter[7];
-  assign lineLoader_write_tag_3_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error);
-  assign lineLoader_write_tag_3_payload_data_address = lineLoader_address[31 : 12];
-  assign lineLoader_write_data_0_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value == 2'b00));
-  assign lineLoader_write_data_0_payload_address = {lineLoader_address[11 : 5],lineLoader_wordIndex};
-  assign lineLoader_write_data_0_payload_data = io_mem_rsp_payload_data;
-  assign lineLoader_write_data_1_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value == 2'b01));
-  assign lineLoader_write_data_1_payload_address = {lineLoader_address[11 : 5],lineLoader_wordIndex};
-  assign lineLoader_write_data_1_payload_data = io_mem_rsp_payload_data;
-  assign lineLoader_write_data_2_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value == 2'b10));
-  assign lineLoader_write_data_2_payload_address = {lineLoader_address[11 : 5],lineLoader_wordIndex};
-  assign lineLoader_write_data_2_payload_data = io_mem_rsp_payload_data;
-  assign lineLoader_write_data_3_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value == 2'b11));
-  assign lineLoader_write_data_3_payload_address = {lineLoader_address[11 : 5],lineLoader_wordIndex};
-  assign lineLoader_write_data_3_payload_data = io_mem_rsp_payload_data;
-  assign when_InstructionCache_l401 = (lineLoader_wordIndex == 2'b11);
-  assign fetchStage_read_banksValue_0_dataMem = banks_0_rd_data;
-  assign fetchStage_read_banksValue_0_data = _zz_fetchStage_read_banksValue_0_data;
-  assign fetchStage_read_banksValue_1_dataMem = banks_1_rd_data;
-  assign fetchStage_read_banksValue_1_data = _zz_fetchStage_read_banksValue_1_data;
-  assign fetchStage_read_banksValue_2_dataMem = banks_2_rd_data;
-  assign fetchStage_read_banksValue_2_data = _zz_fetchStage_read_banksValue_2_data;
-  assign fetchStage_read_banksValue_3_dataMem = banks_3_rd_data;
-  assign fetchStage_read_banksValue_3_data = _zz_fetchStage_read_banksValue_3_data;
-  assign _zz_fetchStage_read_waysValues_0_tag_valid = ways_0_tags_rd_data;
-  assign fetchStage_read_waysValues_0_tag_valid = _zz_fetchStage_read_waysValues_0_tag_valid[0];
-  assign fetchStage_read_waysValues_0_tag_error = _zz_fetchStage_read_waysValues_0_tag_valid[1];
-  assign fetchStage_read_waysValues_0_tag_address = _zz_fetchStage_read_waysValues_0_tag_valid[21 : 2];
-  assign _zz_fetchStage_read_waysValues_1_tag_valid = ways_1_tags_rd_data;
-  assign fetchStage_read_waysValues_1_tag_valid = _zz_fetchStage_read_waysValues_1_tag_valid[0];
-  assign fetchStage_read_waysValues_1_tag_error = _zz_fetchStage_read_waysValues_1_tag_valid[1];
-  assign fetchStage_read_waysValues_1_tag_address = _zz_fetchStage_read_waysValues_1_tag_valid[21 : 2];
-  assign _zz_fetchStage_read_waysValues_2_tag_valid = ways_2_tags_rd_data;
-  assign fetchStage_read_waysValues_2_tag_valid = _zz_fetchStage_read_waysValues_2_tag_valid[0];
-  assign fetchStage_read_waysValues_2_tag_error = _zz_fetchStage_read_waysValues_2_tag_valid[1];
-  assign fetchStage_read_waysValues_2_tag_address = _zz_fetchStage_read_waysValues_2_tag_valid[21 : 2];
-  assign _zz_fetchStage_read_waysValues_3_tag_valid = ways_3_tags_rd_data;
-  assign fetchStage_read_waysValues_3_tag_valid = _zz_fetchStage_read_waysValues_3_tag_valid[0];
-  assign fetchStage_read_waysValues_3_tag_error = _zz_fetchStage_read_waysValues_3_tag_valid[1];
-  assign fetchStage_read_waysValues_3_tag_address = _zz_fetchStage_read_waysValues_3_tag_valid[21 : 2];
-  assign fetchStage_hit_hits_0 = (fetchStage_read_waysValues_0_tag_valid && (fetchStage_read_waysValues_0_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12]));
-  assign fetchStage_hit_hits_1 = (fetchStage_read_waysValues_1_tag_valid && (fetchStage_read_waysValues_1_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12]));
-  assign fetchStage_hit_hits_2 = (fetchStage_read_waysValues_2_tag_valid && (fetchStage_read_waysValues_2_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12]));
-  assign fetchStage_hit_hits_3 = (fetchStage_read_waysValues_3_tag_valid && (fetchStage_read_waysValues_3_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12]));
-  assign fetchStage_hit_valid = (|{fetchStage_hit_hits_3,{fetchStage_hit_hits_2,{fetchStage_hit_hits_1,fetchStage_hit_hits_0}}});
-  assign _zz_fetchStage_hit_wayId = (fetchStage_hit_hits_1 || fetchStage_hit_hits_3);
-  assign _zz_fetchStage_hit_wayId_1 = (fetchStage_hit_hits_2 || fetchStage_hit_hits_3);
-  assign fetchStage_hit_wayId = {_zz_fetchStage_hit_wayId_1,_zz_fetchStage_hit_wayId};
-  assign fetchStage_hit_error = _zz_fetchStage_hit_error;
-  assign fetchStage_hit_data = _zz_fetchStage_hit_data;
-  assign fetchStage_hit_word = fetchStage_hit_data;
-  assign io_cpu_fetch_data = fetchStage_hit_word;
-  assign when_InstructionCache_l435 = (! io_cpu_decode_isStuck);
-  assign io_cpu_decode_data = io_cpu_fetch_data_regNextWhen;
-  assign io_cpu_fetch_physicalAddress = io_cpu_fetch_mmuRsp_physicalAddress;
-  assign when_InstructionCache_l459 = (! io_cpu_decode_isStuck);
-  assign when_InstructionCache_l459_1 = (! io_cpu_decode_isStuck);
-  assign when_InstructionCache_l459_2 = (! io_cpu_decode_isStuck);
-  assign io_cpu_decode_cacheMiss = (! decodeStage_hit_valid);
-  assign io_cpu_decode_error = (decodeStage_hit_error || ((! decodeStage_mmuRsp_isPaging) && (decodeStage_mmuRsp_exception || (! decodeStage_mmuRsp_allowExecute))));
-  assign io_cpu_decode_mmuRefilling = decodeStage_mmuRsp_refilling;
-  assign io_cpu_decode_mmuException = (((! decodeStage_mmuRsp_refilling) && decodeStage_mmuRsp_isPaging) && (decodeStage_mmuRsp_exception || (! decodeStage_mmuRsp_allowExecute)));
-  assign io_cpu_decode_physicalAddress = decodeStage_mmuRsp_physicalAddress;
-  assign banks_0_wr_en = (_zz_wr_en_3 && 1'b1);
-  assign banks_0_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1);
-  assign banks_0_rd_addr = io_cpu_prefetch_pc[11 : 3];
-  assign banks_1_wr_en = (_zz_wr_en_2 && 1'b1);
-  assign banks_1_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1);
-  assign banks_1_rd_addr = io_cpu_prefetch_pc[11 : 3];
-  assign banks_2_wr_en = (_zz_wr_en_1 && 1'b1);
-  assign banks_2_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1);
-  assign banks_2_rd_addr = io_cpu_prefetch_pc[11 : 3];
-  assign banks_3_wr_en = (_zz_wr_en && 1'b1);
-  assign banks_3_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1);
-  assign banks_3_rd_addr = io_cpu_prefetch_pc[11 : 3];
-  assign ways_0_tags_wr_en = (_zz_wr_en_7 && 1'b1);
-  assign ways_0_tags_wr_data = {lineLoader_write_tag_0_payload_data_address,{lineLoader_write_tag_0_payload_data_error,lineLoader_write_tag_0_payload_data_valid}};
-  assign ways_0_tags_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1);
-  assign ways_0_tags_rd_addr = io_cpu_prefetch_pc[11 : 5];
-  assign ways_1_tags_wr_en = (_zz_wr_en_6 && 1'b1);
-  assign ways_1_tags_wr_data = {lineLoader_write_tag_1_payload_data_address,{lineLoader_write_tag_1_payload_data_error,lineLoader_write_tag_1_payload_data_valid}};
-  assign ways_1_tags_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1);
-  assign ways_1_tags_rd_addr = io_cpu_prefetch_pc[11 : 5];
-  assign ways_2_tags_wr_en = (_zz_wr_en_5 && 1'b1);
-  assign ways_2_tags_wr_data = {lineLoader_write_tag_2_payload_data_address,{lineLoader_write_tag_2_payload_data_error,lineLoader_write_tag_2_payload_data_valid}};
-  assign ways_2_tags_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1);
-  assign ways_2_tags_rd_addr = io_cpu_prefetch_pc[11 : 5];
-  assign ways_3_tags_wr_en = (_zz_wr_en_4 && 1'b1);
-  assign ways_3_tags_wr_data = {lineLoader_write_tag_3_payload_data_address,{lineLoader_write_tag_3_payload_data_error,lineLoader_write_tag_3_payload_data_valid}};
-  assign ways_3_tags_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1);
-  assign ways_3_tags_rd_addr = io_cpu_prefetch_pc[11 : 5];
+  assign lineLoader_write_tag_0_valid = (((lineLoader_wayToAllocate_value == 2'b00) && lineLoader_fire) || (! lineLoader_flushCounter[7])); // @[InstructionCache.scala 375:17]
+  assign lineLoader_write_tag_0_payload_address = (lineLoader_flushCounter[7] ? lineLoader_address[11 : 5] : lineLoader_flushCounter[6 : 0]); // @[InstructionCache.scala 376:19]
+  assign lineLoader_write_tag_0_payload_data_valid = lineLoader_flushCounter[7]; // @[InstructionCache.scala 377:22]
+  assign lineLoader_write_tag_0_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error); // @[InstructionCache.scala 378:22]
+  assign lineLoader_write_tag_0_payload_data_address = lineLoader_address[31 : 12]; // @[InstructionCache.scala 379:24]
+  assign lineLoader_write_tag_1_valid = (((lineLoader_wayToAllocate_value == 2'b01) && lineLoader_fire) || (! lineLoader_flushCounter[7])); // @[InstructionCache.scala 375:17]
+  assign lineLoader_write_tag_1_payload_address = (lineLoader_flushCounter[7] ? lineLoader_address[11 : 5] : lineLoader_flushCounter[6 : 0]); // @[InstructionCache.scala 376:19]
+  assign lineLoader_write_tag_1_payload_data_valid = lineLoader_flushCounter[7]; // @[InstructionCache.scala 377:22]
+  assign lineLoader_write_tag_1_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error); // @[InstructionCache.scala 378:22]
+  assign lineLoader_write_tag_1_payload_data_address = lineLoader_address[31 : 12]; // @[InstructionCache.scala 379:24]
+  assign lineLoader_write_tag_2_valid = (((lineLoader_wayToAllocate_value == 2'b10) && lineLoader_fire) || (! lineLoader_flushCounter[7])); // @[InstructionCache.scala 375:17]
+  assign lineLoader_write_tag_2_payload_address = (lineLoader_flushCounter[7] ? lineLoader_address[11 : 5] : lineLoader_flushCounter[6 : 0]); // @[InstructionCache.scala 376:19]
+  assign lineLoader_write_tag_2_payload_data_valid = lineLoader_flushCounter[7]; // @[InstructionCache.scala 377:22]
+  assign lineLoader_write_tag_2_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error); // @[InstructionCache.scala 378:22]
+  assign lineLoader_write_tag_2_payload_data_address = lineLoader_address[31 : 12]; // @[InstructionCache.scala 379:24]
+  assign lineLoader_write_tag_3_valid = (((lineLoader_wayToAllocate_value == 2'b11) && lineLoader_fire) || (! lineLoader_flushCounter[7])); // @[InstructionCache.scala 375:17]
+  assign lineLoader_write_tag_3_payload_address = (lineLoader_flushCounter[7] ? lineLoader_address[11 : 5] : lineLoader_flushCounter[6 : 0]); // @[InstructionCache.scala 376:19]
+  assign lineLoader_write_tag_3_payload_data_valid = lineLoader_flushCounter[7]; // @[InstructionCache.scala 377:22]
+  assign lineLoader_write_tag_3_payload_data_error = (lineLoader_hadError || io_mem_rsp_payload_error); // @[InstructionCache.scala 378:22]
+  assign lineLoader_write_tag_3_payload_data_address = lineLoader_address[31 : 12]; // @[InstructionCache.scala 379:24]
+  assign lineLoader_write_data_0_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value == 2'b00)); // @[InstructionCache.scala 384:25]
+  assign lineLoader_write_data_0_payload_address = {lineLoader_address[11 : 5],lineLoader_wordIndex}; // @[InstructionCache.scala 385:27]
+  assign lineLoader_write_data_0_payload_data = io_mem_rsp_payload_data; // @[InstructionCache.scala 386:24]
+  assign lineLoader_write_data_1_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value == 2'b01)); // @[InstructionCache.scala 384:25]
+  assign lineLoader_write_data_1_payload_address = {lineLoader_address[11 : 5],lineLoader_wordIndex}; // @[InstructionCache.scala 385:27]
+  assign lineLoader_write_data_1_payload_data = io_mem_rsp_payload_data; // @[InstructionCache.scala 386:24]
+  assign lineLoader_write_data_2_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value == 2'b10)); // @[InstructionCache.scala 384:25]
+  assign lineLoader_write_data_2_payload_address = {lineLoader_address[11 : 5],lineLoader_wordIndex}; // @[InstructionCache.scala 385:27]
+  assign lineLoader_write_data_2_payload_data = io_mem_rsp_payload_data; // @[InstructionCache.scala 386:24]
+  assign lineLoader_write_data_3_valid = (io_mem_rsp_valid && (lineLoader_wayToAllocate_value == 2'b11)); // @[InstructionCache.scala 384:25]
+  assign lineLoader_write_data_3_payload_address = {lineLoader_address[11 : 5],lineLoader_wordIndex}; // @[InstructionCache.scala 385:27]
+  assign lineLoader_write_data_3_payload_data = io_mem_rsp_payload_data; // @[InstructionCache.scala 386:24]
+  assign when_InstructionCache_l401 = (lineLoader_wordIndex == 2'b11); // @[BaseType.scala 305:24]
+  assign fetchStage_read_banksValue_0_dataMem = banks_0_rd_data; // @[Bits.scala 133:56]
+  assign fetchStage_read_banksValue_0_data = _zz_fetchStage_read_banksValue_0_data; // @[Vec.scala 202:25]
+  assign fetchStage_read_banksValue_1_dataMem = banks_1_rd_data; // @[Bits.scala 133:56]
+  assign fetchStage_read_banksValue_1_data = _zz_fetchStage_read_banksValue_1_data; // @[Vec.scala 202:25]
+  assign fetchStage_read_banksValue_2_dataMem = banks_2_rd_data; // @[Bits.scala 133:56]
+  assign fetchStage_read_banksValue_2_data = _zz_fetchStage_read_banksValue_2_data; // @[Vec.scala 202:25]
+  assign fetchStage_read_banksValue_3_dataMem = banks_3_rd_data; // @[Bits.scala 133:56]
+  assign fetchStage_read_banksValue_3_data = _zz_fetchStage_read_banksValue_3_data; // @[Vec.scala 202:25]
+  assign _zz_fetchStage_read_waysValues_0_tag_valid = ways_0_tags_rd_data; // @[Mem.scala 310:24]
+  assign fetchStage_read_waysValues_0_tag_valid = _zz_fetchStage_read_waysValues_0_tag_valid[0]; // @[Bool.scala 189:10]
+  assign fetchStage_read_waysValues_0_tag_error = _zz_fetchStage_read_waysValues_0_tag_valid[1]; // @[Bool.scala 189:10]
+  assign fetchStage_read_waysValues_0_tag_address = _zz_fetchStage_read_waysValues_0_tag_valid[21 : 2]; // @[UInt.scala 381:56]
+  assign _zz_fetchStage_read_waysValues_1_tag_valid = ways_1_tags_rd_data; // @[Mem.scala 310:24]
+  assign fetchStage_read_waysValues_1_tag_valid = _zz_fetchStage_read_waysValues_1_tag_valid[0]; // @[Bool.scala 189:10]
+  assign fetchStage_read_waysValues_1_tag_error = _zz_fetchStage_read_waysValues_1_tag_valid[1]; // @[Bool.scala 189:10]
+  assign fetchStage_read_waysValues_1_tag_address = _zz_fetchStage_read_waysValues_1_tag_valid[21 : 2]; // @[UInt.scala 381:56]
+  assign _zz_fetchStage_read_waysValues_2_tag_valid = ways_2_tags_rd_data; // @[Mem.scala 310:24]
+  assign fetchStage_read_waysValues_2_tag_valid = _zz_fetchStage_read_waysValues_2_tag_valid[0]; // @[Bool.scala 189:10]
+  assign fetchStage_read_waysValues_2_tag_error = _zz_fetchStage_read_waysValues_2_tag_valid[1]; // @[Bool.scala 189:10]
+  assign fetchStage_read_waysValues_2_tag_address = _zz_fetchStage_read_waysValues_2_tag_valid[21 : 2]; // @[UInt.scala 381:56]
+  assign _zz_fetchStage_read_waysValues_3_tag_valid = ways_3_tags_rd_data; // @[Mem.scala 310:24]
+  assign fetchStage_read_waysValues_3_tag_valid = _zz_fetchStage_read_waysValues_3_tag_valid[0]; // @[Bool.scala 189:10]
+  assign fetchStage_read_waysValues_3_tag_error = _zz_fetchStage_read_waysValues_3_tag_valid[1]; // @[Bool.scala 189:10]
+  assign fetchStage_read_waysValues_3_tag_address = _zz_fetchStage_read_waysValues_3_tag_valid[21 : 2]; // @[UInt.scala 381:56]
+  assign fetchStage_hit_hits_0 = (fetchStage_read_waysValues_0_tag_valid && (fetchStage_read_waysValues_0_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12])); // @[BaseType.scala 305:24]
+  assign fetchStage_hit_hits_1 = (fetchStage_read_waysValues_1_tag_valid && (fetchStage_read_waysValues_1_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12])); // @[BaseType.scala 305:24]
+  assign fetchStage_hit_hits_2 = (fetchStage_read_waysValues_2_tag_valid && (fetchStage_read_waysValues_2_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12])); // @[BaseType.scala 305:24]
+  assign fetchStage_hit_hits_3 = (fetchStage_read_waysValues_3_tag_valid && (fetchStage_read_waysValues_3_tag_address == io_cpu_fetch_mmuRsp_physicalAddress[31 : 12])); // @[BaseType.scala 305:24]
+  assign fetchStage_hit_valid = (|{fetchStage_hit_hits_3,{fetchStage_hit_hits_2,{fetchStage_hit_hits_1,fetchStage_hit_hits_0}}}); // @[BaseType.scala 312:24]
+  assign _zz_fetchStage_hit_wayId = (fetchStage_hit_hits_1 || fetchStage_hit_hits_3); // @[BaseType.scala 305:24]
+  assign _zz_fetchStage_hit_wayId_1 = (fetchStage_hit_hits_2 || fetchStage_hit_hits_3); // @[BaseType.scala 305:24]
+  assign fetchStage_hit_wayId = {_zz_fetchStage_hit_wayId_1,_zz_fetchStage_hit_wayId}; // @[BaseType.scala 318:22]
+  assign fetchStage_hit_error = _zz_fetchStage_hit_error; // @[Vec.scala 202:25]
+  assign fetchStage_hit_data = _zz_fetchStage_hit_data; // @[Vec.scala 202:25]
+  assign fetchStage_hit_word = fetchStage_hit_data; // @[Misc.scala 552:9]
+  assign io_cpu_fetch_data = fetchStage_hit_word; // @[InstructionCache.scala 433:25]
+  assign when_InstructionCache_l435 = (! io_cpu_decode_isStuck); // @[BaseType.scala 299:24]
+  assign io_cpu_decode_data = io_cpu_fetch_data_regNextWhen; // @[InstructionCache.scala 435:28]
+  assign io_cpu_fetch_physicalAddress = io_cpu_fetch_mmuRsp_physicalAddress; // @[InstructionCache.scala 444:34]
+  assign when_InstructionCache_l459 = (! io_cpu_decode_isStuck); // @[BaseType.scala 299:24]
+  assign when_InstructionCache_l459_1 = (! io_cpu_decode_isStuck); // @[BaseType.scala 299:24]
+  assign when_InstructionCache_l459_2 = (! io_cpu_decode_isStuck); // @[BaseType.scala 299:24]
+  assign io_cpu_decode_cacheMiss = (! decodeStage_hit_valid); // @[InstructionCache.scala 480:29]
+  assign io_cpu_decode_error = (decodeStage_hit_error || ((! decodeStage_mmuRsp_isPaging) && (decodeStage_mmuRsp_exception || (! decodeStage_mmuRsp_allowExecute)))); // @[InstructionCache.scala 481:25]
+  assign io_cpu_decode_mmuRefilling = decodeStage_mmuRsp_refilling; // @[InstructionCache.scala 482:32]
+  assign io_cpu_decode_mmuException = (((! decodeStage_mmuRsp_refilling) && decodeStage_mmuRsp_isPaging) && (decodeStage_mmuRsp_exception || (! decodeStage_mmuRsp_allowExecute))); // @[InstructionCache.scala 483:32]
+  assign io_cpu_decode_physicalAddress = decodeStage_mmuRsp_physicalAddress; // @[InstructionCache.scala 484:35]
+  assign banks_0_wr_en = (_zz_wr_en_3 && 1'b1); // @[Phase.scala 835:24]
+  assign banks_0_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1); // @[Phase.scala 844:24]
+  assign banks_0_rd_addr = io_cpu_prefetch_pc[11 : 3]; // @[Phase.scala 845:36]
+  assign banks_1_wr_en = (_zz_wr_en_2 && 1'b1); // @[Phase.scala 835:24]
+  assign banks_1_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1); // @[Phase.scala 844:24]
+  assign banks_1_rd_addr = io_cpu_prefetch_pc[11 : 3]; // @[Phase.scala 845:36]
+  assign banks_2_wr_en = (_zz_wr_en_1 && 1'b1); // @[Phase.scala 835:24]
+  assign banks_2_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1); // @[Phase.scala 844:24]
+  assign banks_2_rd_addr = io_cpu_prefetch_pc[11 : 3]; // @[Phase.scala 845:36]
+  assign banks_3_wr_en = (_zz_wr_en && 1'b1); // @[Phase.scala 835:24]
+  assign banks_3_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1); // @[Phase.scala 844:24]
+  assign banks_3_rd_addr = io_cpu_prefetch_pc[11 : 3]; // @[Phase.scala 845:36]
+  assign ways_0_tags_wr_en = (_zz_wr_en_7 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_0_tags_wr_data = {lineLoader_write_tag_0_payload_data_address,{lineLoader_write_tag_0_payload_data_error,lineLoader_write_tag_0_payload_data_valid}}; // @[Phase.scala 837:36]
+  assign ways_0_tags_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_0_tags_rd_addr = io_cpu_prefetch_pc[11 : 5]; // @[Phase.scala 845:36]
+  assign ways_1_tags_wr_en = (_zz_wr_en_6 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_1_tags_wr_data = {lineLoader_write_tag_1_payload_data_address,{lineLoader_write_tag_1_payload_data_error,lineLoader_write_tag_1_payload_data_valid}}; // @[Phase.scala 837:36]
+  assign ways_1_tags_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_1_tags_rd_addr = io_cpu_prefetch_pc[11 : 5]; // @[Phase.scala 845:36]
+  assign ways_2_tags_wr_en = (_zz_wr_en_5 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_2_tags_wr_data = {lineLoader_write_tag_2_payload_data_address,{lineLoader_write_tag_2_payload_data_error,lineLoader_write_tag_2_payload_data_valid}}; // @[Phase.scala 837:36]
+  assign ways_2_tags_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_2_tags_rd_addr = io_cpu_prefetch_pc[11 : 5]; // @[Phase.scala 845:36]
+  assign ways_3_tags_wr_en = (_zz_wr_en_4 && 1'b1); // @[Phase.scala 835:24]
+  assign ways_3_tags_wr_data = {lineLoader_write_tag_3_payload_data_address,{lineLoader_write_tag_3_payload_data_error,lineLoader_write_tag_3_payload_data_valid}}; // @[Phase.scala 837:36]
+  assign ways_3_tags_rd_en = ((! io_cpu_fetch_isStuck) && 1'b1); // @[Phase.scala 844:24]
+  assign ways_3_tags_rd_addr = io_cpu_prefetch_pc[11 : 5]; // @[Phase.scala 845:36]
   always @(posedge clk) begin
     if(reset) begin
-      lineLoader_valid <= 1'b0;
-      lineLoader_hadError <= 1'b0;
-      lineLoader_flushPending <= 1'b1;
-      lineLoader_cmdSent <= 1'b0;
-      lineLoader_wayToAllocate_value <= 2'b00;
-      lineLoader_wordIndex <= 2'b00;
+      lineLoader_valid <= 1'b0; // @[Data.scala 400:33]
+      lineLoader_hadError <= 1'b0; // @[Data.scala 400:33]
+      lineLoader_flushPending <= 1'b1; // @[Data.scala 400:33]
+      lineLoader_cmdSent <= 1'b0; // @[Data.scala 400:33]
+      lineLoader_wayToAllocate_value <= 2'b00; // @[Data.scala 400:33]
+      lineLoader_wordIndex <= 2'b00; // @[Data.scala 400:33]
     end else begin
       if(lineLoader_fire) begin
-        lineLoader_valid <= 1'b0;
+        lineLoader_valid <= 1'b0; // @[InstructionCache.scala 325:32]
       end
       if(lineLoader_fire) begin
-        lineLoader_hadError <= 1'b0;
+        lineLoader_hadError <= 1'b0; // @[InstructionCache.scala 327:35]
       end
       if(io_cpu_fill_valid) begin
-        lineLoader_valid <= 1'b1;
+        lineLoader_valid <= 1'b1; // @[InstructionCache.scala 331:13]
       end
       if(io_flush) begin
-        lineLoader_flushPending <= 1'b1;
+        lineLoader_flushPending <= 1'b1; // @[InstructionCache.scala 348:20]
       end
       if(when_InstructionCache_l351) begin
-        lineLoader_flushPending <= 1'b0;
+        lineLoader_flushPending <= 1'b0; // @[InstructionCache.scala 353:20]
       end
       if(io_mem_cmd_fire) begin
-        lineLoader_cmdSent <= 1'b1;
+        lineLoader_cmdSent <= 1'b1; // @[InstructionCache.scala 358:34]
       end
       if(lineLoader_fire) begin
-        lineLoader_cmdSent <= 1'b0;
+        lineLoader_cmdSent <= 1'b0; // @[InstructionCache.scala 358:59]
       end
-      lineLoader_wayToAllocate_value <= lineLoader_wayToAllocate_valueNext;
+      lineLoader_wayToAllocate_value <= lineLoader_wayToAllocate_valueNext; // @[Reg.scala 39:30]
       if(io_mem_rsp_valid) begin
-        lineLoader_wordIndex <= (lineLoader_wordIndex + 2'b01);
+        lineLoader_wordIndex <= (lineLoader_wordIndex + 2'b01); // @[InstructionCache.scala 399:17]
         if(io_mem_rsp_payload_error) begin
-          lineLoader_hadError <= 1'b1;
+          lineLoader_hadError <= 1'b1; // @[InstructionCache.scala 400:23]
         end
       end
     end
@@ -11912,50 +11955,50 @@ module InstructionCache (
 
   always @(posedge clk) begin
     if(io_cpu_fill_valid) begin
-      lineLoader_address <= io_cpu_fill_payload;
+      lineLoader_address <= io_cpu_fill_payload; // @[InstructionCache.scala 332:15]
     end
     if(when_InstructionCache_l338) begin
-      lineLoader_flushCounter <= (lineLoader_flushCounter + 8'h01);
+      lineLoader_flushCounter <= (lineLoader_flushCounter + 8'h01); // @[InstructionCache.scala 340:20]
     end
-    _zz_when_InstructionCache_l342 <= lineLoader_flushCounter[7];
+    _zz_when_InstructionCache_l342 <= lineLoader_flushCounter[7]; // @[Reg.scala 39:30]
     if(when_InstructionCache_l351) begin
-      lineLoader_flushCounter <= 8'h0;
+      lineLoader_flushCounter <= 8'h0; // @[InstructionCache.scala 352:20]
     end
     if(when_InstructionCache_l435) begin
-      io_cpu_fetch_data_regNextWhen <= io_cpu_fetch_data;
+      io_cpu_fetch_data_regNextWhen <= io_cpu_fetch_data; // @[InstructionCache.scala 435:42]
     end
     if(when_InstructionCache_l459) begin
-      decodeStage_mmuRsp_physicalAddress <= io_cpu_fetch_mmuRsp_physicalAddress;
-      decodeStage_mmuRsp_isIoAccess <= io_cpu_fetch_mmuRsp_isIoAccess;
-      decodeStage_mmuRsp_isPaging <= io_cpu_fetch_mmuRsp_isPaging;
-      decodeStage_mmuRsp_allowRead <= io_cpu_fetch_mmuRsp_allowRead;
-      decodeStage_mmuRsp_allowWrite <= io_cpu_fetch_mmuRsp_allowWrite;
-      decodeStage_mmuRsp_allowExecute <= io_cpu_fetch_mmuRsp_allowExecute;
-      decodeStage_mmuRsp_exception <= io_cpu_fetch_mmuRsp_exception;
-      decodeStage_mmuRsp_refilling <= io_cpu_fetch_mmuRsp_refilling;
-      decodeStage_mmuRsp_bypassTranslation <= io_cpu_fetch_mmuRsp_bypassTranslation;
-      decodeStage_mmuRsp_ways_0_sel <= io_cpu_fetch_mmuRsp_ways_0_sel;
-      decodeStage_mmuRsp_ways_0_physical <= io_cpu_fetch_mmuRsp_ways_0_physical;
-      decodeStage_mmuRsp_ways_1_sel <= io_cpu_fetch_mmuRsp_ways_1_sel;
-      decodeStage_mmuRsp_ways_1_physical <= io_cpu_fetch_mmuRsp_ways_1_physical;
-      decodeStage_mmuRsp_ways_2_sel <= io_cpu_fetch_mmuRsp_ways_2_sel;
-      decodeStage_mmuRsp_ways_2_physical <= io_cpu_fetch_mmuRsp_ways_2_physical;
-      decodeStage_mmuRsp_ways_3_sel <= io_cpu_fetch_mmuRsp_ways_3_sel;
-      decodeStage_mmuRsp_ways_3_physical <= io_cpu_fetch_mmuRsp_ways_3_physical;
-      decodeStage_mmuRsp_ways_4_sel <= io_cpu_fetch_mmuRsp_ways_4_sel;
-      decodeStage_mmuRsp_ways_4_physical <= io_cpu_fetch_mmuRsp_ways_4_physical;
-      decodeStage_mmuRsp_ways_5_sel <= io_cpu_fetch_mmuRsp_ways_5_sel;
-      decodeStage_mmuRsp_ways_5_physical <= io_cpu_fetch_mmuRsp_ways_5_physical;
-      decodeStage_mmuRsp_ways_6_sel <= io_cpu_fetch_mmuRsp_ways_6_sel;
-      decodeStage_mmuRsp_ways_6_physical <= io_cpu_fetch_mmuRsp_ways_6_physical;
-      decodeStage_mmuRsp_ways_7_sel <= io_cpu_fetch_mmuRsp_ways_7_sel;
-      decodeStage_mmuRsp_ways_7_physical <= io_cpu_fetch_mmuRsp_ways_7_physical;
+      decodeStage_mmuRsp_physicalAddress <= io_cpu_fetch_mmuRsp_physicalAddress; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_isIoAccess <= io_cpu_fetch_mmuRsp_isIoAccess; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_isPaging <= io_cpu_fetch_mmuRsp_isPaging; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_allowRead <= io_cpu_fetch_mmuRsp_allowRead; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_allowWrite <= io_cpu_fetch_mmuRsp_allowWrite; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_allowExecute <= io_cpu_fetch_mmuRsp_allowExecute; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_exception <= io_cpu_fetch_mmuRsp_exception; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_refilling <= io_cpu_fetch_mmuRsp_refilling; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_bypassTranslation <= io_cpu_fetch_mmuRsp_bypassTranslation; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_0_sel <= io_cpu_fetch_mmuRsp_ways_0_sel; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_0_physical <= io_cpu_fetch_mmuRsp_ways_0_physical; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_1_sel <= io_cpu_fetch_mmuRsp_ways_1_sel; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_1_physical <= io_cpu_fetch_mmuRsp_ways_1_physical; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_2_sel <= io_cpu_fetch_mmuRsp_ways_2_sel; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_2_physical <= io_cpu_fetch_mmuRsp_ways_2_physical; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_3_sel <= io_cpu_fetch_mmuRsp_ways_3_sel; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_3_physical <= io_cpu_fetch_mmuRsp_ways_3_physical; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_4_sel <= io_cpu_fetch_mmuRsp_ways_4_sel; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_4_physical <= io_cpu_fetch_mmuRsp_ways_4_physical; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_5_sel <= io_cpu_fetch_mmuRsp_ways_5_sel; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_5_physical <= io_cpu_fetch_mmuRsp_ways_5_physical; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_6_sel <= io_cpu_fetch_mmuRsp_ways_6_sel; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_6_physical <= io_cpu_fetch_mmuRsp_ways_6_physical; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_7_sel <= io_cpu_fetch_mmuRsp_ways_7_sel; // @[InstructionCache.scala 459:49]
+      decodeStage_mmuRsp_ways_7_physical <= io_cpu_fetch_mmuRsp_ways_7_physical; // @[InstructionCache.scala 459:49]
     end
     if(when_InstructionCache_l459_1) begin
-      decodeStage_hit_valid <= fetchStage_hit_valid;
+      decodeStage_hit_valid <= fetchStage_hit_valid; // @[InstructionCache.scala 459:49]
     end
     if(when_InstructionCache_l459_2) begin
-      decodeStage_hit_error <= fetchStage_hit_error;
+      decodeStage_hit_error <= fetchStage_hit_error; // @[InstructionCache.scala 459:49]
     end
   end
 
@@ -12000,34 +12043,34 @@ module FlowCCByToggle (
   `endif
   end
 
-  assign outputArea_target = inputArea_target_buffercc_io_dataOut;
-  assign outputArea_flow_valid = (outputArea_target != outputArea_hit);
-  assign outputArea_flow_payload_last = inputArea_data_last;
-  assign outputArea_flow_payload_fragment = inputArea_data_fragment;
-  assign io_output_valid = outputArea_flow_m2sPipe_valid;
-  assign io_output_payload_last = outputArea_flow_m2sPipe_payload_last;
-  assign io_output_payload_fragment = outputArea_flow_m2sPipe_payload_fragment;
+  assign outputArea_target = inputArea_target_buffercc_io_dataOut; // @[CrossClock.scala 13:9]
+  assign outputArea_flow_valid = (outputArea_target != outputArea_hit); // @[Flow.scala 225:16]
+  assign outputArea_flow_payload_last = inputArea_data_last; // @[Flow.scala 226:18]
+  assign outputArea_flow_payload_fragment = inputArea_data_fragment; // @[Flow.scala 226:18]
+  assign io_output_valid = outputArea_flow_m2sPipe_valid; // @[Flow.scala 94:11]
+  assign io_output_payload_last = outputArea_flow_m2sPipe_payload_last; // @[Flow.scala 95:13]
+  assign io_output_payload_fragment = outputArea_flow_m2sPipe_payload_fragment; // @[Flow.scala 95:13]
   always @(posedge io_jtag_tck) begin
     if(io_input_valid) begin
-      inputArea_target <= (! inputArea_target);
-      inputArea_data_last <= io_input_payload_last;
-      inputArea_data_fragment <= io_input_payload_fragment;
+      inputArea_target <= (! inputArea_target); // @[Flow.scala 215:14]
+      inputArea_data_last <= io_input_payload_last; // @[Flow.scala 216:12]
+      inputArea_data_fragment <= io_input_payload_fragment; // @[Flow.scala 216:12]
     end
   end
 
   always @(posedge clk) begin
-    outputArea_hit <= outputArea_target;
+    outputArea_hit <= outputArea_target; // @[Reg.scala 39:30]
     if(outputArea_flow_valid) begin
-      outputArea_flow_m2sPipe_payload_last <= outputArea_flow_payload_last;
-      outputArea_flow_m2sPipe_payload_fragment <= outputArea_flow_payload_fragment;
+      outputArea_flow_m2sPipe_payload_last <= outputArea_flow_payload_last; // @[Flow.scala 139:21]
+      outputArea_flow_m2sPipe_payload_fragment <= outputArea_flow_payload_fragment; // @[Flow.scala 139:21]
     end
   end
 
   always @(posedge clk) begin
     if(debugReset) begin
-      outputArea_flow_m2sPipe_valid <= 1'b0;
+      outputArea_flow_m2sPipe_valid <= 1'b0; // @[Data.scala 400:33]
     end else begin
-      outputArea_flow_m2sPipe_valid <= outputArea_flow_valid;
+      outputArea_flow_m2sPipe_valid <= outputArea_flow_valid; // @[Flow.scala 137:17]
     end
   end
 
@@ -12051,10 +12094,10 @@ module BufferCC (
   `endif
   end
 
-  assign io_dataOut = buffers_1;
+  assign io_dataOut = buffers_1; // @[CrossClock.scala 38:14]
   always @(posedge clk) begin
-    buffers_0 <= io_dataIn;
-    buffers_1 <= buffers_0;
+    buffers_0 <= io_dataIn; // @[CrossClock.scala 31:14]
+    buffers_1 <= buffers_0; // @[CrossClock.scala 34:16]
   end
 
 

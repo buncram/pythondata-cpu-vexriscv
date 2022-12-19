@@ -17,17 +17,17 @@ import scala.collection.mutable.ArrayBuffer
 //  - MMUplugin - iorange specifier. How are the IO treated differently? Does this control the caching behavior?
 
 
-object CranSoCSpinalConfig extends spinal.core.SpinalConfig(
+object CramSoCSpinalConfig extends spinal.core.SpinalConfig(
   defaultConfigForClockDomains = ClockDomainConfig(
     resetKind = spinal.core.SYNC
   )
 ){
   //Insert a compilation phase which will add a  (* ram_style = "block" *) on all synchronous rams.
-  phasesInserters += {(array) => array.insert(array.indexWhere(_.isInstanceOf[PhaseAllocateNames]) + 1, new CranSoCForceRamBlockPhase)}
+  phasesInserters += {(array) => array.insert(array.indexWhere(_.isInstanceOf[PhaseAllocateNames]) + 1, new CramSoCForceRamBlockPhase)}
 }
 
 
-case class CranSoCArgConfig(
+case class CramSoCArgConfig(
   debug : Boolean = true,
   externalInterruptArray : Boolean = true,
   prediction : BranchPrediction = STATIC,
@@ -44,7 +44,7 @@ object blackboxSyncOnly extends MemBlackboxingPolicy {
   override def onUnblackboxable(topology: MemTopology, who: Any, message: String): Unit = {}
 }
 
-object GenCranSoC{
+object GenCramSoC{
   val predictionMap = Map(
     "none" -> NONE,
     "static" -> STATIC,
@@ -56,16 +56,16 @@ object GenCranSoC{
 
     // Allow arguments to be passed ex:
     // sbt compile "run-main vexriscv.GenCoreDefault -d --iCacheSize=1024"
-    val parser = new scopt.OptionParser[CranSoCArgConfig]("VexRiscvGen") {
+    val parser = new scopt.OptionParser[CramSoCArgConfig]("VexRiscvGen") {
       //  ex :-d    or   --debug
       opt[Unit]('d', "debug")    action { (_, c) => c.copy(debug = true)   } text("Enable debug")
       opt[Int]("hardwareBreakpointCount")     action { (v, c) => c.copy(hardwareBreakpointCount = v) } text("Specify number of hardware breakpoints")
       opt[String]("prediction")    action { (v, c) => c.copy(prediction = predictionMap(v))   } text("switch between regular CSR and array like one")
       opt[String]("outputFile")    action { (v, c) => c.copy(outputFile = v) } text("output file name")
     }
-    val argConfig = parser.parse(args, CranSoCArgConfig()).get
+    val argConfig = parser.parse(args, CramSoCArgConfig()).get
 
-    CranSoCSpinalConfig
+    CramSoCSpinalConfig
     .copy(netlistFileName = argConfig.outputFile + ".v")
     .addStandardMemBlackboxing(blackboxSyncOnly)
     .generateVerilog {
@@ -164,7 +164,8 @@ object GenCranSoC{
                 || x(31 downto 28) === 0xD
                 || x(31 downto 28) === 0xE
                 || x(31 downto 28) === 0xF
-                )
+                ),
+              exportSatp = true
           ),
           new ExternalInterruptArrayPlugin(
             machineMaskCsrId = 0xBC0,
@@ -229,7 +230,7 @@ object GenCranSoC{
   }
 }
 
-class CranSoCForceRamBlockPhase() extends spinal.core.internals.Phase{
+class CramSoCForceRamBlockPhase() extends spinal.core.internals.Phase{
   override def impl(pc: PhaseContext): Unit = {
     pc.walkBaseNodes{
       case mem: Mem[_] => {
