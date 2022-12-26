@@ -146,9 +146,10 @@ object GenCramSoC{
           new DivPlugin,
           new AesPlugin,
           new CsrPlugin(
-              CsrPluginConfig.linuxMinimal(mtVecInit = null)
+              CsrPluginConfig.linuxFull(mtVecInit = null)
               .copy(ebreakGen = true)
               .copy(pipelineCsrRead = true)
+              .copy(wfiOutput = true)
           ),
           new BranchPlugin(
             earlyBranch = false,
