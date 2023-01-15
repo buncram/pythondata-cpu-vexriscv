@@ -150,6 +150,7 @@ object GenCramSoC{
               .copy(ebreakGen = true)
               .copy(pipelineCsrRead = true)
               .copy(wfiOutput = true)
+              .copy(exportPrivilege = true)
           ),
           new BranchPlugin(
             earlyBranch = false,
