@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.8.0    git head : 4e3563a282582b41f4eaafc503787757251d23ea
 // Component : VexRiscvAxi4
-// Git hash  : f4c0144c626486e293439f1a5638d241043459ae
+// Git hash  : 7422b5a7bf3f2e4c514cf021d927d0854bca0ca5
 
 `timescale 1ns/1ps
 
@@ -4739,7 +4739,7 @@ module VexRiscvAxi4 (
   assign IBusCachedPlugin_decompressor_isRvc = (IBusCachedPlugin_decompressor_raw[1 : 0] != 2'b11); // @[BaseType.scala 305:24]
   assign _zz_IBusCachedPlugin_decompressor_decompressed = IBusCachedPlugin_decompressor_raw[15 : 0]; // @[BaseType.scala 299:24]
   always @(*) begin
-    IBusCachedPlugin_decompressor_decompressed = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; // @[Bits.scala 231:20]
+    IBusCachedPlugin_decompressor_decompressed = 32'h0; // @[Expression.scala 2301:18]
     case(switch_Misc_l44)
       5'h0 : begin
         IBusCachedPlugin_decompressor_decompressed = {{{{{{{{{2'b00,_zz_IBusCachedPlugin_decompressor_decompressed[10 : 7]},_zz_IBusCachedPlugin_decompressor_decompressed[12 : 11]},_zz_IBusCachedPlugin_decompressor_decompressed[5]},_zz_IBusCachedPlugin_decompressor_decompressed[6]},2'b00},5'h02},3'b000},_zz_IBusCachedPlugin_decompressor_decompressed_2},7'h13}; // @[Misc.scala 46:13]
