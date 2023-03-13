@@ -35,6 +35,69 @@ case class CramSoCArgConfig(
   hardwareBreakpointCount : Int = 4
 )
 
+// ---------- custom ram blackboxing
+/**
+  * Ram 1w 1rs
+  */
+class Ram_1w_1rs_cramium(
+  wordWidth      : Int,
+  wordCount      : Int,
+  readUnderWrite : ReadUnderWritePolicy = dontCare,
+  technology     : MemTechnologyKind = auto,
+
+  wrClock        : ClockDomain,
+  wrAddressWidth : Int,
+  wrDataWidth    : Int,
+  wrMaskWidth    : Int = 1,
+  wrMaskEnable   : Boolean = false,
+
+  rdClock        : ClockDomain,
+  rdAddressWidth : Int,
+  rdDataWidth    : Int,
+  // custom "ramname" field to plug into Cramium RAM macro generation script
+  ramname        : String
+) extends BlackBox {
+
+  val generic = new Generic {
+    val wordCount      = Ram_1w_1rs_cramium.this.wordCount
+    val wordWidth      = Ram_1w_1rs_cramium.this.wordWidth
+    var clockCrossing  = wrClock != rdClock
+    val technology     = Ram_1w_1rs_cramium.this.technology.technologyKind
+    val readUnderWrite = Ram_1w_1rs_cramium.this.readUnderWrite.readUnderWriteString
+
+    val wrAddressWidth = Ram_1w_1rs_cramium.this.wrAddressWidth
+    val wrDataWidth    = Ram_1w_1rs_cramium.this.wrDataWidth
+    val wrMaskWidth    = Ram_1w_1rs_cramium.this.wrMaskWidth
+    val wrMaskEnable   = Ram_1w_1rs_cramium.this.wrMaskEnable
+
+    val rdAddressWidth = Ram_1w_1rs_cramium.this.rdAddressWidth
+    val rdDataWidth    = Ram_1w_1rs_cramium.this.rdDataWidth
+
+    val ramname = Ram_1w_1rs_cramium.this.wordWidth.toString + "c" + Ram_1w_1rs_cramium.this.wordCount.toString + "r"
+  }
+
+  val io = new Bundle {
+    val wr = new Bundle {
+      val clk  = in Bool()
+      val en   = in Bool()
+      val mask = in Bits(wrMaskWidth bits)
+      val addr = in UInt(wrAddressWidth bit)
+      val data = in Bits(wrDataWidth bit)
+    }
+
+    val rd = new Bundle {
+      val clk  = in Bool()
+      val en   = in Bool()
+      val addr = in  UInt(rdAddressWidth bit)
+      val data = out Bits(rdDataWidth bit)
+    }
+  }
+
+  mapClockDomain(wrClock,io.wr.clk)
+  mapClockDomain(rdClock,io.rd.clk)
+  noIoPrefix()
+}
+
 object blackboxSyncOnly extends MemBlackboxingPolicy {
   override def translationInterest(topology: MemTopology): Boolean = {
     if(topology.readsAsync.exists(_.readUnderWrite != writeFirst))                 return false
@@ -43,6 +106,7 @@ object blackboxSyncOnly extends MemBlackboxingPolicy {
 
   override def onUnblackboxable(topology: MemTopology, who: Any, message: String): Unit = {}
 }
+// ---------- end custom ram blackboxing
 
 object GenCramSoC{
   val predictionMap = Map(
